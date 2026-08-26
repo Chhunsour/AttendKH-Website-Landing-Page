@@ -46,3 +46,7 @@ next-env.d.ts
 *.db-shm
 *.db-wal
 .claude/
+
+# local design source files (optimized web assets live in /public)
+/Image for placement/
+/Im,age/

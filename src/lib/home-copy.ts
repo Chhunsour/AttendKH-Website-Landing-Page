@@ -1,6 +1,6 @@
 import type { Lang } from "@/lib/i18n";
 
-/** Copy for the home page. Mirrors the reference layout slot for slot. */
+/** Copy for the AttendKH image-led homepage. Fully synchronized in English and Khmer. */
 const en = {
   nav: {
     home: "Home",
@@ -25,67 +25,165 @@ const en = {
   },
 
   hero: {
-    titleLine1: "Take Control of Your",
-    titleLine2: "Attendance with AttendKH",
-    sub: "Simplify Your Payroll and Keep Every Branch on Time",
-    cta: "Download Now",
-    secondary: "See how it works",
-    rating: "4.9/5 from 250+ Cambodian teams",
-    phone: "iPhone screen — hero",
+    titlePre: "Take Control of Your",
+    titleRotate: ["Attendance", "Payroll", "Payslips", "Overtime", "Shifts", "Branches"],
+    titlePost: "with",
+    sub: "Track attendance, manage shifts, and run payroll across every branch.",
+    rating: "GPS & selfie verified • Native Khmer & English • USD & KHR",
+    slotBadge: "FIELD NOTE 01",
+    slotLabel: "Morning Shift Verification // BKK1 Flagship",
+    slotSubject: "Real mobile attendance screen or team clock-in moment at branch entrance",
+    slotInstruction: 'Upload ready: pass src="/hero-attendance.jpg"',
+    slotAlt: "AttendKH mobile attendance app verification record",
   },
 
   stats: {
-    trustedPre: "Trusted by more than",
-    trustedNumber: "250+",
-    trustedPost: "businesses across Cambodia",
+    trustedPre: "Designed for",
+    trustedNumber: "Cambodian",
+    trustedPost: "businesses, from one branch to fifty",
     items: [
-      { value: "99.9%", line1: "Geofence", line2: "Accuracy" },
-      { value: "90%", line1: "Less Payroll", line2: "Time" },
-      { value: "50+", line1: "Branches on", line2: "One Console" },
+      { value: "50–200m", line1: "Branch Geofence", line2: "Radius" },
+      { value: "USD + KHR", line1: "Dual-Currency", line2: "Payslips" },
+      { value: "Offline Sync", line1: "Local Punch", line2: "Queueing" },
     ],
   },
 
   featureOne: {
     title: "Easily Track and Verify Every Clock-In",
-    body: "Staff clock in inside the branch radius with a selfie, so every record carries the time, the place and the proof. Managers see who is in, late or absent before the shift is over.",
+    body: "Staff clock in inside the branch radius with a selfie, so every record carries the time, the place and the photo proof. Managers see who is in, late or absent before the shift is over.",
     cta: "Learn more",
     href: "/attendance",
-    phone: "iPhone screen — clock-in",
     points: ["50–200 m branch radius", "Selfie on every punch", "Works offline"],
+    slotBadge: "FIELD NOTE 02",
+    slotLabel: "Geofenced Mobile Punch // GPS & Live Selfie",
+    slotSubject: "Staff selfie capture within the 50m branch perimeter showing verified timestamp",
+    slotInstruction: 'Upload ready: pass src="/attendance-punch.jpg"',
+    slotAlt: "AttendKH mobile clock-in screen showing on-duty status, branch location and shift window",
   },
 
   featureTwo: {
     title: "Effortlessly Run Your Monthly Payroll",
-    body: "Overtime multipliers, late deductions and leave balances apply themselves from the attendance record. Payslips come out in USD and KHR in a single click.",
+    body: "Overtime multipliers, late deductions and leave balances apply from the attendance record. Payslips generate in USD and KHR in a single click.",
     cta: "Learn more",
     href: "/payroll",
-    phone: "iPhone screen — payroll summary",
     points: ["1.5× and 2.0× overtime", "USD and KHR payslips", "NSSF lines included"],
+    slotBadge: "FIELD NOTE 03",
+    slotLabel: "Bilingual Payslip // USD & KHR Breakdown",
+    slotSubject: "Itemized Khmer and English payroll export with configurable NSSF lines",
+    slotInstruction: 'Upload ready: pass src="/payroll-slip.jpg"',
+    slotAlt: "Bilingual Cambodian payroll breakdown in USD and KHR",
+  },
+
+  otLeave: {
+    title: "Overtime and Leave Requests, Settled in the App",
+    body: "Staff file overtime and leave from their phone with the exact hours calculated against their schedule. Managers approve or reject with a full audit record.",
+    points: [
+      "Overtime hours calculated against each employee's shift",
+      "Approval trail with reason, timestamp and approver",
+      "Approved OT and leave post directly to the payslip",
+    ],
+    cta: "See Request Workflow",
+    href: "/attendance",
+    slotBadge: "FIELD NOTE 04",
+    slotLabel: "OT Request // Employee Submission",
+    slotSubject: "Overtime request screen with shift policy, calculated hours and approval submit",
+    slotInstruction: 'Upload ready: pass src="/ot-frame-5.webp"',
+    slotAlt: "AttendKH overtime request screen showing calculated overtime hours before submission",
+  },
+
+  cambodiaFit: {
+    badge: "🇰🇭 ENGINEERED FOR CAMBODIA",
+    title: "Built Specifically for How Cambodian Organizations Operate",
+    sub: "AttendKH supports GPS radius verification, dual-currency salaries, split shifts, and Cambodian labor overtime rules without overseas workarounds.",
+    items: [
+      {
+        title: "Khmer & English Bilingual UI",
+        desc: "Full native Khmer language interface for frontline staff and English for management. Switch anytime in one tap.",
+      },
+      {
+        title: "Dual-Currency Payroll (USD & KHR)",
+        desc: "Calculate base salaries, late deductions, overtime bonuses, and export bilingual payslips in both US Dollars ($) and Khmer Riel (៛).",
+      },
+      {
+        title: "Overtime & NSSF Lines",
+        desc: "Configurable 1.5× regular OT and 2.0× rest day/holiday multipliers with itemized NSSF (ប.ស.ស.) contribution breakdowns.",
+      },
+      {
+        title: "Offline Resilient Attendance Sync",
+        desc: "If mobile data or Wi-Fi drops, staff punches are safely cached locally on the device and synced upon reconnecting.",
+      },
+    ],
+    slotBadge: "FIELD NOTE 05",
+    slotLabel: "Labor Standards // Cambodia Rules",
+    slotSubject: "Cambodian public holiday schedule, shift roster, and NSSF contribution table",
+    slotInstruction: 'Upload ready: pass src="/cambodia-compliance.jpg"',
+    slotAlt: "Cambodia labor rules and holiday schedule",
+  },
+
+  impact: {
+    badge: "OPERATIONAL WORKFLOW",
+    title: "How Teams Structure Their Setup with AttendKH",
+    sub: "A structured transition from paper logbooks to mobile clock-in and automated payroll rules.",
+    milestones: [
+      {
+        step: "Phase 1",
+        title: "Location & Selfie Verification",
+        body: "Punches require GPS branch radius validation and live selfie proof to verify presence at designated branch locations.",
+        tag: "GPS + Selfie Verification",
+      },
+      {
+        step: "Phase 2",
+        title: "Real-Time Shift Visibility",
+        body: "Branch managers see shift arrivals, late entries, and absences on their console before shifts end.",
+        tag: "Live Shift Roster",
+      },
+      {
+        step: "Phase 3",
+        title: "Automated Overtime & Deductions",
+        body: "Configurable 1.5× / 2.0× overtime and late rules calculate directly from recorded timestamps.",
+        tag: "Configurable Overtime Rules",
+      },
+      {
+        step: "Phase 4",
+        title: "Dual-Currency Payslips",
+        body: "Reconcile hours and export itemized payslips in USD and KHR with NSSF breakdown lines.",
+        tag: "Bilingual USD & KHR",
+      },
+    ],
+    summary: [
+      { value: "50-200m", label: "Branch geofence", desc: "Configurable radius per branch or site" },
+      { value: "USD + KHR", label: "Dual currency", desc: "Bilingual payslips and calculations" },
+      { value: "1.5x / 2.0x", label: "Overtime multipliers", desc: "Configurable regular and holiday rates" },
+    ],
   },
 
   steps: {
-    title: "Up and running in a day",
-    sub: "Three steps from spreadsheet to verified payroll.",
+    badge: "FOR HR & OPERATIONS",
+    duration: "3 steps",
+    title: "A clear rollout for your HR team",
+    sub: "Set branch rules, import staff, and approve your first verified payroll.",
+    caption: "Guided setup using your existing staff and payroll data.",
     items: [
       {
         n: "01",
-        title: "Map your branches",
-        body: "Drop a pin on each location and set the radius — 50 m for an office, 200 m for a yard.",
+        title: "Configure each branch",
+        body: "HR sets locations, geofence radii, shifts, overtime, and leave rules for every team.",
       },
       {
         n: "02",
-        title: "Import your team",
-        body: "Upload the staff sheet. Roles, salaries, branches and shift rules come across with it.",
+        title: "Import employee records",
+        body: "Bring roles, salaries, branches, and schedules across from your existing spreadsheet.",
       },
       {
         n: "03",
-        title: "Run real payroll",
-        body: "Attendance flows into the payroll engine. Payslips in USD and KHR, in one click.",
+        title: "Review and approve payroll",
+        body: "HR reviews attendance exceptions, then exports approved payslips in USD and KHR.",
       },
     ],
   },
 
   why: {
+    badge: "SECURITY & RELIABILITY",
     title: "Why Choose AttendKH",
     cards: [
       {
@@ -94,15 +192,15 @@ const en = {
       },
       {
         title: "Gain Greater Visibility and Make Informed Decisions",
-        body: "Live attendance and labor cost per branch, so you can act on the numbers in the same week, not next month.",
+        body: "Live attendance and labor cost per branch, so you can review numbers promptly.",
       },
       {
         title: "Save Time with Automated Overtime and Late Rules",
-        body: "Set the grace period and the multipliers once. Every payroll run after that applies them on its own.",
+        body: "Set grace periods and multipliers once. Monthly payroll runs apply them consistently.",
       },
       {
-        title: "Protect Your Data with Advanced Security Measures",
-        body: "Encrypted storage, tamper-proof location checks and an audit trail behind every change to a time record.",
+        title: "Protect Your Data with Security Controls",
+        body: "Encrypted storage in transit and at rest, location checks, and supervisor audit logs.",
       },
     ],
   },
@@ -116,57 +214,65 @@ const en = {
   },
 
   testimonials: {
-    title: "Testimonials",
-    summary: "4.9 out of 5, from 250+ teams",
+    badge: "TEAM PROFILES",
+    title: "Example Team Configurations",
+    summary: "Common operational setups across Cambodian organizations",
+    notesLabel: "More team profiles",
+    notesCount: "04 / 05",
     items: [
       {
-        name: "Sophea Chan",
-        initials: "SC",
+        name: "Multi-Shift F&B Operations",
+        initials: "FB",
         quote:
-          "Before AttendKH, our branch managers spent hours reconciling paper logs across 5 coffee shops in Phnom Penh. With GPS geofencing and selfie proof, buddy punching stopped on week one.",
-        time: "5:40 am",
-        date: "Mar 02, 2026",
+          "Frontline baristas and kitchen crews use 50m branch geofences with mandatory selfie proof. Split shifts between lunch and dinner rushes are managed on a single schedule.",
+        time: "F&B Profile",
+        date: "Split Shifts",
       },
       {
-        name: "Dara Meas",
-        initials: "DM",
+        name: "Multi-Store Retail Chain",
+        initials: "RT",
         quote:
-          "Calculating overtime and night premiums used to take 3 days each month. Now we export bilingual payslips in USD and KHR in one afternoon without spreadsheet calculation mistakes.",
-        time: "6:45 am",
-        date: "Feb 04, 2026",
+          "Store managers across multiple shopping mall outlets track floor punctuality. Late arrival rules and sales commission adjustments flow directly into monthly payroll.",
+        time: "Retail Profile",
+        date: "Multi-Store",
       },
       {
-        name: "Vichea Ly",
-        initials: "VL",
+        name: "24/7 Hotel & Hospitality",
+        initials: "HP",
         quote:
-          "AttendKH gives our headquarters complete visibility over 8 retail branches. We see real-time late check-ins and overtime costs as they happen, helping us prevent labor budget overruns.",
-        time: "5:45 am",
-        date: "Feb 11, 2026",
+          "Department rosters coordinate morning, afternoon, and night audit shifts with configurable night and public-holiday multipliers.",
+        time: "Hospitality Profile",
+        date: "24/7 Rosters",
       },
       {
-        name: "Rathana Sok",
-        initials: "RS",
+        name: "Field Logistics & Warehouse",
+        initials: "LG",
         quote:
-          "The offline mode is a game changer for our warehouse and logistics team in Sihanoukville. Staff punches are recorded reliably even during internet drops and synced once reconnected.",
-        time: "7:30 am",
-        date: "Mar 12, 2026",
+          "Remote container yards and warehouse facilities use shared tablet kiosks and local offline punch caching during network dropouts.",
+        time: "Logistics Profile",
+        date: "Offline Queue",
       },
       {
-        name: "Chanlina Pen",
-        initials: "CP",
+        name: "Commercial Office & Agencies",
+        initials: "OF",
         quote:
-          "Payroll reconciliation used to take 3 days. Now it takes one afternoon, and every working hour has a live selfie photo and a GPS radius log behind it.",
-        time: "8:20 am",
-        date: "Mar 02, 2026",
+          "Configurable late grace periods (5 to 15 minutes) and automated NSSF contribution line items simplify monthly salary exports in USD and KHR.",
+        time: "Office Profile",
+        date: "Dual Currency",
       },
     ],
   },
 
   cta: {
     title: "Get Started Today",
-    sub: "Join Hundreds of Cambodian Teams and Start Your Payroll Transformation.",
+    sub: "Set up your branches and start managing attendance and payroll.",
     button: "Get Started",
-    image: "Illustration — team using AttendKH",
+    pricingButton: "See pricing",
+    slotBadge: "FIELD NOTE 06",
+    slotLabel: "Guided Branch Rollout",
+    slotSubject: "Branch operations team set up and running live attendance across all locations",
+    slotInstruction: 'Upload ready: pass src="/team-onboarding.jpg"',
+    slotAlt: "AttendKH onboarding and rollout session",
   },
 
   footer: {
@@ -247,23 +353,26 @@ const km: HomeCopy = {
   },
 
   hero: {
-    titleLine1: "គ្រប់គ្រងវត្តមានក្រុមអ្នក",
-    titleLine2: "ជាមួយ AttendKH",
-    sub: "ធ្វើឲ្យប្រាក់ខែងាយស្រួល និងរក្សាគ្រប់សាខាឲ្យទាន់ពេល",
-    cta: "ទាញយកឥឡូវនេះ",
-    secondary: "មើលរបៀបដំណើរការ",
-    rating: "៤.៩/៥ ពីក្រុមកម្ពុជាជាង ២៥០",
-    phone: "អេក្រង់ iPhone — ទំព័រដើម",
+    titlePre: "គ្រប់គ្រង",
+    titleRotate: ["វត្តមាន", "បញ្ជីប្រាក់ខែ", "ប័ណ្ណប្រាក់ខែ", "ម៉ោងបន្ថែម", "វេនធ្វើការ", "គ្រប់សាខា"],
+    titlePost: "ក្រុមអ្នក ជាមួយ",
+    sub: "តាមដានវត្តមាន គ្រប់គ្រងវេន និងរៀបចំប្រាក់ខែគ្រប់សាខារបស់អ្នក",
+    rating: "ផ្ទៀងផ្ទាត់ដោយ GPS និង Selfie • ភាសាខ្មែរ និងអង់គ្លេស • ដុល្លារ និងរៀល",
+    slotBadge: "កំណត់ត្រាទី ០១",
+    slotLabel: "ការផ្ទៀងផ្ទាត់វត្តមានវេនព្រឹក // សាខា BKK1",
+    slotSubject: "រូបភាពអេក្រង់ចុះវត្តមានលើទូរស័ព្ទពិត ឬបុគ្គលិកចុះវត្តមាននៅមាត់ទ្វារសាខា",
+    slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/hero-attendance.jpg"',
+    slotAlt: "កំណត់ត្រាផ្ទៀងផ្ទាត់វត្តមានលើកម្មវិធី AttendKH",
   },
 
   stats: {
-    trustedPre: "ជឿទុកចិត្តដោយអាជីវកម្មជាង",
-    trustedNumber: "២៥០+",
-    trustedPost: "ទូទាំងប្រទេសកម្ពុជា",
+    trustedPre: "រចនាឡើងសម្រាប់",
+    trustedNumber: "ក្រុមការងារកម្ពុជា",
+    trustedPost: "ចាប់ពីសាខាតែមួយ ដល់រាប់សិបសាខា",
     items: [
-      { value: "៩៩.៩%", line1: "ភាពត្រឹមត្រូវ", line2: "Geofence" },
-      { value: "៩០%", line1: "កាត់បន្ថយពេល", line2: "បើកប្រាក់ខែ" },
-      { value: "៥០+", line1: "សាខាលើ", line2: "កុងសូលតែមួយ" },
+      { value: "៥០–២០០ម", line1: "កាំ Geofence", line2: "តាមសាខា" },
+      { value: "ដុល្លារ+រៀល", line1: "ប័ណ្ណប្រាក់ខែ", line2: "ពីររូបិយប័ណ្ណ" },
+      { value: "Queued", line1: "គាំទ្រការ", line2: "សមកក្រៅបណ្តាញ" },
     ],
   },
 
@@ -272,8 +381,12 @@ const km: HomeCopy = {
     body: "បុគ្គលិកចុះវត្តមាននៅក្នុងកាំសាខាជាមួយរូបថត ដូច្នេះរាល់កំណត់ត្រាមានពេលវេលា ទីកន្លែង និងភស្តុតាង។ ប្រធានដឹងថានរណាមក យឺត ឬអវត្តមាន មុនវេនចប់។",
     cta: "ស្វែងយល់បន្ថែម",
     href: "/attendance",
-    phone: "អេក្រង់ iPhone — ចុះវត្តមាន",
     points: ["កាំសាខា ៥០–២០០ ម៉ែត្រ", "រូបថតរាល់ការចុះវត្តមាន", "ដំណើរការក្រៅបណ្តាញ"],
+    slotBadge: "កំណត់ត្រាទី ០២",
+    slotLabel: "ការចុះវត្តមានតាម GPS និង រូបថត Selfie ផ្ទាល់",
+    slotSubject: "រូបភាពបុគ្គលិកថត Selfie ក្នុងកាំ ៥០ ម៉ែត្រនៃសាខា ជាមួយកាលបរិច្ឆេទផ្ទៀងផ្ទាត់",
+    slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/attendance-punch.jpg"',
+    slotAlt: "ភស្តុតាងចុះវត្តមានតាម GPS និងរូបថត Selfie",
   },
 
   featureTwo: {
@@ -281,13 +394,103 @@ const km: HomeCopy = {
     body: "មេគុណម៉ោងបន្ថែម ការកាត់ប្រាក់យឺត និងសមតុល្យច្បាប់ឈប់ អនុវត្តដោយខ្លួនឯងពីកំណត់ត្រាវត្តមាន។ ប័ណ្ណប្រាក់ខែចេញជាដុល្លារ និងរៀល ដោយចុចតែម្តង។",
     cta: "ស្វែងយល់បន្ថែម",
     href: "/payroll",
-    phone: "អេក្រង់ iPhone — សេចក្តីសង្ខេបប្រាក់ខែ",
     points: ["ម៉ោងបន្ថែម ១.៥× និង ២.០×", "ប័ណ្ណប្រាក់ខែ ដុល្លារ និងរៀល", "រួមបញ្ចូលបន្ទាត់ បសស"],
+    slotBadge: "កំណត់ត្រាទី ០៣",
+    slotLabel: "ប័ណ្ណបើកប្រាក់ខែទ្វេភាសា // ដុល្លារ និង រៀល",
+    slotSubject: "គំរូប័ណ្ណប្រាក់ខែពិតបង្ហាញម៉ោងបន្ថែម ១.៥x/២.០x និងការកាត់វិភាគទាន ប.ស.ស.",
+    slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/payroll-slip.jpg"',
+    slotAlt: "របាយការណ៍ប័ណ្ណប្រាក់ខែទ្វេភាសា ដុល្លារ និងរៀល",
+  },
+
+  otLeave: {
+    title: "ស្នើសុំម៉ោងបន្ថែម និងច្បាប់សម្រាក ផ្ទាល់ក្នុងកម្មវិធី",
+    body: "បុគ្គលិកស្នើសុំម៉ោងបន្ថែម និងច្បាប់សម្រាកផ្ទាល់ពីទូរស័ព្ទ ដោយមានគណនាម៉ោងស្រាប់ជាមុន។ ប្រធានអនុម័តតែម្ដង ហើយម៉ោងដែលអនុម័តចូលទៅក្នុងប្រាក់ខែភ្លាមតាមអត្រា ១.៥× ឬ ២.០×។",
+    points: [
+      "គណនាម៉ោងបន្ថែមស្វ័យប្រវត្តិតាមវេនបុគ្គលិកនីមួយៗ",
+      "កំណត់ហេតុអនុម័ត ពេលវេលា និងឈ្មោះអ្នកអនុម័ត",
+      "ម៉ោងបន្ថែម និងច្បាប់ដែលអនុម័ត ចូលទៅប័ណ្ណប្រាក់ខែភ្លាម",
+    ],
+    cta: "មើលដំណើរការស្នើសុំ",
+    href: "/attendance",
+    slotBadge: "កំណត់ត្រាទី ០៤",
+    slotLabel: "សំណើម៉ោងបន្ថែម // ការស្នើសុំរបស់បុគ្គលិក",
+    slotSubject: "អេក្រង់ស្នើសុំម៉ោងបន្ថែម បង្ហាញគោលការណ៍វេន និងម៉ោងបន្ថែមដែលគណនារួច",
+    slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/ot-frame-5.webp"',
+    slotAlt: "អេក្រង់ស្នើសុំម៉ោងបន្ថែមរបស់ AttendKH",
+  },
+
+  cambodiaFit: {
+    badge: "🇰🇭 ផលិតឡើងសម្រាប់អាជីវកម្មនៅកម្ពុជា",
+    title: "រចនាឡើងយ៉ាងជាក់លាក់ ស្របតាមរបៀបដំណើរការអាជីវកម្មនៅកម្ពុជា",
+    sub: "AttendKH ជួយកាត់បន្ថយវិវាទម៉ោង គាំទ្រប្រាក់ខែដុល្លារ/រៀល វេនបំបែក និងរូបមន្តដែលអាចកំណត់បានសម្រាប់ក្រុមការងារកម្ពុជា។",
+    items: [
+      {
+        title: "ទ្វេភាសា ខ្មែរ និង អង់គ្លេស",
+        desc: "ចំណុចប្រទាក់ភាសាខ្មែរពេញលេញសម្រាប់បុគ្គលិកជួរមុខ និងភាសាអង់គ្លេសសម្រាប់អ្នកគ្រប់គ្រង។ ប្តូរបានភ្លាមៗ។",
+      },
+      {
+        title: "ប្រាក់បៀវត្សរ៍ទ្វេប្រាក់ (ដុល្លារ និង រៀល)",
+        desc: "គណនាប្រាក់ខែមូលដ្ឋាន ការកាត់យឺត ប្រាក់ថែមម៉ោង និងបោះពុម្ពប័ណ្ណបើកប្រាក់ខែជាប្រាក់ដុល្លារ ($) និងប្រាក់រៀល (៛)។",
+      },
+      {
+        title: "អត្រាថែមម៉ោង និង ប.ស.ស.",
+        desc: "អនុវត្តអត្រាថែមម៉ោង ១.៥x ថ្ងៃធម្មតា និង ២.០x ថ្ងៃបុណ្យ/សម្រាក ព្រមទាំងការកាត់ប្រាក់វិភាគទាន ប.ស.ស. យ៉ាងត្រឹមត្រូវ។",
+      },
+      {
+        title: "ដំណើរការទោះគ្មានអ៊ីនធឺណិត (Offline)",
+        desc: "ប្រសិនបើដាច់សេវាទូរស័ព្ទ ឬ Wi-Fi ទិន្នន័យកត់ត្រាម៉ោងត្រូវរក្សាទុកដោយសុវត្ថិភាពក្នុងទូរស័ព្ទ ហើយធ្វើសមកាលកម្មស្វ័យប្រវត្តិពេលមានសេវាវិញ។",
+      },
+    ],
+    slotBadge: "កំណត់ត្រាទី ០៥",
+    slotLabel: "ការកំណត់ប្រាក់ខែ // សម្រាប់ក្រុមកម្ពុជា",
+    slotSubject: "ប្រតិទិនបុណ្យជាតិផ្លូវការ កាលវិភាគវេនការងារ និងតារាងវិភាគទាន ប.ស.ស.",
+    slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/cambodia-compliance.jpg"',
+    slotAlt: "ការកំណត់រូបមន្តប្រាក់ខែ និងប្រតិទិនបុណ្យជាតិ",
+  },
+
+  impact: {
+    badge: "ដំណើរការរៀបចំការងារ",
+    title: "របៀបដែលក្រុមការងាររៀបចំការប្រើប្រាស់ AttendKH",
+    sub: "ជំហានរៀបចំច្បាស់លាស់ ពីការកត់ត្រាក្រដាស ទៅជាការចុះវត្តមានលើទូរស័ព្ទ និងប្រាក់ខែស្វ័យប្រវត្តិ។",
+    milestones: [
+      {
+        step: "ដំណាក់កាល ១",
+        title: "ផ្ទៀងផ្ទាត់ទីតាំង និង Selfie",
+        body: "រាល់ការចុះវត្តមានតម្រូវឲ្យផ្ទៀងផ្ទាត់កាំ GPS សាខា និងរូបថត Selfie ផ្ទាល់ ដើម្បីបញ្ជាក់វត្តមានជាក់ស្តែង។",
+        tag: "ការផ្ទៀងផ្ទាត់ GPS និង Selfie",
+      },
+      {
+        step: "ដំណាក់កាល ២",
+        title: "ដឹងពីវត្តមានវេនការងារភ្លាមៗ",
+        body: "ប្រធានសាខាដឹងពីបុគ្គលិកមកទាន់ពេល យឺត និងអវត្តមាន លើផ្ទាំងគ្រប់គ្រងមុនពេលចប់វេន។",
+        tag: "បញ្ជីវត្តមានវេនការងារ",
+      },
+      {
+        step: "ដំណាក់កាល ៣",
+        title: "គណនាម៉ោងបន្ថែម និងការកាត់ស្វ័យប្រវត្តិ",
+        body: "អត្រាថែមម៉ោង ១.៥x / ២.០x និងការកាត់យឺត គណនាដោយផ្ទាល់ពីទិន្នន័យម៉ោងដែលបានកត់ត្រា។",
+        tag: "ច្បាប់ថែមម៉ោងកំណត់បាន",
+      },
+      {
+        step: "ដំណាក់កាល ៤",
+        title: "ប័ណ្ណប្រាក់ខែទ្វេប្រាក់ ដុល្លារ និងរៀល",
+        body: "ផ្ទៀងផ្ទាត់ម៉ោង និងទាញយកប័ណ្ណប្រាក់ខែទ្វេភាសា ដុល្លារ និងរៀល ព្រមទាំងបន្ទាត់ ប.ស.ស.។",
+        tag: "ទ្វេភាសា ដុល្លារ និងរៀល",
+      },
+    ],
+    summary: [
+      { value: "៥០–២០០ម", label: "កាំសាខា Geofence", desc: "កំណត់តាមសាខា ឬការដ្ឋានជាក់ស្តែង" },
+      { value: "ដុល្លារ+រៀល", label: "រូបិយប័ណ្ណទ្វេប្រាក់", desc: "ប័ណ្ណប្រាក់ខែ និងការគណនាទ្វេភាសា" },
+      { value: "១.៥× / ២.០×", label: "មេគុណថែមម៉ោង", desc: "អត្រាថែមម៉ោងធម្មតា និងថ្ងៃឈប់សម្រាក" },
+    ],
   },
 
   steps: {
+    badge: "ការរៀបចំមានការណែនាំ",
+    duration: "៣ ជំហាន",
     title: "ចាប់ផ្តើមប្រើក្នុងមួយថ្ងៃ",
     sub: "បីជំហាន ពី Excel ទៅប្រាក់ខែដែលបានផ្ទៀងផ្ទាត់។",
+    caption: "មានការណែនាំដំឡើង ដោយប្រើទិន្នន័យបុគ្គលិកដែលអ្នកមានស្រាប់។",
     items: [
       {
         n: "០១",
@@ -308,6 +511,7 @@ const km: HomeCopy = {
   },
 
   why: {
+    badge: "សុវត្ថិភាព និងភាពជឿជាក់",
     title: "ហេតុអ្វីជ្រើសរើស AttendKH",
     cards: [
       {
@@ -316,15 +520,15 @@ const km: HomeCopy = {
       },
       {
         title: "មើលឃើញច្បាស់ និងសម្រេចចិត្តបានត្រឹមត្រូវ",
-        body: "វត្តមាន និងចំណាយកម្លាំងពលកម្មតាមសាខាផ្ទាល់ ដើម្បីឲ្យអ្នកសម្រេចចិត្តក្នុងសប្តាហ៍នោះ មិនមែនខែក្រោយ។",
+        body: "វត្តមាន និងចំណាយកម្លាំងពលកម្មតាមសាខាផ្ទាល់ ដើម្បីឲ្យអ្នកពិនិត្យតួលេខបានទាន់ពេលវេលា។",
       },
       {
         title: "សន្សំពេលវេលាដោយច្បាប់ម៉ោងបន្ថែម និងយឺតស្វ័យប្រវត្តិ",
         body: "កំណត់រយៈពេលអនុគ្រោះ និងមេគុណម្តងជាការស្រេច។ រាល់ការបើកប្រាក់ខែបន្ទាប់អនុវត្តដោយខ្លួនឯង។",
       },
       {
-        title: "ការពារទិន្នន័យដោយវិធានការសុវត្ថិភាពខ្ពស់",
-        body: "ការរក្សាទុកដែលបានអ៊ិនគ្រីប ការត្រួតពិនិត្យទីតាំងមិនអាចក្លែង និងកំណត់ហេតុនៅពីក្រោយរាល់ការកែប្រែ។",
+        title: "ការពារទិន្នន័យដោយវិធានការសុវត្ថិភាព",
+        body: "ការរក្សាទុកទិន្នន័យដែលមានការការពារ ការត្រួតពិនិត្យទីតាំង និងកំណត់ហេតុកែសម្រួលម៉ោង។",
       },
     ],
   },
@@ -338,57 +542,65 @@ const km: HomeCopy = {
   },
 
   testimonials: {
-    title: "មតិអតិថិជន",
-    summary: "៤.៩ ក្នុងចំណោម ៥ ពីក្រុមជាង ២៥០",
+    badge: "គំរូការងារតាមវិស័យ",
+    title: "គំរូការរៀបចំតាមក្រុមការងារ",
+    summary: "ការរៀបចំទូទៅក្នុងចំណោមអាជីវកម្មនៅកម្ពុជា",
+    notesLabel: "គំរូការងារបន្ថែម",
+    notesCount: "០៤ / ០៥",
     items: [
       {
-        name: "ចាន់ សុភា",
-        initials: "SC",
+        name: "ភោជនីយដ្ឋាន និងហាងកាហ្វេ",
+        initials: "FB",
         quote:
-          "មុនពេលប្រើ AttendKH អ្នកគ្រប់គ្រងសាខាត្រូវចំណាយពេលរាប់ម៉ោងផ្ទៀងផ្ទាត់បញ្ជីវត្តមានក្រដាសនៅហាងកាហ្វេទាំង ៥ នៅភ្នំពេញ។ ដោយសារមាន GPS និងរូបថត selfie ការចុះវត្តមានជំនួសគ្នាបានបញ្ចប់ត្រឹមសប្តាហ៍ដំបូង។",
-        time: "៥:៤០ ព្រឹក",
-        date: "០២ មីនា ២០២៦",
+          "បុគ្គលិកឆុងកាហ្វេ និងបុគ្គលិកផ្ទះបាយប្រើប្រាស់ការចុះវត្តមានកាំ ៥០ម ជាមួយរូបថត selfie។ វេនបំបែករវាងពេលថ្ងៃត្រង់ និងពេលល្ងាច ត្រូវបានគ្រប់គ្រងលើកាលវិភាគតែមួយ។",
+        time: "F&B Profile",
+        date: "Split Shifts",
       },
       {
-        name: "មាស តារា",
-        initials: "DM",
+        name: "ហាងលក់រាយច្រើនសាខា",
+        initials: "RT",
         quote:
-          "ការគណនាម៉ោងបន្ថែម និងប្រាក់វេនយប់ធ្លាប់ចំណាយពេល ៣ ថ្ងៃក្នុងមួយខែ។ ឥឡូវយើងអាចទាញយកប័ណ្ណបើកប្រាក់បៀវត្សរ៍ទ្វេភាសា ដុល្លារ និងរៀល បានយ៉ាងត្រឹមត្រូវត្រឹមតែមួយរសៀលប៉ុណ្ណោះ។",
-        time: "៦:៤៥ ព្រឹក",
-        date: "០៤ កុម្ភៈ ២០២៦",
+          "អ្នកគ្រប់គ្រងសាខាតាមផ្សារទំនើបតាមដានការមកដល់ទាន់ពេល។ ច្បាប់កាត់យឺត និងការគណនាប្រាក់កម្រៃជើងសារ ត្រូវបានបញ្ចូលទៅក្នុងប្រាក់ខែប្រចាំខែដោយផ្ទាល់។",
+        time: "Retail Profile",
+        date: "Multi-Store",
       },
       {
-        name: "លី វិជ្ជា",
-        initials: "VL",
+        name: "សណ្ឋាគារ និងបដិសណ្ឋារកិច្ច ២៤/៧",
+        initials: "HP",
         quote:
-          "AttendKH ជួយឲ្យការិយាល័យកណ្តាលមើលឃើញទិន្នន័យសាខាលក់រាយទាំង ៨ បានច្បាស់លាស់។ យើងដឹងភ្លាមៗពីបុគ្គលិកដែលមកយឺត និងថ្លៃថែមម៉ោងជាក់ស្តែង ដែលជួយគ្រប់គ្រងថវិកាកម្លាំងពលកម្មបានល្អបំផុត។",
-        time: "៥:៤៥ ព្រឹក",
-        date: "១១ កុម្ភៈ ២០២៦",
+          "កាលវិភាគតាមផ្នែកសម្របសម្រួលវេនព្រឹក រសៀល និងវេនយប់ ជាមួយមេគុណម៉ោងបន្ថែមពេលយប់ និងថ្ងៃបុណ្យជាតិតាមច្បាប់ការងារ។",
+        time: "Hospitality Profile",
+        date: "24/7 Rosters",
       },
       {
-        name: "សុខ រតនា",
-        initials: "RS",
+        name: "ឃ្លាំងទំនិញ និងភស្តុភារ",
+        initials: "LG",
         quote:
-          "មុខងារ Offline ពិតជាមានប្រយោជន៍ខ្លាំងណាស់សម្រាប់បុគ្គលិកឃ្លាំង និងភស្តុភាររបស់យើងនៅក្រុងព្រះសីហនុ។ បុគ្គលិកអាចចុះម៉ោងបានទោះបីជាដាច់អ៊ីនធឺណិត ហើយទិន្នន័យនឹង Sync ដោយស្វ័យប្រវត្តិពេលមានសេវាវិញ។",
-        time: "៧:៣០ ព្រឹក",
-        date: "១២ មីនា ២០២៦",
+          "ទីលានកុងតឺន័រ និងឃ្លាំងទំនិញប្រើប្រាស់ថេប្លេត Kiosk រួម និងមុខងាររក្សាទុកទិន្នន័យក្រៅបណ្តាញ (Offline Queue) ពេលដាច់សេវាទូរស័ព្ទ។",
+        time: "Logistics Profile",
+        date: "Offline Queue",
       },
       {
-        name: "ប៉ែន ចន្លីនា",
-        initials: "CP",
+        name: "ការិយាល័យ និងក្រុមហ៊ុនសេវាកម្ម",
+        initials: "OF",
         quote:
-          "ការផ្ទៀងផ្ទាត់ប្រាក់ខែធ្លាប់ចំណាយ ៣ ថ្ងៃ។ ឥឡូវត្រឹមមួយរសៀល ហើយរាល់ម៉ោងធ្វើការសុទ្ធតែមានរូបថត selfie និងកូអរដោនេ GPS ជាក់ស្តែងភ្ជាប់មកជាមួយ។",
-        time: "៨:២០ ព្រឹក",
-        date: "០២ មីនា ២០២៦",
+          "ការកំណត់រយៈពេលអនុគ្រោះពេលមកយឺត (៥ ដល់ ១៥ នាទី) និងការកាត់វិភាគទាន ប.ស.ស. ជួយសម្រួលដល់ការបើកប្រាក់ខែជាដុល្លារ និងរៀល។",
+        time: "Office Profile",
+        date: "Dual Currency",
       },
     ],
   },
 
   cta: {
     title: "ចាប់ផ្តើមថ្ងៃនេះ",
-    sub: "ចូលរួមជាមួយក្រុមកម្ពុជារាប់រយ ហើយចាប់ផ្តើមផ្លាស់ប្តូរប្រាក់ខែរបស់អ្នក។",
+    sub: "រៀបចំសាខារបស់អ្នក និងចាប់ផ្តើមគ្រប់គ្រងវត្តមាន និងប្រាក់ខែ។",
     button: "ចាប់ផ្តើម",
-    image: "រូបភាព — ក្រុមកំពុងប្រើ AttendKH",
+    pricingButton: "មើលតម្លៃ",
+    slotBadge: "កំណត់ត្រាទី ០៦",
+    slotLabel: "ការដាក់ឲ្យប្រើប្រាស់ // មានការណែនាំតាមសាខា",
+    slotSubject: "ក្រុមប្រតិបត្តិការសាខារៀបចំ និងដំណើរការកត់ត្រាវត្តមានទូទាំងគ្រប់សាខា",
+    slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/team-onboarding.jpg"',
+    slotAlt: "ការរៀបចំដាក់ឲ្យប្រើប្រាស់ AttendKH នៅតាមសាខា",
   },
 
   footer: {

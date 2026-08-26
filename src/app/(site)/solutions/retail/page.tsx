@@ -12,17 +12,52 @@ import {
   Sparkles,
   Building,
 } from "lucide-react";
-import { PageHero, Section, CtaBand, ImageSlot } from "@/components/site/ui";
+import { PageHero, Section, DirectAnswerBlock, CtaBand, ImageSlot } from "@/components/site/ui";
 
 export const metadata: Metadata = {
   title: "Attendance & Payroll for Retail & Boutiques in Cambodia | AttendKH",
   description:
     "Control attendance across shopping mall outlets and retail stores in Cambodia. Real-time store opening visibility, commission lines, and automated dual-currency payroll.",
+  alternates: { canonical: "https://attendkh.com/solutions/retail" },
   openGraph: {
     title: "AttendKH for Retail Chains & Boutiques in Cambodia",
     description:
       "Seamless multi-store attendance across Aeon Malls, Chip Mong, and shopping centers. Automated overtime and bilingual payslips in USD and KHR.",
+    url: "https://attendkh.com/solutions/retail",
+    siteName: "AttendKH",
+    type: "website",
+    locale: "en_US",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Attendance & Payroll for Cambodian Retail Chains",
+    description: "GPS attendance, mall store tracking, and automated payroll for retail.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://attendkh.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Solutions",
+      item: "https://attendkh.com/solutions/retail",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Retail & Boutiques",
+      item: "https://attendkh.com/solutions/retail",
+    },
+  ],
 };
 
 export default function RetailSolutionPage() {
@@ -46,38 +81,58 @@ export default function RetailSolutionPage() {
   ];
 
   return (
-    <div className="space-y-16 py-8 sm:space-y-24 sm:py-12">
-      <div className="mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-14">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider">
-            <ShoppingBag size={14} />
-            <span>Retail & Fashion Solutions</span>
-          </span>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+      <div className="space-y-16 py-8 sm:space-y-24 sm:py-12">
+        <div className="mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-14">
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider">
+              <ShoppingBag size={14} />
+              <span>Retail & Fashion Solutions</span>
+            </span>
 
-          <h1 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
-            Attendance & Labor Control for Multi-Store Retail Brands
-          </h1>
+            <h1 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+              Attendance & Labor Control for Multi-Store Retail Brands
+            </h1>
 
-          <p className="mt-4 text-[16px] leading-relaxed text-body sm:text-[17px]">
-            Keep every retail store staffed, punctual, and profitable. Track floor attendance across all shopping centers from your headquarters in real time.
-          </p>
+            <p className="mt-4 text-[16px] leading-relaxed text-body sm:text-[17px]">
+              Keep every retail store staffed, punctual, and profitable. Track floor attendance across all shopping centers from your headquarters in real time.
+            </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-brand-dark transition-all"
-            >
-              <span>Book Retail Demo</span>
-              <ArrowRight size={16} />
-            </Link>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center gap-2 rounded-full border border-line bg-paper px-6 py-3.5 text-sm font-semibold text-ink hover:bg-mist transition-colors"
-            >
-              <span>Explore Pricing</span>
-            </Link>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-brand-dark transition-all"
+              >
+                <span>Book Retail Demo</span>
+                <ArrowRight size={16} />
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-paper px-6 py-3.5 text-sm font-semibold text-ink hover:bg-mist transition-colors"
+              >
+                <span>Explore Pricing</span>
+              </Link>
+            </div>
           </div>
-        </div>
+
+          {/* Direct Answer Block */}
+          <div className="mt-12">
+            <DirectAnswerBlock
+              question="How does AttendKH improve multi-store retail operations in Cambodia?"
+              answer="AttendKH gives retail founders and area managers immediate visibility across all mall outlets (Aeon Malls, Chip Mong, Makro, and standalone boutiques). Staff verify clock-ins inside their designated 50m store radius with a live selfie, preventing unpunctual store openings and buddy punching, while sales commissions and late deductions calculate into dual-currency payroll automatically."
+              facts={[
+                { label: "Store Visibility", value: "Real-Time Headcount by Mall" },
+                { label: "Punctuality Alerts", value: "Instant Unopened Store Flags" },
+                { label: "Commission Lines", value: "Direct Additions to Payslips" },
+              ]}
+            />
+          </div>
 
         {/* Feature Showcase Box */}
         <div className="mt-12 overflow-hidden rounded-3xl border border-line bg-paper p-6 sm:p-10 shadow-xl">
@@ -150,5 +205,6 @@ export default function RetailSolutionPage() {
         href="/contact"
       />
     </div>
+    </>
   );
 }

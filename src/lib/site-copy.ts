@@ -33,7 +33,7 @@ const en = {
     title: "Attendance and payroll, done in one place.",
     sub: "GPS-verified clock-in. Automatic overtime and late rules. Payslips in USD and KHR.",
     heroImage: "App clock-in screen and admin dashboard",
-    trust: "Trusted by 250+ businesses in Cambodia",
+    trust: "Built for Cambodian businesses • Phnom Penh, Siem Reap, Sihanoukville",
     pillarsTitle: "Three problems, solved.",
     pillars: [
       {
@@ -44,7 +44,7 @@ const en = {
       },
       {
         title: "Automatic payroll",
-        desc: "Overtime, late deductions and leave apply themselves. Payslips in one click.",
+        desc: "Apply configured overtime, late, and leave rules, then export payslips.",
         href: "/payroll",
         image: "Payroll run summary",
       },
@@ -62,11 +62,11 @@ const en = {
       { role: "HR & Payroll", desc: "Run payroll, plan shifts, export reports." },
       { role: "Owner", desc: "Live attendance and labor cost, all branches." },
     ],
-    statsTitle: "Measured by our customers.",
+    statsTitle: "Core Capabilities",
     stats: [
-      { value: "99.9%", label: "Geofence accuracy" },
-      { value: "90%", label: "Less payroll time" },
-      { value: "250+", label: "Businesses" },
+      { value: "50–200m", label: "Branch geofence radius" },
+      { value: "USD + KHR", label: "Dual-currency payroll" },
+      { value: "Queued", label: "Offline sync support" },
     ],
     ctaTitle: "Try it with your own team.",
     ctaSub: "Set up your branches and run one real payroll before you decide.",
@@ -92,7 +92,7 @@ const en = {
 
   payroll: {
     title: "Payroll without spreadsheets.",
-    sub: "Cambodian rules, USD and KHR, one click.",
+    sub: "Configurable rules, USD and KHR, in one workflow.",
     heroImage: "Payslip in USD and KHR",
     formulaLabel: "Hourly rate",
     formula: "(Base salary ÷ working days) ÷ 8 hours",
@@ -194,35 +194,35 @@ const en = {
   },
 
   customers: {
-    title: "Cambodian businesses, running on AttendKH.",
-    sub: "Retail, F&B, logistics and agencies.",
-    image: "Customer teams at work",
+    title: "Workflows & team configurations.",
+    sub: "Retail, F&B, logistics and hospitality profiles.",
+    image: "Workforce operations in action",
     stats: [
-      { value: "99.9%", label: "Geofence accuracy" },
-      { value: "90%", label: "Less payroll time" },
-      { value: "0", label: "Unverified clock-ins" },
+      { value: "50–200m", label: "Configurable geofence radius" },
+      { value: "USD + KHR", label: "Bilingual dual-currency payslips" },
+      { value: "Offline Sync", label: "Local device punch queueing" },
     ],
     testimonials: [
       {
-        quote: "Buddy punching stopped in a week. Payroll went from three days to one afternoon.",
-        name: "Sophea Chan",
-        role: "Operations Director",
-        company: "F&B chain, 6 branches, Phnom Penh",
+        quote: "Split shifts between lunch and dinner services are tracked with a 50m branch geofence and live selfie verification.",
+        name: "F&B Operations",
+        role: "Multi-Shift Profile",
+        company: "Restaurant & Cafe Workflows",
       },
       {
-        quote: "The app is in Khmer, so nobody needed training. They opened it and clocked in.",
-        name: "Dara Meas",
-        role: "Owner",
-        company: "Retail boutique, Siem Reap",
+        quote: "Area managers track floor punctuality across multiple shopping malls with automated late arrival deduction rules.",
+        name: "Retail Boutiques",
+        role: "Multi-Store Profile",
+        company: "Shopping Mall & Street Outlets",
       },
       {
-        quote: "Holiday overtime applies itself, and every hour has a photo and GPS log behind it.",
-        name: "Vichea Ly",
-        role: "HR Manager",
-        company: "Logistics and tech, 3 sites",
+        quote: "Department rosters coordinate rotational shifts with configurable night and public-holiday payroll multipliers.",
+        name: "Hospitality & Resorts",
+        role: "24/7 Roster Profile",
+        company: "Hotel & Resort Operations",
       },
     ],
-    ctaTitle: "Join them.",
+    ctaTitle: "Configure for your team.",
   },
 
   faq: {
@@ -349,12 +349,12 @@ const km: SiteCopy = {
     title: "វត្តមាន និងប្រាក់ខែ នៅកន្លែងតែមួយ។",
     sub: "ចុះវត្តមានផ្ទៀងផ្ទាត់ដោយ GPS។ គណនាម៉ោងបន្ថែម និងការយឺតស្វ័យប្រវត្តិ។ ប័ណ្ណប្រាក់ខែជាដុល្លារ និងរៀល។",
     heroImage: "អេក្រង់ចុះវត្តមាន និងផ្ទាំងគ្រប់គ្រង",
-    trust: "ជឿទុកចិត្តដោយអាជីវកម្មជាង ២៥០ នៅកម្ពុជា",
+    trust: "បង្កើតឡើងសម្រាប់អាជីវកម្មនៅកម្ពុជា • ភ្នំពេញ សៀមរាប ព្រះសីហនុ",
     pillarsTitle: "បញ្ហាបី ដោះស្រាយបាន។",
     pillars: [
       {
         title: "ចុះវត្តមានផ្ទៀងផ្ទាត់",
-        desc: "បុគ្គលិកចុះវត្តមានក្នុងកាំសាខា ជាមួយរូបថត។ គ្មានការចុះជំនួសគ្នា។",
+        desc: "បុគ្គលិកចុះវត្តមានក្នុងកាំសាខា ជាមួយរូបថតសម្រាប់អ្នកគ្រប់គ្រងពិនិត្យ។",
         href: "/attendance",
         image: "បុគ្គលិកកំពុងចុះវត្តមាននៅសាខា",
       },
@@ -378,11 +378,11 @@ const km: SiteCopy = {
       { role: "ធនធានមនុស្ស", desc: "បើកប្រាក់ខែ រៀបវេន នាំចេញរបាយការណ៍។" },
       { role: "ម្ចាស់អាជីវកម្ម", desc: "វត្តមានផ្ទាល់ និងចំណាយពលកម្មគ្រប់សាខា។" },
     ],
-    statsTitle: "វាស់ដោយអតិថិជនរបស់យើង។",
+    statsTitle: "សមត្ថភាពស្នូល",
     stats: [
-      { value: "៩៩.៩%", label: "ភាពត្រឹមត្រូវ geofence" },
-      { value: "៩០%", label: "កាត់បន្ថយពេលបើកប្រាក់ខែ" },
-      { value: "២៥០+", label: "អាជីវកម្ម" },
+      { value: "៥០–២០០ម", label: "កាំ Geofence សាខា" },
+      { value: "ដុល្លារ+រៀល", label: "ប័ណ្ណប្រាក់ខែពីររូបិយប័ណ្ណ" },
+      { value: "Queued", label: "គាំទ្រការធ្វើសមកាលកម្មក្រៅបណ្តាញ" },
     ],
     ctaTitle: "សាកល្បងជាមួយក្រុមរបស់អ្នក។",
     ctaSub: "កំណត់សាខា ហើយបើកប្រាក់ខែពិតមួយដង មុនពេលសម្រេចចិត្ត។",
@@ -408,7 +408,7 @@ const km: SiteCopy = {
 
   payroll: {
     title: "ប្រាក់ខែដោយមិនប្រើ Excel។",
-    sub: "ច្បាប់កម្ពុជា ដុល្លារ និងរៀល ចុចតែម្តង។",
+    sub: "រូបមន្តកំណត់បាន ដុល្លារ និងរៀល នៅកន្លែងតែមួយ។",
     heroImage: "ប័ណ្ណប្រាក់ខែជាដុល្លារ និងរៀល",
     formulaLabel: "អត្រាម៉ោង",
     formula: "(ប្រាក់ខែមូលដ្ឋាន ÷ ថ្ងៃធ្វើការ) ÷ ៨ ម៉ោង",
@@ -510,35 +510,35 @@ const km: SiteCopy = {
   },
 
   customers: {
-    title: "អាជីវកម្មកម្ពុជា ប្រើ AttendKH។",
-    sub: "លក់រាយ ម្ហូបអាហារ ដឹកជញ្ជូន និងភ្នាក់ងារ។",
-    image: "ក្រុមអតិថិជនកំពុងធ្វើការ",
+    title: "គំរូការងារ និងការកំណត់តាមក្រុម។",
+    sub: "គំរូសម្រាប់វិស័យលក់រាយ ម្ហូបអាហារ ដឹកជញ្ជូន និងបដិសណ្ឋារកិច្ច។",
+    image: "ក្រុមការងារប្រតិបត្តិការជាក់ស្តែង",
     stats: [
-      { value: "៩៩.៩%", label: "ភាពត្រឹមត្រូវ geofence" },
-      { value: "៩០%", label: "កាត់បន្ថយពេលបើកប្រាក់ខែ" },
-      { value: "០", label: "ការចុះវត្តមានមិនផ្ទៀងផ្ទាត់" },
+      { value: "៥០–២០០ម", label: "កាំ Geofence កំណត់តាមសាខា" },
+      { value: "ដុល្លារ+រៀល", label: "ប័ណ្ណប្រាក់ខែទ្វេប្រាក់ទ្វេភាសា" },
+      { value: "Offline Sync", label: "រក្សាទុកទិន្នន័យក្នុងទូរស័ព្ទ" },
     ],
     testimonials: [
       {
-        quote: "ការចុះជំនួសគ្នាបានឈប់ក្នុងមួយសប្តាហ៍។ ការបើកប្រាក់ខែពី ៣ ថ្ងៃ មកនៅមួយរសៀល។",
-        name: "ចាន់ សុភា",
-        role: "នាយិកាប្រតិបត្តិការ",
-        company: "ខ្សែសង្វាក់ម្ហូបអាហារ ៦ សាខា ភ្នំពេញ",
+        quote: "វេនបំបែករវាងពេលថ្ងៃត្រង់ និងពេលល្ងាច ត្រូវបានតាមដានតាមកាំសាខា ៥០ម និងរូបថត selfie ជាក់ស្តែង។",
+        name: "ផ្នែកម្ហូបអាហារ និងភេសជ្ជៈ",
+        role: "គំរូវេនបំបែក",
+        company: "ភោជនីយដ្ឋាន និងហាងកាហ្វេ",
       },
       {
-        quote: "កម្មវិធីជាភាសាខ្មែរ ដូច្នេះគ្មាននរណាត្រូវការបណ្តុះបណ្តាល។ គេគ្រាន់តែបើក ហើយចុះវត្តមាន។",
-        name: "មាស តារា",
-        role: "ម្ចាស់ហាង",
-        company: "ហាងលក់រាយ សៀមរាប",
+        quote: "អ្នកគ្រប់គ្រងសាខាតាមផ្សារទំនើបតាមដានវត្តមានទាន់ពេល និងច្បាប់កាត់ប្រាក់យឺតស្វ័យប្រវត្តិ។",
+        name: "ហាងលក់រាយ និងម៉ាត",
+        role: "គំរូច្រើនសាខា",
+        company: "សាខាតាមផ្សារទំនើប និងដងផ្លូវ",
       },
       {
-        quote: "ម៉ោងបន្ថែមថ្ងៃបុណ្យអនុវត្តដោយខ្លួនឯង ហើយរាល់ម៉ោងមានរូបថត និងកំណត់ត្រា GPS ភ្ជាប់។",
-        name: "លី វិជ្ជា",
-        role: "ប្រធានធនធានមនុស្ស",
-        company: "ដឹកជញ្ជូន និងបច្ចេកវិទ្យា ៣ ទីតាំង",
+        quote: "កាលវិភាគតាមផ្នែកគ្រប់គ្រងវេនបង្វិល ២៤/៧ ជាមួយមេគុណម៉ោងបន្ថែមពេលយប់ និងថ្ងៃបុណ្យជាតិ។",
+        name: "សណ្ឋាគារ និងរីសត",
+        role: "គំរូវេន ២៤/៧",
+        company: "សណ្ឋាគារ និងបដិសណ្ឋារកិច្ច",
       },
     ],
-    ctaTitle: "ចូលរួមជាមួយពួកគេ។",
+    ctaTitle: "រៀបចំសម្រាប់ក្រុមរបស់អ្នក។",
   },
 
   faq: {
@@ -566,8 +566,8 @@ const km: SiteCopy = {
         a: "ប្រាក់ខែរក្សាទុកតាមរូបិយប័ណ្ណកិច្ចសន្យា។ ប័ណ្ណបង្ហាញដុល្លារ និងរៀលក្បែរគ្នា តាមអត្រារបស់អ្នក។",
       },
       {
-        q: "ម៉ោងបន្ថែមអនុលោមតាមច្បាប់កម្ពុជាទេ?",
-        a: "មេគុណស្តង់ដារមកជាមួយ — ១.៥× ធម្មតា ២.០× ថ្ងៃសម្រាក និងបុណ្យជាតិ។ អត្រាទាំងអស់កំណត់បាន។",
+        q: "តើអាចកំណត់រូបមន្តម៉ោងបន្ថែមបានទេ?",
+        a: "បាន។ អ្នកអាចកំណត់មេគុណសម្រាប់ថ្ងៃធម្មតា ថ្ងៃសម្រាក និងថ្ងៃបុណ្យ។ សូមផ្ទៀងផ្ទាត់រូបមន្តជាមួយអ្នកជំនាញប្រាក់ខែ ឬច្បាប់មុនប្រើប្រាស់។",
       },
       {
         q: "ចុះ បសស និងប្រាក់អតីតភាពការងារ?",
@@ -587,7 +587,7 @@ const km: SiteCopy = {
     image: "ក្រុមការងារ AttendKH",
     body: [
       "AttendKH ចាប់ផ្តើមពីសំណួរមួយរបស់ម្ចាស់ហាងកាហ្វេ៖ តើអ្នកណានៅសាខាពេលនេះ?",
-      "កម្មវិធីអន្តរជាតិឆ្លើយជាភាសាអង់គ្លេស ជាដុល្លារ លើប្រតិទិនបុណ្យដែលមិនមែនរបស់យើង។ ដូច្នេះយើងបង្កើតចម្លើយនៅទីនេះ — ខ្មែរ និងអង់គ្លេស រៀល និងដុល្លារ ច្បាប់ការងារកម្ពុជាក្នុងរូបមន្ត។",
+      "កម្មវិធីអន្តរជាតិជាច្រើនប្រើតែភាសាអង់គ្លេស និងដុល្លារ។ ដូច្នេះយើងបង្កើតចម្លើយនៅទីនេះ — ខ្មែរ និងអង់គ្លេស រៀល និងដុល្លារ និងរូបមន្តប្រាក់ខែដែលអាចកំណត់បាន។",
       "សព្វថ្ងៃ ក្រុមនៅភ្នំពេញ សៀមរាប និងព្រះសីហនុ ប្រើវាសម្រាប់វត្តមាន និងប្រាក់ខែ ចាប់ពីហាងតែមួយ ដល់ក្រុមហ៊ុន ៥០ សាខា។",
     ],
     valuesTitle: "របៀបយើងធ្វើការ។",

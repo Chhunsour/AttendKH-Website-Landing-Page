@@ -322,7 +322,7 @@ export function OpenCookieSettingsButton({ className = "" }: { className?: strin
     <button
       type="button"
       onClick={handleClick}
-      className={`text-slate-500 hover:text-ink transition-colors ${className}`}
+      className={`transition-colors ${className || "text-slate-700 hover:text-ink"}`}
     >
       Cookie Settings
     </button>

@@ -12,17 +12,52 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import { PageHero, Section, CtaBand, ImageSlot } from "@/components/site/ui";
+import { PageHero, Section, DirectAnswerBlock, CtaBand, ImageSlot } from "@/components/site/ui";
 
 export const metadata: Metadata = {
   title: "Attendance & Payroll for Restaurants & Cafes in Cambodia | AttendKH",
   description:
     "Solve split shifts, late night closes, multi-outlet rosters, and buddy punching across your coffee shops, bakeries, and restaurants in Phnom Penh and Siem Reap.",
+  alternates: { canonical: "https://attendkh.com/solutions/restaurants-cafes" },
   openGraph: {
     title: "AttendKH for Restaurants & Cafes — Cambodian F&B Attendance",
     description:
       "Engineered for Cambodian F&B: split shift rosters, 50m branch geofences, selfie verification, and 1-click dual-currency payroll.",
+    url: "https://attendkh.com/solutions/restaurants-cafes",
+    siteName: "AttendKH",
+    type: "website",
+    locale: "en_US",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Attendance & Payroll for Cambodian Restaurants & Cafes",
+    description: "GPS attendance, split shifts, and dual-currency payslips for F&B teams.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://attendkh.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Solutions",
+      item: "https://attendkh.com/solutions/restaurants-cafes",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Restaurants & Cafes",
+      item: "https://attendkh.com/solutions/restaurants-cafes",
+    },
+  ],
 };
 
 export default function RestaurantSolutionPage() {
@@ -32,8 +67,8 @@ export default function RestaurantSolutionPage() {
       desc: "Frontline baristas and waitstaff easily clock in for lunch rush (10:30–14:00) and clock out, then return for dinner rush (17:00–22:00) without messy spreadsheet formulas.",
     },
     {
-      title: "Eliminate Buddy Punching in the Kitchen",
-      desc: "Mandatory live selfie verification and tight 50m branch geofences ensure staff are physically present in the kitchen before their shift timer begins.",
+      title: "Add evidence to kitchen clock-ins",
+      desc: "A configured branch geofence and selfie record help managers review whether a punch came from the expected location.",
     },
     {
       title: "Late Night Closes & Midnight Crossings",
@@ -58,44 +93,64 @@ export default function RestaurantSolutionPage() {
     },
     {
       title: "Cambodian Public Holiday Multipliers",
-      desc: "Automatic 2.0× double-pay calculations for staff working on Pchum Ben, Khmer New Year, and Water Festival.",
+      desc: "Configure the organization's approved multipliers for Pchum Ben, Khmer New Year, Water Festival, and other holidays.",
       icon: Sparkles,
     },
   ];
 
   return (
-    <div className="space-y-16 py-8 sm:space-y-24 sm:py-12">
-      <div className="mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-14">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider">
-            <UtensilsCrossed size={14} />
-            <span>F&B & Hospitality Solutions</span>
-          </span>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+      <div className="space-y-16 py-8 sm:space-y-24 sm:py-12">
+        <div className="mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-14">
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider">
+              <UtensilsCrossed size={14} />
+              <span>F&B & Hospitality Solutions</span>
+            </span>
 
-          <h1 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
-            Attendance & Payroll Built for Cambodian Restaurants, Cafes & Bars
-          </h1>
+            <h1 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+              Attendance & Payroll Built for Cambodian Restaurants, Cafes & Bars
+            </h1>
 
-          <p className="mt-4 text-[16px] leading-relaxed text-body sm:text-[17px]">
-            Say goodbye to paper logbooks, lost time cards, and buddy punching. Manage split shifts, late night closes, and multi-branch rosters with GPS-verified mobile clock-ins.
-          </p>
+            <p className="mt-4 text-[16px] leading-relaxed text-body sm:text-[17px]">
+              Say goodbye to paper logbooks, lost time cards, and buddy punching. Manage split shifts, late night closes, and multi-branch rosters with GPS-verified mobile clock-ins.
+            </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-brand-dark transition-all"
-            >
-              <span>Book F&B Demo</span>
-              <ArrowRight size={16} />
-            </Link>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center gap-2 rounded-full border border-line bg-paper px-6 py-3.5 text-sm font-semibold text-ink hover:bg-mist transition-colors"
-            >
-              <span>View Pricing Plans</span>
-            </Link>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-brand-dark transition-all"
+              >
+                <span>Book F&B Demo</span>
+                <ArrowRight size={16} />
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-paper px-6 py-3.5 text-sm font-semibold text-ink hover:bg-mist transition-colors"
+              >
+                <span>View Pricing Plans</span>
+              </Link>
+            </div>
           </div>
-        </div>
+
+          {/* Direct Answer Block */}
+          <div className="mt-12">
+            <DirectAnswerBlock
+              question="How does AttendKH handle restaurant and cafe shifts in Cambodia?"
+              answer="AttendKH supports split-shift clock-ins for lunch and dinner service, configurable branch geofences with selfie records, and organization-defined holiday payroll multipliers in USD and KHR. Managers can review the attendance evidence and payroll inputs before each run."
+              facts={[
+                { label: "Branch Geofence", value: "50m Kitchen Boundary" },
+                { label: "Shift Types", value: "Split & Midnight Crossings" },
+                { label: "Holiday Multipliers", value: "Configured by Policy" },
+              ]}
+            />
+          </div>
 
         {/* Feature Graphic Showcase */}
         <div className="mt-12 overflow-hidden rounded-3xl border border-line bg-paper p-6 sm:p-10 shadow-xl">
@@ -189,5 +244,6 @@ export default function RestaurantSolutionPage() {
         href="/contact"
       />
     </div>
+    </>
   );
 }

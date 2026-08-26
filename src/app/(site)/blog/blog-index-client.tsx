@@ -224,7 +224,7 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
                 Anti-Buddy Punching Field Guide
               </h4>
               <p className="mt-1.5 text-xs text-body">
-                How 50m geofencing, selfie proof, and anti-mock shields eliminate ghost hours in retail and F&B.
+                How geofencing, selfie records, and location checks can reduce attendance disputes in retail and F&B.
               </p>
               <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand">
                 <span>View Guide</span>

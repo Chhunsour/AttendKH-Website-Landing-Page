@@ -583,10 +583,8 @@ export function Providers({ children }: { children: ReactNode }) {
     try {
       const savedLang = localStorage.getItem("attendkh-lang") as Lang | null;
       const savedCur = localStorage.getItem("attendkh-cur") as Currency | null;
-      /* eslint-disable react-hooks/set-state-in-effect -- restore saved prefs after hydration */
       if (savedLang === "en" || savedLang === "km") setLangState(savedLang);
       if (savedCur === "USD" || savedCur === "KHR") setCurrencyState(savedCur);
-      /* eslint-enable react-hooks/set-state-in-effect */
     } catch {}
   }, []);
 

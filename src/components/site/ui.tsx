@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
 import {
   ImageIcon,
   MapPin,
@@ -19,8 +18,6 @@ import {
 import { useSite } from "@/lib/i18n";
 import { siteCopy, type SiteCopy } from "@/lib/site-copy";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
 export function useCopy(): SiteCopy {
   const { lang } = useSite();
   return siteCopy[lang];
@@ -28,23 +25,57 @@ export function useCopy(): SiteCopy {
 
 export function Reveal({
   children,
-  delay = 0,
-  className,
+  className = "",
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
 }) {
+  return <div className={className}>{children}</div>;
+}
+
+/**
+ * Direct Answer Block for Search & AI Answer Engines (AEO / GEO).
+ * Renders static, structured, quotable definitions and facts.
+ */
+export function DirectAnswerBlock({
+  question,
+  answer,
+  facts,
+  className = "",
+}: {
+  question: string;
+  answer: string;
+  facts?: { label: string; value: string }[];
+  className?: string;
+}) {
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, delay, ease: EASE }}
+    <section
+      aria-label={`Quick Answer: ${question}`}
+      className={`overflow-hidden rounded-2xl border border-line bg-paper p-6 sm:p-8 shadow-xs ${className}`}
     >
-      {children}
-    </motion.div>
+      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
+        <span className="h-2 w-2 rounded-full bg-brand" aria-hidden="true" />
+        <span>Quick answer</span>
+      </div>
+      <h3 className="font-display mt-3 text-lg font-bold text-ink sm:text-xl">
+        {question}
+      </h3>
+      <p className="mt-2.5 text-[15px] leading-relaxed text-body sm:text-[15.5px]">
+        {answer}
+      </p>
+
+      {facts && facts.length > 0 && (
+        <dl className="mt-6 grid gap-4 border-t border-line pt-5 sm:grid-cols-2 lg:grid-cols-3">
+          {facts.map((f) => (
+            <div key={f.label} className="rounded-xl bg-mist/60 p-3.5 border border-line/60">
+              <dt className="text-xs font-semibold text-slate-500">{f.label}</dt>
+              <dd className="mt-1 font-display text-sm font-bold text-ink">{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+    </section>
   );
 }
 
@@ -67,10 +98,11 @@ export function ImageSlot({
   if (src) {
     return (
       <div
-        className={`relative w-full overflow-hidden rounded-2xl border border-line bg-mist ${className}`}
+        className={`signal-frame group relative w-full overflow-hidden rounded-2xl border border-line bg-mist ${className}`}
         style={{ aspectRatio: ratio }}
       >
         <Image src={src} alt={label} fill sizes="(max-width: 1024px) 100vw, 50vw" priority={priority} className="object-cover" />
+        <span aria-hidden="true" className="signal-sweep pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-white/60" />
       </div>
     );
   }
@@ -84,11 +116,12 @@ export function ImageSlot({
     <div
       role="img"
       aria-label={label}
-      className={`relative w-full overflow-hidden rounded-2xl border border-line bg-slate-950 p-6 text-white shadow-xl ${className}`}
+      className={`signal-frame group relative w-full overflow-hidden rounded-2xl border border-line bg-slate-950 p-6 text-white shadow-xl ${className}`}
       style={{ aspectRatio: ratio }}
     >
       {/* Background ambient grid */}
       <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-60 pointer-events-none" />
+      <span aria-hidden="true" className="signal-sweep pointer-events-none absolute inset-x-0 top-0 z-20 h-px bg-brand/70" />
 
       {isPayslip ? (
         /* Bilingual Cambodian Payslip Visualizer */
@@ -100,7 +133,7 @@ export function ImageSlot({
               </span>
               <div>
                 <p className="font-display text-xs font-bold text-white">AttendKH Bilingual Payslip</p>
-                <p className="text-[10px] text-slate-400">August 2026 • Statutory Cambodian Format</p>
+                <p className="text-[10px] text-slate-400">August 2026 • Example payroll format</p>
               </div>
             </div>
             <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-mono text-[10px] font-bold text-emerald-400">
@@ -208,7 +241,7 @@ export function ImageSlot({
                 <MapPin size={22} />
               </div>
               <span className="block font-mono text-xs font-bold text-white">50–200m Geofence</span>
-              <span className="text-[10px] text-slate-400">Tamper-Proof GPS</span>
+              <span className="text-[10px] text-slate-400">GPS Radius Check</span>
             </div>
 
             <div className="text-center space-y-1">
@@ -216,7 +249,7 @@ export function ImageSlot({
                 <Camera size={22} />
               </div>
               <span className="block font-mono text-xs font-bold text-white">Live Selfie Check</span>
-              <span className="text-[10px] text-slate-400">Cryptographic Time</span>
+              <span className="text-[10px] text-slate-400">Recorded at punch</span>
             </div>
 
             <div className="text-center space-y-1">
@@ -230,7 +263,7 @@ export function ImageSlot({
 
           <div className="flex items-center justify-between border-t border-white/10 pt-2 text-[10px] font-mono text-slate-400">
             <span>Offline Resilient: Caches punches if network drops</span>
-            <span className="text-emerald-400">Zero Buddy Punching</span>
+            <span className="text-emerald-400">Selfie Review</span>
           </div>
         </div>
       )}
@@ -299,7 +332,7 @@ export function Button({ href, children, variant = "primary", className = "", ex
     white: "bg-white text-brand hover:bg-brand-soft",
     "ghost-white": "border border-white/40 text-white hover:bg-white/10",
   }[variant];
-  const cls = `inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-[15px] font-semibold transition-colors ${styles} ${className}`;
+  const cls = `motion-button inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-[15px] font-semibold transition-colors ${styles} ${className}`;
 
   if (external || href.startsWith("http") || href.startsWith("mailto:")) {
     return (
@@ -329,7 +362,7 @@ export function PageHero({
     <section className="relative overflow-hidden bg-brand">
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[180%] w-[200%] -translate-x-1/2 -translate-y-1/2 text-white"
+        className="signal-orbit pointer-events-none absolute left-1/2 top-1/2 h-[180%] w-[200%] -translate-x-1/2 -translate-y-1/2 text-white"
         viewBox="0 0 1200 600"
         fill="none"
       >
@@ -337,10 +370,14 @@ export function PageHero({
         <ellipse cx="600" cy="300" rx="380" ry="180" stroke="currentColor" strokeOpacity="0.06" />
       </svg>
       <div className="relative mx-auto max-w-6xl px-5 pt-28 pb-14 sm:px-8 sm:pt-32 sm:pb-20">
-        <h1 className="font-display max-w-3xl text-[2.1rem] font-bold leading-[1.12] tracking-[-0.025em] text-white sm:text-[2.9rem]">
-          {title}
-        </h1>
-        <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-blue-100">{sub}</p>
+        <Reveal>
+          <h1 className="font-display max-w-3xl text-[2.1rem] font-bold leading-[1.12] tracking-[-0.025em] text-white sm:text-[2.9rem]">
+            {title}
+          </h1>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-blue-100">{sub}</p>
+        </Reveal>
         {children}
       </div>
     </section>

@@ -46,6 +46,378 @@
   --font-khmer: "Kantumruy Pro", var(--font-kantumruy), "Google Sans", sans-serif;
 }
 
+:root {
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-quick: 180ms;
+  --motion-reveal: 560ms;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes signal-sweep {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(-125%);
+  }
+  25% {
+    opacity: 0.55;
+  }
+  42%,
+  100% {
+    opacity: 0;
+    transform: translateY(125%);
+  }
+}
+
+@keyframes signal-trace {
+  to {
+    stroke-dashoffset: -160;
+  }
+}
+
+@keyframes signal-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Slow circular drift — the hero art orbits a small radius, forever. */
+@keyframes hero-float {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, -8px);
+  }
+  50% {
+    transform: translate(0, -16px);
+  }
+  75% {
+    transform: translate(-10px, -8px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes motion-surface-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes motion-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes disclosure-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-enter var(--motion-reveal) var(--motion-ease) both;
+}
+
+.signal-sweep {
+  animation: signal-sweep 8s var(--motion-ease) infinite;
+}
+
+.signal-orbit ellipse {
+  stroke-dasharray: 20 36;
+  animation: signal-trace 14s linear infinite;
+}
+
+.signal-pulse {
+  animation: signal-pulse 3.2s ease-in-out infinite;
+}
+
+.hero-float {
+  animation: hero-float 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Hero orbit. Every transform below reads one animated angle, --yaw, so a chip's
+   counter-rotation cancels the ring's spin exactly — two separate animations drift. */
+@property --yaw {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+/* One 3D context for the shot and the orbit, so the browser sorts them by depth
+   instead of by paint order — that is what lets the ring cross in front and
+   vanish behind within a single turn. The focal length is deliberately long: a
+   short one swings the chips through a 2x size range, which reads as clutter
+   rather than depth. */
+.orbit-scene {
+  --orbit-r: clamp(245px, 36vw, 545px);
+  position: relative;
+  perspective: 2200px;
+  transform-style: preserve-3d;
+  animation: orbit-yaw var(--orbit-dur) linear infinite;
+}
+
+@keyframes orbit-yaw {
+  to {
+    --yaw: 360deg;
+  }
+}
+
+/* the phone shot: the z = 0 plane everything else is sorted against */
+.orbit-plane {
+  position: relative;
+  transform: translateZ(0);
+}
+
+/* Scale, not opacity, for the entrance: opacity below 1 flattens a 3D subtree,
+   which would tip every icon edge-on for the length of the fade. */
+@keyframes orbit-in {
+  from {
+    transform: scale(0.94);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.orbit-stage {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: calc(var(--orbit-r) * 2);
+  height: calc(var(--orbit-r) * 2);
+  margin: calc(var(--orbit-r) * -1) 0 0 calc(var(--orbit-r) * -1);
+  transform-style: preserve-3d;
+  pointer-events: none;
+  animation: orbit-in 1200ms cubic-bezier(0.22, 1, 0.36, 1) 360ms both;
+}
+
+.orbit-ring,
+.orbit-spin {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.orbit-spin {
+  transform: rotateY(var(--yaw));
+}
+
+/* A hairline, lit from the front: the arc nearest the viewer is a touch brighter
+   than the one behind the phones. Fixed in world space on purpose — it must not
+   turn with the chips or the shading would spin with it. */
+.orbit-path {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  transform: rotateX(90deg);
+  background: conic-gradient(
+    rgba(255, 255, 255, 0.14),
+    rgba(255, 255, 255, 0.2) 70deg,
+    rgba(255, 255, 255, 0.42) 180deg,
+    rgba(255, 255, 255, 0.2) 290deg,
+    rgba(255, 255, 255, 0.14)
+  );
+  mask: radial-gradient(closest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+}
+
+.orbit-chip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  transform-style: preserve-3d;
+}
+
+.orbit-face {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.orbit-face-spin {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #fff;
+  color: #0b5cff;
+  box-shadow: 0 10px 24px rgba(3, 20, 66, 0.28);
+  transform: rotateY(calc(-1 * var(--yaw))) rotateX(calc(-1 * var(--tilt-x)))
+    rotateZ(calc(-1 * var(--tilt-z)));
+  /* depth is cos(yaw + angle): 1 facing the viewer, -1 on the far arc */
+  opacity: calc(0.5 + 0.25 * (1 + cos(calc(var(--yaw) + var(--angle)))));
+}
+
+/* Hero headline word swap — replays on every React key change. */
+@keyframes word-swap {
+  from {
+    opacity: 0;
+    transform: translateY(0.55em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.word-swap {
+  animation: word-swap 780ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-headline-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.005);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-headline {
+  animation: hero-headline-reveal 900ms var(--motion-ease) both;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-brand-mark {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.92);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-brand-mark {
+  display: inline-block;
+  animation: hero-brand-mark 700ms var(--motion-ease) 320ms both;
+  transform-origin: left bottom;
+  will-change: transform, opacity;
+}
+
+.motion-surface-in {
+  animation: motion-surface-in 220ms var(--motion-ease) both;
+  transform-origin: top center;
+}
+
+.motion-sheet-in {
+  animation: motion-sheet-in 320ms var(--motion-ease) both;
+}
+
+details[open] > p {
+  animation: disclosure-in 220ms var(--motion-ease) both;
+}
+
+.motion-button {
+  transition:
+    transform var(--motion-quick) var(--motion-ease),
+    box-shadow var(--motion-quick) var(--motion-ease),
+    background-color var(--motion-quick) ease;
+}
+
+.motion-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 82, 255, 0.16);
+}
+
+.motion-lift {
+  transition:
+    transform var(--motion-quick) var(--motion-ease),
+    border-color var(--motion-quick) ease,
+    box-shadow var(--motion-quick) var(--motion-ease);
+}
+
+.motion-lift:hover {
+  transform: translateY(-4px);
+}
+
+.liquid-glass {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(135deg, rgba(42, 47, 57, 0.98), rgba(24, 28, 36, 0.98) 42%, rgba(8, 10, 14, 0.99)) padding-box,
+    linear-gradient(120deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.12) 34%, rgba(148, 163, 184, 0.4) 72%, rgba(255, 255, 255, 0.22)) border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 28px rgba(4, 24, 82, 0.2);
+  backdrop-filter: blur(18px) saturate(135%);
+}
+
+.liquid-glass::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.1), transparent 32%, rgba(148, 163, 184, 0.06) 72%, transparent);
+  content: "";
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.liquid-glass:hover::before {
+  opacity: 0.7;
+}
+
+.liquid-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
 html {
   scroll-behavior: smooth;
   color-scheme: light;
@@ -132,13 +504,51 @@ html[lang="km"] .font-mono {
   font-family: var(--font-mono) !important;
 }
 
+.blog-article :not(pre) > code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.blog-article pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+
+  .page-enter,
+  .signal-sweep,
+  .signal-orbit ellipse,
+  .signal-pulse,
+  .hero-float,
+  .orbit-scene,
+  .orbit-stage,
+  .word-swap,
+  .hero-headline,
+  .hero-brand-mark,
+  .motion-surface-in,
+  .motion-sheet-in,
+  details[open] > p {
+    animation: none !important;
+  }
+
+  .motion-button,
+  .motion-lift {
+    transition: none !important;
+  }
+
+  .motion-button:hover,
+  .motion-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
   * {
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
-
-

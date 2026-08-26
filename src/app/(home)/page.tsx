@@ -29,12 +29,17 @@ const schema = {
       },
     },
     {
+      "@type": "WebSite",
+      name: "AttendKH",
+      url: "https://attendkh.com",
+      description,
+    },
+    {
       "@type": "SoftwareApplication",
       name: "AttendKH",
       applicationCategory: "BusinessApplication",
       operatingSystem: "iOS, Android, Web",
       description,
-      aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", ratingCount: "250" },
       offers: {
         "@type": "Offer",
         price: "1.50",
@@ -48,7 +53,12 @@ const schema = {
 export default function Page() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+        }}
+      />
       <HomeView />
     </>
   );

@@ -24,12 +24,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const title = post.seo_title || post.title;
+  const pageTitle = title.endsWith("AttendKH") ? title : `${title} — AttendKH`;
   const description = post.seo_description || post.excerpt;
   const url = `https://attendkh.com/blog/${post.slug}`;
   const ogImage = post.og_image || post.cover_image || "/blog/default-og.webp";
 
   return {
-    title: `${title} — AttendKH`,
+    title: pageTitle,
     description,
     alternates: {
       canonical: url,
@@ -74,7 +75,11 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
   const relatedPosts = allPosts.filter((p) => p.id !== post.id).slice(0, 3);
 
   // Render markdown to HTML safely
-  const rawHtml = marked.parse(post.content || "") as string;
+  const publicContent = (post.content || "").replace(
+    "**100% elimination** of ghost hours and buddy clock-ins.",
+    "**Additional evidence** for reviewing ghost hours and buddy clock-ins."
+  );
+  const rawHtml = marked.parse(publicContent) as string;
   const safeHtml = sanitizeHtml(rawHtml, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat([
       "img",
@@ -131,7 +136,9 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
 
       {/* Article Hero Banner */}
@@ -214,7 +221,7 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
 
           {/* Rendered HTML */}
           <article
-            className="prose prose-slate max-w-none text-[16px] leading-relaxed text-body prose-headings:font-display prose-headings:font-bold prose-headings:text-ink prose-h2:mt-10 prose-h2:text-2xl prose-h3:mt-8 prose-h3:text-xl prose-a:text-brand prose-a:font-semibold prose-a:underline prose-code:font-mono prose-code:text-brand prose-pre:rounded-xl prose-pre:border prose-pre:border-line prose-pre:bg-mist prose-pre:p-4 prose-blockquote:border-l-brand prose-blockquote:bg-brand-soft/40 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-xl prose-img:rounded-2xl prose-img:border prose-img:border-line"
+            className="blog-article prose prose-slate min-w-0 max-w-none text-[16px] leading-relaxed text-body prose-headings:font-display prose-headings:font-bold prose-headings:text-ink prose-h2:mt-10 prose-h2:text-2xl prose-h3:mt-8 prose-h3:text-xl prose-a:text-brand prose-a:font-semibold prose-a:underline prose-code:font-mono prose-code:text-brand prose-pre:max-w-full prose-pre:overflow-x-auto prose-pre:rounded-xl prose-pre:border prose-pre:border-line prose-pre:bg-mist prose-pre:p-4 prose-blockquote:border-l-brand prose-blockquote:bg-brand-soft/40 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-xl prose-img:rounded-2xl prose-img:border prose-img:border-line [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
             dangerouslySetInnerHTML={{ __html: safeHtml }}
           />
 

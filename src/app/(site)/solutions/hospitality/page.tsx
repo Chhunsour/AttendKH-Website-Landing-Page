@@ -11,17 +11,52 @@ import {
   Coins,
   BedDouble,
 } from "lucide-react";
-import { PageHero, Section, CtaBand, ImageSlot } from "@/components/site/ui";
+import { PageHero, Section, DirectAnswerBlock, CtaBand, ImageSlot } from "@/components/site/ui";
 
 export const metadata: Metadata = {
   title: "Attendance & Payroll for Hotels & Resorts in Cambodia | AttendKH",
   description:
-    "24/7 rotational rosters, night shift premiums, service charge distribution, and statutory holiday payroll for Cambodian hotels, boutique resorts, and spas.",
+    "24/7 rotational rosters, configurable night and holiday payroll rules, service-charge lines, and dual-currency payslips for Cambodian hotels and resorts.",
+  alternates: { canonical: "https://attendkh.com/solutions/hospitality" },
   openGraph: {
     title: "AttendKH for Hotels, Resorts & Spas in Cambodia",
     description:
       "Engineered for Cambodian hospitality: 24/7 shift rosters, department-level attendance, and automated dual-currency USD/KHR payslips.",
+    url: "https://attendkh.com/solutions/hospitality",
+    siteName: "AttendKH",
+    type: "website",
+    locale: "en_US",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Attendance & Payroll for Cambodian Hotels & Resorts",
+    description: "24/7 shifts, night premiums, and automated payroll for hospitality teams.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://attendkh.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Solutions",
+      item: "https://attendkh.com/solutions/hospitality",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Hotels & Hospitality",
+      item: "https://attendkh.com/solutions/hospitality",
+    },
+  ],
 };
 
 export default function HospitalitySolutionPage() {
@@ -32,7 +67,7 @@ export default function HospitalitySolutionPage() {
     },
     {
       title: "Night Shift & Overtime Multipliers",
-      desc: "Automatic calculation of statutory Cambodian night work premiums (1.5× / 2.0×) for overnight desk and security teams.",
+      desc: "Configure night-work and overtime multipliers for overnight front-desk, engineering, and security teams.",
     },
     {
       title: "Service Charge & Point Distribution",
@@ -45,38 +80,58 @@ export default function HospitalitySolutionPage() {
   ];
 
   return (
-    <div className="space-y-16 py-8 sm:space-y-24 sm:py-12">
-      <div className="mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-14">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider">
-            <BedDouble size={14} />
-            <span>Hotels & Resorts Solution</span>
-          </span>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+      <div className="space-y-16 py-8 sm:space-y-24 sm:py-12">
+        <div className="mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-14">
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider">
+              <BedDouble size={14} />
+              <span>Hotels & Resorts Solution</span>
+            </span>
 
-          <h1 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
-            24/7 Attendance & Payroll for Cambodian Hotels & Resorts
-          </h1>
+            <h1 className="font-display mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+              24/7 Attendance & Payroll for Cambodian Hotels & Resorts
+            </h1>
 
-          <p className="mt-4 text-[16px] leading-relaxed text-body sm:text-[17px]">
-            Run uninterrupted 24/7 operations across Siem Reap, Phnom Penh, and coastal resorts. Eliminate manual timecards and ensure full compliance with Cambodian labor law.
-          </p>
+            <p className="mt-4 text-[16px] leading-relaxed text-body sm:text-[17px]">
+              Coordinate 24/7 operations across departments with recorded attendance, rotating rosters, and configurable payroll rules.
+            </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-brand-dark transition-all"
-            >
-              <span>Book Hospitality Demo</span>
-              <ArrowRight size={16} />
-            </Link>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center gap-2 rounded-full border border-line bg-paper px-6 py-3.5 text-sm font-semibold text-ink hover:bg-mist transition-colors"
-            >
-              <span>View Pricing Plans</span>
-            </Link>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-brand-dark transition-all"
+              >
+                <span>Book Hospitality Demo</span>
+                <ArrowRight size={16} />
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-paper px-6 py-3.5 text-sm font-semibold text-ink hover:bg-mist transition-colors"
+              >
+                <span>View Pricing Plans</span>
+              </Link>
+            </div>
           </div>
-        </div>
+
+          {/* Direct Answer Block */}
+          <div className="mt-12">
+            <DirectAnswerBlock
+              question="How does AttendKH coordinate 24/7 hotel rosters in Cambodia?"
+              answer="AttendKH supports rotating schedules for front desk, housekeeping, concierge, security, and maintenance. Hotel teams can configure night and holiday payroll multipliers, assign department-level approvals, and produce bilingual USD and KHR payslips with itemized payroll lines. Each organization should validate its rules with a qualified adviser."
+              facts={[
+                { label: "Operation Type", value: "24/7 Rotational 3-Shift Support" },
+                { label: "Night Shift Multipliers", value: "Configured by Policy" },
+                { label: "Property Geofence", value: "Custom 50–100m Resort Radius" },
+              ]}
+            />
+          </div>
 
         {/* Feature Showcase Box */}
         <div className="mt-12 overflow-hidden rounded-3xl border border-line bg-paper p-6 sm:p-10 shadow-xl">
@@ -89,7 +144,7 @@ export default function HospitalitySolutionPage() {
                 Uncomplicate 3-Shift 24/7 Operations Across All Departments
               </h2>
               <p className="text-sm leading-relaxed text-body">
-                Hospitality never sleeps. AttendKH gives hotel HR and department managers the tools to coordinate rotating shifts, handle last-minute shift swaps, and calculate statutory holiday premiums accurately.
+                AttendKH gives hotel HR and department managers tools to coordinate rotating shifts, handle shift swaps, and apply the organization&apos;s approved holiday payroll rules.
               </p>
 
               <ul className="space-y-3 text-xs font-medium text-ink">
@@ -99,7 +154,7 @@ export default function HospitalitySolutionPage() {
                 </li>
                 <li className="flex items-center gap-2.5">
                   <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
-                  <span>Mandatory selfie proof ensures zero attendance proxy punches</span>
+                  <span>Configurable selfie records give managers additional punch evidence</span>
                 </li>
                 <li className="flex items-center gap-2.5">
                   <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
@@ -149,5 +204,6 @@ export default function HospitalitySolutionPage() {
         href="/contact"
       />
     </div>
+    </>
   );
 }

@@ -32,16 +32,13 @@ const kantumruy = Kantumruy_Pro({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://attendkh.com"),
-  title: {
-    default: "AttendKH — Smart GPS attendance & automated payroll for Cambodia",
-    template: "%s — AttendKH",
-  },
+  title: "AttendKH — GPS attendance and configurable payroll for Cambodia",
   description:
-    "GPS-verified attendance and one-click payroll in USD and KHR. Built in Phnom Penh for Cambodian businesses, from one branch to fifty.",
+    "GPS-assisted attendance and configurable payroll in USD and KHR, built in Phnom Penh for Cambodian teams.",
   openGraph: {
-    title: "AttendKH — Smart GPS attendance & automated payroll for Cambodia",
+    title: "AttendKH — GPS attendance and configurable payroll for Cambodia",
     description:
-      "Eliminate buddy punching with tamper-proof GPS geofencing and live selfie verification. Automate overtime, late penalties, leave balances and digital payslips in USD and KHR.",
+      "Record attendance with GPS geofencing and optional selfie evidence. Configure overtime, late rules, leave balances, and payslips in USD and KHR.",
     url: "https://attendkh.com",
     siteName: "AttendKH",
     locale: "en_US",

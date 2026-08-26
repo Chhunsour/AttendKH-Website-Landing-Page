@@ -1,24 +1,61 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { FileText, Clock, ArrowRight, Eye, Calendar, Tag } from "lucide-react";
 import { getBlogPosts } from "@/lib/db";
 import { BlogIndexClient } from "./blog-index-client";
 
+const title = "Blog & Practical Guides for Cambodian Operations | AttendKH";
+const description =
+  "Practical guides on Cambodian labor law overtime (1.5× / 2.0×), NSSF calculations, multi-branch attendance geofencing, and retail rosters.";
+
 export const metadata: Metadata = {
-  title: "Blog & Insights — Smart Attendance & Payroll for Cambodia",
-  description:
-    "Guides, labor law standards, and retail operations best practices for Cambodian businesses, from one branch to fifty.",
+  title,
+  description,
+  alternates: { canonical: "https://attendkh.com/blog" },
   openGraph: {
-    title: "Blog & Insights — AttendKH",
-    description:
-      "Guides, labor law standards, and retail operations best practices for Cambodian businesses.",
+    title,
+    description,
     url: "https://attendkh.com/blog",
+    siteName: "AttendKH",
     type: "website",
+    locale: "en_US",
   },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://attendkh.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Blog",
+      item: "https://attendkh.com/blog",
+    },
+  ],
 };
 
 export default async function BlogPage() {
   const { posts } = await getBlogPosts({ status: "published", limit: 50 });
 
-  return <BlogIndexClient initialPosts={posts} />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+      <BlogIndexClient initialPosts={posts} />
+    </>
+  );
 }

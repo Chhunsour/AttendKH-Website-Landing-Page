@@ -48,7 +48,7 @@ export function ShareButtons({
   };
 
   return (
-    <div className={`flex items-center gap-1.5 ${compact ? "" : "mb-8 pb-6 border-b border-line"}`}>
+    <div className={`flex flex-wrap items-center gap-1.5 ${compact ? "" : "mb-8 pb-6 border-b border-line"}`}>
       {!compact && <span className="text-xs font-semibold text-slate-500 mr-2">Share:</span>}
 
       <button

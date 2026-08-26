@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
+import { Building2, ChevronDown, ClipboardCheck, Menu, WalletCards, X, ArrowRight } from "lucide-react";
 import { useSite, type Lang } from "@/lib/i18n";
 import { useHomeCopy } from "@/components/home/parts";
 
@@ -14,28 +15,21 @@ const SHELL = "mx-auto w-full max-w-[1240px] px-6 sm:px-10 lg:px-14";
 function Mark({ solid }: { solid: boolean }) {
   return (
     <span className="inline-flex items-center gap-2.5">
-      <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <path
-          d="M16 29.5S6 20.4 6 13.3A10 10 0 0 1 26 13.3C26 20.4 16 29.5 16 29.5Z"
-          fill={solid ? "#0052FF" : "#ffffff"}
-        />
-        <path
-          d="M11.9 13.2l2.9 2.9 5.3-5.5"
-          stroke={solid ? "#ffffff" : "#0052FF"}
-          strokeWidth="2.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <Image src="/logo.png" alt="" width={28} height={28} priority className="h-7 w-7" />
       <span
         className={`text-[19px] font-extrabold tracking-tight transition-colors ${
-          solid ? "text-[#141414]" : "text-white"
+          solid ? "text-[#0052FF]" : "text-white"
         }`}
       >
         AttendKH
       </span>
     </span>
   );
+}
+
+function ProductIcon({ href }: { href: string }) {
+  const Icon = href === "/attendance" ? ClipboardCheck : href === "/payroll" ? WalletCards : Building2;
+  return <Icon size={18} strokeWidth={2} aria-hidden="true" />;
 }
 
 /* --------------------------- language switch --------------------------- */
@@ -145,8 +139,8 @@ function ProductMenu({ solid }: { solid: boolean }) {
       </button>
 
       {open && (
-        <div className="absolute left-1/2 top-full z-50 w-[330px] -translate-x-1/2 pt-3">
-          <div className="overflow-hidden rounded-2xl border border-black/5 bg-white p-2 shadow-[0_16px_44px_rgba(15,23,42,0.14)]">
+        <div className="absolute left-1/2 top-full z-50 w-[min(360px,calc(100vw-2rem))] -translate-x-1/2 pt-3">
+          <div className="overflow-hidden rounded-2xl border border-[#E6EAF2] bg-white p-2 shadow-[0_18px_48px_rgba(15,23,42,0.16)]">
             {c.nav.productItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -154,10 +148,19 @@ function ProductMenu({ solid }: { solid: boolean }) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className={`group flex items-start gap-3 rounded-xl px-3 py-3 transition-colors ${
-                    isActive ? "bg-[#EFF4FF]" : "hover:bg-[#F4F7FE]"
+                  className={`group flex items-center gap-3 rounded-xl px-3 py-3.5 transition-colors ${
+                    isActive ? "bg-[#EFF4FF]" : "hover:bg-[#F7F9FC]"
                   }`}
                 >
+                  <span
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors ${
+                      isActive
+                        ? "bg-[#DCE8FF] text-[#0052FF]"
+                        : "bg-[#F1F5FE] text-[#6D8EDB] group-hover:bg-[#E6EEFF] group-hover:text-[#0052FF]"
+                    }`}
+                  >
+                    <ProductIcon href={item.href} />
+                  </span>
                   <span className="min-w-0 flex-1">
                     <span
                       className={`block text-[14px] font-semibold ${
@@ -172,7 +175,7 @@ function ProductMenu({ solid }: { solid: boolean }) {
                   </span>
                   <ArrowRight
                     size={15}
-                    className={`mt-0.5 shrink-0 transition-all duration-200 group-hover:translate-x-0.5 ${
+                    className={`shrink-0 transition-all duration-200 group-hover:translate-x-0.5 ${
                       isActive ? "text-[#0052FF]" : "text-[#C4C4C4] group-hover:text-[#2563EB]"
                     }`}
                     aria-hidden="true"
@@ -196,7 +199,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -231,7 +234,7 @@ export function Header() {
         <div
           className={`mx-auto flex h-[62px] items-center justify-between gap-4 px-4 transition-all duration-300 sm:px-6 ${
             scrolled
-              ? "max-w-[1180px] rounded-2xl border border-black/5 bg-white/85 shadow-[0_10px_34px_rgba(15,23,42,0.10)] backdrop-blur-xl"
+              ? "motion-surface-in max-w-[1180px] rounded-2xl border border-black/5 bg-white/95 shadow-[0_10px_34px_rgba(15,23,42,0.12)] backdrop-blur-xl"
               : "max-w-[1240px] rounded-none border border-transparent bg-transparent lg:px-8"
           }`}
         >

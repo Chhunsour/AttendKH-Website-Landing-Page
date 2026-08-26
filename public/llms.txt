@@ -1,0 +1,53 @@
+# AttendKH — Workforce Management Platform for Cambodia
+
+> AttendKH (https://attendkh.com) is a cloud-and-mobile workforce management platform built for organizations operating in Cambodia. It provides point-in-time GPS geofencing, live selfie verification, offline punch queueing, and dual-currency (USD & KHR) payroll calculations with configurable overtime and NSSF contribution lines.
+
+## Core Capabilities
+
+### 1. GPS Attendance Verification
+- **Geofencing Radius**: Configurable 50m to 200m per branch or job site.
+- **Verification Method**: Point-in-time GPS coordinate reading paired with a live camera selfie. No continuous background tracking.
+- **Location Checks**: Checks for mock location providers and flags suspected location tampering.
+- **Offline Queue**: Punches are queued locally on devices when offline and synced when network connectivity is restored.
+- **Tablet Kiosk Mode**: Shared front-desk or warehouse punch terminal for teams without individual smartphones.
+
+### 2. Dual-Currency Payroll & Overtime Rules
+- **Dual-Currency Engine**: Support for US Dollars ($) and Khmer Riel (៛) with itemized bilingual payslips.
+- **Overtime Formulas**: Configurable 1.5× regular overtime multipliers, 2.0× night shift and public holiday rates.
+- **Grace Periods & Deductions**: Configurable 5 to 15-minute late grace periods with minute-by-minute late deductions.
+- **NSSF (ប.ស.ស.) Lines**: Itemized occupational risk, health care, and pension contribution lines.
+- **Bank Batch Exports**: Payroll file exports formatted for major Cambodian banks (ABA Bank, ACLEDA Bank, Canadia Bank, and Wing Bank).
+
+### 3. Multi-Branch Operations
+- **Role-Based Access Control (RBAC)**: Super Admin, Multi-Branch Owner/HR, Branch Supervisor, and Staff.
+- **Shift Flexibility**: Morning, evening, split shifts, rotational rosters, and overnight shifts.
+- **Audit Logs**: Supervisor punch override logs recording author, rationale, previous timestamp, and updated timestamp.
+
+## Company & Support Information
+- **Headquarters**: No. 12, St 315, Toul Kork, Phnom Penh, Cambodia.
+- **Operating Hours**: Monday to Friday, 8:00 AM – 5:30 PM ICT.
+- **Telegram Support Hotline**: https://t.me/attendkh (@attendkh)
+- **Email Support**: support@attendkh.com
+- **Website**: https://attendkh.com
+
+## Official Public Pages
+- Home: https://attendkh.com
+- Attendance Product: https://attendkh.com/attendance
+- Payroll Engine: https://attendkh.com/payroll
+- Multi-Branch Control: https://attendkh.com/multi-branch
+- Pricing: https://attendkh.com/pricing
+- Industry Solutions:
+  - Restaurants & Cafes: https://attendkh.com/solutions/restaurants-cafes
+  - Retail & Boutiques: https://attendkh.com/solutions/retail
+  - Hotels & Hospitality: https://attendkh.com/solutions/hospitality
+  - Construction & Logistics: https://attendkh.com/solutions/construction-logistics
+- Customers: https://attendkh.com/customers
+- About: https://attendkh.com/about
+- Contact & Demo: https://attendkh.com/contact
+- Help & Support: https://attendkh.com/support
+- FAQ: https://attendkh.com/faq
+- Trust & Security Center: https://attendkh.com/trust
+- Blog & Guides: https://attendkh.com/blog
+- Privacy Policy: https://attendkh.com/privacy-policy
+- Terms of Service: https://attendkh.com/terms
+- Cookie Policy: https://attendkh.com/cookies

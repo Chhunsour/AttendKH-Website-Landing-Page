@@ -10,7 +10,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         Skip to content
       </a>
       <Header />
-      <main id="main" className="flex-1">
+      <main id="main" className="page-enter flex-1">
         {children}
       </main>
       <Footer />

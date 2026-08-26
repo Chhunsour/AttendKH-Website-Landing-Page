@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useSite, type Lang, type Currency } from "@/lib/i18n";
 import { useCopy } from "@/components/site/ui";
@@ -7,19 +8,7 @@ import { useCopy } from "@/components/site/ui";
 export function Logo({ theme = "light" }: { theme?: "light" | "dark" }) {
   return (
     <span className="inline-flex items-center gap-2">
-      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <path
-          d="M16 29.5S6 20.4 6 13.3A10 10 0 0 1 26 13.3C26 20.4 16 29.5 16 29.5Z"
-          fill={theme === "dark" ? "#ffffff" : "#0052FF"}
-        />
-        <path
-          d="M12 13.2l2.9 2.9 5.3-5.5"
-          stroke={theme === "dark" ? "#0052FF" : "#ffffff"}
-          strokeWidth="2.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <Image src="/logo.png" alt="" width={26} height={26} className="h-[26px] w-[26px]" />
       <span
         className={`font-display text-[18px] font-bold tracking-tight ${
           theme === "dark" ? "text-white" : "text-ink"
@@ -127,16 +116,41 @@ export function Footer() {
   ];
 
   return (
-    <footer className="border-t border-line bg-paper">
+    <footer className="bg-brand">
+      {/* Wordmark band: painted in the page colour above so the brand-blue
+          letters read here, then merge seamlessly into the blue footer body.
+          ponytail: textLength + lengthAdjust fits the word to the viewport
+          exactly at any width — no JS fitting, no clamp() guesswork. The
+          viewBox height crops below the ink so the letters sink into the body. */}
+      <div className="bg-paper">
+        <svg
+          viewBox="3.2 0 979.3 144"
+          className="block w-full select-none font-display"
+          role="img"
+          aria-label="AttendKH"
+        >
+          <text
+            x="0"
+            y="150.4"
+            textLength="1000"
+            lengthAdjust="spacingAndGlyphs"
+            fontSize="210"
+            fontWeight="700"
+            fill="var(--color-brand)"
+          >
+            AttendKH
+          </text>
+        </svg>
+      </div>
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
-            <Logo />
-            <p className="mt-3 max-w-xs text-[14px] leading-relaxed text-body">{f.tagline}</p>
-            <address className="mt-5 space-y-1.5 text-[13.5px] not-italic text-slate-500">
+            <Logo theme="dark" />
+            <p className="mt-3 max-w-xs text-[14px] leading-relaxed text-white/75">{f.tagline}</p>
+            <address className="mt-5 space-y-1.5 text-[13.5px] not-italic text-white/75">
               <p>{f.address}</p>
               <p>
-                <a href={`mailto:${f.email}`} className="hover:text-ink">
+                <a href={`mailto:${f.email}`} className="hover:text-white">
                   {f.email}
                 </a>
               </p>
@@ -145,7 +159,7 @@ export function Footer() {
                   href="https://t.me/attendkh"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-ink font-mono text-xs text-brand"
+                  className="hover:text-white font-mono text-xs text-white/90"
                 >
                   Telegram {f.telegram}
                 </a>
@@ -155,11 +169,11 @@ export function Footer() {
 
           {columns.map((col) => (
             <nav key={col.title} aria-label={col.title} className="md:col-span-2">
-              <h2 className="text-[13px] font-semibold text-ink">{col.title}</h2>
+              <h2 className="text-[13px] font-semibold text-white">{col.title}</h2>
               <ul className="mt-3.5 space-y-2.5">
                 {col.links.map((l) => (
                   <li key={`${col.title}-${l.label}`}>
-                    <Link href={l.href} className="text-[14px] text-body hover:text-ink">
+                    <Link href={l.href} className="text-[14px] text-white/75 hover:text-white">
                       {l.label}
                     </Link>
                   </li>
@@ -169,11 +183,11 @@ export function Footer() {
           ))}
 
           <div className="md:col-span-2">
-            <h2 className="text-[13px] font-semibold text-ink">{f.solutionsCol}</h2>
+            <h2 className="text-[13px] font-semibold text-white">{f.solutionsCol}</h2>
             <ul className="mt-3.5 space-y-2.5">
               {solutionLinks.map((s) => (
                 <li key={s.href}>
-                  <Link href={s.href} className="text-[14px] text-body hover:text-ink">
+                  <Link href={s.href} className="text-[14px] text-white/75 hover:text-white">
                     {s.label}
                   </Link>
                 </li>
@@ -182,13 +196,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-4 text-[13px] text-slate-500">
+        <div className="mt-12 flex flex-col gap-3 border-t border-white/25 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap items-center gap-4 text-[13px] text-white/75">
             <p>{f.rights}</p>
             <span>•</span>
-            <OpenCookieSettingsButton className="text-[13px] text-slate-500 hover:text-ink underline underline-offset-2" />
+            <OpenCookieSettingsButton className="text-[13px] text-white/75 hover:text-white underline underline-offset-2" />
           </div>
-          <p className="text-[13px] text-slate-500">{f.madeIn}</p>
+          <p className="text-[13px] text-white/75">{f.madeIn}</p>
         </div>
       </div>
     </footer>
