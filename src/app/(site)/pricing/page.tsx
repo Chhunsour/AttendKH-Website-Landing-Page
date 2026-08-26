@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { getPricingPlans } from "@/lib/db";
 import { PricingView } from "./pricing-view";
 
 export const metadata: Metadata = {
-  title: "Pricing",
-  description:
-    "Simple per-user pricing for AttendKH. Annual billing includes two months free. Pay by card, KHQR or local bank transfer.",
+  title: "Pricing — Simple Per-User Plans for Cambodia",
+  description: "From $1.50 per user per month. No setup fee, no per-branch surcharge.",
 };
 
-export default function Page() {
-  return <PricingView />;
+export default async function Page() {
+  const plans = await getPricingPlans(true);
+  return <PricingView dynamicPlans={plans} />;
 }

@@ -3,8 +3,7 @@ import { AboutView } from "./about-view";
 
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "AttendKH builds attendance and payroll software in Phnom Penh, for Cambodian businesses. Khmer first, riel first.",
+  description: "AttendKH is built in Phnom Penh for Cambodian businesses.",
 };
 
 export default function Page() {

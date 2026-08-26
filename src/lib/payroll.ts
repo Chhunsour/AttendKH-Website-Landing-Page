@@ -41,6 +41,7 @@ export interface PayrollInput {
 
 export interface PayrollCalculationResult {
   hourlyRate: number;
+  minuteRate: number;
   gracePeriodMinutes: number;
   chargeableLateMinutes: number;
   lateDeduction: number;
@@ -61,18 +62,19 @@ export function calculateHourlyRate(baseSalary: number, workingDays: 22 | 26): n
 }
 
 /**
- * Calculates late penalty deduction:
+ * Calculates the late penalty deduction on a per-minute basis:
  * chargeableLateMinutes = max(0, lateMinutes - gracePeriodMinutes)
- * lateDeduction = chargeableLateMinutes * hourlyRate
+ * lateDeduction = chargeableLateMinutes * (hourlyRate / 60)
  */
 export function calculateLateDeduction(
   lateMinutes: number,
   hourlyRate: number,
   gracePeriodMinutes: number = GRACE_PERIOD_MINUTES
-): { chargeableLateMinutes: number; lateDeduction: number } {
+): { chargeableLateMinutes: number; minuteRate: number; lateDeduction: number } {
   const chargeableLateMinutes = Math.max(0, lateMinutes - gracePeriodMinutes);
-  const lateDeduction = chargeableLateMinutes * hourlyRate;
-  return { chargeableLateMinutes, lateDeduction };
+  const minuteRate = hourlyRate / 60;
+  const lateDeduction = chargeableLateMinutes * minuteRate;
+  return { chargeableLateMinutes, minuteRate, lateDeduction };
 }
 
 /**
@@ -95,7 +97,7 @@ export function calculateOtBonus(
 export function calculatePayroll(input: PayrollInput): PayrollCalculationResult {
   const gracePeriod = input.gracePeriodMinutes ?? GRACE_PERIOD_MINUTES;
   const hourlyRate = calculateHourlyRate(input.baseSalary, input.workingDays);
-  const { chargeableLateMinutes, lateDeduction } = calculateLateDeduction(
+  const { chargeableLateMinutes, minuteRate, lateDeduction } = calculateLateDeduction(
     input.lateMinutes,
     hourlyRate,
     gracePeriod
@@ -107,6 +109,7 @@ export function calculatePayroll(input: PayrollInput): PayrollCalculationResult 
 
   return {
     hourlyRate,
+    minuteRate,
     gracePeriodMinutes: gracePeriod,
     chargeableLateMinutes,
     lateDeduction,

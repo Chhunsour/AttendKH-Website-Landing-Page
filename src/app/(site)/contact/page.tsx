@@ -3,8 +3,7 @@ import { ContactView } from "./contact-view";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description:
-    "Talk to AttendKH — sales, support and demos. We reply within one business day. Phnom Penh, Cambodia.",
+  description: "Book a demo, ask about pricing, or reach AttendKH support.",
 };
 
 export default function Page() {
