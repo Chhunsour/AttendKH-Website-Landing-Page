@@ -1,9 +1,14 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 import { getAdminSession } from "@/lib/auth";
 import { ToastProvider } from "@/components/admin/toast";
 import { AdminLayoutClient } from "./layout-client";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "AttendKH Admin",
+  robots: { index: false, follow: false, noarchive: true, nocache: true },
+};
 
 export default async function AdminLayout({
   children,

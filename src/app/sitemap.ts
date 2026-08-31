@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 import { getBlogPosts } from "@/lib/db";
+import { SITE_URL } from "@/lib/site";
+
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://attendkh.com";
-
   // Core Static Routes
   const staticRoutes = [
     "",
@@ -26,8 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/solutions/hospitality",
     "/solutions/construction-logistics",
   ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
+    url: `${SITE_URL}${route}`,
     changeFrequency: (route === "" || route === "/blog" ? "daily" : "weekly") as "daily" | "weekly",
     priority: route === "" ? 1.0 : route.startsWith("/solutions") || route === "/pricing" ? 0.9 : 0.7,
   }));
@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const { posts } = await getBlogPosts({ status: "published", limit: 100 });
     blogRoutes = posts.map((post) => ({
-      url: `${baseUrl}/blog/${post.slug}`,
+      url: `${SITE_URL}/blog/${post.slug}`,
       lastModified: new Date(post.published_at || post.created_at),
       changeFrequency: "monthly" as const,
       priority: 0.8,

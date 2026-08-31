@@ -2,17 +2,14 @@ import { NextResponse } from "next/server";
 import { recordAnalyticsEvent } from "@/lib/db";
 import { AnalyticsEventSchema } from "@/lib/db/schema";
 import { parseUserAgent, parseTrafficSource } from "@/lib/analytics";
+import { checkRateLimit, isSameOrigin, readJsonBody } from "@/lib/request-security";
 
 export async function POST(req: Request) {
   try {
-    let body;
-    const contentType = req.headers.get("content-type") || "";
-    if (contentType.includes("application/json")) {
-      body = await req.json();
-    } else {
-      const text = await req.text();
-      body = JSON.parse(text);
-    }
+    if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
+    const rate = await checkRateLimit(req, "analytics", 120, 60);
+    if (!rate.allowed) return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429, headers: { "Retry-After": String(rate.retryAfter) } });
+    const body = await readJsonBody(req, 32_768);
 
     const result = AnalyticsEventSchema.safeParse(body);
     if (!result.success) {
@@ -27,12 +24,10 @@ export async function POST(req: Request) {
     const country =
       req.headers.get("x-vercel-ip-country") ||
       req.headers.get("cf-ipcountry") ||
-      data.country ||
-      "Cambodia";
+      "Unknown";
     const city =
       req.headers.get("x-vercel-ip-city") ||
-      data.city ||
-      "Phnom Penh";
+      "Unknown";
 
     const trafficSource = parseTrafficSource(data.referrer);
 
@@ -42,10 +37,10 @@ export async function POST(req: Request) {
       session_id: data.session_id,
       page_path: data.page_path,
       referrer: data.referrer || null,
-      traffic_source: data.traffic_source || trafficSource,
-      device_type: data.device_type || parsedUa.deviceType,
-      browser: data.browser || parsedUa.browser,
-      os: data.os || parsedUa.os,
+      traffic_source: trafficSource,
+      device_type: parsedUa.deviceType,
+      browser: parsedUa.browser,
+      os: parsedUa.os,
       country,
       city,
       payload: data.payload || null,
@@ -53,6 +48,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
+    if (error?.message === "BODY_TOO_LARGE") return NextResponse.json({ error: "Request body too large" }, { status: 413 });
+    if (error?.message === "INVALID_JSON") return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
     return NextResponse.json({ error: "Failed to record event" }, { status: 500 });
   }
 }

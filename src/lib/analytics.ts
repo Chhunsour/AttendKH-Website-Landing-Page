@@ -100,7 +100,7 @@ export function getOrCreateVisitorId(): string {
   try {
     let id = localStorage.getItem(VISITOR_KEY);
     if (!id) {
-      id = "v_" + Math.random().toString(36).substring(2, 10) + "_" + Date.now().toString(36);
+      id = "v_" + crypto.randomUUID();
       localStorage.setItem(VISITOR_KEY, id);
     }
     return id;
@@ -114,7 +114,7 @@ export function getOrCreateSessionId(): string {
   try {
     let id = sessionStorage.getItem(SESSION_KEY);
     if (!id) {
-      id = "s_" + Math.random().toString(36).substring(2, 10) + "_" + Date.now().toString(36);
+      id = "s_" + crypto.randomUUID();
       sessionStorage.setItem(SESSION_KEY, id);
     }
     return id;

@@ -16,6 +16,7 @@ import {
 import { RichEditor } from "./rich-editor";
 import { useToast } from "./toast";
 import type { BlogPost } from "@/lib/db/schema";
+import { SITE_URL } from "@/lib/site";
 
 interface BlogFormProps {
   initialData?: Partial<BlogPost>;
@@ -397,7 +398,7 @@ export function BlogForm({ initialData, isEdit = false }: BlogFormProps) {
                 {seoTitle || title || "Article Title"} — AttendKH
               </p>
               <p className="font-mono text-[10.5px] text-[#006621]">
-                https://attendkh.com/blog/{slug || "article-slug"}
+                {SITE_URL}/blog/{slug || "article-slug"}
               </p>
               <p className="line-clamp-2 text-[11.5px] text-[#545454] mt-0.5">
                 {seoDescription || excerpt || "Article snippet will appear here in Google search rankings."}

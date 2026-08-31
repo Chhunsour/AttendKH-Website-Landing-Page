@@ -6,12 +6,12 @@ const en = {
     attendance: "Attendance",
     payroll: "Payroll",
     branches: "Multi-Branch",
-    pricing: "Pricing",
+    pricing: "Pricing ($1/mo)",
     customers: "Customers",
     faq: "FAQ",
     contact: "Contact",
     signIn: "Sign In",
-    trial: "Start Free Trial",
+    trial: "Get Started",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     language: "Language",
@@ -20,9 +20,9 @@ const en = {
   },
 
   common: {
-    trial: "Start free trial",
+    trial: "Get Started",
     demo: "Book a demo",
-    trialNote: "14 days free. No card required.",
+    trialNote: "No setup fee. Pay only for active staff.",
     learnMore: "Learn more",
     seeAll: "See all features",
     talkToSales: "Talk to sales",
@@ -157,14 +157,14 @@ const en = {
         id: "starter",
         name: "Starter",
         limit: "Up to 20 users",
-        priceMonthly: 1.5,
+        priceMonthly: 1.0,
         features: ["GPS attendance", "Leave tracking", "Mobile app", "Basic reports"],
       },
       {
         id: "growth",
         name: "Growth",
         limit: "Up to 150 users",
-        priceMonthly: 2.5,
+        priceMonthly: 2.0,
         features: [
           "Everything in Starter",
           "Full payroll engine",
@@ -202,26 +202,7 @@ const en = {
       { value: "USD + KHR", label: "Bilingual dual-currency payslips" },
       { value: "Offline Sync", label: "Local device punch queueing" },
     ],
-    testimonials: [
-      {
-        quote: "Split shifts between lunch and dinner services are tracked with a 50m branch geofence and live selfie verification.",
-        name: "F&B Operations",
-        role: "Multi-Shift Profile",
-        company: "Restaurant & Cafe Workflows",
-      },
-      {
-        quote: "Area managers track floor punctuality across multiple shopping malls with automated late arrival deduction rules.",
-        name: "Retail Boutiques",
-        role: "Multi-Store Profile",
-        company: "Shopping Mall & Street Outlets",
-      },
-      {
-        quote: "Department rosters coordinate rotational shifts with configurable night and public-holiday payroll multipliers.",
-        name: "Hospitality & Resorts",
-        role: "24/7 Roster Profile",
-        company: "Hotel & Resort Operations",
-      },
-    ],
+
     ctaTitle: "Configure for your team.",
   },
 
@@ -322,12 +303,12 @@ const km: SiteCopy = {
     attendance: "វត្តមាន",
     payroll: "ប្រាក់ខែ",
     branches: "ច្រើនសាខា",
-    pricing: "តម្លៃ",
+    pricing: "តម្លៃ ($1/ខែ)",
     customers: "អតិថិជន",
     faq: "សំណួរ",
     contact: "ទំនាក់ទំនង",
     signIn: "ចូលគណនី",
-    trial: "សាកល្បងឥតគិតថ្លៃ",
+    trial: "ចាប់ផ្តើមប្រើប្រាស់",
     openMenu: "បើកម៉ឺនុយ",
     closeMenu: "បិទម៉ឺនុយ",
     language: "ភាសា",
@@ -336,9 +317,9 @@ const km: SiteCopy = {
   },
 
   common: {
-    trial: "សាកល្បងឥតគិតថ្លៃ",
+    trial: "ចាប់ផ្តើមប្រើប្រាស់",
     demo: "កក់ការបង្ហាញ",
-    trialNote: "ឥតគិតថ្លៃ ១៤ ថ្ងៃ។ មិនត្រូវការកាត។",
+    trialNote: "គ្មានថ្លៃដំឡើង។ បង់តែបុគ្គលិកសកម្ម។",
     learnMore: "ស្វែងយល់បន្ថែម",
     seeAll: "មើលមុខងារទាំងអស់",
     talkToSales: "ទាក់ទងផ្នែកលក់",
@@ -473,14 +454,14 @@ const km: SiteCopy = {
         id: "starter",
         name: "Starter",
         limit: "រហូតដល់ ២០ អ្នកប្រើ",
-        priceMonthly: 1.5,
+        priceMonthly: 1.0,
         features: ["វត្តមាន GPS", "តាមដានច្បាប់ឈប់", "កម្មវិធីទូរស័ព្ទ", "របាយការណ៍មូលដ្ឋាន"],
       },
       {
         id: "growth",
         name: "Growth",
         limit: "រហូតដល់ ១៥០ អ្នកប្រើ",
-        priceMonthly: 2.5,
+        priceMonthly: 2.0,
         features: [
           "គ្រប់យ៉ាងក្នុង Starter",
           "ប្រព័ន្ធបើកប្រាក់ខែពេញលេញ",
@@ -518,26 +499,7 @@ const km: SiteCopy = {
       { value: "ដុល្លារ+រៀល", label: "ប័ណ្ណប្រាក់ខែទ្វេប្រាក់ទ្វេភាសា" },
       { value: "Offline Sync", label: "រក្សាទុកទិន្នន័យក្នុងទូរស័ព្ទ" },
     ],
-    testimonials: [
-      {
-        quote: "វេនបំបែករវាងពេលថ្ងៃត្រង់ និងពេលល្ងាច ត្រូវបានតាមដានតាមកាំសាខា ៥០ម និងរូបថត selfie ជាក់ស្តែង។",
-        name: "ផ្នែកម្ហូបអាហារ និងភេសជ្ជៈ",
-        role: "គំរូវេនបំបែក",
-        company: "ភោជនីយដ្ឋាន និងហាងកាហ្វេ",
-      },
-      {
-        quote: "អ្នកគ្រប់គ្រងសាខាតាមផ្សារទំនើបតាមដានវត្តមានទាន់ពេល និងច្បាប់កាត់ប្រាក់យឺតស្វ័យប្រវត្តិ។",
-        name: "ហាងលក់រាយ និងម៉ាត",
-        role: "គំរូច្រើនសាខា",
-        company: "សាខាតាមផ្សារទំនើប និងដងផ្លូវ",
-      },
-      {
-        quote: "កាលវិភាគតាមផ្នែកគ្រប់គ្រងវេនបង្វិល ២៤/៧ ជាមួយមេគុណម៉ោងបន្ថែមពេលយប់ និងថ្ងៃបុណ្យជាតិ។",
-        name: "សណ្ឋាគារ និងរីសត",
-        role: "គំរូវេន ២៤/៧",
-        company: "សណ្ឋាគារ និងបដិសណ្ឋារកិច្ច",
-      },
-    ],
+
     ctaTitle: "រៀបចំសម្រាប់ក្រុមរបស់អ្នក។",
   },
 
@@ -631,4 +593,299 @@ const km: SiteCopy = {
   },
 };
 
-export const siteCopy: Record<Lang, SiteCopy> = { en, km };
+const zh: SiteCopy = {
+  nav: {
+    attendance: "考勤打卡",
+    payroll: "薪酬核算",
+    branches: "多分店管理",
+    pricing: "价格 ($1/月)",
+    customers: "合作客户",
+    faq: "常见问题",
+    contact: "联系我们",
+    signIn: "登录后台",
+    trial: "立即开通",
+    openMenu: "打开菜单",
+    closeMenu: "关闭菜单",
+    language: "语言",
+    currency: "币种",
+    skip: "跳转至正文",
+  },
+
+  common: {
+    trial: "立即开通使用",
+    demo: "预约专家演示",
+    trialNote: "无安装部署费，仅按实际员工数结算。",
+    learnMore: "了解更多",
+    seeAll: "查看全部功能",
+    talkToSales: "咨询商务顾问",
+  },
+
+  home: {
+    badge: "专为柬埔寨企业定制",
+    title: "一站式搞定员工考勤与薪资核算。",
+    sub: "GPS 围栏防作弊打卡，自动计算加班与迟到规则，一键导出美元与柬币标准工资单。",
+    heroImage: "移动打卡界面与管理控制台",
+    trust: "深受金边、暹粒、西港及全国各省本土企业信赖",
+    pillarsTitle: "解决企业用工三大核心难题",
+    pillars: [
+      {
+        title: "真实可信的打卡",
+        desc: "员工必须在分店 GPS 范围内自拍打卡，杜绝代打卡与虚假定位。",
+        href: "/attendance",
+        image: "员工在分店门口自拍打卡",
+      },
+      {
+        title: "智能化一键算薪",
+        desc: "自动关联排班、平时/节假日加班倍率与迟到扣款，一键生成工资单。",
+        href: "/payroll",
+        image: "薪资结算汇总大盘",
+      },
+      {
+        title: "全国多门店统一掌控",
+        desc: "一个控制台管理所有分店。店长管理本店，老板统览全盘数据。",
+        href: "/multi-branch",
+        image: "多分店分布总览图",
+      },
+    ],
+    rolesTitle: "为企业全员量身打造的协同体验",
+    roles: [
+      { role: "基层员工", desc: "手机秒速自拍打卡、发起请假调休、查收个人双语工资单。" },
+      { role: "分店经理", desc: "审核本店请假、加班申请与补卡，实时掌握当班出勤率。" },
+      { role: "HR 与薪酬主管", desc: "编排轮班表、一键核算全员薪资、导出 NSSF 报表与银行发薪表。" },
+      { role: "企业创始人/老板", desc: "实时监控所有分店出勤动态与实时工时支出成本。" },
+    ],
+    statsTitle: "核心能力指标",
+    stats: [
+      { value: "50–200米", label: "分店 GPS 围栏半径" },
+      { value: "USD + KHR", label: "美元与柬币双币结算" },
+      { value: "离线排队", label: "无网本地缓存与秒级同步" },
+    ],
+    ctaTitle: "即刻为您的团队开启体验。",
+    ctaSub: "只需 5 分钟配置分店，即可完成首期全员薪资结算演练。",
+  },
+
+  attendance: {
+    title: "每一次打卡，真实可信。",
+    sub: "GPS 定位、真人照片与时间戳三重留痕，班次到岗情况一目了然。",
+    heroImage: "带有分店半径的手机打卡界面",
+    features: [
+      { title: "GPS 地理围栏", desc: "地图上一键圈选 50–200 米有效打卡半径。" },
+      { title: "真人活体自拍", desc: "每次打卡强制自拍并附带防伪水印。" },
+      { title: "防作弊定位检测", desc: "自动识别并拦截虚拟定位软件与越狱插件。" },
+      { title: "离线本地缓存", desc: "断网时本地安全加密保存，联网自动同步。" },
+      { title: "前台公用平板模式", desc: "店门口设置公用考勤平板，扫码快速打卡。" },
+      { title: "本土化迟到原因", desc: "大雨、堵车、车损、就医一键报备。" },
+    ],
+    splitTitle: "此时此刻，分店到岗情况一览无余。",
+    splitDesc: "每家分店实时出勤大盘：在岗、迟到、请假实时刷新。店长在早班即可处理异常，无需拖延至月底。",
+    splitImage: "实时考勤动态监控看板",
+    ctaTitle: "在您的分店现场开启实测。",
+  },
+
+  payroll: {
+    title: "彻底告别繁琐的 Excel 算薪。",
+    sub: "灵活规则配置，美元（USD）与柬币（KHR）双币结算，一体化完成。",
+    heroImage: "美元与柬币双币工资条",
+    formulaLabel: "标准工时费率计算",
+    formula: "( 基本月薪 ÷ 出勤天数 ) ÷ 8小时 = 标准时薪",
+    features: [
+      { title: "法定加班倍率", desc: "平时 1.5×，公休日与国家法定节假日 2.0×。" },
+      { title: "灵活迟到宽限期", desc: "可设定 5–15 分钟免扣宽限，超时按分钟精准扣除。" },
+      { title: "双币种核算", desc: "每位员工工资单均可同时展现美元与柬币。" },
+      { title: "NSSF 社保明细", desc: "自动计算柬埔寨国家社保（ប.ស.ស.）扣缴明细。" },
+      { title: "假期余额追踪", desc: "年假、病假、产假与事假自动关联扣除。" },
+      { title: "高清 PDF 工资条", desc: "中、英、柬多语言工资条，员工可在 App 随时下载。" },
+    ],
+    simTitle: "交互式薪资试算器",
+    simSub: "与每月系统自动化发薪引擎完全一致的底层计算公式。",
+    sim: {
+      baseSalary: "员工基本月薪",
+      workingDays: "月工作天数",
+      lateMinutes: "迟到总分钟数",
+      grace: "宽限免扣",
+      otHours: "加班总时长",
+      otType: "加班薪资倍率",
+      hourly: "计算所得标准时薪",
+      late: "迟到扣款",
+      net: "预计实发到手薪资",
+      min: "分钟",
+      hrs: "小时",
+    },
+    ctaTitle: "半天内轻松搞定全公司当月薪资。",
+  },
+
+  branches: {
+    title: "一个控制台，统揽全国分店。",
+    sub: "四级精细化权限隔离，从集团老板到基层员工各司其职。",
+    heroImage: "多分店综合管理控制台",
+    tiers: [
+      { role: "超级管理员", desc: "掌管全平台底层配置、租户与系统安全。" },
+      { role: "老板 / HR 总监", desc: "管理所有分店、全员薪资、组织架构与用工规则。" },
+      { role: "分店经理", desc: "负责本店日常排班、考勤核准与请假审批。" },
+      { role: "基层员工", desc: "移动端自拍打卡、发起审批并查收双语工资单。" },
+    ],
+    featuresTitle: "专为实际排班场景打造",
+    features: [
+      { title: "跨夜班次引擎", desc: "完美支持跨越午夜 12 点的连续夜班考勤。" },
+      { title: "分段跨班次 (Split Shift)", desc: "支持同天安排早市、午市与晚高峰两段打卡。" },
+      { title: "单店独立规则", desc: "可按分店位置设置独立的地理围栏半径与宽限期。" },
+      { title: "老板穿透视角", desc: "企业高层可随时切换进入任意分店长的操作面板。" },
+    ],
+    splitImage: "智能轮班排程器",
+    ctaTitle: "只需一个下午，完成所有分店接入。",
+  },
+
+  pricing: {
+    title: "简单透明的价格体系。",
+    sub: "按每月实际打卡人数计费，无任何安装部署附加费。",
+    monthly: "按月付费",
+    annual: "按年付费",
+    annualBadge: "赠送 2 个月",
+    perUser: "/人/月",
+    billedAnnually: "按年结算更优惠",
+    popular: "最受欢迎",
+    plans: [
+      {
+        id: "starter",
+        name: "基础版 (Starter)",
+        limit: "最多 20 人",
+        priceMonthly: 1.0,
+        features: ["GPS 围栏考勤打卡", "请假与出勤管理", "iOS / Android 移动端", "基础出勤报表导出"],
+      },
+      {
+        id: "growth",
+        name: "成长版 (Growth)",
+        limit: "最多 150 人",
+        priceMonthly: 2.0,
+        features: [
+          "包含基础版全部功能",
+          "全功能自动算薪引擎",
+          "真人自拍活体核验",
+          "1.5× 与 2.0× 加班倍率",
+          "智能轮班排程表",
+          "报销与补贴审批",
+        ],
+      },
+      {
+        id: "enterprise",
+        name: "企业版 (Enterprise)",
+        limit: "无人数上限",
+        priceMonthly: 3.5,
+        features: [
+          "包含成长版全部功能",
+          "自定义多级管理权限",
+          "专属 API 与 ERP 对接",
+          "定制化劳工规则引擎",
+          "金边现场上门培训与专属客户经理",
+        ],
+      },
+    ],
+    note: "所有方案均包含移动 App、Web 控制台及中/英/柬三语本土客服支持。",
+    ctaTitle: "不确定适合哪个方案？",
+    ctaSub: "告诉我们您的团队人数与分店数量，我们为您推荐最具性价比的配置方案。",
+  },
+
+  customers: {
+    title: "真实团队落地案例与业务场景。",
+    sub: "涵盖连锁餐饮、精品零售、物流仓储及酒店服务业标杆客户。",
+    image: "现场员工出勤操作实拍",
+    stats: [
+      { value: "50–200米", label: "可调地理围栏半径" },
+      { value: "USD + KHR", label: "中英柬双语双币工资单" },
+      { value: "离线本地同步", label: "断网离线本地安全排队" },
+    ],
+
+    ctaTitle: "为您的团队定制配置方案。",
+  },
+
+  faq: {
+    title: "常见疑问解答。",
+    sub: "简明扼要的解答。如有其他问题，欢迎随时咨询。",
+    items: [
+      {
+        q: "分店现场没有网络信号怎么办？",
+        a: "App 支持离线模式正常打卡，网络恢复后自动秒级同步至云端。系统记录的时间为实际打卡时间，而非网络恢复同步时间。",
+      },
+      {
+        q: "如何防止员工使用虚拟定位（Fake GPS）作弊？",
+        a: "系统内置多重反作弊防护机制：检测系统模拟定位标志、拦截不合常理的坐标突变，并强制要求在围栏范围内完成真人自拍核验。",
+      },
+      {
+        q: "一位主管能否同时管理多家分店？",
+        a: "可以。系统支持为每位主管分配特定分店管辖权，店长仅能查看所管辖门店，而集团创始人与 HR 总监拥有全店透视权限。",
+      },
+      {
+        q: "能否从现有的 Excel 表格批量导入员工？",
+        a: "可以。只需下载系统提供的标准模板并填入信息上传，系统会在导入前严格校验每一行数据格式，确保无差错。",
+      },
+      {
+        q: "美元与柬币双币工资单是如何计算的？",
+        a: "员工基本薪资按合同约定币种存储，工资单根据您在系统设定的汇率，同时并排呈现美元（USD）与柬币（KHR）换算明细。",
+      },
+      {
+        q: "加班费计算是否符合柬埔寨劳工法？",
+        a: "默认内置柬埔寨法定标准倍率：平时加班 1.5 倍，公休日与法定节假日 2.0 倍，并内置官方节假日日历。所有参数均可根据企业制度灵活调整。",
+      },
+      {
+        q: "是否支持 NSSF 社保扣缴与工龄奖金计算？",
+        a: "支持。工资单上会单独列明 NSSF（国家社保基金）员工与雇主分摊明细，以及工龄补偿金（Seniority Indemnity）条目。",
+      },
+      {
+        q: "企业完成系统上线需要多久？",
+        a: "大多数企业在半天之内即可完成配置并全员上线。成长版与企业版客户享有金边本土顾问一对一专属上线指导服务。",
+      },
+    ],
+    ctaTitle: "还有其他疑问？",
+  },
+
+  about: {
+    title: "诞生于金边，赋能本土企业。",
+    sub: "专为不再迁就复杂海外软件的柬埔寨企业而造。",
+    image: "AttendKH 金边核心团队",
+    body: [
+      "AttendKH 源于一位金边连锁咖啡店创始人的实际困扰：此时此刻，到底有谁真正到了哪家分店？",
+      "市面上的海外 HR 软件全都是纯英文、只支持单一美元，且完全不符合柬埔寨当地的法定节假日与劳工法规定。因此，我们在金边亲自打造了这套系统——支持高棉语、中文与英语，支持美元与柬币双币核算，并将柬埔寨劳工法公式深植于底层代码中。",
+      "今天，从金边、暹粒到西哈努克港，数百家企业正在 AttendKH 上高效管理员工考勤与薪资结算。",
+    ],
+    valuesTitle: "我们的核心原则",
+    values: [
+      { title: "本土优先", desc: "高棉语与本土习惯不是外挂翻译层，而是系统与生俱来的默认底座。" },
+      { title: "真实留痕", desc: "每一次打卡均包含 GPS 定位、真人照片与防篡改审计日志。" },
+      { title: "金边本土支持", desc: "相同的时区、相同的语言、由金边本土真实工程师提供即时保障。" },
+    ],
+    ctaTitle: "欢迎莅临交流。",
+  },
+
+  contact: {
+    title: "与我们取得联系。",
+    sub: "产品演示、方案报价及系统配置咨询。",
+    salesTitle: "商务咨询",
+    salesDesc: "预约产品演示或定制报价方案。",
+    supportTitle: "客户服务",
+    supportDesc: "为 AttendKH 在用企业提供即时技术保障。",
+    officeTitle: "金边办公室",
+    hours: "周一至周五，8:00 – 17:30 (ICT)",
+    telegramCta: "在 Telegram 上联系我们",
+    emailCta: "发送电子邮件",
+  },
+
+  footer: {
+    tagline: "专为柬埔寨企业量身定制的智能考勤与薪资系统。",
+    productCol: "产品服务",
+    solutionsCol: "行业方案",
+    companyCol: "关于企业",
+    legalCol: "合规条款",
+    solutions: ["连锁零售", "餐饮美食", "物流仓储", "科技与数字机构"],
+    addressLabel: "办公室地址",
+    address: "柬埔寨金边市堆谷区 315 街 12 号",
+    email: "support@attendkh.com",
+    telegram: "@attendkh",
+    apps: "下载移动端",
+    appStore: "App Store",
+    play: "Google Play",
+    rights: "© 2026 AttendKH Co., Ltd.",
+    madeIn: "金边制造",
+  },
+};
+
+export const siteCopy: Record<Lang, SiteCopy> = { en, km, zh };

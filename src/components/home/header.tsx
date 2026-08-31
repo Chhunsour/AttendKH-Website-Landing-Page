@@ -68,6 +68,7 @@ function LangSwitch({ solid, block }: { solid: boolean; block?: boolean }) {
     >
       {item("en", "EN")}
       {item("km", "ខ្មែរ")}
+      {item("zh", "中文")}
     </div>
   );
 }
@@ -197,6 +198,9 @@ export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const mobileSheetRef = useRef<HTMLDivElement>(null);
+  const mobileCloseRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -206,9 +210,40 @@ export function Header() {
   }, []);
 
   useEffect(() => {
+    if (open) {
+      previousFocusRef.current = document.activeElement as HTMLElement | null;
+      mobileCloseRef.current?.focus();
+    }
     document.body.style.overflow = open ? "hidden" : "";
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!open) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab" || !mobileSheetRef.current) return;
+      const focusable = Array.from(
+        mobileSheetRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
+      document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
+      if (open) previousFocusRef.current?.focus();
     };
   }, [open]);
 
@@ -273,7 +308,7 @@ export function Header() {
             </div>
 
             <a
-              href="https://app.attendkh.com/login"
+              href="https://dashboard.attendkh.com"
               className={`hidden text-[14px] font-medium transition-colors lg:inline-flex ${
                 scrolled ? "text-[#5C5C5C] hover:text-[#141414]" : "text-white/85 hover:text-white"
               }`}
@@ -296,7 +331,7 @@ export function Header() {
               type="button"
               onClick={() => setOpen(true)}
               aria-label={c.nav.openMenu}
-              className={`rounded-full border p-2 transition-colors lg:hidden ${
+              className={`flex min-h-11 min-w-11 items-center justify-center rounded-full border p-2 transition-colors lg:hidden ${
                 scrolled ? "border-[#E4E4E4] text-[#141414]" : "border-white/30 text-white"
               }`}
             >
@@ -308,14 +343,21 @@ export function Header() {
 
       {/* full-screen mobile sheet */}
       {open && (
-        <div className="fixed inset-0 z-[60] flex flex-col bg-white lg:hidden">
+        <div
+          ref={mobileSheetRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={c.nav.menuTitle}
+          className="fixed inset-0 z-[60] flex flex-col bg-white lg:hidden"
+        >
           <div className={`${SHELL} flex h-[62px] shrink-0 items-center justify-between`}>
             <Mark solid />
             <button
               type="button"
+              ref={mobileCloseRef}
               onClick={() => setOpen(false)}
               aria-label={c.nav.closeMenu}
-              className="rounded-full border border-[#E4E4E4] p-2 text-[#141414]"
+              className="flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[#E4E4E4] p-2 text-[#141414]"
             >
               <X size={18} />
             </button>
@@ -373,7 +415,7 @@ export function Header() {
                 {c.nav.getStarted}
               </Link>
               <a
-                href="https://app.attendkh.com/login"
+                href="https://dashboard.attendkh.com"
                 className="block rounded-full border border-[#E4E4E4] px-5 py-3.5 text-center text-[15px] font-semibold text-[#141414]"
               >
                 {c.nav.signIn}

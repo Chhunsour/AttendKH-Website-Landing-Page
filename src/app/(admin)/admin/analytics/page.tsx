@@ -40,6 +40,7 @@ export default function AdminAnalyticsPage() {
   const pageViews = stats?.kpis?.pageViews || 1;
   const pricingViews = stats?.kpis?.pricingViews || 0;
   const signupClicks = stats?.kpis?.signupClicks || 0;
+  const leadSubmissions = stats?.kpis?.leadSubmissions || 0;
 
   const funnelSteps = [
     {
@@ -59,6 +60,12 @@ export default function AdminAnalyticsPage() {
       count: signupClicks,
       pct: Math.round((signupClicks / uniqueVisitors) * 100),
       color: "bg-emerald-600",
+    },
+    {
+      label: "4. Submitted Lead Form",
+      count: leadSubmissions,
+      pct: Math.round((leadSubmissions / uniqueVisitors) * 100),
+      color: "bg-teal-600",
     },
   ];
 

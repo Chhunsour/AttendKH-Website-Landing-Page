@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   ArrowRight,
   MapPin,
-  Quote,
 } from "lucide-react";
 import {
   useCopy,
@@ -98,44 +97,6 @@ export function CustomersView() {
         </div>
       </Section>
 
-      {/* Team Workflows Grid */}
-      <Section tone="mist">
-        <div className="mx-auto max-w-[1240px]">
-          <SectionHead
-            title={isKm ? "គំរូការរៀបចំតាមក្រុមការងារ" : "Common Team Workflows"}
-            sub={
-              isKm
-                ? "ការរៀបចំប្រតិបត្តិការទូទៅក្នុងចំណោមក្រុមការងារនៅកម្ពុជា"
-                : "Operational setups across different Cambodian business types."
-            }
-          />
-
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {cu.testimonials.map((t, i) => (
-              <Reveal key={t.name} delay={i * 0.06}>
-                <figure className="flex h-full flex-col justify-between rounded-2xl border border-line bg-paper p-7 shadow-xs hover:border-brand transition-all">
-                  <div className="relative">
-                    <Quote size={24} className="text-brand/30 mb-3" />
-                    <blockquote className="text-[15px] leading-relaxed text-ink font-medium">
-                      “{t.quote}”
-                    </blockquote>
-                  </div>
-                  <figcaption className="mt-6 border-t border-line/60 pt-4 flex items-center gap-3">
-                    <div className="h-9 w-9 rounded-full bg-brand-soft text-brand flex items-center justify-center font-bold text-xs">
-                      {t.name.slice(0, 2).toUpperCase()}
-                    </div>
-                    <div>
-                      <span className="block text-[14px] font-bold text-ink">{t.name}</span>
-                      <span className="block text-[12px] text-body">{t.role} • {t.company}</span>
-                    </div>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </Section>
-
       {/* Direct Answer Block */}
       <Section tone="white">
         <div className="mx-auto max-w-[1240px]">
@@ -143,12 +104,12 @@ export function CustomersView() {
             question={
               isKm
                 ? "តើអាជីវកម្មប្រភេទណាខ្លះនៅកម្ពុជាដែលប្រើប្រាស់ AttendKH?"
-                : "Which Cambodian organizations configure AttendKH for attendance and payroll?"
+                : "Which Cambodian organizations is AttendKH designed for?"
             }
             answer={
               isKm
                 ? "AttendKH ត្រូវបានរចនាឡើងសម្រាប់ក្រុមការងារកម្ពុជាក្នុងវិស័យភោជនីយដ្ឋាន ហាងលក់រាយ បដិសណ្ឋារកិច្ច និងសំណង់/ភស្តុភារ។ វាគាំទ្រការចុះវត្តមានតាម GPS លើទូរស័ព្ទ និងរូបមន្តប្រាក់ខែដែលអាចកំណត់បានជំនួសការកត់ត្រាក្រដាស។"
-                : "AttendKH is configured by organizations across Food & Beverage (cafes, restaurants, bakeries), Retail & Boutiques, Hotels & Hospitality, and Logistics & Construction. Teams use AttendKH to replace paper timebooks and hardware clocks with geofenced mobile verification and automated labor overtime calculations."
+                : "AttendKH is designed for organizations across Food & Beverage (cafes, restaurants, bakeries), Retail & Boutiques, Hotels & Hospitality, and Logistics & Construction. Its workflows can replace paper timebooks and hardware clocks with geofenced mobile verification and configurable overtime calculations."
             }
             facts={[
               {

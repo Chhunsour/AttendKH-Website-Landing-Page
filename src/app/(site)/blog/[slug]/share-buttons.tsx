@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Send, Copy, Check } from "lucide-react";
-import { useToast } from "@/components/admin/toast";
+import { absoluteUrl } from "@/lib/site";
 
 export function ShareButtons({
   title,
@@ -13,9 +13,8 @@ export function ShareButtons({
   slug: string;
   compact?: boolean;
 }) {
-  const { toast } = useToast();
   const [copied, setCopied] = useState(false);
-  const url = `https://attendkh.com/blog/${slug}`;
+  const url = absoluteUrl(`/blog/${slug}`);
 
   const shareTelegram = () => {
     window.open(
@@ -42,7 +41,6 @@ export function ShareButtons({
     if (typeof navigator !== "undefined") {
       navigator.clipboard.writeText(url);
       setCopied(true);
-      toast.success("Article link copied!");
       setTimeout(() => setCopied(false), 2000);
     }
   };

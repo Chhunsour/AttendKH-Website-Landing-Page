@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { Plus } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   useCopy,
   PageHero,
@@ -17,6 +19,11 @@ export function FaqView() {
   const f = c.faq;
   const { lang } = useSite();
   const isKm = lang === "km";
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggle = (i: number) => {
+    setOpenIndex(openIndex === i ? null : i);
+  };
 
   return (
     <>
@@ -63,24 +70,78 @@ export function FaqView() {
           />
 
           <div className="mt-10 divide-y divide-line rounded-2xl border border-line bg-paper px-6 sm:px-8 shadow-xs">
-            {f.items.map((item, i) => (
-              <Reveal key={item.q} delay={Math.min(i, 4) * 0.04}>
-                <details className="group py-5">
-                  <summary className="flex cursor-pointer list-none items-start justify-between gap-6 outline-none">
-                    <h3 className="font-display text-[16px] font-bold leading-snug text-ink group-hover:text-brand transition-colors">
-                      {item.q}
-                    </h3>
-                    <span
-                      aria-hidden="true"
-                      className="faq-mark mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line text-body group-open:rotate-45 transition-transform"
+            {f.items.map((item, i) => {
+              const isOpen = openIndex === i;
+              return (
+                <Reveal key={item.q} delay={Math.min(i, 4) * 0.04}>
+                  <div className="py-5">
+                    <button
+                      type="button"
+                      onClick={() => toggle(i)}
+                      className="flex w-full cursor-pointer list-none items-start justify-between gap-6 text-left outline-none select-none group"
+                      aria-expanded={isOpen}
                     >
-                      <Plus size={14} />
-                    </span>
-                  </summary>
-                  <p className="mt-3 max-w-[65ch] text-[14.5px] leading-relaxed text-body">{item.a}</p>
-                </details>
-              </Reveal>
-            ))}
+                      <h3
+                        className={`font-display text-[16px] font-bold leading-snug transition-colors duration-200 ${
+                          isOpen ? "text-brand" : "text-ink group-hover:text-brand"
+                        }`}
+                      >
+                        {item.q}
+                      </h3>
+                      <motion.span
+                        aria-hidden="true"
+                        animate={{
+                          rotate: isOpen ? 45 : 0,
+                          backgroundColor: isOpen ? "var(--color-brand, #0052FF)" : "transparent",
+                          borderColor: isOpen ? "var(--color-brand, #0052FF)" : "var(--color-line, #E2E8F0)",
+                          color: isOpen ? "#FFFFFF" : "#64748B",
+                        }}
+                        transition={{ type: "spring", stiffness: 350, damping: 24 }}
+                        className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-body transition-colors"
+                      >
+                        <Plus size={14} />
+                      </motion.span>
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{
+                            height: "auto",
+                            opacity: 1,
+                            transition: {
+                              height: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+                              opacity: { duration: 0.25, delay: 0.05, ease: "easeOut" },
+                            },
+                          }}
+                          exit={{
+                            height: 0,
+                            opacity: 0,
+                            transition: {
+                              height: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
+                              opacity: { duration: 0.15, ease: "easeIn" },
+                            },
+                          }}
+                          className="overflow-hidden"
+                        >
+                          <motion.p
+                            initial={{ y: -6, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -6, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                            className="mt-3 max-w-[65ch] text-[14.5px] leading-relaxed text-body pr-4"
+                          >
+                            {item.a}
+                          </motion.p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </Section>

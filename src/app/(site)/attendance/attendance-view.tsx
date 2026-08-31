@@ -201,9 +201,9 @@ export function AttendanceView() {
                 <div className="flex items-start gap-3">
                   <CheckCircle2 size={18} className="mt-0.5 text-emerald-500 shrink-0" />
                   <div>
-                    <h4 className="text-sm font-bold text-ink">
+                    <h3 className="text-sm font-bold text-ink">
                       {isKm ? "ដឹងពីវត្តមានវេនព្រឹកទាន់ពេល" : "Real-Time Morning Shift Visibility"}
-                    </h4>
+                    </h3>
                     <p className="text-xs text-body mt-0.5">
                       {isKm
                         ? "ប្រធានសាខាដឹងពីបុគ្គលិកមកយឺត ឬអវត្តមានក្នុងរយៈពេល ១០ នាទីដំបូងនៃវេន"
@@ -215,9 +215,9 @@ export function AttendanceView() {
                 <div className="flex items-start gap-3">
                   <CheckCircle2 size={18} className="mt-0.5 text-emerald-500 shrink-0" />
                   <div>
-                    <h4 className="text-sm font-bold text-ink">
+                    <h3 className="text-sm font-bold text-ink">
                       {isKm ? "ការកែប្រែម៉ោងមានកំណត់ហេតុត្រឹមត្រូវ" : "Audit-Logged Shift Adjustments"}
-                    </h4>
+                    </h3>
                     <p className="text-xs text-body mt-0.5">
                       {isKm
                         ? "រាល់ការកែម៉ោង ឬអនុម័តច្បាប់ឈប់ត្រូវបានកត់ត្រាទុកក្នុងប្រព័ន្ធដោយមិនអាចកែបន្លំបាន"

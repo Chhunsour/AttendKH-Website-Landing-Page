@@ -141,6 +141,7 @@ export default function AdminPricingPage() {
           <Link
             href="/pricing"
             target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-1.5 rounded-lg border border-line bg-paper px-3.5 py-2 text-[13px] font-medium text-slate-700 hover:bg-mist hover:text-ink transition-colors"
           >
             <Eye size={14} />

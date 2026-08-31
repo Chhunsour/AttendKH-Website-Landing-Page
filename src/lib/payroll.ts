@@ -4,6 +4,7 @@ export interface OtMultiplierOption {
   type: OtType;
   labelEn: string;
   labelKm: string;
+  labelZh: string;
   multiplier: number;
 }
 
@@ -12,18 +13,21 @@ export const OT_OPTIONS: Record<OtType, OtMultiplierOption> = {
     type: 'regular',
     labelEn: 'Regular (1.5×)',
     labelKm: 'ថ្ងៃធម្មតា (1.5×)',
+    labelZh: '平时加班 (1.5×)',
     multiplier: 1.5,
   },
   rest_day: {
     type: 'rest_day',
     labelEn: 'Rest Day (2.0×)',
     labelKm: 'ថ្ងៃសម្រាកប្រចាំសប្តាហ៍ (2.0×)',
+    labelZh: '休息日加班 (2.0×)',
     multiplier: 2.0,
   },
   public_holiday: {
     type: 'public_holiday',
     labelEn: 'Public Holiday (2.0×)',
     labelKm: 'ថ្ងៃបុណ្យជាតិ (2.0×)',
+    labelZh: '法定节假日 (2.0×)',
     multiplier: 2.0,
   },
 };

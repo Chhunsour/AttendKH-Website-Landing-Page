@@ -3,6 +3,7 @@ import { getAdminSession } from "@/lib/auth";
 import { getLeads, getLeadById, updateLead, deleteLead } from "@/lib/db";
 import { logAdminAction } from "@/lib/audit";
 import { LeadStatusUpdateSchema } from "@/lib/db/schema";
+import { boundedQueryInt, isSameOrigin, jsonBodyError, readJsonBody } from "@/lib/request-security";
 
 export async function GET(req: Request) {
   const admin = await getAdminSession();
@@ -11,8 +12,8 @@ export async function GET(req: Request) {
   }
 
   const { searchParams } = new URL(req.url);
-  const limit = parseInt(searchParams.get("limit") || "30", 10);
-  const offset = parseInt(searchParams.get("offset") || "0", 10);
+  const limit = boundedQueryInt(searchParams, "limit", 30, 1, 100);
+  const offset = boundedQueryInt(searchParams, "offset", 0, 0, 1_000_000);
   const search = searchParams.get("search") || undefined;
   const rawStatus = searchParams.get("status");
   const status = rawStatus && rawStatus !== "all" && rawStatus !== "undefined" ? rawStatus.toLowerCase() : undefined;
@@ -24,13 +25,14 @@ export async function GET(req: Request) {
 }
 
 export async function PUT(req: Request) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const admin = await getAdminSession();
   if (!admin) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const body = await req.json();
+    const body = await readJsonBody(req, 65_536);
     const result = LeadStatusUpdateSchema.safeParse(body);
 
     if (!result.success) {
@@ -56,12 +58,15 @@ export async function PUT(req: Request) {
 
     return NextResponse.json({ success: true, lead: updated });
   } catch (error) {
+    const bodyError = jsonBodyError(error);
+    if (bodyError) return bodyError;
     console.error("Error updating lead:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
 export async function DELETE(req: Request) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const admin = await getAdminSession();
   if (!admin) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

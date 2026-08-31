@@ -40,6 +40,7 @@ function LangToggle() {
     <div role="group" aria-label={c.nav.language} className="flex items-center rounded-lg bg-mist p-0.5">
       {item("en", "EN")}
       {item("km", "ខ្មែរ")}
+      {item("zh", "中文")}
     </div>
   );
 }
@@ -75,6 +76,7 @@ export { Header } from "@/components/home/header";
 export function Footer() {
   const c = useCopy();
   const f = c.footer;
+  const { publicSettings } = useSite();
 
   const columns = [
     {
@@ -146,17 +148,17 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <Logo theme="dark" />
-            <p className="mt-3 max-w-xs text-[14px] leading-relaxed text-white/75">{f.tagline}</p>
-            <address className="mt-5 space-y-1.5 text-[13.5px] not-italic text-white/75">
+            <p className="mt-3 max-w-xs text-[14px] leading-relaxed text-white/90">{f.tagline}</p>
+            <address className="mt-5 space-y-1.5 text-[13.5px] not-italic text-white/90">
               <p>{f.address}</p>
               <p>
-                <a href={`mailto:${f.email}`} className="hover:text-white">
-                  {f.email}
+                <a href={`mailto:${publicSettings.contactEmail}`} className="hover:text-white">
+                  {publicSettings.contactEmail}
                 </a>
               </p>
               <p>
                 <a
-                  href="https://t.me/attendkh"
+                  href={publicSettings.telegramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-white font-mono text-xs text-white/90"
@@ -173,7 +175,7 @@ export function Footer() {
               <ul className="mt-3.5 space-y-2.5">
                 {col.links.map((l) => (
                   <li key={`${col.title}-${l.label}`}>
-                    <Link href={l.href} className="text-[14px] text-white/75 hover:text-white">
+                    <Link href={l.href} className="text-[14px] text-white/90 hover:text-white">
                       {l.label}
                     </Link>
                   </li>
@@ -187,7 +189,7 @@ export function Footer() {
             <ul className="mt-3.5 space-y-2.5">
               {solutionLinks.map((s) => (
                 <li key={s.href}>
-                  <Link href={s.href} className="text-[14px] text-white/75 hover:text-white">
+                  <Link href={s.href} className="text-[14px] text-white/90 hover:text-white">
                     {s.label}
                   </Link>
                 </li>
@@ -197,12 +199,12 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-white/25 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-4 text-[13px] text-white/75">
+          <div className="flex flex-wrap items-center gap-4 text-[13px] text-white/90">
             <p>{f.rights}</p>
             <span>•</span>
-            <OpenCookieSettingsButton className="text-[13px] text-white/75 hover:text-white underline underline-offset-2" />
+            <OpenCookieSettingsButton className="text-[13px] text-white/90 hover:text-white underline underline-offset-2" />
           </div>
-          <p className="text-[13px] text-white/75">{f.madeIn}</p>
+          <p className="text-[13px] text-white/90">{f.madeIn}</p>
         </div>
       </div>
     </footer>

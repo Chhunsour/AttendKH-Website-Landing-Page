@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import {
   FileText,
@@ -26,11 +26,7 @@ export default function AdminBlogPage() {
   const [search, setSearch] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<any | null>(null);
 
-  useEffect(() => {
-    fetchPosts();
-  }, [statusFilter, search]);
-
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
@@ -47,7 +43,11 @@ export default function AdminBlogPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [search, statusFilter]);
+
+  useEffect(() => {
+    void fetchPosts();
+  }, [fetchPosts]);
 
   const handleDelete = async () => {
     if (!deleteTarget) return;
@@ -107,6 +107,7 @@ export default function AdminBlogPage() {
           <Link
             href="/blog"
             target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-1.5 rounded-lg border border-line bg-paper px-3.5 py-2 text-[13px] font-medium text-slate-700 hover:bg-mist hover:text-ink transition-colors"
           >
             <ExternalLink size={14} />
@@ -266,6 +267,7 @@ export default function AdminBlogPage() {
                 <Link
                   href={`/blog/${post.slug}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   title="View Public Post"
                   className="rounded-lg border border-line p-2 text-slate-500 hover:bg-mist hover:text-ink transition-colors"
                 >

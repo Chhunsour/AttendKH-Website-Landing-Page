@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   MapPin,
-  Eye,
   Timer,
   ShieldCheck,
   Check,
@@ -21,6 +21,18 @@ import {
   Layers,
   Users,
   ReceiptText,
+  Plus,
+  HelpCircle,
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  CheckCircle2,
+  FileSpreadsheet,
+  Building,
+  DollarSign,
+  UploadCloud,
+  Smartphone,
+  BadgeCheck,
 } from "lucide-react";
 import { useSite } from "@/lib/i18n";
 import { useHomeCopy, Rise, ImageSlot, StoreBadge } from "@/components/home/parts";
@@ -69,20 +81,12 @@ function HeroBackdrop() {
   );
 }
 
-/** Hero headline word that cycles through what the app actually manages. */
-function RotatingWord({ words }: { words: readonly string[] }) {
-  const [i, setI] = useState(0);
-
-  useEffect(() => {
-    if (words.length < 2) return;
-    const id = setInterval(() => setI((n) => (n + 1) % words.length), 3200);
-    return () => clearInterval(id);
-  }, [words.length]);
-
+/** Keep the largest headline text stable so it cannot create a late LCP. */
+function HeroWord({ words }: { words: readonly string[] }) {
   return (
     <span className="inline-block align-bottom">
-      <span key={words[i]} className="word-swap inline-block whitespace-nowrap">
-        {words[i]}
+      <span className="word-swap inline-block whitespace-nowrap">
+        {words[0]}
       </span>
     </span>
   );
@@ -157,10 +161,14 @@ function Hero() {
 
       <div className={`${SHELL} relative flex min-h-0 flex-1 -translate-y-[4%] flex-col justify-center pt-12 sm:pt-16`}>
         <Rise className="relative z-20 mx-auto max-w-[820px] text-center">
-          <h1 className="hero-headline mx-auto max-w-[1000px] text-balance text-[2.3rem] font-extrabold leading-[1.06] tracking-[-0.035em] sm:text-[3.1rem] lg:text-[3.6rem]">
+          <h1 className="hero-headline mx-auto max-w-[1000px] text-balance text-[clamp(1.72rem,8.4vw,2.05rem)] font-extrabold leading-[1.08] tracking-[-0.035em] sm:text-[3.1rem] sm:leading-[1.06] lg:text-[3.6rem]">
+            {/* The rotating word gets its own line on mobile. Sharing a line with
+                "with AttendKH" re-wrapped the whole h1 every 3.2s as the word changed
+                length; alone on a centred line only the word itself moves. */}
             {c.hero.titlePre}
-            <br className="hidden sm:block" />{" "}
-            <RotatingWord words={c.hero.titleRotate} /> {c.hero.titlePost}{" "}
+            <br />{" "}
+            <HeroWord words={c.hero.titleRotate} />
+            <br className="sm:hidden" /> {c.hero.titlePost}{" "}
             <span className="hero-brand-mark whitespace-nowrap">
               Attend<span className="text-[#00C853]">KH</span>
             </span>
@@ -170,17 +178,23 @@ function Hero() {
             {c.hero.sub}
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+          {/* Grid, not flex-wrap: at 375px the two badges would wrap to two rows and
+              eat a third of the fold. Two equal columns keep them on one line. */}
+          <div className="mx-auto mt-7 grid max-w-[400px] grid-cols-1 gap-2.5 min-[360px]:grid-cols-2 sm:flex sm:max-w-none sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
             <StoreBadge kind="apple" top={c.footer.appStoreTop} name={c.footer.appStoreName} />
             <StoreBadge kind="play" top={c.footer.playTop} name={c.footer.playName} />
           </div>
 
+          <p className="mx-auto mt-5 max-w-[34ch] text-[11.5px] leading-[1.6] text-white/60 sm:max-w-none sm:text-[12.5px]">
+            {c.hero.rating}
+          </p>
         </Rise>
 
-        {/* Phone shot bleeds past the hero edge. The Stats panel now overlaps the
-            hero by 56/72px and cuts the shot there, so the bleed drops by the same
-            amount — otherwise the panel would eat that much more of the handsets. */}
-        <Rise delay={0.12} className="mx-auto -mb-[34px] mt-10 w-full max-w-[860px] sm:-mb-[48px] sm:mt-12">
+        {/* Phone shot bleeds past the hero edge, and the Stats panel (40/72px of
+            overlap) cuts it there. On mobile it also goes edge-to-edge: inside the
+            gutter the two handsets were too small to read, and the old 34px bleed
+            plus a 56px panel hid 43% of a shot only ~210px tall. */}
+        <Rise delay={0.12} className="-mx-6 -mb-[16px] mt-9 w-[calc(100%+3rem)] max-w-none sm:mx-auto sm:-mb-[48px] sm:mt-12 sm:w-full sm:max-w-[860px]">
           <div className="orbit-scene" style={{ ["--orbit-dur" as string]: `${ORBIT_DUR}s` }}>
             {/* the wrapper carries the z = 0 plane, not the <img> — Chromium paints a
                 replaced element unreliably when it holds the 3D transform itself */}
@@ -191,7 +205,6 @@ function Hero() {
                 width={2520}
                 height={1620}
                 priority
-                unoptimized
                 sizes="(max-width: 768px) 100vw, 860px"
                 className="h-auto w-full"
               />
@@ -213,7 +226,7 @@ function Stats() {
        deliberate panel instead of the section's own straight bottom. The -mt and
        pt cancel, so nothing below moves; bg must be opaque (mist/60 would let the
        hero's blue through) and z-10 puts the panel above the hero's phone shot. */
-    <section className="relative z-10 -mt-[56px] rounded-t-[32px] border-b border-line bg-[#FBFCFD] pt-[56px] shadow-[0_-18px_44px_-16px_rgba(7,48,143,0.22)] sm:-mt-[72px] sm:rounded-t-[44px] sm:pt-[72px]">
+    <section className="relative z-10 -mt-[40px] rounded-t-[28px] border-b border-line bg-[#FBFCFD] pt-[40px] shadow-[0_-18px_44px_-16px_rgba(7,48,143,0.22)] sm:-mt-[72px] sm:rounded-t-[44px] sm:pt-[72px]">
       <div className={`${SHELL} py-10 sm:py-12`}>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
           <p className="max-w-[24ch] text-[13.5px] leading-[1.6] text-[#475569]">
@@ -223,8 +236,8 @@ function Stats() {
 
           <dl className="grid grid-cols-3 gap-x-8 gap-y-4 sm:gap-x-14">
             {c.stats.items.map((s) => (
-              <div key={s.value}>
-                <dt className="text-[1.65rem] font-extrabold tracking-tight text-[#0F172A] tabular-nums sm:text-[1.95rem]">
+              <div key={s.value} className="min-w-0">
+                <dt className="text-[1.65rem] font-extrabold tracking-tight text-[#0F172A] tabular-nums [overflow-wrap:anywhere] sm:text-[1.95rem]">
                   {s.value}
                 </dt>
                 <dd className="mt-1 text-[12.5px] leading-[1.45] text-[#64748B]">
@@ -273,9 +286,10 @@ function AttendanceVerificationSection() {
           <Rise delay={0.14}>
             <Link
               href={c.featureOne.href}
+              aria-label={`${c.featureOne.cta}: ${c.featureOne.title}`}
               className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#0052FF] px-6 py-3 text-[14px] font-semibold text-white shadow-xs transition-colors hover:bg-[#0043D6]"
             >
-              {c.featureOne.cta}
+              {c.featureOne.cta}<span className="sr-only">: {c.featureOne.title}</span>
               <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </Rise>
@@ -349,9 +363,10 @@ function PayrollSection() {
           <Rise delay={0.14}>
             <Link
               href={c.featureTwo.href}
+              aria-label={`${c.featureTwo.cta}: ${c.featureTwo.title}`}
               className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#0052FF] px-6 py-3 text-[14px] font-semibold text-white shadow-xs transition-colors hover:bg-[#0043D6]"
             >
-              {c.featureTwo.cta}
+              {c.featureTwo.cta}<span className="sr-only">: {c.featureTwo.title}</span>
               <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </Rise>
@@ -395,9 +410,10 @@ function OvertimeLeaveSection() {
           <Rise delay={0.14}>
             <Link
               href={c.otLeave.href}
+              aria-label={`${c.otLeave.cta}: ${c.otLeave.title}`}
               className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#0052FF] px-6 py-3 text-[14px] font-semibold text-white shadow-xs transition-colors hover:bg-[#0043D6]"
             >
-              {c.otLeave.cta}
+              {c.otLeave.cta}<span className="sr-only">: {c.otLeave.title}</span>
               <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </Rise>
@@ -425,47 +441,81 @@ function OvertimeLeaveSection() {
 /* -------------------- 04. cambodia fit section -------------------- */
 
 const CAMBODIA_ICONS = [Globe, Coins, FileCheck, WifiOff];
+const KH_INDEX = ["០១", "០២", "០៣", "០៤"];
 
+/**
+ * Full-bleed blue break in an otherwise white page. Reuses HeroBackdrop so the
+ * gradient, dot grid, glows and grain are literally the hero's, not a lookalike.
+ * The four capabilities read as a glass spec ledger with Khmer numerals, not cards.
+ */
 function CambodiaFitSection() {
   const c = useHomeCopy();
 
   return (
-    <section className={`${SHELL} py-14 sm:py-20`}>
-      <Rise>
-        <div className="overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-[#EDF2FE]/50 via-white to-white p-6 sm:p-10 lg:p-12 shadow-md">
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+    <section className="relative overflow-hidden py-16 text-white sm:py-24">
+      <HeroBackdrop />
+
+      <div className={`relative ${SHELL}`}>
+        {/* Editorial masthead: title left, standfirst right, hairline underneath. */}
+        <Rise>
+          <div className="grid gap-6 border-b border-white/20 pb-8 lg:grid-cols-12 lg:items-end lg:gap-12">
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0052FF] px-3.5 py-1 text-[12px] font-bold text-white shadow-xs">
+              <div className="inline-flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80">
+                <span className="h-px w-8 bg-white/60" aria-hidden="true" />
                 <span>{c.cambodiaFit.badge}</span>
               </div>
-              <h2 className="mt-4 text-[1.75rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#0F172A] sm:text-[2.15rem]">
+              <h2 className="mt-4 text-[1.9rem] font-extrabold leading-[1.12] tracking-[-0.03em] sm:text-[2.6rem]">
                 {c.cambodiaFit.title}
               </h2>
-              <p className="mt-3.5 text-[14.5px] leading-relaxed text-[#475569]">
-                {c.cambodiaFit.sub}
-              </p>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {c.cambodiaFit.items.map((item, i) => {
-                  const Icon = CAMBODIA_ICONS[i] || Layers;
-                  return (
-                    <div
-                      key={item.title}
-                      className="rounded-2xl border border-line bg-white p-4 shadow-2xs transition-all hover:border-[#0052FF]"
-                    >
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#EDF2FE] text-[#0052FF] mb-3 shadow-2xs">
-                        <Icon size={18} strokeWidth={2} />
-                      </div>
-                      <h3 className="text-[14.5px] font-bold text-[#0F172A]">{item.title}</h3>
-                      <p className="mt-1 text-[12.5px] leading-relaxed text-[#64748B]">{item.desc}</p>
-                    </div>
-                  );
-                })}
-              </div>
             </div>
+            <p className="text-[14.5px] leading-relaxed text-white/75 lg:col-span-5">
+              {c.cambodiaFit.sub}
+            </p>
+          </div>
+        </Rise>
 
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="w-full max-w-[265px]">
+        <div className="mt-10 grid gap-12 lg:grid-cols-12 lg:gap-14">
+          {/* Glass spec ledger — stacked rows with a Khmer numeral watermark. */}
+          <div className="space-y-3 lg:col-span-7">
+            {c.cambodiaFit.items.map((item, i) => {
+              const Icon = CAMBODIA_ICONS[i] || Layers;
+              return (
+                <Rise key={item.title}>
+                  <div className="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] p-5 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/[0.12] sm:p-6">
+                    {/* Khmer index, oversized and translucent — the local signature. */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute right-4 top-3 select-none text-[2.75rem] font-extrabold leading-none text-white/[0.14] transition-colors duration-300 group-hover:text-white/25"
+                    >
+                      {KH_INDEX[i]}
+                    </span>
+                    <div className="flex items-start gap-4 sm:gap-5">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white shadow-xs transition-colors duration-300 group-hover:bg-white group-hover:text-[#0A47D6]">
+                        <Icon size={19} strokeWidth={2} />
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="pr-12 text-[15.5px] font-bold leading-snug sm:text-[17px]">
+                          {item.title}
+                        </h3>
+                        <p className="mt-2 max-w-[52ch] text-[13.5px] leading-relaxed text-white/70">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Rise>
+              );
+            })}
+          </div>
+
+          {/* Device floats in its own light, no frame, tilted off the grid. */}
+          <Rise className="lg:col-span-5">
+            <div className="relative flex justify-center lg:sticky lg:top-28">
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-2 top-4 bottom-4 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.30),transparent_68%)] blur-3xl"
+              />
+              <div className="relative w-full max-w-[290px] rotate-[-2.5deg] drop-shadow-[0_30px_60px_rgba(3,20,70,0.45)] transition-transform duration-500 hover:rotate-0">
                 <ImageSlot
                   noteBadge={c.cambodiaFit.slotBadge}
                   label={c.cambodiaFit.slotLabel}
@@ -474,13 +524,13 @@ function CambodiaFitSection() {
                   src="/calendar-section.webp"
                   alt={c.cambodiaFit.slotAlt}
                   aspectRatio="1446 / 2952"
-                  tone="light"
+                  tone="dark"
                 />
               </div>
             </div>
-          </div>
+          </Rise>
         </div>
-      </Rise>
+      </div>
     </section>
   );
 }
@@ -534,55 +584,17 @@ function ImpactSection() {
         ))}
       </div>
 
-      <Rise delay={0.12} className="mt-14">
-        <aside
-          aria-label={c.impact.badge}
-          className="relative overflow-hidden rounded-[28px] border border-white/20 bg-[#0052FF] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_28px_70px_rgba(0,82,255,0.24)]"
-        >
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-[radial-gradient(circle_at_82%_12%,rgba(255,255,255,0.18),transparent_27%),linear-gradient(118deg,rgba(3,42,149,0.72)_0%,rgba(3,42,149,0.72)_43%,transparent_43.1%)]"
+      <Rise delay={0.12} className="mt-14 flex justify-center">
+        <div className="relative w-full max-w-[1060px]">
+          <Image
+            src="/iphone-sleeping.webp"
+            alt="AttendKH HR Operations Mobile Interface"
+            width={3893}
+            height={1725}
+            className="h-auto w-full object-contain"
+            sizes="(max-width: 1200px) 100vw, 1060px"
           />
-          <div
-            aria-hidden="true"
-            className="absolute -bottom-28 -left-24 h-96 w-96 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:32px_32px] [mask-image:radial-gradient(circle,#000_0%,transparent_70%)]"
-          />
-
-          <div className="relative grid lg:min-h-[430px] lg:grid-cols-12">
-            <div className="flex min-h-[360px] flex-col justify-end border-b border-white/25 p-7 sm:min-h-[410px] sm:p-10 lg:col-span-6 lg:min-h-0 lg:border-b-0 lg:p-12">
-              <h3 className="order-2 mt-6 text-[19px] font-bold tracking-[-0.01em] text-white sm:text-[22px]">
-                {c.impact.summary[0].label}
-              </h3>
-              <p className={`${lang === "km" ? "font-khmer text-[clamp(3.4rem,7vw,6.4rem)]" : "font-sans text-[clamp(4.25rem,7vw,6.75rem)]"} order-1 whitespace-nowrap font-extrabold tabular-nums leading-[0.86] tracking-[-0.065em] text-white`}>
-                {c.impact.summary[0].value}
-              </p>
-              <p className="order-3 mt-2.5 max-w-[34ch] text-[13.5px] leading-[1.65] text-white/70 sm:text-[14px]">
-                {c.impact.summary[0].desc}
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:col-span-6 lg:border-l lg:border-white/25">
-              {c.impact.summary.slice(1).map((sum, i) => (
-                <div
-                  key={sum.label}
-                  className={`flex min-h-[280px] flex-col justify-end p-7 sm:p-8 lg:p-10 ${
-                    i === 0 ? "border-b border-white/25 sm:border-b-0 sm:border-r" : ""
-                  }`}
-                >
-                  <h3 className="order-2 mt-6 text-[16px] font-bold tracking-[-0.01em] text-white sm:text-[17px]">
-                    {sum.label}
-                  </h3>
-                  <p className={`${lang === "km" ? "font-khmer text-[clamp(2.25rem,5vw,3.5rem)]" : "font-sans text-[clamp(2.7rem,4.5vw,4rem)]"} order-1 font-extrabold tabular-nums leading-[0.95] tracking-[-0.055em] text-white`}>
-                    {sum.value}
-                  </p>
-                  <p className="order-3 mt-2.5 max-w-[30ch] text-[13px] leading-[1.65] text-white/85">
-                    {sum.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </aside>
+        </div>
       </Rise>
     </section>
   );
@@ -590,205 +602,349 @@ function ImpactSection() {
 
 /* ------------------------------ steps ------------------------------ */
 
-const STEP_ICONS = [MapPin, Layers, FileCheck];
-
 function Steps() {
   const c = useHomeCopy();
+  const { lang } = useSite();
+  const isKm = lang === "km";
+  const isZh = lang === "zh";
+
+  const [activeStep, setActiveStep] = useState<number>(0);
+
+  const stepImages = [
+    {
+      src: "/steps/config-branch.png",
+      alt: "AttendKH Branch and Geofence Configuration Screen",
+      title: isKm ? "កំណត់សាខា និងកាំ GPS Geofence" : isZh ? "分店与 GPS 围栏配置界面" : "Branch & GPS Geofence Configuration",
+    },
+    {
+      src: "/steps/payroll.png",
+      alt: "AttendKH Employee Import and Payroll Mapping Screen",
+      title: isKm ? "នាំចូលបុគ្គលិក និងរៀបចំប្រាក់ខែ" : isZh ? "员工花名册导入与薪酬核算" : "Employee Records & Payroll Setup",
+    },
+    {
+      src: "/steps/review-and-approve.png",
+      alt: "AttendKH Payroll Review and Approval Screen",
+      title: isKm ? "ផ្ទៀងផ្ទាត់ និងអនុម័តបើកប្រាក់ខែ" : isZh ? "考勤核算与一键发薪审批" : "Payroll Review & Approval Console",
+    },
+  ];
 
   return (
-    <section className="relative overflow-hidden border-y border-[#E3EAF7] bg-[#F6F8FC] py-16 sm:py-24">
-      <div aria-hidden="true" className="absolute -left-32 top-8 h-72 w-72 rounded-full bg-[#0052FF]/6 blur-3xl" />
-      <div aria-hidden="true" className="absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-sky-300/10 blur-3xl" />
-
-      <div className={`${SHELL} relative grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-20`}>
-        <Rise className="lg:col-span-5">
-          <div className="flex items-center gap-3 text-[12px] font-bold tracking-[0.08em] text-[#0052FF]">
-            <span className="h-px w-8 bg-[#0052FF]" aria-hidden="true" />
-            <span>{c.steps.badge}</span>
+    <section className="relative border-y border-[#E2E8F0] bg-white py-16 sm:py-24">
+      <div className={`${SHELL} relative space-y-10 sm:space-y-12`}>
+        {/* Clean Section Header */}
+        <div className="max-w-3xl space-y-3">
+          <div className="inline-flex items-center gap-2 rounded-full bg-[#EDF2FE] px-3.5 py-1 text-[12px] font-bold text-[#0052FF]">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#0052FF] opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0052FF]"></span>
+            </span>
+            <span className="tracking-wider uppercase">{c.steps.badge}</span>
           </div>
-          <h2 className="mt-5 max-w-[12ch] text-balance text-[2.25rem] font-extrabold leading-[1.08] tracking-[-0.035em] text-[#0F172A] sm:text-[3rem]">
+
+          <h2 className="font-display text-2xl font-extrabold tracking-tight text-[#0F172A] sm:text-3xl lg:text-[2.6rem] leading-[1.12]">
             {c.steps.title}
           </h2>
-          <p className="mt-5 max-w-[42ch] text-pretty text-[15.5px] leading-[1.75] text-[#475569]">
+
+          <p className="text-[15px] leading-relaxed text-[#475569] sm:text-[16px]">
             {c.steps.sub}
           </p>
+        </div>
 
-          <div className="mt-9 flex max-w-sm items-center gap-4 border-t border-[#D8E1F0] pt-6">
-            <span className="font-mono text-[2.5rem] font-extrabold leading-none tracking-[-0.05em] text-[#0052FF]">
-              {c.steps.duration}
-            </span>
-            <span className="h-9 w-px bg-[#CBD6E8]" aria-hidden="true" />
-            <p className="text-[13px] font-medium leading-5 text-[#64748B]">{c.steps.caption}</p>
+        {/* 2-Column Interactive Rollout Studio */}
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+          {/* Left Column: Modern Vertical Stepper Rail */}
+          <div className="lg:col-span-4 relative">
+            {/* Background connecting vertical line */}
+            <div
+              aria-hidden="true"
+              className="absolute left-[28px] top-6 bottom-6 w-0.5 bg-slate-200 pointer-events-none"
+            />
+
+            <div className="space-y-3 relative">
+              {c.steps.items.map((step, i) => {
+                const isActive = activeStep === i;
+                const isCompleted = i < activeStep;
+
+                return (
+                  <button
+                    key={step.n}
+                    type="button"
+                    onClick={() => setActiveStep(i)}
+                    className={`group relative flex w-full items-start gap-4 rounded-2xl p-3.5 sm:p-4 text-left transition-all duration-200 cursor-pointer ${
+                      isActive
+                        ? "bg-white border border-slate-200/90 shadow-md shadow-slate-900/5 ring-1 ring-black/5"
+                        : "bg-transparent hover:bg-white/60 border border-transparent"
+                    }`}
+                  >
+                    {/* Node circle on the rail */}
+                    <div
+                      className={`relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-mono text-[12.5px] font-extrabold transition-all duration-200 ${
+                        isActive
+                          ? "bg-[#0052FF] text-white shadow-md shadow-blue-500/25 ring-4 ring-blue-50"
+                          : isCompleted
+                          ? "bg-emerald-500 text-white shadow-xs"
+                          : "bg-white border border-slate-300 text-slate-500 group-hover:border-slate-400 group-hover:text-slate-700"
+                      }`}
+                    >
+                      {isCompleted ? <Check size={14} strokeWidth={3} /> : step.n}
+                    </div>
+
+                    {/* Step Content */}
+                    <div className="min-w-0 flex-1 pt-0.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3
+                          className={`font-display text-[15.5px] font-bold leading-snug tracking-tight transition-colors ${
+                            isActive
+                              ? "text-[#0F172A]"
+                              : "text-slate-700 group-hover:text-[#0F172A]"
+                          }`}
+                        >
+                          {step.title}
+                        </h3>
+
+                        {isActive && (
+                          <span className="shrink-0 font-mono text-[10.5px] font-bold text-[#0052FF] bg-[#EDF2FE] px-2 py-0.5 rounded-full">
+                            Step 0{i + 1}
+                          </span>
+                        )}
+                      </div>
+
+                      <p
+                        className={`mt-1.5 text-[13px] leading-relaxed transition-colors ${
+                          isActive
+                            ? "text-[#475569]"
+                            : "text-[#64748B] group-hover:text-[#475569]"
+                        }`}
+                      >
+                        {step.body}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right Column: Expanded Large Transparent Image Display */}
+          <div className="lg:col-span-8 flex flex-col items-center justify-center">
+            <div className="relative w-full">
+              <div className="relative aspect-[10/7] min-h-[240px] w-full overflow-hidden transition-all duration-300 ease-out sm:min-h-[340px]">
+                <Image
+                  key={activeStep}
+                  src={stepImages[activeStep].src}
+                  alt={stepImages[activeStep].alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 880px"
+                  className="object-contain drop-shadow-2xl transition-all duration-300 hover:scale-[1.01]"
+                />
+              </div>
+            </div>
+
+            {/* Clean Minimal Navigation Bar */}
+            <div className="mt-4 flex w-full flex-col items-center justify-between gap-2 px-2 text-xs sm:flex-row">
+              <div className="flex items-center gap-2">
+                {stepImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setActiveStep(idx)}
+                    aria-label={`Go to step ${idx + 1}`}
+                    className="flex min-h-11 min-w-11 items-center justify-center rounded-full"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={`h-2 rounded-full transition-all ${
+                        activeStep === idx ? "w-8 bg-[#0052FF]" : "w-2 bg-slate-300"
+                      }`}
+                    />
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-2">
+                {activeStep > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setActiveStep((prev) => prev - 1)}
+                    className="min-h-11 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-xs hover:bg-slate-50 transition-colors cursor-pointer"
+                  >
+                    {isKm ? "ថយក្រោយ" : isZh ? "上一步" : "Previous"}
+                  </button>
+                )}
+                {activeStep < 2 ? (
+                  <button
+                    type="button"
+                    onClick={() => setActiveStep((prev) => prev + 1)}
+                    className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[#0052FF] px-4 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-[#0043D6] transition-colors cursor-pointer"
+                  >
+                    <span>{isKm ? "ជំហានបន្ទាប់" : isZh ? "下一步" : "Next Step"}</span>
+                    <ArrowRight size={13} />
+                  </button>
+                ) : (
+                  <Link
+                    href="/contact"
+                    className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[#0052FF] px-4 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-[#0043D6] transition-colors"
+                  >
+                    <span>{isKm ? "ចាប់ផ្តើមឥឡូវនេះ" : isZh ? "立即使用" : "Get Started Now"}</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --------------------------------- faq --------------------------------- */
+
+function FAQSection() {
+  const c = useHomeCopy();
+  const faq = c.faq;
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggle = (idx: number) => {
+    setOpenIndex(openIndex === idx ? null : idx);
+  };
+
+  return (
+    <section id="faq" className={`${SHELL} scroll-mt-24 py-16 sm:py-24`}>
+      <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+        {/* Left Column: Eyebrow, Headline, and Subtitle */}
+        <Rise className="lg:col-span-5 lg:sticky lg:top-28">
+          <div className="inline-flex items-center gap-2 rounded-full bg-[#EDF2FE] px-3.5 py-1 text-[12px] font-bold text-[#0052FF]">
+            <Sparkles size={13} className="text-[#0052FF]" />
+            <span>{faq.badge}</span>
+          </div>
+          <h2 className="mt-4 text-[2rem] font-extrabold tracking-[-0.03em] text-[#0F172A] sm:text-[2.5rem] leading-[1.12]">
+            {faq.title}
+          </h2>
+          <p className="mt-4 max-w-[34ch] text-[15px] leading-[1.7] text-[#475569]">
+            {faq.summary}
+          </p>
+
+          <div className="mt-8 border-t border-line/80 pt-6">
+            <p className="text-[13px] font-medium text-[#64748B]">
+              {faq.contactPrompt}
+            </p>
+            <Link
+              href="/contact"
+              className="group mt-1.5 inline-flex items-center gap-1.5 text-[13.5px] font-bold text-[#0052FF] transition-all hover:gap-2"
+            >
+              {faq.contactLink}
+              <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
           </div>
         </Rise>
 
+        {/* Right Column: Elevated Card with Accordion */}
         <Rise delay={0.08} className="lg:col-span-7">
-          <ol
-            aria-label={c.steps.title}
-            className="overflow-hidden rounded-[30px] border border-[#DCE4F0] bg-white p-3 shadow-[0_24px_60px_rgba(30,64,175,0.10)] sm:p-4"
-          >
-            {c.steps.items.map((step, i) => {
-              const Icon = STEP_ICONS[i];
-              return (
-                <li
-                  key={step.n}
-                  className={`group grid grid-cols-[48px_1fr_40px] items-center gap-3 rounded-2xl px-3 py-5 transition-colors duration-300 hover:bg-[#F5F8FF] sm:grid-cols-[56px_1fr_44px] sm:gap-5 sm:px-5 sm:py-6 ${
-                    i < c.steps.items.length - 1 ? "border-b border-[#E6EBF3]" : ""
-                  }`}
-                >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EDF2FE] font-mono text-[14px] font-extrabold text-[#0052FF] transition-colors duration-300 group-hover:bg-[#0052FF] group-hover:text-white sm:h-14 sm:w-14">
-                    {step.n}
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className="text-[17px] font-bold tracking-[-0.01em] text-[#0F172A] sm:text-[18px]">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 max-w-[48ch] text-[13.5px] leading-[1.7] text-[#475569] sm:text-[14px]">
-                      {step.body}
-                    </p>
-                  </div>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DCE4F0] bg-white text-[#0052FF] shadow-xs transition-transform duration-300 group-hover:translate-x-1 sm:h-11 sm:w-11">
-                    <Icon size={19} strokeWidth={1.8} aria-hidden="true" />
-                  </span>
-                </li>
-              );
-            })}
-          </ol>
-        </Rise>
-      </div>
-    </section>
-  );
-}
+          <div className="relative overflow-hidden rounded-3xl border border-line bg-paper p-6 sm:p-8 shadow-xs transition-shadow duration-300 hover:shadow-md">
+            {/* Subtle background ambient lighting */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-gradient-to-br from-[#0052FF]/[0.05] to-transparent blur-2xl"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -left-20 -bottom-20 h-56 w-56 rounded-full bg-gradient-to-tr from-[#0052FF]/[0.04] to-transparent blur-2xl"
+            />
 
-/* --------------------------- why choose --------------------------- */
+            <div className="relative z-10 divide-y divide-[#E6EBF3]">
+              {faq.items.map((item, i) => {
+                const isOpen = openIndex === i;
+                return (
+                  <motion.div
+                    key={item.q}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.04 }}
+                    className={`transition-colors duration-200 ${
+                      i === 0 ? "pb-5" : "py-5"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => toggle(i)}
+                      className="group flex w-full items-center justify-between gap-4 text-left cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-[#0052FF]/30 rounded-lg"
+                      aria-expanded={isOpen}
+                    >
+                      <span
+                        className={`text-[15.5px] sm:text-[17px] font-bold leading-snug transition-all duration-200 ${
+                          isOpen
+                            ? "text-[#0052FF]"
+                            : "text-[#0F172A] group-hover:text-[#0052FF]"
+                        }`}
+                      >
+                        {item.q}
+                      </span>
+                      <motion.div
+                        animate={{
+                          rotate: isOpen ? 180 : 0,
+                          backgroundColor: isOpen ? "#EDF2FE" : "rgba(241, 245, 249, 0.7)",
+                        }}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.92 }}
+                        transition={{ type: "spring", stiffness: 360, damping: 24 }}
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors duration-200 ${
+                          isOpen
+                            ? "border-[#0052FF]/20 text-[#0052FF]"
+                            : "border-transparent text-[#94A3B8] group-hover:border-[#0052FF]/20 group-hover:text-[#0052FF] group-hover:bg-[#EDF2FE]"
+                        }`}
+                      >
+                        <ChevronDown
+                          size={17}
+                          className="transition-colors duration-200"
+                        />
+                      </motion.div>
+                    </button>
 
-const WHY_ICONS = [MapPin, Eye, Timer, ShieldCheck];
-
-function WhyChoose() {
-  const c = useHomeCopy();
-
-  return (
-    <section id="features" className={`${SHELL} scroll-mt-24 py-14 sm:py-20`}>
-      <Rise>
-        <div className="inline-flex items-center gap-2 rounded-full bg-[#EDF2FE] px-3.5 py-1 text-[12px] font-bold text-[#0052FF]">
-          <span>{c.why.badge}</span>
-        </div>
-        <h2 className="mt-4 text-[1.75rem] font-extrabold tracking-[-0.025em] text-[#0F172A] sm:text-[2.15rem]">
-          {c.why.title}
-        </h2>
-      </Rise>
-
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
-        {c.why.cards.map((card, i) => {
-          const Icon = WHY_ICONS[i] || ShieldCheck;
-          return (
-            <Rise key={card.title} delay={(i % 2) * 0.08}>
-              <article className="group h-full rounded-2xl border border-line bg-paper p-8 shadow-xs transition-all duration-300 hover:border-[#0052FF] hover:bg-[#EDF2FE]/30 hover:shadow-md">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#EDF2FE] text-[#0052FF] shadow-xs transition-transform duration-300 group-hover:-translate-y-1">
-                  <Icon size={24} aria-hidden="true" />
-                </span>
-                <h3 className="mt-6 text-[16.5px] font-bold leading-snug text-[#0F172A]">
-                  {card.title}
-                </h3>
-                <p className="mt-3 text-[13.5px] leading-[1.75] text-[#475569]">{card.body}</p>
-              </article>
-            </Rise>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-/* --------------------------- testimonials --------------------------- */
-
-type Review = { name: string; initials: string; quote: string; time: string; date: string };
-
-function FeaturedReview({ t }: { t: Review }) {
-  return (
-    <figure className="relative border-l-2 border-[#0052FF] pl-6 sm:min-h-[370px] sm:pl-10">
-      <div className="flex items-center justify-between gap-4 font-mono text-[10.5px] uppercase tracking-[0.14em] text-[#7B8AA3]">
-        <span className="font-semibold text-[#0052FF]">team profile</span>
-        <span>{t.time} · {t.date}</span>
-      </div>
-
-      <div className="mt-8 max-w-[34rem]">
-        <blockquote className="text-[1.35rem] font-medium leading-[1.4] tracking-[-0.02em] text-[#0F172A] sm:text-[1.6rem] sm:leading-[1.35]">
-          “{t.quote}”
-        </blockquote>
-      </div>
-
-      <figcaption className="mt-10 flex items-center gap-3 border-t border-line pt-5">
-        <div className="flex items-center gap-3">
-          <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#EDF2FE] text-[12px] font-bold text-[#0052FF]">
-            {t.initials}
-          </span>
-          <span className="text-[13.5px] font-bold text-[#0F172A]">{t.name}</span>
-        </div>
-      </figcaption>
-    </figure>
-  );
-}
-
-function ProofNote({ t, index }: { t: Review; index: number }) {
-  return (
-    <figure className="group relative border-t border-line py-5 first:pt-0">
-      <div className="flex gap-4">
-        <span className="pt-0.5 font-mono text-[11px] font-semibold tracking-wider text-[#0052FF]">0{index + 2}</span>
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-            <span className="text-[13.5px] font-bold text-[#0F172A]">{t.name}</span>
-            <span className="font-mono text-[10px] text-[#7B8AA3]">{t.time} · {t.date}</span>
-          </div>
-          <blockquote className="mt-2.5 text-[13px] leading-[1.65] text-[#53647D] transition-colors duration-200 group-hover:text-[#1F365B]">
-            {t.quote}
-          </blockquote>
-        </div>
-      </div>
-    </figure>
-  );
-}
-
-function Testimonials() {
-  const c = useHomeCopy();
-  const r = c.testimonials.items;
-
-  return (
-    <section id="testimonials" className={`${SHELL} scroll-mt-24 py-14 sm:py-20`}>
-      <div className="border-y border-line py-12 sm:py-16">
-        <Rise>
-          <div className="flex flex-col gap-6 border-b border-line pb-8 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[11.5px] font-bold uppercase tracking-[0.16em] text-[#0052FF]">{c.testimonials.badge}</p>
-              <h2 className="mt-3 max-w-[14ch] text-[2rem] font-extrabold leading-[1.05] tracking-[-0.035em] text-[#0F172A] sm:text-[2.8rem]">
-                {c.testimonials.title}
-              </h2>
-            </div>
-            <div className="flex items-end gap-3 sm:pb-1">
-              <div>
-                <span className="block text-[12px] font-semibold text-[#53647D]">{c.testimonials.summary}</span>
-              </div>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="faq-content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{
+                            height: "auto",
+                            opacity: 1,
+                            transition: {
+                              height: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+                              opacity: { duration: 0.28, delay: 0.05, ease: "easeOut" },
+                            },
+                          }}
+                          exit={{
+                            height: 0,
+                            opacity: 0,
+                            transition: {
+                              height: { duration: 0.26, ease: [0.16, 1, 0.3, 1] },
+                              opacity: { duration: 0.16, ease: "easeIn" },
+                            },
+                          }}
+                          className="overflow-hidden"
+                        >
+                          <motion.div
+                            initial={{ y: -8, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -8, opacity: 0 }}
+                            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                            className="pt-3 pr-4 sm:pr-8"
+                          >
+                            <p className="text-[14px] sm:text-[14.5px] leading-[1.75] text-[#475569]">
+                              {item.a}
+                            </p>
+                          </motion.div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </Rise>
-
-        <div className="mt-10 grid items-start gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
-          <Rise>
-            <FeaturedReview t={r[0]} />
-          </Rise>
-
-          <Rise delay={0.08}>
-            <aside>
-              <div className="mb-5 flex items-center justify-between gap-3">
-                <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#0052FF]">{c.testimonials.notesLabel}</span>
-                <span className="font-mono text-[10px] text-[#7B8AA3]">{c.testimonials.notesCount}</span>
-              </div>
-              {r.slice(1).map((t, i) => (
-                <ProofNote key={t.name} t={t} index={i} />
-              ))}
-            </aside>
-          </Rise>
-        </div>
       </div>
     </section>
   );
@@ -796,42 +952,88 @@ function Testimonials() {
 
 /* --------------------------- pricing teaser --------------------------- */
 
-function PricingTeaser() {
+function PricingTeaser({ priceMonthly }: { priceMonthly: number }) {
   const c = useHomeCopy();
   const p = c.pricingTeaser;
+  const { lang } = useSite();
+  const price = `$${priceMonthly.toFixed(2)}`;
 
   return (
-    <section className={`${SHELL} py-12 sm:py-16`}>
+    <section className={`${SHELL} py-14 sm:py-20`}>
       <Rise>
-        <div className="grid gap-8 rounded-3xl border border-line bg-paper px-8 py-10 sm:px-12 lg:grid-cols-[1.1fr_1fr] lg:items-center shadow-xl">
-          <div>
-            <span className="text-[11.5px] font-bold uppercase tracking-[0.16em] text-[#0052FF]">
-              {p.eyebrow}
-            </span>
-            <h2 className="mt-3 max-w-[22ch] text-[1.65rem] font-extrabold leading-tight tracking-[-0.025em] text-[#0F172A] sm:text-[2rem]">
-              {p.title}
-            </h2>
-            <p className="mt-3 max-w-[46ch] text-[14.5px] leading-[1.75] text-[#475569]">{p.body}</p>
-          </div>
+        <div className="relative overflow-hidden rounded-[32px] border border-line bg-gradient-to-br from-white via-[#FAFBFD] to-[#F3F6FC] p-8 sm:p-12 lg:p-14 shadow-sm">
+          {/* Subtle decorative glow */}
+          <div
+            aria-hidden="true"
+            className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#0052FF]/5 blur-3xl pointer-events-none"
+          />
 
-          <div>
-            <ul className="space-y-3">
-              {p.points.map((pt) => (
-                <li key={pt} className="flex items-center gap-3 text-[14px] text-[#0F172A] font-semibold">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#EDF2FE] text-[#0052FF]">
-                    <Check size={12} strokeWidth={3} aria-hidden="true" />
+          <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-14 lg:items-center">
+            {/* Left Content Column */}
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#EDF2FE] px-3.5 py-1 text-[12px] font-bold text-[#0052FF]">
+                <span>{p.eyebrow}</span>
+              </div>
+
+              <h2 className="mt-4 text-[1.85rem] sm:text-[2.25rem] font-extrabold leading-tight tracking-[-0.03em] text-[#0F172A]">
+                {lang === "km" ? `${price} ក្នុងម្នាក់ / ខែ` : lang === "zh" ? `每位员工 ${price} / 月` : `${price} per user, per month`}
+              </h2>
+
+              <p className="mt-3.5 max-w-[48ch] text-[15px] sm:text-[15.5px] leading-[1.7] text-[#475569]">
+                {p.body}
+              </p>
+
+              {/* Feature Points Grid */}
+              <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                {p.points.map((pt) => (
+                  <div key={pt} className="flex items-center gap-2.5 text-[13.5px] font-semibold text-[#1E293B]">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#EDF2FE] text-[#0052FF]">
+                      <Check size={12} strokeWidth={3} aria-hidden="true" />
+                    </span>
+                    <span>{pt}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Plan Card Column */}
+            <div className="lg:col-span-5">
+              <div className="rounded-2xl border border-[#0052FF]/20 bg-white p-6 sm:p-8 shadow-md">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#0052FF] bg-[#EDF2FE] px-2.5 py-0.5 rounded-md">
+                    All-Inclusive Plan
                   </span>
-                  <span>{pt}</span>
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/pricing"
-              className="group mt-7 inline-flex items-center gap-2 rounded-full bg-[#0052FF] px-7 py-3.5 text-[14px] font-semibold text-white shadow-md transition-colors hover:bg-[#0043D6]"
-            >
-              {p.cta}
-              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-            </Link>
+                  <span className="text-[12px] font-medium text-[#64748B]">
+                    Billed Monthly
+                  </span>
+                </div>
+
+                <div className="mt-5 flex items-baseline gap-1.5">
+                  <span className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#0F172A]">
+                    {price}
+                  </span>
+                  <span className="text-[13.5px] font-medium text-[#64748B]">
+                    / user / month
+                  </span>
+                </div>
+
+                <p className="mt-1.5 text-[12.5px] text-[#64748B]">
+                  No branch limit • Instant activation • No setup fee
+                </p>
+
+                <Link
+                  href="/pricing"
+                  className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#0052FF] px-6 py-3.5 text-[14px] font-bold text-white shadow-md transition-all duration-200 hover:bg-[#0043D6] hover:shadow-lg hover:-translate-y-0.5"
+                >
+                  <span>{p.cta}</span>
+                  <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
+
+                <p className="mt-3 text-center text-[11.5px] text-[#94A3B8]">
+                  Pay only for active staff • Cancel anytime
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </Rise>
@@ -845,41 +1047,43 @@ function GetStarted() {
   const c = useHomeCopy();
 
   return (
-    <section className={`${SHELL} py-12 sm:py-16`}>
+    <section className={`${SHELL} py-16 sm:py-24 overflow-hidden`}>
       <Rise>
-        <div className="grid items-center gap-8 rounded-3xl bg-[#0052FF] px-8 py-12 sm:px-12 sm:py-16 lg:grid-cols-2 shadow-2xl text-white">
-          <div>
-            <h2 className="text-[1.85rem] font-extrabold leading-tight tracking-[-0.025em] text-white sm:text-[2.3rem]">
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-5">
+            <h2 className="text-[2rem] font-extrabold leading-tight tracking-[-0.03em] text-[#0F172A] sm:text-[2.6rem]">
               {c.cta.title}
             </h2>
-            <p className="mt-3.5 max-w-[40ch] text-[15px] leading-[1.7] text-white/85">{c.cta.sub}</p>
+            <p className="mt-4 max-w-[40ch] text-[15.5px] leading-[1.7] text-[#475569]">
+              {c.cta.sub}
+            </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14px] font-bold text-[#0B1220] shadow-lg transition-transform duration-200 hover:-translate-y-0.5 hover:bg-[#F0F4FF]"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#0052FF] px-7 py-3.5 text-[14px] font-bold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#0043D6]"
               >
                 {c.cta.button}
                 <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
               <Link
                 href="/pricing"
-                className="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/5 px-6 py-3.5 text-[14px] font-medium text-white backdrop-blur-xs transition-colors hover:border-white/70 hover:bg-white/10"
+                className="inline-flex items-center justify-center rounded-full border border-line bg-white px-6 py-3.5 text-[14px] font-semibold text-[#0F172A] shadow-2xs transition-colors hover:border-[#0052FF]/40 hover:bg-[#F5F8FF] hover:text-[#0052FF]"
               >
                 {c.cta.pricingButton}
               </Link>
             </div>
           </div>
 
-          <div className="mx-auto w-full max-w-[440px]">
-            <ImageSlot
-              noteBadge={c.cta.slotBadge}
-              label={c.cta.slotLabel}
-              subject={c.cta.slotSubject}
-              instruction={c.cta.slotInstruction}
-              alt={c.cta.slotAlt}
-              aspectRatio="4 / 3"
-              tone="dark"
-            />
+          <div className="relative flex w-full items-center justify-center lg:col-span-7">
+            <div className="w-full max-w-[780px] lg:scale-105 xl:scale-115 lg:origin-center">
+              <Image
+                src="/apple-products.webp"
+                alt="AttendKH on Apple Devices"
+                width={2000}
+                height={873}
+                className="h-auto w-full object-contain drop-shadow-[0_24px_50px_rgba(0,0,0,0.10)] transition-transform duration-500 hover:scale-[1.02]"
+              />
+            </div>
           </div>
         </div>
       </Rise>
@@ -887,91 +1091,11 @@ function GetStarted() {
   );
 }
 
-/* ------------------------- executive direct answer ------------------------- */
 
-function HomeDirectAnswer() {
-  const { lang } = useSite();
-  const isKm = lang === "km";
-
-  return (
-    <section className={`${SHELL} py-12 sm:py-16`}>
-      <Rise>
-        <div className="rounded-3xl border border-line bg-mist/40 p-6 sm:p-10 lg:p-12">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0052FF]">
-            <span className="h-2 w-2 rounded-full bg-[#0052FF]" aria-hidden="true" />
-            <span>{isKm ? "ចម្លើយរហ័ស" : "Quick answer"}</span>
-          </div>
-
-          <h2 className="font-display mt-3 text-2xl font-bold tracking-tight text-[#0F172A] sm:text-3xl">
-            {isKm
-              ? "អ្វីដែលអ្នកគ្រប់គ្រងត្រូវដឹងអំពី AttendKH នៅកម្ពុជា"
-              : "What Business Leaders & Operations Managers Need to Know About AttendKH"}
-          </h2>
-
-          <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-[#475569]">
-            {isKm
-              ? "AttendKH គឺជាប្រព័ន្ធគ្រប់គ្រងវត្តមានតាម GPS និងប្រាក់បៀវត្សរ៍ទ្វេភាសាដែលបង្កើតឡើងនៅភ្នំពេញ។ វាគាំទ្រការផ្ទៀងផ្ទាត់កាំសាខា រូបថត selfie និងរូបមន្តប្រាក់ខែជាដុល្លារ និងរៀលដែលអាចកំណត់បាន។"
-              : "AttendKH is a GPS-verified attendance and automated dual-currency payroll platform built in Phnom Penh for Cambodian retail, F&B, hospitality, and logistics businesses. It provides point-in-time branch geofences and selfie verification, and calculates configurable overtime, late deductions, and bilingual payslips in USD and KHR."}
-          </p>
-
-          <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl border border-line bg-white p-5 shadow-2xs">
-              <dt className="text-xs font-semibold text-[#64748B]">
-                {isKm ? "ការផ្ទៀងផ្ទាត់វត្តមាន" : "Attendance Verification"}
-              </dt>
-              <dd className="font-display mt-1 text-sm font-bold text-[#0F172A]">
-                {isKm ? "កាំ ៥០–២០០ម + Selfie ផ្ទាល់" : "50–200m Geofence + Live Selfie"}
-              </dd>
-              <p className="mt-1 text-xs text-[#64748B]">
-                {isKm ? "ផ្ទៀងផ្ទាត់តែពេលចុះវត្តមាន" : "Point-in-time check only"}
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-line bg-white p-5 shadow-2xs">
-              <dt className="text-xs font-semibold text-[#64748B]">
-                {isKm ? "ប្រាក់បៀវត្សរ៍ទ្វេប្រាក់" : "Dual-Currency Payroll"}
-              </dt>
-              <dd className="font-display mt-1 text-sm font-bold text-[#0F172A]">
-                {isKm ? "ដុល្លារ ($) និង រៀល (៛)" : "USD ($) & KHR (៛) Support"}
-              </dd>
-              <p className="mt-1 text-xs text-[#64748B]">
-                {isKm ? "ថែមម៉ោង ១.៥x/២.០x + បន្ទាត់ ប.ស.ស." : "1.5×/2.0× OT + NSSF lines"}
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-line bg-white p-5 shadow-2xs">
-              <dt className="text-xs font-semibold text-[#64748B]">
-                {isKm ? "ការគ្រប់គ្រងច្រើនសាខា" : "Multi-Branch Operations"}
-              </dt>
-              <dd className="font-display mt-1 text-sm font-bold text-[#0F172A]">
-                {isKm ? "សិទ្ធិ ៤ កម្រិតលើកុងសូលតែមួយ" : "4-Tier RBAC Central Console"}
-              </dd>
-              <p className="mt-1 text-xs text-[#64748B]">
-                {isKm ? "វេនយប់ វេនបំបែក និងប្តូរវេន" : "Split shifts & midnight crossings"}
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-line bg-white p-5 shadow-2xs">
-              <dt className="text-xs font-semibold text-[#64748B]">
-                {isKm ? "ការដំឡើង និងជំនួយ" : "Setup & Local Support"}
-              </dt>
-              <dd className="font-display mt-1 text-sm font-bold text-[#0F172A]">
-                {isKm ? "មានការណែនាំរៀបចំ" : "Guided Setup"}
-              </dd>
-              <p className="mt-1 text-xs text-[#64748B]">
-                {isKm ? "ជំនួយជាភាសាខ្មែរ និងអង់គ្លេស" : "Support in Khmer & English"}
-              </p>
-            </div>
-          </dl>
-        </div>
-      </Rise>
-    </section>
-  );
-}
 
 /* ------------------------------ page ------------------------------ */
 
-export function HomeView() {
+export function HomeView({ priceMonthly }: { priceMonthly: number }) {
   const c = useHomeCopy();
 
   return (
@@ -992,10 +1116,8 @@ export function HomeView() {
         <CambodiaFitSection />
         <ImpactSection />
         <Steps />
-        <WhyChoose />
-        <Testimonials />
-        <HomeDirectAnswer />
-        <PricingTeaser />
+        <FAQSection />
+        <PricingTeaser priceMonthly={priceMonthly} />
         <GetStarted />
       </main>
       <Footer />

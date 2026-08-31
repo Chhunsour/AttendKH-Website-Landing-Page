@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { absoluteUrl } from "@/lib/site";
 import Link from "next/link";
 import {
   UtensilsCrossed,
@@ -18,18 +19,20 @@ export const metadata: Metadata = {
   title: "Attendance & Payroll for Restaurants & Cafes in Cambodia | AttendKH",
   description:
     "Solve split shifts, late night closes, multi-outlet rosters, and buddy punching across your coffee shops, bakeries, and restaurants in Phnom Penh and Siem Reap.",
-  alternates: { canonical: "https://attendkh.com/solutions/restaurants-cafes" },
+  alternates: { canonical: absoluteUrl("/solutions/restaurants-cafes") },
   openGraph: {
     title: "AttendKH for Restaurants & Cafes — Cambodian F&B Attendance",
     description:
       "Engineered for Cambodian F&B: split shift rosters, 50m branch geofences, selfie verification, and 1-click dual-currency payroll.",
-    url: "https://attendkh.com/solutions/restaurants-cafes",
+    url: absoluteUrl("/solutions/restaurants-cafes"),
     siteName: "AttendKH",
     type: "website",
     locale: "en_US",
+    images: [{ url: absoluteUrl("/opengraph-image"), width: 1200, height: 630, alt: "AttendKH attendance and payroll software" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [absoluteUrl("/opengraph-image")],
     title: "Attendance & Payroll for Cambodian Restaurants & Cafes",
     description: "GPS attendance, split shifts, and dual-currency payslips for F&B teams.",
   },
@@ -43,19 +46,19 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://attendkh.com",
+      item: absoluteUrl("/"),
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Solutions",
-      item: "https://attendkh.com/solutions/restaurants-cafes",
+      item: absoluteUrl("/solutions/restaurants-cafes"),
     },
     {
       "@type": "ListItem",
       position: 3,
       name: "Restaurants & Cafes",
-      item: "https://attendkh.com/solutions/restaurants-cafes",
+      item: absoluteUrl("/solutions/restaurants-cafes"),
     },
   ],
 };

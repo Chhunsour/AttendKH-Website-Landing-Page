@@ -28,7 +28,7 @@ import { useSite } from "@/lib/i18n";
 export function SupportView() {
   const c = useCopy();
   const f = c.footer;
-  const { lang } = useSite();
+  const { lang, publicSettings } = useSite();
   const isKm = lang === "km";
 
   const channels = [
@@ -36,7 +36,7 @@ export function SupportView() {
       icon: Send,
       title: isKm ? "Telegram Hotline" : "Telegram Support Hotline",
       detail: "@attendkh",
-      href: "https://t.me/attendkh",
+      href: publicSettings.telegramUrl,
       external: true,
       time: isKm ? "ក្នុងម៉ោងធ្វើការ" : "Mon–Fri, 8:00 AM – 5:30 PM ICT",
       desc: isKm
@@ -46,8 +46,8 @@ export function SupportView() {
     {
       icon: Mail,
       title: isKm ? "អ៊ីមែលជំនួយការងារ" : "Email Support",
-      detail: f.email,
-      href: `mailto:${f.email}`,
+      detail: publicSettings.contactEmail,
+      href: `mailto:${publicSettings.contactEmail}`,
       external: false,
       time: isKm ? "ក្នុងម៉ោងធ្វើការ" : "Mon–Fri, 8:00 AM – 5:30 PM ICT",
       desc: isKm

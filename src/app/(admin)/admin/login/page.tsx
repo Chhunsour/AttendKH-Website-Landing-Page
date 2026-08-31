@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle } from "lucide-react";
+import { Lock, Mail, ArrowRight, AlertCircle } from "lucide-react";
 import { useToast } from "@/components/admin/toast";
 
 export default function AdminLoginPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const [email, setEmail] = useState("admin@attendkh.com");
-  const [password, setPassword] = useState("AttendKH@2026!Admin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -150,16 +150,6 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          {/* Quick Seed Hint for Pair Programming / Review */}
-          <div className="mt-6 rounded-xl border border-blue-100 bg-brand-soft/70 p-3 text-[12px] text-slate-600">
-            <div className="flex items-center gap-1.5 font-semibold text-brand mb-1">
-              <ShieldCheck size={14} />
-              <span>Default Super Admin Access</span>
-            </div>
-            <p className="font-mono text-[11.5px] text-slate-700">
-              admin@attendkh.com / AttendKH@2026!Admin
-            </p>
-          </div>
         </div>
 
         {/* Back to Public Site */}

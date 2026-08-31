@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { absoluteUrl } from "@/lib/site";
 import Link from "next/link";
 import {
   ShoppingBag,
@@ -18,18 +19,20 @@ export const metadata: Metadata = {
   title: "Attendance & Payroll for Retail & Boutiques in Cambodia | AttendKH",
   description:
     "Control attendance across shopping mall outlets and retail stores in Cambodia. Real-time store opening visibility, commission lines, and automated dual-currency payroll.",
-  alternates: { canonical: "https://attendkh.com/solutions/retail" },
+  alternates: { canonical: absoluteUrl("/solutions/retail") },
   openGraph: {
     title: "AttendKH for Retail Chains & Boutiques in Cambodia",
     description:
       "Seamless multi-store attendance across Aeon Malls, Chip Mong, and shopping centers. Automated overtime and bilingual payslips in USD and KHR.",
-    url: "https://attendkh.com/solutions/retail",
+    url: absoluteUrl("/solutions/retail"),
     siteName: "AttendKH",
     type: "website",
     locale: "en_US",
+    images: [{ url: absoluteUrl("/opengraph-image"), width: 1200, height: 630, alt: "AttendKH attendance and payroll software" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [absoluteUrl("/opengraph-image")],
     title: "Attendance & Payroll for Cambodian Retail Chains",
     description: "GPS attendance, mall store tracking, and automated payroll for retail.",
   },
@@ -43,19 +46,19 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://attendkh.com",
+      item: absoluteUrl("/"),
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Solutions",
-      item: "https://attendkh.com/solutions/retail",
+      item: absoluteUrl("/solutions/retail"),
     },
     {
       "@type": "ListItem",
       position: 3,
       name: "Retail & Boutiques",
-      item: "https://attendkh.com/solutions/retail",
+      item: absoluteUrl("/solutions/retail"),
     },
   ],
 };

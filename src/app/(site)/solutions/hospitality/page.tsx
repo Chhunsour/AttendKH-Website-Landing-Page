@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { absoluteUrl } from "@/lib/site";
 import Link from "next/link";
 import {
   Hotel,
@@ -17,18 +18,20 @@ export const metadata: Metadata = {
   title: "Attendance & Payroll for Hotels & Resorts in Cambodia | AttendKH",
   description:
     "24/7 rotational rosters, configurable night and holiday payroll rules, service-charge lines, and dual-currency payslips for Cambodian hotels and resorts.",
-  alternates: { canonical: "https://attendkh.com/solutions/hospitality" },
+  alternates: { canonical: absoluteUrl("/solutions/hospitality") },
   openGraph: {
     title: "AttendKH for Hotels, Resorts & Spas in Cambodia",
     description:
       "Engineered for Cambodian hospitality: 24/7 shift rosters, department-level attendance, and automated dual-currency USD/KHR payslips.",
-    url: "https://attendkh.com/solutions/hospitality",
+    url: absoluteUrl("/solutions/hospitality"),
     siteName: "AttendKH",
     type: "website",
     locale: "en_US",
+    images: [{ url: absoluteUrl("/opengraph-image"), width: 1200, height: 630, alt: "AttendKH attendance and payroll software" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [absoluteUrl("/opengraph-image")],
     title: "Attendance & Payroll for Cambodian Hotels & Resorts",
     description: "24/7 shifts, night premiums, and automated payroll for hospitality teams.",
   },
@@ -42,19 +45,19 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://attendkh.com",
+      item: absoluteUrl("/"),
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Solutions",
-      item: "https://attendkh.com/solutions/hospitality",
+      item: absoluteUrl("/solutions/hospitality"),
     },
     {
       "@type": "ListItem",
       position: 3,
       name: "Hotels & Hospitality",
-      item: "https://attendkh.com/solutions/hospitality",
+      item: absoluteUrl("/solutions/hospitality"),
     },
   ],
 };

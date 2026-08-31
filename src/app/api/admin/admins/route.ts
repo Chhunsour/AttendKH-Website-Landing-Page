@@ -1,13 +1,17 @@
 import { NextResponse } from "next/server";
 import { getAdminSession, hashPassword } from "@/lib/auth";
-import { listAdmins, createAdmin, updateAdmin, deleteAdmin, getAdminByEmail, getAdminById } from "@/lib/db";
+import { listAdmins, createAdmin, updateAdmin, deleteAdmin, getAdminByEmail, getAdminById, countActiveSuperAdmins } from "@/lib/db";
 import { AdminCreateSchema, AdminUpdateSchema } from "@/lib/db/schema";
 import { logAdminAction } from "@/lib/audit";
+import { isSameOrigin, jsonBodyError, readJsonBody } from "@/lib/request-security";
 
 export async function GET() {
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  if (session.role !== "super_admin") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   try {
@@ -20,6 +24,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -30,7 +35,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const body = await req.json();
+    const body = await readJsonBody(req, 8_192);
     const result = AdminCreateSchema.safeParse(body);
 
     if (!result.success) {
@@ -48,7 +53,7 @@ export async function POST(req: Request) {
     }
 
     const passwordHash = await hashPassword(password);
-    const id = `admin_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const id = `admin_${crypto.randomUUID()}`;
 
     const admin = await createAdmin({
       id,
@@ -72,12 +77,15 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, admin: safeAdmin });
   } catch (error: any) {
+    const bodyError = jsonBodyError(error);
+    if (bodyError) return bodyError;
     console.error("Failed to create admin:", error);
     return NextResponse.json({ error: "Failed to create admin" }, { status: 500 });
   }
 }
 
 export async function PUT(req: Request) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -88,10 +96,10 @@ export async function PUT(req: Request) {
   }
 
   try {
-    const body = await req.json();
+    const body = await readJsonBody(req, 8_192) as Record<string, unknown>;
     const { id, ...updates } = body;
 
-    if (!id) {
+    if (typeof id !== "string" || !id) {
       return NextResponse.json({ error: "Admin ID required" }, { status: 400 });
     }
 
@@ -106,6 +114,13 @@ export async function PUT(req: Request) {
         { error: "Validation failed", details: result.error.flatten() },
         { status: 400 }
       );
+    }
+
+    const removesLastSuperAdmin = existing.role === "super_admin" && existing.is_active === 1 &&
+      (result.data.role === "editor" || result.data.is_active === 0) &&
+      await countActiveSuperAdmins() <= 1;
+    if (removesLastSuperAdmin) {
+      return NextResponse.json({ error: "At least one active Super Admin is required" }, { status: 409 });
     }
 
     const payload: any = { ...result.data };
@@ -133,12 +148,15 @@ export async function PUT(req: Request) {
 
     return NextResponse.json({ success: true, admin: safeUpdated });
   } catch (error: any) {
+    const bodyError = jsonBodyError(error);
+    if (bodyError) return bodyError;
     console.error("Failed to update admin:", error);
     return NextResponse.json({ error: "Failed to update admin" }, { status: 500 });
   }
 }
 
 export async function DELETE(req: Request) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -162,6 +180,9 @@ export async function DELETE(req: Request) {
     const existing = await getAdminById(id);
     if (!existing) {
       return NextResponse.json({ error: "Admin not found" }, { status: 404 });
+    }
+    if (existing.role === "super_admin" && existing.is_active === 1 && await countActiveSuperAdmins() <= 1) {
+      return NextResponse.json({ error: "At least one active Super Admin is required" }, { status: 409 });
     }
 
     await deleteAdmin(id);

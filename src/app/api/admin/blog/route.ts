@@ -3,14 +3,23 @@ import { getAdminSession } from "@/lib/auth";
 import { getBlogPosts, createBlogPost, getBlogPostBySlug } from "@/lib/db";
 import { BlogPostSchema } from "@/lib/db/schema";
 import { logAdminAction } from "@/lib/audit";
+import { boundedQueryInt, isSameOrigin, jsonBodyError, readJsonBody } from "@/lib/request-security";
 
 export async function GET(req: Request) {
+  // This listing includes drafts and scheduled posts, so it is admin-only.
+  // Public blog reads go through getBlogPosts({ status: "published" }) in the
+  // page components, not this route.
+  const session = await getAdminSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(req.url);
   const status = searchParams.get("status") || undefined;
   const category = searchParams.get("category") || undefined;
   const search = searchParams.get("search") || undefined;
-  const limit = parseInt(searchParams.get("limit") || "20", 10);
-  const offset = parseInt(searchParams.get("offset") || "0", 10);
+  const limit = boundedQueryInt(searchParams, "limit", 20, 1, 100);
+  const offset = boundedQueryInt(searchParams, "offset", 0, 0, 1_000_000);
 
   try {
     const data = await getBlogPosts({ status, category, search, limit, offset });
@@ -22,13 +31,14 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const body = await req.json();
+    const body = await readJsonBody(req, 1_048_576);
     const result = BlogPostSchema.safeParse(body);
 
     if (!result.success) {
@@ -63,7 +73,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "A post with this slug already exists" }, { status: 409 });
     }
 
-    const id = `post_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const id = `post_${crypto.randomUUID()}`;
     const post = await createBlogPost({
       id,
       slug,
@@ -94,6 +104,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, post });
   } catch (error: any) {
+    const bodyError = jsonBodyError(error);
+    if (bodyError) return bodyError;
     console.error("Failed to create blog post:", error);
     return NextResponse.json({ error: "Failed to create post" }, { status: 500 });
   }

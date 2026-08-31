@@ -1,11 +1,17 @@
 import { NextResponse } from "next/server";
 import { createLead, recordAnalyticsEvent } from "@/lib/db";
 import { LeadCreateSchema } from "@/lib/db/schema";
-import { parseUserAgent, parseTrafficSource } from "@/lib/analytics";
+import { parseUserAgent } from "@/lib/analytics";
+import { checkRateLimit, isSameOrigin, readJsonBody } from "@/lib/request-security";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
+    const rate = await checkRateLimit(req, "contact", 5, 60 * 60);
+    if (!rate.allowed) {
+      return NextResponse.json({ error: "Too many requests. Try again later." }, { status: 429, headers: { "Retry-After": String(rate.retryAfter) } });
+    }
+    const body = await readJsonBody(req, 32_768);
     const result = LeadCreateSchema.safeParse(body);
 
     if (!result.success) {
@@ -41,8 +47,8 @@ export async function POST(req: Request) {
         device_type: parsedUa.deviceType,
         browser: parsedUa.browser,
         os: parsedUa.os,
-        country: req.headers.get("x-vercel-ip-country") || "Cambodia",
-        city: req.headers.get("x-vercel-ip-city") || "Phnom Penh",
+        country: req.headers.get("cf-ipcountry") || req.headers.get("x-vercel-ip-country") || "Unknown",
+        city: req.headers.get("x-vercel-ip-city") || "Unknown",
         payload: {
           lead_id: lead.id,
           industry: lead.industry,
@@ -57,7 +63,9 @@ export async function POST(req: Request) {
       message: "Lead recorded successfully. Our team will contact you shortly.",
       lead_id: lead.id,
     });
-  } catch (error) {
+  } catch (error: any) {
+    if (error?.message === "BODY_TOO_LARGE") return NextResponse.json({ error: "Request body too large" }, { status: 413 });
+    if (error?.message === "INVALID_JSON") return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
     console.error("Error creating lead:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }

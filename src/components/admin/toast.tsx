@@ -23,7 +23,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const addToast = useCallback((type: "success" | "error" | "info", message: string) => {
-    const id = `toast_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+    const id = `toast_${crypto.randomUUID()}`;
     setToasts((prev) => [...prev, { id, type, message }]);
 
     setTimeout(() => {
@@ -45,10 +45,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     <ToastContext.Provider value={{ toast }}>
       {children}
       {/* Toast Render Container */}
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none">
+      <div aria-live="polite" className="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none">
         {toasts.map((t) => (
           <div
             key={t.id}
+            role={t.type === "error" ? "alert" : "status"}
             className={`pointer-events-auto flex items-start gap-3 rounded-xl border p-4 shadow-xl transition-all ${
               t.type === "success"
                 ? "border-emerald-200 bg-white text-emerald-900 shadow-emerald-500/5"
@@ -68,8 +69,10 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             <div className="flex-1 text-[13.5px] font-medium leading-snug">{t.message}</div>
 
             <button
+              type="button"
               onClick={() => removeToast(t.id)}
-              className="text-slate-400 hover:text-slate-600 transition-colors"
+              aria-label="Dismiss notification"
+              className="flex min-h-11 min-w-11 items-center justify-center text-slate-400 hover:text-slate-600 transition-colors"
             >
               <X size={15} />
             </button>
@@ -82,14 +85,6 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
 export function useToast() {
   const ctx = useContext(ToastContext);
-  if (!ctx) {
-    return {
-      toast: {
-        success: (msg: string) => console.log("Toast success:", msg),
-        error: (msg: string) => console.error("Toast error:", msg),
-        info: (msg: string) => console.info("Toast info:", msg),
-      },
-    };
-  }
+  if (!ctx) throw new Error("useToast must be used inside ToastProvider");
   return ctx;
 }

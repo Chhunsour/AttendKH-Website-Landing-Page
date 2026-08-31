@@ -1,43 +1,12 @@
-import bcrypt from "bcryptjs";
 import type {
-  AdminUser,
   PricingPlan,
   BlogPost,
   LegalDocument,
   WebsiteSettings,
-  AnalyticsEvent,
-  CookieConsentRecord,
 } from "./schema";
 
 export async function getInitialSeedData() {
-  // Password hash for 'AttendKH@2026!Admin'
-  const defaultPasswordHash = await bcrypt.hash("AttendKH@2026!Admin", 10);
   const now = new Date().toISOString();
-
-  const admins: AdminUser[] = [
-    {
-      id: "admin-super-01",
-      name: "Sopheap Chan",
-      email: "admin@attendkh.com",
-      password_hash: defaultPasswordHash,
-      role: "super_admin",
-      is_active: 1,
-      last_login_at: now,
-      created_at: now,
-      updated_at: now,
-    },
-    {
-      id: "admin-editor-01",
-      name: "Dara Rith",
-      email: "editor@attendkh.com",
-      password_hash: defaultPasswordHash,
-      role: "editor",
-      is_active: 1,
-      last_login_at: null,
-      created_at: now,
-      updated_at: now,
-    },
-  ];
 
   const pricingPlans: PricingPlan[] = [
     {
@@ -45,8 +14,8 @@ export async function getInitialSeedData() {
       slug: "starter",
       name: "Starter",
       description: "Essential GPS clock-in and attendance roster for boutique stores and single-branch teams.",
-      price_monthly: 1.5,
-      price_annual: 1.25,
+      price_monthly: 1.0,
+      price_annual: 0.83,
       annual_factor: 0.8333,
       limits_text: "Up to 20 users",
       features: [
@@ -71,8 +40,8 @@ export async function getInitialSeedData() {
       slug: "growth",
       name: "Growth",
       description: "Complete attendance & automated Cambodian payroll engine for fast-growing businesses.",
-      price_monthly: 2.5,
-      price_annual: 2.08,
+      price_monthly: 2.0,
+      price_annual: 1.67,
       annual_factor: 0.8333,
       limits_text: "Up to 150 users",
       features: [
@@ -99,8 +68,8 @@ export async function getInitialSeedData() {
       slug: "scale",
       name: "Scale",
       description: "Advanced controls, automated approvals, and custom policies for established retail chains.",
-      price_monthly: 3.5,
-      price_annual: 2.92,
+      price_monthly: 3.0,
+      price_annual: 2.50,
       annual_factor: 0.8333,
       limits_text: "Up to 500 users",
       features: [
@@ -127,8 +96,8 @@ export async function getInitialSeedData() {
       slug: "enterprise",
       name: "Enterprise",
       description: "Tailored infrastructure, custom ERP integrations, on-premise sync, and dedicated SLAs.",
-      price_monthly: 5.0,
-      price_annual: 4.17,
+      price_monthly: 4.0,
+      price_annual: 3.33,
       annual_factor: 0.8333,
       limits_text: "500+ users / Custom",
       features: [
@@ -428,148 +397,10 @@ AttendKH provides multi-channel customer support for Cambodian businesses via Te
     updated_at: now,
   };
 
-  // Generate realistic analytics events across last 14 days for dashboard charts
-  const analyticsEvents: AnalyticsEvent[] = [];
-  const cookieConsents: CookieConsentRecord[] = [];
-
-  const pages = ["/", "/attendance", "/payroll", "/multi-branch", "/pricing", "/customers", "/faq", "/about", "/contact", "/blog"];
-  const referrers = [
-    { source: "Google Search", ref: "https://www.google.com/" },
-    { source: "Telegram", ref: "https://t.me/" },
-    { source: "Facebook", ref: "https://www.facebook.com/" },
-    { source: "Direct", ref: null },
-    { source: "LinkedIn", ref: "https://www.linkedin.com/" },
-  ];
-  const devices = [
-    { type: "Mobile", os: "iOS", browser: "Safari" },
-    { type: "Mobile", os: "Android", browser: "Chrome" },
-    { type: "Desktop", os: "macOS", browser: "Chrome" },
-    { type: "Desktop", os: "Windows", browser: "Edge" },
-    { type: "Desktop", os: "macOS", browser: "Safari" },
-  ];
-  const cities = ["Phnom Penh", "Siem Reap", "Battambang", "Sihanoukville", "Kampot"];
-
-  // 14 days of realistic traffic data
-  for (let dayOffset = 13; dayOffset >= 0; dayOffset--) {
-    const dayDate = new Date();
-    dayDate.setDate(dayDate.getDate() - dayOffset);
-
-    // 40-70 visitors per day
-    const dailyVisitors = Math.floor(45 + Math.sin(dayOffset) * 15 + Math.random() * 15);
-
-    for (let v = 0; v < dailyVisitors; v++) {
-      const visitorId = `v_${dayOffset}_${v}_${Math.random().toString(36).substring(2, 7)}`;
-      const sessionId = `s_${dayOffset}_${v}_${Math.random().toString(36).substring(2, 7)}`;
-      const refObj = referrers[Math.floor(Math.random() * referrers.length)];
-      const devObj = devices[Math.floor(Math.random() * devices.length)];
-      const city = cities[Math.floor(Math.random() * cities.length)];
-
-      const hour = Math.floor(8 + Math.random() * 14);
-      const minute = Math.floor(Math.random() * 60);
-      dayDate.setHours(hour, minute, 0);
-      const eventTime = dayDate.toISOString();
-
-      // Cookie consent
-      const consentChoice = Math.random() > 0.15 ? "accept_all" : Math.random() > 0.5 ? "custom" : "reject_non_essential";
-      cookieConsents.push({
-        id: `consent_${visitorId}`,
-        visitor_id: visitorId,
-        choice: consentChoice,
-        categories: consentChoice === "accept_all" ? ["necessary", "analytics", "functional", "marketing"] : ["necessary"],
-        policy_version: "1.0",
-        timestamp: eventTime,
-        user_agent: `${devObj.browser} on ${devObj.os}`,
-        country: "Cambodia",
-      });
-
-      // Page view 1: Landing page
-      analyticsEvents.push({
-        id: `evt_${visitorId}_0`,
-        event_name: "page_view",
-        visitor_id: visitorId,
-        session_id: sessionId,
-        page_path: "/",
-        referrer: refObj.ref,
-        traffic_source: refObj.source,
-        device_type: devObj.type,
-        browser: devObj.browser,
-        os: devObj.os,
-        country: "Cambodia",
-        city,
-        payload: { path: "/" },
-        timestamp: eventTime,
-      });
-
-      // Additional pages viewed in session
-      const extraPages = Math.floor(1 + Math.random() * 3);
-      for (let p = 0; p < extraPages; p++) {
-        const nextPath = pages[Math.floor(Math.random() * pages.length)];
-        analyticsEvents.push({
-          id: `evt_${visitorId}_${p + 1}`,
-          event_name: "page_view",
-          visitor_id: visitorId,
-          session_id: sessionId,
-          page_path: nextPath,
-          referrer: "/",
-          traffic_source: refObj.source,
-          device_type: devObj.type,
-          browser: devObj.browser,
-          os: devObj.os,
-          country: "Cambodia",
-          city,
-          payload: { path: nextPath },
-          timestamp: new Date(dayDate.getTime() + (p + 1) * 45000).toISOString(),
-        });
-      }
-
-      // Conversion events
-      if (Math.random() > 0.45) {
-        analyticsEvents.push({
-          id: `evt_conv_${visitorId}_pricing`,
-          event_name: "pricing_view",
-          visitor_id: visitorId,
-          session_id: sessionId,
-          page_path: "/pricing",
-          referrer: "/",
-          traffic_source: refObj.source,
-          device_type: devObj.type,
-          browser: devObj.browser,
-          os: devObj.os,
-          country: "Cambodia",
-          city,
-          payload: { plan: "growth", currency: "USD" },
-          timestamp: new Date(dayDate.getTime() + 120000).toISOString(),
-        });
-
-        if (Math.random() > 0.5) {
-          analyticsEvents.push({
-            id: `evt_conv_${visitorId}_signup`,
-            event_name: "signup_clicked",
-            visitor_id: visitorId,
-            session_id: sessionId,
-            page_path: "/contact",
-            referrer: "/pricing",
-            traffic_source: refObj.source,
-            device_type: devObj.type,
-            browser: devObj.browser,
-            os: devObj.os,
-            country: "Cambodia",
-            city,
-            payload: { cta: "start_free_trial", plan: "growth" },
-            timestamp: new Date(dayDate.getTime() + 180000).toISOString(),
-          });
-        }
-      }
-    }
-  }
-
   return {
-    admins,
     pricingPlans,
     blogPosts,
     legalDocuments,
     settings,
-    analyticsEvents,
-    cookieConsents,
   };
 }

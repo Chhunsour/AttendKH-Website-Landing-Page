@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { absoluteUrl } from "@/lib/site";
 import Link from "next/link";
 import {
   Truck,
@@ -17,18 +18,20 @@ export const metadata: Metadata = {
   title: "Attendance & Payroll for Construction & Logistics in Cambodia | AttendKH",
   description:
     "Offline-resilient clock-in, 200m yard geofences, anti-mock GPS defense, and multi-site foreman approvals for Cambodian logistics and construction sites.",
-  alternates: { canonical: "https://attendkh.com/solutions/construction-logistics" },
+  alternates: { canonical: absoluteUrl("/solutions/construction-logistics") },
   openGraph: {
     title: "AttendKH for Logistics & Construction in Cambodia",
     description:
       "Built for field teams with offline punch queues, wide yard geofences, location evidence, and configurable contractor payroll.",
-    url: "https://attendkh.com/solutions/construction-logistics",
+    url: absoluteUrl("/solutions/construction-logistics"),
     siteName: "AttendKH",
     type: "website",
     locale: "en_US",
+    images: [{ url: absoluteUrl("/opengraph-image"), width: 1200, height: 630, alt: "AttendKH attendance and payroll software" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [absoluteUrl("/opengraph-image")],
     title: "Attendance & Payroll for Construction & Logistics in Cambodia",
     description: "Offline clock-in, yard geofences, and multi-site job costing.",
   },
@@ -42,19 +45,19 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://attendkh.com",
+      item: absoluteUrl("/"),
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Solutions",
-      item: "https://attendkh.com/solutions/construction-logistics",
+      item: absoluteUrl("/solutions/construction-logistics"),
     },
     {
       "@type": "ListItem",
       position: 3,
       name: "Construction & Logistics",
-      item: "https://attendkh.com/solutions/construction-logistics",
+      item: absoluteUrl("/solutions/construction-logistics"),
     },
   ],
 };

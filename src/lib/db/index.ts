@@ -1,6 +1,6 @@
-import fs from "fs";
-import path from "path";
-import Database from "better-sqlite3";
+import "server-only";
+import { randomUUID } from "node:crypto";
+import { prepare, transaction } from "./mysql";
 import type {
   AdminUser,
   PricingPlan,
@@ -15,299 +15,9 @@ import type {
   Lead,
   NewsletterSubscriber,
 } from "./schema";
-import { getInitialSeedData } from "./seed";
 
-let dbInstance: Database.Database | null = null;
-let isInitialized = false;
-
-function getDb(): Database.Database {
-  if (dbInstance) return dbInstance;
-
-  const dataDir = path.join(process.cwd(), ".data");
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-  }
-
-  const dbPath = path.join(dataDir, "attendkh_landing.db");
-  dbInstance = new Database(dbPath);
-  dbInstance.pragma("journal_mode = WAL");
-  dbInstance.pragma("foreign_keys = ON");
-
-  ensureSchema(dbInstance);
-  return dbInstance;
-}
-
-function ensureSchema(db: Database.Database) {
-  if (isInitialized) return;
-
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS website_admins (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL,
-      password_hash TEXT NOT NULL,
-      role TEXT NOT NULL DEFAULT 'editor',
-      is_active INTEGER NOT NULL DEFAULT 1,
-      last_login_at TEXT,
-      created_at TEXT NOT NULL,
-      updated_at TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS website_pricing_plans (
-      id TEXT PRIMARY KEY,
-      slug TEXT UNIQUE NOT NULL,
-      name TEXT NOT NULL,
-      description TEXT,
-      price_monthly REAL NOT NULL DEFAULT 0,
-      price_annual REAL NOT NULL DEFAULT 0,
-      annual_factor REAL NOT NULL DEFAULT 0.8333,
-      limits_text TEXT NOT NULL,
-      features TEXT NOT NULL DEFAULT '[]',
-      is_popular INTEGER NOT NULL DEFAULT 0,
-      badge_text TEXT,
-      cta_text TEXT NOT NULL DEFAULT 'Start free trial',
-      cta_url TEXT NOT NULL DEFAULT '/contact',
-      display_order INTEGER NOT NULL DEFAULT 0,
-      is_active INTEGER NOT NULL DEFAULT 1,
-      created_at TEXT NOT NULL,
-      updated_at TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS website_blog_posts (
-      id TEXT PRIMARY KEY,
-      slug TEXT UNIQUE NOT NULL,
-      title TEXT NOT NULL,
-      excerpt TEXT NOT NULL,
-      content TEXT NOT NULL,
-      cover_image TEXT,
-      author_name TEXT NOT NULL DEFAULT 'AttendKH Team',
-      author_role TEXT DEFAULT 'Product & Operations',
-      author_avatar TEXT,
-      category TEXT NOT NULL DEFAULT 'Product',
-      tags TEXT NOT NULL DEFAULT '[]',
-      status TEXT NOT NULL DEFAULT 'draft',
-      published_at TEXT,
-      scheduled_at TEXT,
-      seo_title TEXT,
-      seo_description TEXT,
-      og_image TEXT,
-      view_count INTEGER NOT NULL DEFAULT 0,
-      created_at TEXT NOT NULL,
-      updated_at TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS website_legal_documents (
-      id TEXT PRIMARY KEY,
-      slug TEXT NOT NULL,
-      title TEXT NOT NULL,
-      version TEXT NOT NULL,
-      content TEXT NOT NULL,
-      is_active INTEGER NOT NULL DEFAULT 0,
-      changelog TEXT,
-      created_by TEXT,
-      created_at TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS website_legal_agreements (
-      id TEXT PRIMARY KEY,
-      document_slug TEXT NOT NULL,
-      document_version TEXT NOT NULL,
-      visitor_id TEXT,
-      user_id TEXT,
-      ip_hash TEXT,
-      agreed_at TEXT NOT NULL,
-      metadata TEXT DEFAULT '{}'
-    );
-
-    CREATE TABLE IF NOT EXISTS website_cookie_consents (
-      id TEXT PRIMARY KEY,
-      visitor_id TEXT NOT NULL,
-      choice TEXT NOT NULL,
-      categories TEXT NOT NULL DEFAULT '["necessary"]',
-      policy_version TEXT NOT NULL DEFAULT '1.0',
-      timestamp TEXT NOT NULL,
-      user_agent TEXT,
-      country TEXT
-    );
-
-    CREATE TABLE IF NOT EXISTS website_analytics_events (
-      id TEXT PRIMARY KEY,
-      event_name TEXT NOT NULL,
-      visitor_id TEXT NOT NULL,
-      session_id TEXT NOT NULL,
-      page_path TEXT NOT NULL,
-      referrer TEXT,
-      traffic_source TEXT,
-      device_type TEXT,
-      browser TEXT,
-      os TEXT,
-      country TEXT,
-      city TEXT,
-      payload TEXT DEFAULT '{}',
-      timestamp TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS website_media (
-      id TEXT PRIMARY KEY,
-      filename TEXT NOT NULL,
-      url TEXT NOT NULL,
-      size_bytes INTEGER NOT NULL,
-      mime_type TEXT NOT NULL,
-      alt_text TEXT DEFAULT '',
-      uploaded_by TEXT,
-      created_at TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS website_settings (
-      id TEXT PRIMARY KEY,
-      site_title TEXT NOT NULL,
-      site_description TEXT NOT NULL,
-      announcement_enabled INTEGER NOT NULL DEFAULT 1,
-      announcement_text_en TEXT NOT NULL,
-      announcement_text_km TEXT NOT NULL,
-      announcement_link TEXT,
-      announcement_color TEXT DEFAULT 'brand',
-      contact_email TEXT NOT NULL,
-      support_phone TEXT NOT NULL,
-      telegram_url TEXT NOT NULL,
-      maintenance_mode INTEGER NOT NULL DEFAULT 0,
-      analytics_enabled INTEGER NOT NULL DEFAULT 1,
-      currency_rate_khr INTEGER NOT NULL DEFAULT 4100,
-      updated_at TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS website_audit_logs (
-      id TEXT PRIMARY KEY,
-      actor_id TEXT NOT NULL,
-      actor_name TEXT NOT NULL,
-      actor_email TEXT NOT NULL,
-      action TEXT NOT NULL,
-      target_entity TEXT NOT NULL,
-      target_id TEXT,
-      before_state TEXT,
-      after_state TEXT,
-      ip_address TEXT,
-      timestamp TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS website_leads (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      company TEXT NOT NULL,
-      industry TEXT NOT NULL,
-      employees_count TEXT NOT NULL,
-      branches_count TEXT NOT NULL DEFAULT '1',
-      email TEXT NOT NULL,
-      phone_telegram TEXT NOT NULL,
-      preferred_language TEXT NOT NULL DEFAULT 'km',
-      message TEXT,
-      source_page TEXT,
-      status TEXT NOT NULL DEFAULT 'new',
-      admin_notes TEXT,
-      created_at TEXT NOT NULL,
-      updated_at TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS website_newsletter_subscribers (
-      id TEXT PRIMARY KEY,
-      email TEXT NOT NULL UNIQUE,
-      source_page TEXT,
-      created_at TEXT NOT NULL
-    );
-
-    CREATE INDEX IF NOT EXISTS idx_blog_status ON website_blog_posts(status, published_at DESC);
-    CREATE INDEX IF NOT EXISTS idx_blog_slug ON website_blog_posts(slug);
-    CREATE INDEX IF NOT EXISTS idx_pricing_order ON website_pricing_plans(display_order ASC);
-    CREATE INDEX IF NOT EXISTS idx_events_time ON website_analytics_events(timestamp DESC);
-    CREATE INDEX IF NOT EXISTS idx_events_visitor ON website_analytics_events(visitor_id);
-    CREATE INDEX IF NOT EXISTS idx_audit_time ON website_audit_logs(timestamp DESC);
-    CREATE INDEX IF NOT EXISTS idx_leads_status ON website_leads(status, created_at DESC);
-  `);
-
-  // Seed if empty
-  const count = db.prepare("SELECT COUNT(*) as c FROM website_admins").get() as { c: number };
-  if (count.c === 0) {
-    seedDatabase(db);
-  }
-
-  isInitialized = true;
-}
-
-function seedDatabase(db: Database.Database) {
-  // Sync seed execution
-  const now = new Date().toISOString();
-  // Using pre-computed bcrypt hash for 'AttendKH@2026!Admin'
-  // $2a$10$iIqTvhTz0b2Qp7hPqY.mOOHc57wGq.17wYv2W3YhN7R1b7eD8L9y6
-  const hash = "$2a$10$k1wXbFm8s.dFwIknvL10xO1V91e3gLd8f7m4z7w6r5t4y3u2i1o0p"; // Valid hash placeholder updated below
-  // Let's run seed data
-  getInitialSeedData().then((seed) => {
-    const insertAdmin = db.prepare(`
-      INSERT OR REPLACE INTO website_admins (id, name, email, password_hash, role, is_active, last_login_at, created_at, updated_at)
-      VALUES (@id, @name, @email, @password_hash, @role, @is_active, @last_login_at, @created_at, @updated_at)
-    `);
-    for (const a of seed.admins) {
-      insertAdmin.run(a);
-    }
-
-    const insertPricing = db.prepare(`
-      INSERT OR REPLACE INTO website_pricing_plans (id, slug, name, description, price_monthly, price_annual, annual_factor, limits_text, features, is_popular, badge_text, cta_text, cta_url, display_order, is_active, created_at, updated_at)
-      VALUES (@id, @slug, @name, @description, @price_monthly, @price_annual, @annual_factor, @limits_text, @features, @is_popular, @badge_text, @cta_text, @cta_url, @display_order, @is_active, @created_at, @updated_at)
-    `);
-    for (const p of seed.pricingPlans) {
-      insertPricing.run({
-        ...p,
-        features: JSON.stringify(p.features),
-      });
-    }
-
-    const insertBlog = db.prepare(`
-      INSERT OR REPLACE INTO website_blog_posts (id, slug, title, excerpt, content, cover_image, author_name, author_role, author_avatar, category, tags, status, published_at, scheduled_at, seo_title, seo_description, og_image, view_count, created_at, updated_at)
-      VALUES (@id, @slug, @title, @excerpt, @content, @cover_image, @author_name, @author_role, @author_avatar, @category, @tags, @status, @published_at, @scheduled_at, @seo_title, @seo_description, @og_image, @view_count, @created_at, @updated_at)
-    `);
-    for (const b of seed.blogPosts) {
-      insertBlog.run({
-        ...b,
-        tags: JSON.stringify(b.tags),
-      });
-    }
-
-    const insertLegal = db.prepare(`
-      INSERT OR REPLACE INTO website_legal_documents (id, slug, title, version, content, is_active, changelog, created_by, created_at)
-      VALUES (@id, @slug, @title, @version, @content, @is_active, @changelog, @created_by, @created_at)
-    `);
-    for (const l of seed.legalDocuments) {
-      insertLegal.run(l);
-    }
-
-    const insertSettings = db.prepare(`
-      INSERT OR REPLACE INTO website_settings (id, site_title, site_description, announcement_enabled, announcement_text_en, announcement_text_km, announcement_link, announcement_color, contact_email, support_phone, telegram_url, maintenance_mode, analytics_enabled, currency_rate_khr, updated_at)
-      VALUES (@id, @site_title, @site_description, @announcement_enabled, @announcement_text_en, @announcement_text_km, @announcement_link, @announcement_color, @contact_email, @support_phone, @telegram_url, @maintenance_mode, @analytics_enabled, @currency_rate_khr, @updated_at)
-    `);
-    insertSettings.run(seed.settings);
-
-    const insertConsent = db.prepare(`
-      INSERT OR REPLACE INTO website_cookie_consents (id, visitor_id, choice, categories, policy_version, timestamp, user_agent, country)
-      VALUES (@id, @visitor_id, @choice, @categories, @policy_version, @timestamp, @user_agent, @country)
-    `);
-    for (const c of seed.cookieConsents) {
-      insertConsent.run({
-        ...c,
-        categories: JSON.stringify(c.categories),
-      });
-    }
-
-    const insertEvent = db.prepare(`
-      INSERT OR REPLACE INTO website_analytics_events (id, event_name, visitor_id, session_id, page_path, referrer, traffic_source, device_type, browser, os, country, city, payload, timestamp)
-      VALUES (@id, @event_name, @visitor_id, @session_id, @page_path, @referrer, @traffic_source, @device_type, @browser, @os, @country, @city, @payload, @timestamp)
-    `);
-    for (const e of seed.analyticsEvents) {
-      insertEvent.run({
-        ...e,
-        payload: JSON.stringify(e.payload || {}),
-      });
-    }
-  });
-}
+// Schema now lives in version-controlled migrations (src/lib/db/migrations),
+// applied with `npm run migrate`. Seeding is done by scripts/seed.mjs.
 
 // -------------------------------------------------------------
 // REPOSITORY API METHODS
@@ -315,32 +25,33 @@ function seedDatabase(db: Database.Database) {
 
 // --- Admins ---
 export async function getAdminByEmail(email: string): Promise<AdminUser | null> {
-  const db = getDb();
-  const row = db.prepare("SELECT * FROM website_admins WHERE email = ? COLLATE NOCASE").get(email) as AdminUser | undefined;
+  const row = await prepare("SELECT * FROM website_admins WHERE email = ?").get(email) as AdminUser | undefined;
   return row || null;
 }
 
 export async function getAdminById(id: string): Promise<AdminUser | null> {
-  const db = getDb();
-  const row = db.prepare("SELECT * FROM website_admins WHERE id = ?").get(id) as AdminUser | undefined;
+  const row = await prepare("SELECT * FROM website_admins WHERE id = ?").get(id) as AdminUser | undefined;
   return row || null;
 }
 
 export async function listAdmins(): Promise<Omit<AdminUser, "password_hash">[]> {
-  const db = getDb();
-  const rows = db.prepare("SELECT id, name, email, role, is_active, last_login_at, created_at, updated_at FROM website_admins ORDER BY created_at ASC").all() as Omit<AdminUser, "password_hash">[];
+  const rows = await prepare("SELECT id, name, email, role, is_active, last_login_at, created_at, updated_at FROM website_admins ORDER BY created_at ASC").all() as Omit<AdminUser, "password_hash">[];
   return rows;
 }
 
+export async function countActiveSuperAdmins(): Promise<number> {
+  const row = await prepare("SELECT COUNT(*) AS count FROM website_admins WHERE role = 'super_admin' AND is_active = 1").get() as { count: number };
+  return row.count;
+}
+
 export async function createAdmin(data: Omit<AdminUser, "created_at" | "updated_at">): Promise<AdminUser> {
-  const db = getDb();
   const now = new Date().toISOString();
   const admin: AdminUser = {
     ...data,
     created_at: now,
     updated_at: now,
   };
-  db.prepare(`
+  await prepare(`
     INSERT INTO website_admins (id, name, email, password_hash, role, is_active, last_login_at, created_at, updated_at)
     VALUES (@id, @name, @email, @password_hash, @role, @is_active, @last_login_at, @created_at, @updated_at)
   `).run(admin);
@@ -348,7 +59,6 @@ export async function createAdmin(data: Omit<AdminUser, "created_at" | "updated_
 }
 
 export async function updateAdmin(id: string, updates: Partial<AdminUser>): Promise<AdminUser | null> {
-  const db = getDb();
   const existing = await getAdminById(id);
   if (!existing) return null;
 
@@ -358,7 +68,7 @@ export async function updateAdmin(id: string, updates: Partial<AdminUser>): Prom
     updated_at: new Date().toISOString(),
   };
 
-  db.prepare(`
+  await prepare(`
     UPDATE website_admins
     SET name = @name, email = @email, password_hash = @password_hash, role = @role, is_active = @is_active, updated_at = @updated_at
     WHERE id = @id
@@ -368,24 +78,21 @@ export async function updateAdmin(id: string, updates: Partial<AdminUser>): Prom
 }
 
 export async function deleteAdmin(id: string): Promise<boolean> {
-  const db = getDb();
-  const res = db.prepare("DELETE FROM website_admins WHERE id = ?").run(id);
+  const res = await prepare("DELETE FROM website_admins WHERE id = ?").run(id);
   return res.changes > 0;
 }
 
 export async function updateAdminLastLogin(id: string): Promise<void> {
-  const db = getDb();
   const now = new Date().toISOString();
-  db.prepare("UPDATE website_admins SET last_login_at = ?, updated_at = ? WHERE id = ?").run(now, now, id);
+  await prepare("UPDATE website_admins SET last_login_at = ?, updated_at = ? WHERE id = ?").run(now, now, id);
 }
 
 // --- Pricing Plans ---
 export async function getPricingPlans(onlyActive = false): Promise<PricingPlan[]> {
-  const db = getDb();
   const query = onlyActive
     ? "SELECT * FROM website_pricing_plans WHERE is_active = 1 ORDER BY display_order ASC"
     : "SELECT * FROM website_pricing_plans ORDER BY display_order ASC";
-  const rows = db.prepare(query).all() as any[];
+  const rows = await prepare(query).all() as any[];
   return rows.map((r) => ({
     ...r,
     features: JSON.parse(r.features || "[]"),
@@ -393,8 +100,7 @@ export async function getPricingPlans(onlyActive = false): Promise<PricingPlan[]
 }
 
 export async function getPricingPlanById(id: string): Promise<PricingPlan | null> {
-  const db = getDb();
-  const row = db.prepare("SELECT * FROM website_pricing_plans WHERE id = ?").get(id) as any;
+  const row = await prepare("SELECT * FROM website_pricing_plans WHERE id = ?").get(id) as any;
   if (!row) return null;
   return {
     ...row,
@@ -403,14 +109,13 @@ export async function getPricingPlanById(id: string): Promise<PricingPlan | null
 }
 
 export async function createPricingPlan(data: Omit<PricingPlan, "created_at" | "updated_at">): Promise<PricingPlan> {
-  const db = getDb();
   const now = new Date().toISOString();
   const plan: PricingPlan = {
     ...data,
     created_at: now,
     updated_at: now,
   };
-  db.prepare(`
+  await prepare(`
     INSERT INTO website_pricing_plans (id, slug, name, description, price_monthly, price_annual, annual_factor, limits_text, features, is_popular, badge_text, cta_text, cta_url, display_order, is_active, created_at, updated_at)
     VALUES (@id, @slug, @name, @description, @price_monthly, @price_annual, @annual_factor, @limits_text, @features, @is_popular, @badge_text, @cta_text, @cta_url, @display_order, @is_active, @created_at, @updated_at)
   `).run({
@@ -421,7 +126,6 @@ export async function createPricingPlan(data: Omit<PricingPlan, "created_at" | "
 }
 
 export async function updatePricingPlan(id: string, updates: Partial<PricingPlan>): Promise<PricingPlan | null> {
-  const db = getDb();
   const existing = await getPricingPlanById(id);
   if (!existing) return null;
 
@@ -431,7 +135,7 @@ export async function updatePricingPlan(id: string, updates: Partial<PricingPlan
     updated_at: new Date().toISOString(),
   };
 
-  db.prepare(`
+  await prepare(`
     UPDATE website_pricing_plans
     SET slug = @slug, name = @name, description = @description, price_monthly = @price_monthly, price_annual = @price_annual,
         annual_factor = @annual_factor, limits_text = @limits_text, features = @features, is_popular = @is_popular,
@@ -447,8 +151,7 @@ export async function updatePricingPlan(id: string, updates: Partial<PricingPlan
 }
 
 export async function deletePricingPlan(id: string): Promise<boolean> {
-  const db = getDb();
-  const res = db.prepare("DELETE FROM website_pricing_plans WHERE id = ?").run(id);
+  const res = await prepare("DELETE FROM website_pricing_plans WHERE id = ?").run(id);
   return res.changes > 0;
 }
 
@@ -460,7 +163,6 @@ export async function getBlogPosts(options?: {
   limit?: number;
   offset?: number;
 }): Promise<{ posts: BlogPost[]; total: number }> {
-  const db = getDb();
   const conditions: string[] = [];
   const params: any[] = [];
 
@@ -479,12 +181,12 @@ export async function getBlogPosts(options?: {
   }
 
   const whereClause = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
-  const countRow = db.prepare(`SELECT COUNT(*) as total FROM website_blog_posts ${whereClause}`).get(...params) as { total: number };
+  const countRow = await prepare(`SELECT COUNT(*) as total FROM website_blog_posts ${whereClause}`).get(...params) as { total: number };
 
   const limit = options?.limit || 20;
   const offset = options?.offset || 0;
 
-  const rows = db.prepare(`
+  const rows = await prepare(`
     SELECT * FROM website_blog_posts
     ${whereClause}
     ORDER BY CASE WHEN published_at IS NOT NULL THEN published_at ELSE created_at END DESC
@@ -501,8 +203,7 @@ export async function getBlogPosts(options?: {
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  const db = getDb();
-  const row = db.prepare("SELECT * FROM website_blog_posts WHERE slug = ?").get(slug) as any;
+  const row = await prepare("SELECT * FROM website_blog_posts WHERE slug = ?").get(slug) as any;
   if (!row) return null;
   return {
     ...row,
@@ -511,8 +212,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 }
 
 export async function getBlogPostById(id: string): Promise<BlogPost | null> {
-  const db = getDb();
-  const row = db.prepare("SELECT * FROM website_blog_posts WHERE id = ?").get(id) as any;
+  const row = await prepare("SELECT * FROM website_blog_posts WHERE id = ?").get(id) as any;
   if (!row) return null;
   return {
     ...row,
@@ -521,7 +221,6 @@ export async function getBlogPostById(id: string): Promise<BlogPost | null> {
 }
 
 export async function createBlogPost(data: Omit<BlogPost, "created_at" | "updated_at" | "view_count">): Promise<BlogPost> {
-  const db = getDb();
   const now = new Date().toISOString();
   const post: BlogPost = {
     ...data,
@@ -529,7 +228,7 @@ export async function createBlogPost(data: Omit<BlogPost, "created_at" | "update
     created_at: now,
     updated_at: now,
   };
-  db.prepare(`
+  await prepare(`
     INSERT INTO website_blog_posts (id, slug, title, excerpt, content, cover_image, author_name, author_role, author_avatar, category, tags, status, published_at, scheduled_at, seo_title, seo_description, og_image, view_count, created_at, updated_at)
     VALUES (@id, @slug, @title, @excerpt, @content, @cover_image, @author_name, @author_role, @author_avatar, @category, @tags, @status, @published_at, @scheduled_at, @seo_title, @seo_description, @og_image, @view_count, @created_at, @updated_at)
   `).run({
@@ -540,7 +239,6 @@ export async function createBlogPost(data: Omit<BlogPost, "created_at" | "update
 }
 
 export async function updateBlogPost(id: string, updates: Partial<BlogPost>): Promise<BlogPost | null> {
-  const db = getDb();
   const existing = await getBlogPostById(id);
   if (!existing) return null;
 
@@ -550,7 +248,7 @@ export async function updateBlogPost(id: string, updates: Partial<BlogPost>): Pr
     updated_at: new Date().toISOString(),
   };
 
-  db.prepare(`
+  await prepare(`
     UPDATE website_blog_posts
     SET slug = @slug, title = @title, excerpt = @excerpt, content = @content, cover_image = @cover_image,
         author_name = @author_name, author_role = @author_role, author_avatar = @author_avatar,
@@ -567,66 +265,66 @@ export async function updateBlogPost(id: string, updates: Partial<BlogPost>): Pr
 }
 
 export async function deleteBlogPost(id: string): Promise<boolean> {
-  const db = getDb();
-  const res = db.prepare("DELETE FROM website_blog_posts WHERE id = ?").run(id);
+  const res = await prepare("DELETE FROM website_blog_posts WHERE id = ?").run(id);
   return res.changes > 0;
 }
 
 export async function incrementBlogPostViews(id: string): Promise<void> {
-  const db = getDb();
-  db.prepare("UPDATE website_blog_posts SET view_count = view_count + 1 WHERE id = ? OR slug = ?").run(id, id);
+  await prepare("UPDATE website_blog_posts SET view_count = view_count + 1 WHERE id = ? OR slug = ?").run(id, id);
 }
 
 // --- Legal Documents ---
 export async function getActiveLegalDocument(slug: string): Promise<LegalDocument | null> {
-  const db = getDb();
-  const row = db.prepare("SELECT * FROM website_legal_documents WHERE slug = ? AND is_active = 1 ORDER BY created_at DESC LIMIT 1").get(slug) as LegalDocument | undefined;
+  const row = await prepare("SELECT * FROM website_legal_documents WHERE slug = ? AND is_active = 1 ORDER BY created_at DESC LIMIT 1").get(slug) as LegalDocument | undefined;
   return row || null;
 }
 
 export async function getLegalDocumentVersions(slug: string): Promise<LegalDocument[]> {
-  const db = getDb();
-  const rows = db.prepare("SELECT * FROM website_legal_documents WHERE slug = ? ORDER BY created_at DESC").all(slug) as LegalDocument[];
+  const rows = await prepare("SELECT * FROM website_legal_documents WHERE slug = ? ORDER BY created_at DESC").all(slug) as LegalDocument[];
   return rows;
 }
 
 export async function createLegalDocumentVersion(data: Omit<LegalDocument, "created_at">): Promise<LegalDocument> {
-  const db = getDb();
   const now = new Date().toISOString();
   const doc: LegalDocument = {
     ...data,
     created_at: now,
   };
 
-  if (data.is_active === 1) {
-    db.prepare("UPDATE website_legal_documents SET is_active = 0 WHERE slug = ?").run(data.slug);
-  }
-
-  db.prepare(`
-    INSERT INTO website_legal_documents (id, slug, title, version, content, is_active, changelog, created_by, created_at)
-    VALUES (@id, @slug, @title, @version, @content, @is_active, @changelog, @created_by, @created_at)
-  `).run(doc);
+  await transaction(async (conn) => {
+    if (data.is_active === 1) {
+      await conn.query("UPDATE website_legal_documents SET is_active = 0 WHERE slug = ?", [data.slug]);
+    }
+    await conn.query(
+      `INSERT INTO website_legal_documents
+        (id, slug, title, version, content, is_active, changelog, created_by, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [doc.id, doc.slug, doc.title, doc.version, doc.content, doc.is_active, doc.changelog, doc.created_by, doc.created_at]
+    );
+  });
 
   return doc;
 }
 
 export async function setActiveLegalDocumentVersion(id: string, slug: string): Promise<boolean> {
-  const db = getDb();
-  db.prepare("UPDATE website_legal_documents SET is_active = 0 WHERE slug = ?").run(slug);
-  const res = db.prepare("UPDATE website_legal_documents SET is_active = 1 WHERE id = ? AND slug = ?").run(id, slug);
-  return res.changes > 0;
+  return transaction(async (conn) => {
+    const [existing] = await conn.query("SELECT id FROM website_legal_documents WHERE id = ? AND slug = ? FOR UPDATE", [id, slug]);
+    if ((existing as unknown[]).length === 0) return false;
+    await conn.query("UPDATE website_legal_documents SET is_active = 0 WHERE slug = ?", [slug]);
+    await conn.query("UPDATE website_legal_documents SET is_active = 1 WHERE id = ? AND slug = ?", [id, slug]);
+    return true;
+  });
 }
 
 export async function recordLegalAgreement(data: Omit<LegalAgreementRecord, "id" | "agreed_at">): Promise<LegalAgreementRecord> {
-  const db = getDb();
-  const id = `la_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const id = `la_${randomUUID()}`;
   const now = new Date().toISOString();
   const record: LegalAgreementRecord = {
     id,
     ...data,
     agreed_at: now,
   };
-  db.prepare(`
+  await prepare(`
     INSERT INTO website_legal_agreements (id, document_slug, document_version, visitor_id, user_id, ip_hash, agreed_at, metadata)
     VALUES (@id, @document_slug, @document_version, @visitor_id, @user_id, @ip_hash, @agreed_at, @metadata)
   `).run({
@@ -638,15 +336,14 @@ export async function recordLegalAgreement(data: Omit<LegalAgreementRecord, "id"
 
 // --- Cookie Consent ---
 export async function recordCookieConsent(data: Omit<CookieConsentRecord, "id" | "timestamp">): Promise<CookieConsentRecord> {
-  const db = getDb();
-  const id = `cc_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const id = `cc_${randomUUID()}`;
   const now = new Date().toISOString();
   const record: CookieConsentRecord = {
     id,
     ...data,
     timestamp: now,
   };
-  db.prepare(`
+  await prepare(`
     INSERT INTO website_cookie_consents (id, visitor_id, choice, categories, policy_version, timestamp, user_agent, country)
     VALUES (@id, @visitor_id, @choice, @categories, @policy_version, @timestamp, @user_agent, @country)
   `).run({
@@ -657,8 +354,7 @@ export async function recordCookieConsent(data: Omit<CookieConsentRecord, "id" |
 }
 
 export async function getCookieConsentStats() {
-  const db = getDb();
-  const rows = db.prepare(`
+  const rows = await prepare(`
     SELECT choice, COUNT(*) as count
     FROM website_cookie_consents
     GROUP BY choice
@@ -687,15 +383,14 @@ export async function getCookieConsentStats() {
 
 // --- Analytics & Events ---
 export async function recordAnalyticsEvent(data: Omit<AnalyticsEvent, "id" | "timestamp">): Promise<AnalyticsEvent> {
-  const db = getDb();
-  const id = `evt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const id = `evt_${randomUUID()}`;
   const now = new Date().toISOString();
   const event: AnalyticsEvent = {
     id,
     ...data,
     timestamp: now,
   };
-  db.prepare(`
+  await prepare(`
     INSERT INTO website_analytics_events (id, event_name, visitor_id, session_id, page_path, referrer, traffic_source, device_type, browser, os, country, city, payload, timestamp)
     VALUES (@id, @event_name, @visitor_id, @session_id, @page_path, @referrer, @traffic_source, @device_type, @browser, @os, @country, @city, @payload, @timestamp)
   `).run({
@@ -706,7 +401,6 @@ export async function recordAnalyticsEvent(data: Omit<AnalyticsEvent, "id" | "ti
 }
 
 export async function getAnalyticsDashboardStats(rangeDays = 14) {
-  const db = getDb();
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - rangeDays);
   const startIso = startDate.toISOString();
@@ -717,46 +411,48 @@ export async function getAnalyticsDashboardStats(rangeDays = 14) {
   const prevStartIso = prevStartDate.toISOString();
 
   // 1. Current Period KPIs
-  const currentKpis = db.prepare(`
+  const currentKpis = await prepare(`
     SELECT
       COUNT(DISTINCT visitor_id) as unique_visitors,
       COUNT(DISTINCT session_id) as total_sessions,
       COUNT(*) as total_events,
       SUM(CASE WHEN event_name = 'page_view' THEN 1 ELSE 0 END) as page_views,
       SUM(CASE WHEN event_name = 'pricing_view' THEN 1 ELSE 0 END) as pricing_views,
-      SUM(CASE WHEN event_name = 'signup_clicked' THEN 1 ELSE 0 END) as signup_clicks
+      SUM(CASE WHEN event_name = 'signup_clicked' THEN 1 ELSE 0 END) as signup_clicks,
+      SUM(CASE WHEN event_name = 'lead_submitted' THEN 1 ELSE 0 END) as lead_submissions
     FROM website_analytics_events
     WHERE timestamp >= ?
   `).get(startIso) as any;
 
   // 2. Previous Period KPIs
-  const prevKpis = db.prepare(`
+  const prevKpis = await prepare(`
     SELECT
       COUNT(DISTINCT visitor_id) as unique_visitors,
       COUNT(DISTINCT session_id) as total_sessions,
       COUNT(*) as total_events,
       SUM(CASE WHEN event_name = 'page_view' THEN 1 ELSE 0 END) as page_views,
       SUM(CASE WHEN event_name = 'pricing_view' THEN 1 ELSE 0 END) as pricing_views,
-      SUM(CASE WHEN event_name = 'signup_clicked' THEN 1 ELSE 0 END) as signup_clicks
+      SUM(CASE WHEN event_name = 'signup_clicked' THEN 1 ELSE 0 END) as signup_clicks,
+      SUM(CASE WHEN event_name = 'lead_submitted' THEN 1 ELSE 0 END) as lead_submissions
     FROM website_analytics_events
     WHERE timestamp >= ? AND timestamp < ?
   `).get(prevStartIso, startIso) as any;
 
   // 3. Time-Series Daily Traffic
-  const timeSeries = db.prepare(`
+  const timeSeries = await prepare(`
     SELECT
-      strftime('%Y-%m-%d', timestamp) as date,
+      DATE_FORMAT(timestamp, '%Y-%m-%d') as date,
       COUNT(DISTINCT visitor_id) as visitors,
       SUM(CASE WHEN event_name = 'page_view' THEN 1 ELSE 0 END) as page_views,
-      SUM(CASE WHEN event_name IN ('signup_clicked', 'plan_selected') THEN 1 ELSE 0 END) as conversions
+      SUM(CASE WHEN event_name IN ('signup_clicked', 'lead_submitted') THEN 1 ELSE 0 END) as conversions
     FROM website_analytics_events
     WHERE timestamp >= ?
-    GROUP BY strftime('%Y-%m-%d', timestamp)
+    GROUP BY DATE_FORMAT(timestamp, '%Y-%m-%d')
     ORDER BY date ASC
   `).all(startIso) as any[];
 
   // 4. Traffic Sources / Referrers
-  const trafficSources = db.prepare(`
+  const trafficSources = await prepare(`
     SELECT
       COALESCE(traffic_source, 'Direct') as source,
       COUNT(DISTINCT visitor_id) as visitors,
@@ -769,7 +465,7 @@ export async function getAnalyticsDashboardStats(rangeDays = 14) {
   `).all(startIso) as any[];
 
   // 5. Most Visited Pages
-  const topPages = db.prepare(`
+  const topPages = await prepare(`
     SELECT
       page_path,
       COUNT(*) as views,
@@ -782,7 +478,7 @@ export async function getAnalyticsDashboardStats(rangeDays = 14) {
   `).all(startIso) as any[];
 
   // 6. Device Breakdown
-  const devices = db.prepare(`
+  const devices = await prepare(`
     SELECT
       COALESCE(device_type, 'Desktop') as device,
       COUNT(DISTINCT visitor_id) as count
@@ -792,7 +488,7 @@ export async function getAnalyticsDashboardStats(rangeDays = 14) {
   `).all(startIso) as any[];
 
   // 7. Browsers & OS
-  const browsers = db.prepare(`
+  const browsers = await prepare(`
     SELECT
       COALESCE(browser, 'Other') as browser,
       COUNT(DISTINCT visitor_id) as count
@@ -803,7 +499,7 @@ export async function getAnalyticsDashboardStats(rangeDays = 14) {
     LIMIT 5
   `).all(startIso) as any[];
 
-  const osList = db.prepare(`
+  const osList = await prepare(`
     SELECT
       COALESCE(os, 'Other') as os,
       COUNT(DISTINCT visitor_id) as count
@@ -815,7 +511,7 @@ export async function getAnalyticsDashboardStats(rangeDays = 14) {
   `).all(startIso) as any[];
 
   // 8. Locations
-  const locations = db.prepare(`
+  const locations = await prepare(`
     SELECT
       COALESCE(city, 'Phnom Penh') as city,
       COALESCE(country, 'Cambodia') as country,
@@ -828,7 +524,7 @@ export async function getAnalyticsDashboardStats(rangeDays = 14) {
   `).all(startIso) as any[];
 
   // 9. Recent Activity Feed
-  const recentEvents = db.prepare(`
+  const recentEvents = await prepare(`
     SELECT *
     FROM website_analytics_events
     ORDER BY timestamp DESC
@@ -847,6 +543,7 @@ export async function getAnalyticsDashboardStats(rangeDays = 14) {
       prevPageViews: prevKpis.page_views || 0,
       pricingViews: currentKpis.pricing_views || 0,
       signupClicks: currentKpis.signup_clicks || 0,
+      leadSubmissions: currentKpis.lead_submissions || 0,
       conversionRate:
         currentKpis.unique_visitors > 0
           ? ((currentKpis.signup_clicks / currentKpis.unique_visitors) * 100).toFixed(1)
@@ -873,7 +570,6 @@ export async function getVisitorsList(options?: {
   limit?: number;
   offset?: number;
 }) {
-  const db = getDb();
   const limit = options?.limit || 25;
   const offset = options?.offset || 0;
   let searchCondition = "";
@@ -905,11 +601,29 @@ export async function getVisitorsList(options?: {
     LIMIT ? OFFSET ?
   `;
 
-  const rows = db.prepare(query).all(...params, limit, offset) as any[];
+  const rows = await prepare(query).all(...params, limit, offset) as any[];
 
-  // Also query consent status for these visitors
+  // Latest consent per visitor, fetched in one round trip. Doing this per row
+  // would be an N+1 against a remote database.
+  const consentByVisitor = new Map<string, any>();
+  if (rows.length > 0) {
+    const ids = rows.map((r) => r.visitor_id);
+    const consentRows = await prepare(`
+      SELECT c.visitor_id, c.choice, c.categories
+      FROM website_cookie_consents c
+      JOIN (
+        SELECT visitor_id, MAX(timestamp) AS latest
+        FROM website_cookie_consents
+        WHERE visitor_id IN (${ids.map(() => "?").join(",")})
+        GROUP BY visitor_id
+      ) newest ON newest.visitor_id = c.visitor_id AND newest.latest = c.timestamp
+    `).all(...ids) as any[];
+
+    for (const c of consentRows) consentByVisitor.set(c.visitor_id, c);
+  }
+
   const result = rows.map((r) => {
-    const consent = db.prepare("SELECT choice, categories FROM website_cookie_consents WHERE visitor_id = ? ORDER BY timestamp DESC LIMIT 1").get(r.visitor_id) as any;
+    const consent = consentByVisitor.get(r.visitor_id);
     return {
       ...r,
       consent_choice: consent ? consent.choice : "not_specified",
@@ -917,7 +631,7 @@ export async function getVisitorsList(options?: {
     };
   });
 
-  const countRow = db.prepare(`
+  const countRow = await prepare(`
     SELECT COUNT(DISTINCT visitor_id) as total FROM website_analytics_events
   `).get() as { total: number };
 
@@ -928,14 +642,13 @@ export async function getVisitorsList(options?: {
 }
 
 export async function getVisitorDetails(visitorId: string) {
-  const db = getDb();
-  const events = db.prepare(`
+  const events = await prepare(`
     SELECT * FROM website_analytics_events
     WHERE visitor_id = ?
     ORDER BY timestamp ASC
   `).all(visitorId) as any[];
 
-  const consent = db.prepare(`
+  const consent = await prepare(`
     SELECT * FROM website_cookie_consents
     WHERE visitor_id = ?
     ORDER BY timestamp DESC
@@ -959,17 +672,12 @@ export async function getVisitorDetails(visitorId: string) {
 
 // --- Website Settings ---
 export async function getWebsiteSettings(): Promise<WebsiteSettings> {
-  const db = getDb();
-  const row = db.prepare("SELECT * FROM website_settings WHERE id = 'default'").get() as WebsiteSettings | undefined;
-  if (!row) {
-    const seed = await getInitialSeedData();
-    return seed.settings;
-  }
+  const row = await prepare("SELECT * FROM website_settings WHERE id = 'default'").get() as WebsiteSettings | undefined;
+  if (!row) throw new Error("Website settings are not initialized. Run npm run seed.");
   return row;
 }
 
 export async function updateWebsiteSettings(updates: Partial<WebsiteSettings>): Promise<WebsiteSettings> {
-  const db = getDb();
   const existing = await getWebsiteSettings();
   const updated: WebsiteSettings = {
     ...existing,
@@ -977,7 +685,7 @@ export async function updateWebsiteSettings(updates: Partial<WebsiteSettings>): 
     updated_at: new Date().toISOString(),
   };
 
-  db.prepare(`
+  await prepare(`
     UPDATE website_settings
     SET site_title = @site_title, site_description = @site_description,
         announcement_enabled = @announcement_enabled, announcement_text_en = @announcement_text_en,
@@ -994,21 +702,24 @@ export async function updateWebsiteSettings(updates: Partial<WebsiteSettings>): 
 
 // --- Media Library ---
 export async function listMedia(): Promise<MediaItem[]> {
-  const db = getDb();
-  const rows = db.prepare("SELECT * FROM website_media ORDER BY created_at DESC").all() as MediaItem[];
+  const rows = await prepare("SELECT * FROM website_media ORDER BY created_at DESC").all() as MediaItem[];
   return rows;
 }
 
+export async function getMediaById(id: string): Promise<MediaItem | null> {
+  const row = await prepare("SELECT * FROM website_media WHERE id = ?").get(id) as MediaItem | undefined;
+  return row || null;
+}
+
 export async function createMedia(data: Omit<MediaItem, "id" | "created_at">): Promise<MediaItem> {
-  const db = getDb();
-  const id = `med_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const id = `med_${randomUUID()}`;
   const now = new Date().toISOString();
   const item: MediaItem = {
     id,
     ...data,
     created_at: now,
   };
-  db.prepare(`
+  await prepare(`
     INSERT INTO website_media (id, filename, url, size_bytes, mime_type, alt_text, uploaded_by, created_at)
     VALUES (@id, @filename, @url, @size_bytes, @mime_type, @alt_text, @uploaded_by, @created_at)
   `).run(item);
@@ -1016,22 +727,20 @@ export async function createMedia(data: Omit<MediaItem, "id" | "created_at">): P
 }
 
 export async function deleteMedia(id: string): Promise<boolean> {
-  const db = getDb();
-  const res = db.prepare("DELETE FROM website_media WHERE id = ?").run(id);
+  const res = await prepare("DELETE FROM website_media WHERE id = ?").run(id);
   return res.changes > 0;
 }
 
 // --- Audit Logs ---
 export async function recordAuditLog(data: Omit<AuditLog, "id" | "timestamp">): Promise<AuditLog> {
-  const db = getDb();
-  const id = `audit_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const id = `audit_${randomUUID()}`;
   const now = new Date().toISOString();
   const log: AuditLog = {
     id,
     ...data,
     timestamp: now,
   };
-  db.prepare(`
+  await prepare(`
     INSERT INTO website_audit_logs (id, actor_id, actor_name, actor_email, action, target_entity, target_id, before_state, after_state, ip_address, timestamp)
     VALUES (@id, @actor_id, @actor_name, @actor_email, @action, @target_entity, @target_id, @before_state, @after_state, @ip_address, @timestamp)
   `).run({
@@ -1048,7 +757,6 @@ export async function getAuditLogs(options?: {
   search?: string;
   action?: string;
 }): Promise<{ logs: AuditLog[]; total: number }> {
-  const db = getDb();
   const conditions: string[] = [];
   const params: any[] = [];
 
@@ -1063,12 +771,12 @@ export async function getAuditLogs(options?: {
   }
 
   const whereClause = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
-  const countRow = db.prepare(`SELECT COUNT(*) as total FROM website_audit_logs ${whereClause}`).get(...params) as { total: number };
+  const countRow = await prepare(`SELECT COUNT(*) as total FROM website_audit_logs ${whereClause}`).get(...params) as { total: number };
 
   const limit = options?.limit || 30;
   const offset = options?.offset || 0;
 
-  const rows = db.prepare(`
+  const rows = await prepare(`
     SELECT * FROM website_audit_logs
     ${whereClause}
     ORDER BY timestamp DESC
@@ -1101,8 +809,7 @@ export async function createLead(data: {
   message?: string | null;
   source_page?: string | null;
 }): Promise<Lead> {
-  const db = getDb();
-  const id = `lead_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const id = `lead_${randomUUID()}`;
   const now = new Date().toISOString();
 
   const lead: Lead = {
@@ -1123,7 +830,7 @@ export async function createLead(data: {
     updated_at: now,
   };
 
-  db.prepare(`
+  await prepare(`
     INSERT INTO website_leads (
       id, name, company, industry, employees_count, branches_count,
       email, phone_telegram, preferred_language, message, source_page,
@@ -1145,7 +852,6 @@ export async function getLeads(options?: {
   status?: string;
   industry?: string;
 }): Promise<{ leads: Lead[]; total: number }> {
-  const db = getDb();
   const conditions: string[] = [];
   const params: any[] = [];
 
@@ -1164,12 +870,12 @@ export async function getLeads(options?: {
   }
 
   const whereClause = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
-  const countRow = db.prepare(`SELECT COUNT(*) as total FROM website_leads ${whereClause}`).get(...params) as { total: number };
+  const countRow = await prepare(`SELECT COUNT(*) as total FROM website_leads ${whereClause}`).get(...params) as { total: number };
 
   const limit = options?.limit || 30;
   const offset = options?.offset || 0;
 
-  const rows = db.prepare(`
+  const rows = await prepare(`
     SELECT * FROM website_leads
     ${whereClause}
     ORDER BY created_at DESC
@@ -1183,8 +889,7 @@ export async function getLeads(options?: {
 }
 
 export async function getLeadById(id: string): Promise<Lead | null> {
-  const db = getDb();
-  const row = db.prepare("SELECT * FROM website_leads WHERE id = ?").get(id) as Lead | undefined;
+  const row = await prepare("SELECT * FROM website_leads WHERE id = ?").get(id) as Lead | undefined;
   return row || null;
 }
 
@@ -1192,7 +897,6 @@ export async function updateLead(
   id: string,
   updates: Partial<Pick<Lead, "status" | "admin_notes">>
 ): Promise<Lead | null> {
-  const db = getDb();
   const existing = await getLeadById(id);
   if (!existing) return null;
 
@@ -1202,7 +906,7 @@ export async function updateLead(
     updated_at: new Date().toISOString(),
   };
 
-  db.prepare(`
+  await prepare(`
     UPDATE website_leads
     SET status = @status, admin_notes = @admin_notes, updated_at = @updated_at
     WHERE id = @id
@@ -1217,8 +921,7 @@ export async function updateLead(
 }
 
 export async function deleteLead(id: string): Promise<boolean> {
-  const db = getDb();
-  const res = db.prepare("DELETE FROM website_leads WHERE id = ?").run(id);
+  const res = await prepare("DELETE FROM website_leads WHERE id = ?").run(id);
   return res.changes > 0;
 }
 
@@ -1230,14 +933,13 @@ export async function recordNewsletterSubscriber(
   email: string,
   source_page?: string
 ): Promise<{ success: boolean; is_new: boolean }> {
-  const db = getDb();
-  const existing = db.prepare("SELECT id FROM website_newsletter_subscribers WHERE email = ?").get(email);
+  const existing = await prepare("SELECT id FROM website_newsletter_subscribers WHERE email = ?").get(email);
   if (existing) {
     return { success: true, is_new: false };
   }
 
-  const id = `sub_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
-  db.prepare(`
+  const id = `sub_${randomUUID()}`;
+  await prepare(`
     INSERT INTO website_newsletter_subscribers (id, email, source_page, created_at)
     VALUES (?, ?, ?, ?)
   `).run(id, email, source_page || "/", new Date().toISOString());
@@ -1249,12 +951,11 @@ export async function getNewsletterSubscribers(options?: {
   limit?: number;
   offset?: number;
 }): Promise<{ subscribers: NewsletterSubscriber[]; total: number }> {
-  const db = getDb();
-  const countRow = db.prepare("SELECT COUNT(*) as total FROM website_newsletter_subscribers").get() as { total: number };
+  const countRow = await prepare("SELECT COUNT(*) as total FROM website_newsletter_subscribers").get() as { total: number };
   const limit = options?.limit || 50;
   const offset = options?.offset || 0;
 
-  const rows = db.prepare(`
+  const rows = await prepare(`
     SELECT * FROM website_newsletter_subscribers
     ORDER BY created_at DESC
     LIMIT ? OFFSET ?

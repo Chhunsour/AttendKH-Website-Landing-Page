@@ -23,15 +23,28 @@ export function useCopy(): SiteCopy {
   return siteCopy[lang];
 }
 
+import { motion } from "framer-motion";
+
 export function Reveal({
   children,
+  delay = 0,
   className = "",
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
 }) {
-  return <div className={className}>{children}</div>;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
 /**
@@ -58,9 +71,9 @@ export function DirectAnswerBlock({
         <span className="h-2 w-2 rounded-full bg-brand" aria-hidden="true" />
         <span>Quick answer</span>
       </div>
-      <h3 className="font-display mt-3 text-lg font-bold text-ink sm:text-xl">
+      <h2 className="font-display mt-3 text-lg font-bold text-ink sm:text-xl">
         {question}
-      </h3>
+      </h2>
       <p className="mt-2.5 text-[15px] leading-relaxed text-body sm:text-[15.5px]">
         {answer}
       </p>
@@ -168,58 +181,78 @@ export function ImageSlot({
           </div>
 
           <div className="flex items-center justify-between border-t border-white/10 pt-2 text-[10px] font-mono text-slate-400">
-            <span>Employee: Sreymom Sok (ID: #AKH-084)</span>
-            <span className="text-emerald-400">✓ Digital Signature Valid</span>
+            <span>Employee: Sample record</span>
+            <span className="text-emerald-400">Illustrative format</span>
           </div>
         </div>
       ) : isBranch ? (
-        /* Multi-Branch Console Visualizer */
+        /* Illustrative multi-branch console */
         <div className="relative z-10 flex h-full flex-col justify-between">
           <div className="flex items-center justify-between border-b border-white/10 pb-3">
             <div className="flex items-center gap-2">
-              <Building size={16} className="text-brand" />
-              <span className="font-display text-xs font-bold text-white">Central Operations Console</span>
+              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-brand/20 text-brand">
+                <Building size={14} />
+              </span>
+              <div>
+                <span className="font-display text-xs font-bold text-white block">Central Operations Console</span>
+                <span className="text-[9.5px] font-mono text-slate-400 block">Example branch data</span>
+              </div>
             </div>
-            <span className="font-mono text-[10px] text-emerald-400">4 Branches Synced</span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-emerald-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Branch Overview
+            </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-auto py-2 text-xs">
-            <div className="rounded-xl bg-white/5 border border-white/10 p-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-auto py-2.5 text-xs">
+            <div className="group/item rounded-xl border border-white/10 bg-white/[0.04] p-3 transition-all hover:border-brand/40 hover:bg-white/[0.08]">
               <div className="flex justify-between items-center">
-                <span className="font-semibold text-white">Tuol Kork HQ</span>
-                <span className="font-mono text-[11px] text-emerald-400">18/18 In</span>
+                <span className="font-semibold text-white truncate">Tuol Kork Branch</span>
+                <span className="font-mono text-[11px] font-bold text-emerald-400 shrink-0 ml-1.5">On shift</span>
               </div>
-              <span className="text-[10px] text-slate-400">Morning Shift • 50m Radius</span>
+              <div className="mt-1 flex items-center justify-between text-[10px] text-slate-400">
+                <span>Morning Shift • 50m Geofence</span>
+                <span className="text-emerald-400 font-mono">Configured</span>
+              </div>
             </div>
 
-            <div className="rounded-xl bg-white/5 border border-white/10 p-2.5">
+            <div className="group/item rounded-xl border border-white/10 bg-white/[0.04] p-3 transition-all hover:border-brand/40 hover:bg-white/[0.08]">
               <div className="flex justify-between items-center">
-                <span className="font-semibold text-white">BKK1 Flagship</span>
-                <span className="font-mono text-[11px] text-emerald-400">12/12 In</span>
+                <span className="font-semibold text-white truncate">BKK1 Branch</span>
+                <span className="font-mono text-[11px] font-bold text-emerald-400 shrink-0 ml-1.5">Split shift</span>
               </div>
-              <span className="text-[10px] text-slate-400">Split Shift • 85m Radius</span>
+              <div className="mt-1 flex items-center justify-between text-[10px] text-slate-400">
+                <span>Split Shift • 65m Geofence</span>
+                <span className="text-emerald-400 font-mono">Configured</span>
+              </div>
             </div>
 
-            <div className="rounded-xl bg-white/5 border border-white/10 p-2.5">
+            <div className="group/item rounded-xl border border-white/10 bg-white/[0.04] p-3 transition-all hover:border-brand/40 hover:bg-white/[0.08]">
               <div className="flex justify-between items-center">
-                <span className="font-semibold text-white">Siem Reap Outlet</span>
-                <span className="font-mono text-[11px] text-amber-400">14/15 In</span>
+                <span className="font-semibold text-white truncate">Toul Tompoung Branch</span>
+                <span className="font-mono text-[11px] font-bold text-emerald-400 shrink-0 ml-1.5">Flexible shift</span>
               </div>
-              <span className="text-[10px] text-slate-400">Pub Street • 100m Radius</span>
+              <div className="mt-1 flex items-center justify-between text-[10px] text-slate-400">
+                <span>Flexi Shift • 75m Geofence</span>
+                <span className="text-emerald-400 font-mono">Configured</span>
+              </div>
             </div>
 
-            <div className="rounded-xl bg-white/5 border border-white/10 p-2.5">
+            <div className="group/item rounded-xl border border-white/10 bg-white/[0.04] p-3 transition-all hover:border-brand/40 hover:bg-white/[0.08]">
               <div className="flex justify-between items-center">
-                <span className="font-semibold text-white">Sihanoukville Port</span>
-                <span className="font-mono text-[11px] text-emerald-400">8/8 In</span>
+                <span className="font-semibold text-white truncate">Siem Reap Branch</span>
+                <span className="font-mono text-[11px] font-bold text-emerald-400 shrink-0 ml-1.5">Regional shift</span>
               </div>
-              <span className="text-[10px] text-slate-400">Yard Logistics • 200m Radius</span>
+              <div className="mt-1 flex items-center justify-between text-[10px] text-slate-400">
+                <span>Regional Lab • 100m Geofence</span>
+                <span className="text-emerald-400 font-mono">Configured</span>
+              </div>
             </div>
           </div>
 
           <div className="flex items-center justify-between border-t border-white/10 pt-2 text-[10px] font-mono text-slate-400">
-            <span>Overall Attendance: 98.1%</span>
-            <span>Overnight Shifts: Supported</span>
+            <span>Illustrative workflow • No live customer data</span>
+            <span className="text-emerald-400 font-semibold">Review status</span>
           </div>
         </div>
       ) : (
@@ -228,7 +261,7 @@ export function ImageSlot({
           <div className="flex items-center justify-between border-b border-white/10 pb-3">
             <div className="flex items-center gap-2">
               <MapPin size={16} className="text-brand" />
-              <span className="font-display text-xs font-bold text-white">GPS Geofence & Biometric Verification</span>
+              <span className="font-display text-xs font-bold text-white">Example Punch Verification Controls</span>
             </div>
             <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-mono text-[10px] font-bold text-emerald-400">
               Verified Pin
@@ -256,8 +289,8 @@ export function ImageSlot({
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/30">
                 <ShieldCheck size={22} />
               </div>
-              <span className="block font-mono text-xs font-bold text-white">Anti-Mock Shield</span>
-              <span className="text-[10px] text-slate-400">Blocks GPS Spoofers</span>
+              <span className="block font-mono text-xs font-bold text-white">Location Integrity Checks</span>
+              <span className="text-[10px] text-slate-400">Flags suspected spoofing</span>
             </div>
           </div>
 
@@ -418,20 +451,24 @@ export function CtaBand({
 }) {
   const c = useCopy();
   return (
-    <section className="bg-brand">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-16 sm:px-8 md:flex-row md:items-center md:justify-between">
-        <div className="max-w-lg">
+    <section className="bg-brand relative overflow-hidden">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-16 sm:px-8 md:flex-row md:items-center md:justify-between relative z-10">
+        <div className="max-w-xl">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1 text-xs font-bold text-white shadow-xs backdrop-blur-md">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#00C853] animate-pulse" />
+            <span>$1.00 / employee / month • No setup fee • Cancel anytime</span>
+          </div>
           <h2 className="font-display text-[1.7rem] font-bold leading-tight text-white sm:text-[2.1rem]">
             {title}
           </h2>
-          {sub ? <p className="mt-2.5 text-[16px] leading-relaxed text-blue-100">{sub}</p> : null}
+          {sub ? <p className="mt-2.5 text-[15.5px] leading-relaxed text-blue-100">{sub}</p> : null}
         </div>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 items-center">
           <Button href={href} variant="white">
             {cta || c.common.trial}
           </Button>
-          <Button href="/contact" variant="ghost-white">
-            {c.common.demo}
+          <Button href="/pricing" variant="ghost-white">
+            {c.nav.pricing}
           </Button>
         </div>
       </div>

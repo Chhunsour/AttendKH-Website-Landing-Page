@@ -11,15 +11,13 @@ import {
   Send,
   ShieldCheck,
 } from "lucide-react";
-import { useCopy } from "@/components/site/ui";
 import { useSite } from "@/lib/i18n";
 
 const inputClass =
   "mt-2 min-h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-[15px] text-ink outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-brand focus:ring-4 focus:ring-brand/10";
 
 export function ContactView() {
-  const { footer } = useCopy();
-  const { lang } = useSite();
+  const { lang, publicSettings } = useSite();
   const isKm = lang === "km";
   const t = isKm
     ? {
@@ -191,7 +189,7 @@ export function ContactView() {
             </div>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-[13px]">
               <a
-                href="https://t.me/attendkh"
+                href={publicSettings.telegramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex min-h-11 items-center gap-2 font-semibold text-white/85 transition hover:text-white focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
@@ -200,11 +198,11 @@ export function ContactView() {
                 {t.telegram}
               </a>
               <a
-                href={`mailto:${footer.email}`}
+                href={`mailto:${publicSettings.contactEmail}`}
                 className="inline-flex min-h-11 items-center gap-2 text-white/75 transition hover:text-white focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
               >
                 <Mail size={15} aria-hidden="true" />
-                {footer.email}
+                {publicSettings.contactEmail}
               </a>
             </div>
           </div>
@@ -225,7 +223,7 @@ export function ContactView() {
                   {t.successMeta}
                 </p>
                 <a
-                  href="https://t.me/attendkh"
+                  href={publicSettings.telegramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#229ED9] px-6 text-[14px] font-semibold text-white transition hover:bg-[#1688bd] active:translate-y-px focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky-200"

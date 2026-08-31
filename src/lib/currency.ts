@@ -5,8 +5,8 @@ export type Currency = 'USD' | 'KHR';
 /**
  * Converts a USD amount to Cambodian Riel (KHR) using the standard 4,100 rate.
  */
-export function usdToKhr(usdAmount: number): number {
-  return Math.round(usdAmount * EXCHANGE_RATE_USD_TO_KHR);
+export function usdToKhr(usdAmount: number, rate = EXCHANGE_RATE_USD_TO_KHR): number {
+  return Math.round(usdAmount * rate);
 }
 
 /**
@@ -54,10 +54,11 @@ export function formatCurrency(
     minimumFractionDigits?: number;
     maximumFractionDigits?: number;
     showCentsIfZero?: boolean;
-  }
+  },
+  rate = EXCHANGE_RATE_USD_TO_KHR
 ): string {
   if (currency === 'KHR') {
-    const khrValue = usdToKhr(amountUsd);
+    const khrValue = usdToKhr(amountUsd, rate);
     return formatKHR(khrValue);
   }
   return formatUSD(amountUsd, options);

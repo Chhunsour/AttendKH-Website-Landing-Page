@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ShieldCheck, Settings, X, Lock } from "lucide-react";
 import {
   getClientCookiePreferences,
@@ -17,6 +17,9 @@ export function CookieBanner() {
   const [analytics, setAnalytics] = useState(true);
   const [functional, setFunctional] = useState(true);
   const [marketing, setMarketing] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const existing = getClientCookiePreferences();
@@ -25,6 +28,44 @@ export function CookieBanner() {
       return () => clearTimeout(timer);
     }
   }, []);
+
+  useEffect(() => {
+    if (!showModal) return;
+
+    previousFocusRef.current = document.activeElement as HTMLElement | null;
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setShowModal(false);
+        return;
+      }
+      if (event.key !== "Tab" || !modalRef.current) return;
+
+      const focusable = Array.from(
+        modalRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previousFocusRef.current?.focus();
+    };
+  }, [showModal]);
 
   useEffect(() => {
     // Listen to open settings custom event
@@ -151,7 +192,7 @@ export function CookieBanner() {
               <button
                 type="button"
                 onClick={() => setShowModal(true)}
-                className="rounded-lg border border-line px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-mist hover:text-ink transition-colors"
+                className="min-h-11 rounded-lg border border-line px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-mist hover:text-ink transition-colors"
               >
                 Customize
               </button>
@@ -159,7 +200,7 @@ export function CookieBanner() {
               <button
                 type="button"
                 onClick={handleRejectNonEssential}
-                className="rounded-lg border border-line px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-mist hover:text-ink transition-colors"
+                className="min-h-11 rounded-lg border border-line px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-mist hover:text-ink transition-colors"
               >
                 Reject Non-Essential
               </button>
@@ -167,7 +208,7 @@ export function CookieBanner() {
               <button
                 type="button"
                 onClick={handleAcceptAll}
-                className="rounded-lg bg-brand px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-brand-dark transition-colors"
+                className="min-h-11 rounded-lg bg-brand px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-brand-dark transition-colors"
               >
                 Accept All
               </button>
@@ -185,18 +226,26 @@ export function CookieBanner() {
             aria-hidden="true"
           />
 
-          <div className="relative z-10 w-full max-w-lg rounded-2xl border border-line bg-paper p-6 shadow-2xl">
+          <div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cookie-preferences-title"
+            className="relative z-10 max-h-[calc(100dvh-2rem)] w-full max-w-lg overflow-y-auto rounded-2xl border border-line bg-paper p-6 shadow-2xl"
+          >
             <div className="flex items-center justify-between border-b border-line pb-3">
               <div className="flex items-center gap-2">
                 <Settings size={18} className="text-brand" />
-                <h3 className="font-display text-[16.5px] font-bold text-ink">
+                <h2 id="cookie-preferences-title" className="font-display text-[16.5px] font-bold text-ink">
                   Cookie & Privacy Preferences
-                </h3>
+                </h2>
               </div>
               <button
                 type="button"
+                ref={closeButtonRef}
                 onClick={() => setShowModal(false)}
-                className="rounded-lg p-1 text-slate-400 hover:bg-mist hover:text-ink"
+                aria-label="Close cookie preferences"
+                className="flex min-h-11 min-w-11 items-center justify-center rounded-lg p-1 text-slate-400 hover:bg-mist hover:text-ink"
               >
                 <X size={18} />
               </button>
@@ -211,7 +260,7 @@ export function CookieBanner() {
                     <span>Necessary Cookies (Strictly Required)</span>
                   </div>
                   <p className="text-[11.5px] text-slate-500 mt-0.5">
-                    Essential for secure authentication, CSRF defense, and remembering your preferences.
+                    Essential for secure sessions and remembering your preferences.
                   </p>
                 </div>
                 <span className="rounded bg-slate-200 px-2 py-0.5 font-semibold text-[10px] text-slate-600">
@@ -227,14 +276,15 @@ export function CookieBanner() {
                     Helps us understand landing page navigation flow without collecting personal info.
                   </p>
                 </div>
-                <label className="relative inline-flex items-center cursor-pointer ml-3">
+                <label className="relative ml-3 inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center">
                   <input
                     type="checkbox"
+                    aria-label="Allow analytics cookies"
                     checked={analytics}
                     onChange={(e) => setAnalytics(e.target.checked)}
                     className="sr-only peer"
                   />
-                  <div className="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand"></div>
+                  <div className="relative h-5 w-9 rounded-full bg-slate-200 peer-focus-visible:ring-2 peer-focus-visible:ring-brand peer-focus-visible:ring-offset-2 peer-checked:after:translate-x-full peer-checked:after:border-white after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-slate-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-brand" />
                 </label>
               </div>
 
@@ -246,14 +296,15 @@ export function CookieBanner() {
                     Remembers your language choice (English / Khmer) and currency toggle ($ USD / ៛ KHR).
                   </p>
                 </div>
-                <label className="relative inline-flex items-center cursor-pointer ml-3">
+                <label className="relative ml-3 inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center">
                   <input
                     type="checkbox"
+                    aria-label="Allow functional preferences"
                     checked={functional}
                     onChange={(e) => setFunctional(e.target.checked)}
                     className="sr-only peer"
                   />
-                  <div className="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand"></div>
+                  <div className="relative h-5 w-9 rounded-full bg-slate-200 peer-focus-visible:ring-2 peer-focus-visible:ring-brand peer-focus-visible:ring-offset-2 peer-checked:after:translate-x-full peer-checked:after:border-white after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-slate-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-brand" />
                 </label>
               </div>
 
@@ -265,39 +316,41 @@ export function CookieBanner() {
                     Measures campaign effectiveness from partner referrals.
                   </p>
                 </div>
-                <label className="relative inline-flex items-center cursor-pointer ml-3">
+                <label className="relative ml-3 inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center">
                   <input
                     type="checkbox"
+                    aria-label="Allow marketing and attribution cookies"
                     checked={marketing}
                     onChange={(e) => setMarketing(e.target.checked)}
                     className="sr-only peer"
                   />
-                  <div className="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand"></div>
+                  <div className="relative h-5 w-9 rounded-full bg-slate-200 peer-focus-visible:ring-2 peer-focus-visible:ring-brand peer-focus-visible:ring-offset-2 peer-checked:after:translate-x-full peer-checked:after:border-white after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-slate-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-brand" />
                 </label>
               </div>
             </div>
 
-            <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
+            <div className="mt-6 flex flex-col gap-4 border-t border-line pt-4 sm:flex-row sm:items-center sm:justify-between">
               <a
                 href="/cookies"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="text-[11.5px] font-medium text-slate-500 underline hover:text-ink"
               >
                 Read full Cookie Policy
               </a>
 
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
                   onClick={handleRejectNonEssential}
-                  className="rounded-lg border border-line px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-mist"
+                  className="min-h-11 rounded-lg border border-line px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-mist"
                 >
                   Reject Optional
                 </button>
                 <button
                   type="button"
                   onClick={handleSaveCustom}
-                  className="rounded-lg bg-brand px-4 py-1.5 text-xs font-semibold text-white hover:bg-brand-dark"
+                  className="min-h-11 rounded-lg bg-brand px-4 py-1.5 text-xs font-semibold text-white hover:bg-brand-dark"
                 >
                   Save Preferences
                 </button>

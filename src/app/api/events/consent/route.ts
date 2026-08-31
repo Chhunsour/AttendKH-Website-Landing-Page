@@ -2,10 +2,14 @@ import { NextResponse } from "next/server";
 import { recordCookieConsent } from "@/lib/db";
 import { CookieConsentSchema } from "@/lib/db/schema";
 import { parseUserAgent } from "@/lib/analytics";
+import { checkRateLimit, isSameOrigin, readJsonBody } from "@/lib/request-security";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
+    const rate = await checkRateLimit(req, "consent", 20, 60 * 60);
+    if (!rate.allowed) return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429, headers: { "Retry-After": String(rate.retryAfter) } });
+    const body = await readJsonBody(req, 8_192);
     const result = CookieConsentSchema.safeParse(body);
 
     if (!result.success) {
@@ -18,8 +22,7 @@ export async function POST(req: Request) {
     const country =
       req.headers.get("x-vercel-ip-country") ||
       req.headers.get("cf-ipcountry") ||
-      data.country ||
-      "Cambodia";
+      "Unknown";
 
     const consent = await recordCookieConsent({
       visitor_id: data.visitor_id,
@@ -32,6 +35,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, consent });
   } catch (error: any) {
+    if (error?.message === "BODY_TOO_LARGE") return NextResponse.json({ error: "Request body too large" }, { status: 413 });
+    if (error?.message === "INVALID_JSON") return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
     return NextResponse.json({ error: "Failed to record consent" }, { status: 500 });
   }
 }

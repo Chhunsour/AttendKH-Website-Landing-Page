@@ -41,7 +41,7 @@ export function AdminSidebar({ user, mobileOpen, onCloseMobile }: SidebarProps) 
     { href: "/admin/legal", label: "Legal & Consent", icon: ShieldCheck },
     { href: "/admin/media", label: "Media Library", icon: ImageIcon },
     { href: "/admin/settings", label: "Website Settings", icon: Sliders },
-    { href: "/admin/audit-logs", label: "Audit Logs", icon: History },
+    { href: "/admin/audit-logs", label: "Audit Logs", icon: History, superAdminOnly: true },
     { href: "/admin/admins", label: "Admins", icon: UserCheck, superAdminOnly: true },
   ];
 

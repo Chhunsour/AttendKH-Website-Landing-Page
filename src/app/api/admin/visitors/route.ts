@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getAdminSession } from "@/lib/auth";
 import { getVisitorsList, getVisitorDetails } from "@/lib/db";
+import { boundedQueryInt } from "@/lib/request-security";
 
 export async function GET(req: Request) {
   const session = await getAdminSession();
@@ -18,8 +19,8 @@ export async function GET(req: Request) {
     }
 
     const search = searchParams.get("search") || undefined;
-    const limit = parseInt(searchParams.get("limit") || "25", 10);
-    const offset = parseInt(searchParams.get("offset") || "0", 10);
+    const limit = boundedQueryInt(searchParams, "limit", 25, 1, 100);
+    const offset = boundedQueryInt(searchParams, "offset", 0, 0, 1_000_000);
 
     const data = await getVisitorsList({ search, limit, offset });
     return NextResponse.json(data);

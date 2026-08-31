@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { absoluteUrl } from "@/lib/site";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { marked } from "marked";
@@ -20,14 +21,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = await getBlogPostBySlug(slug);
 
   if (!post) {
-    return { title: "Post Not Found — AttendKH" };
+    return { title: "Post Not Found — AttendKH", robots: { index: false, follow: false } };
   }
 
   const title = post.seo_title || post.title;
   const pageTitle = title.endsWith("AttendKH") ? title : `${title} — AttendKH`;
   const description = post.seo_description || post.excerpt;
-  const url = `https://attendkh.com/blog/${post.slug}`;
-  const ogImage = post.og_image || post.cover_image || "/blog/default-og.webp";
+  const url = absoluteUrl(`/blog/${post.slug}`);
+  const ogImage = absoluteUrl(post.og_image || post.cover_image || "/opengraph-image");
 
   return {
     title: pageTitle,
@@ -45,8 +46,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       images: [
         {
           url: ogImage,
-          width: 1200,
-          height: 630,
           alt: post.title,
         },
       ],
@@ -107,29 +106,33 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
   const readTime = Math.max(1, Math.ceil(wordCount / 200));
 
   // JSON-LD Structured Data
+  const articleUrl = absoluteUrl(`/blog/${post.slug}`);
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.published_at || post.created_at,
-    dateModified: post.updated_at || post.created_at,
-    author: {
-      "@type": "Person",
-      name: post.author_name,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "AttendKH",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://attendkh.com/favicon.ico",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt,
+        datePublished: post.published_at || post.created_at,
+        dateModified: post.updated_at || post.created_at,
+        author: { "@type": "Person", name: post.author_name },
+        publisher: {
+          "@type": "Organization",
+          name: "AttendKH",
+          logo: { "@type": "ImageObject", url: absoluteUrl("/icon.png") },
+        },
+        mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
       },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://attendkh.com/blog/${post.slug}`,
-    },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+          { "@type": "ListItem", position: 2, name: "Blog", item: absoluteUrl("/blog") },
+          { "@type": "ListItem", position: 3, name: post.title, item: articleUrl },
+        ],
+      },
+    ],
   };
 
   return (
@@ -163,7 +166,7 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
               Blog
             </Link>
             <span>/</span>
-            <span className="truncate font-medium text-white">{post.category}</span>
+            <span className="truncate font-medium text-white">{post.title}</span>
           </nav>
 
           {/* Category Pill & Date */}
@@ -299,7 +302,7 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
 
       <CtaBand
         title="Ready to automate attendance & payroll?"
-        sub="Try AttendKH free for 14 days with your own team. No card required."
+        sub="Get started with AttendKH for your entire team at just $1 per employee."
       />
     </>
   );

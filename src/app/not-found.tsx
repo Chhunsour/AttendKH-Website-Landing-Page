@@ -1,5 +1,11 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowLeft, Home, Clock, Calculator, Building2, HelpCircle } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Page Not Found — AttendKH",
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   const helpfulLinks = [

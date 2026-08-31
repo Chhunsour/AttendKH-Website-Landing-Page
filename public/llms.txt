@@ -31,23 +31,23 @@
 - **Website**: https://attendkh.com
 
 ## Official Public Pages
-- Home: https://attendkh.com
-- Attendance Product: https://attendkh.com/attendance
-- Payroll Engine: https://attendkh.com/payroll
-- Multi-Branch Control: https://attendkh.com/multi-branch
-- Pricing: https://attendkh.com/pricing
+- [Home](https://attendkh.com)
+- [Attendance Product](https://attendkh.com/attendance)
+- [Payroll Engine](https://attendkh.com/payroll)
+- [Multi-Branch Control](https://attendkh.com/multi-branch)
+- [Pricing](https://attendkh.com/pricing)
 - Industry Solutions:
-  - Restaurants & Cafes: https://attendkh.com/solutions/restaurants-cafes
-  - Retail & Boutiques: https://attendkh.com/solutions/retail
-  - Hotels & Hospitality: https://attendkh.com/solutions/hospitality
-  - Construction & Logistics: https://attendkh.com/solutions/construction-logistics
-- Customers: https://attendkh.com/customers
-- About: https://attendkh.com/about
-- Contact & Demo: https://attendkh.com/contact
-- Help & Support: https://attendkh.com/support
-- FAQ: https://attendkh.com/faq
-- Trust & Security Center: https://attendkh.com/trust
-- Blog & Guides: https://attendkh.com/blog
-- Privacy Policy: https://attendkh.com/privacy-policy
-- Terms of Service: https://attendkh.com/terms
-- Cookie Policy: https://attendkh.com/cookies
+  - [Restaurants & Cafes](https://attendkh.com/solutions/restaurants-cafes)
+  - [Retail & Boutiques](https://attendkh.com/solutions/retail)
+  - [Hotels & Hospitality](https://attendkh.com/solutions/hospitality)
+  - [Construction & Logistics](https://attendkh.com/solutions/construction-logistics)
+- [Industry Workflows](https://attendkh.com/customers)
+- [About](https://attendkh.com/about)
+- [Contact & Demo](https://attendkh.com/contact)
+- [Help & Support](https://attendkh.com/support)
+- [FAQ](https://attendkh.com/faq)
+- [Trust & Security Center](https://attendkh.com/trust)
+- [Blog & Guides](https://attendkh.com/blog)
+- [Privacy Policy](https://attendkh.com/privacy-policy)
+- [Terms of Service](https://attendkh.com/terms)
+- [Cookie Policy](https://attendkh.com/cookies)

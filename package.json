@@ -6,17 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "migrate": "node scripts/migrate.mjs",
+    "migrate:status": "node scripts/migrate.mjs status",
+    "seed": "node scripts/seed.mjs",
+    "bootstrap:admin": "node scripts/bootstrap-admin.mjs",
+    "test:db": "node scripts/test-placeholders.mjs"
   },
   "dependencies": {
-    "@supabase/ssr": "^0.12.5",
-    "@supabase/supabase-js": "^2.112.4",
     "bcryptjs": "^3.0.3",
-    "better-sqlite3": "^13.0.3",
     "framer-motion": "^13.1.1",
     "jose": "^6.2.10",
     "lucide-react": "^1.33.0",
     "marked": "^18.0.11",
+    "mysql2": "^3.24.2",
     "next": "16.3.2",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -26,7 +29,6 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/bcryptjs": "^2.4.6",
-    "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

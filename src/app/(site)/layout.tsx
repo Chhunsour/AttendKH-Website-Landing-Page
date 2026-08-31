@@ -1,6 +1,12 @@
 import { Header, Footer } from "@/components/site/chrome";
+import { MaintenancePage } from "@/components/site/maintenance";
+import { getWebsiteSettings } from "@/lib/db";
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export const dynamic = "force-dynamic";
+
+export default async function SiteLayout({ children }: { children: React.ReactNode }) {
+  const settings = await getWebsiteSettings();
+  if (settings.maintenance_mode === 1) return <MaintenancePage />;
   return (
     <div className="flex min-h-screen flex-col">
       <a

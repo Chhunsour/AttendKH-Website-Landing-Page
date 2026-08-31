@@ -3,8 +3,11 @@ import { getAdminSession } from "@/lib/auth";
 import { getPricingPlans, createPricingPlan, updatePricingPlan, deletePricingPlan, getPricingPlanById } from "@/lib/db";
 import { PricingPlanSchema } from "@/lib/db/schema";
 import { logAdminAction } from "@/lib/audit";
+import { isSameOrigin, jsonBodyError, readJsonBody } from "@/lib/request-security";
 
 export async function GET() {
+  const session = await getAdminSession();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
     const plans = await getPricingPlans(false);
     return NextResponse.json({ plans });
@@ -15,13 +18,14 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const body = await req.json();
+    const body = await readJsonBody(req, 65_536);
     const result = PricingPlanSchema.safeParse(body);
 
     if (!result.success) {
@@ -40,7 +44,7 @@ export async function POST(req: Request) {
       name: data.name,
       description: data.description || null,
       price_monthly: data.price_monthly,
-      price_annual: data.price_annual,
+      price_annual: data.price_monthly * data.annual_factor,
       annual_factor: data.annual_factor,
       limits_text: data.limits_text,
       features: data.features,
@@ -62,21 +66,24 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, plan });
   } catch (error: any) {
+    const bodyError = jsonBodyError(error);
+    if (bodyError) return bodyError;
     console.error("Failed to create pricing plan:", error);
     return NextResponse.json({ error: "Failed to create pricing plan" }, { status: 500 });
   }
 }
 
 export async function PUT(req: Request) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const body = await req.json();
+    const body = await readJsonBody(req, 65_536) as Record<string, unknown>;
     const id = body.id;
-    if (!id) {
+    if (typeof id !== "string" || !id) {
       return NextResponse.json({ error: "Plan ID is required" }, { status: 400 });
     }
 
@@ -93,7 +100,10 @@ export async function PUT(req: Request) {
       );
     }
 
-    const updated = await updatePricingPlan(id, result.data);
+    const updated = await updatePricingPlan(id, {
+      ...result.data,
+      price_annual: result.data.price_monthly * result.data.annual_factor,
+    });
 
     await logAdminAction({
       session,
@@ -106,12 +116,15 @@ export async function PUT(req: Request) {
 
     return NextResponse.json({ success: true, plan: updated });
   } catch (error: any) {
+    const bodyError = jsonBodyError(error);
+    if (bodyError) return bodyError;
     console.error("Failed to update pricing plan:", error);
     return NextResponse.json({ error: "Failed to update pricing plan" }, { status: 500 });
   }
 }
 
 export async function DELETE(req: Request) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

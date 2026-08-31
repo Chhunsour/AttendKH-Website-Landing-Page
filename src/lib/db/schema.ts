@@ -14,22 +14,22 @@ export interface AdminUser {
 }
 
 export const AdminLoginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  email: z.string().trim().toLowerCase().email("Invalid email address").max(191),
+  password: z.string().min(8, "Password must be at least 8 characters").max(128),
 });
 
 export const AdminCreateSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  name: z.string().trim().min(2, "Name must be at least 2 characters").max(191),
+  email: z.string().trim().toLowerCase().email("Invalid email address").max(191),
+  password: z.string().min(12, "Password must be at least 12 characters").max(128),
   role: z.enum(["super_admin", "editor"]),
   is_active: z.number().default(1),
 });
 
 export const AdminUpdateSchema = z.object({
-  name: z.string().min(2).optional(),
-  email: z.string().email().optional(),
-  password: z.string().min(8).optional(),
+  name: z.string().trim().min(2).max(191).optional(),
+  email: z.string().trim().toLowerCase().email().max(191).optional(),
+  password: z.string().min(12).max(128).optional(),
   role: z.enum(["super_admin", "editor"]).optional(),
   is_active: z.number().optional(),
 });
@@ -57,18 +57,18 @@ export interface PricingPlan {
 
 export const PricingPlanSchema = z.object({
   id: z.string().optional(),
-  slug: z.string().min(2, "Slug is required"),
-  name: z.string().min(2, "Name is required"),
-  description: z.string().optional().nullable(),
+  slug: z.string().trim().min(2, "Slug is required").max(96).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  name: z.string().trim().min(2, "Name is required").max(191),
+  description: z.string().max(5_000).optional().nullable(),
   price_monthly: z.number().min(0, "Monthly price must be non-negative"),
   price_annual: z.number().min(0, "Annual price must be non-negative"),
   annual_factor: z.number().min(0).max(1).default(0.8333),
-  limits_text: z.string().min(1, "Limits description is required"),
-  features: z.array(z.string()).min(1, "At least one feature required"),
+  limits_text: z.string().min(1, "Limits description is required").max(2_000),
+  features: z.array(z.string().trim().min(1).max(500)).min(1, "At least one feature required").max(100),
   is_popular: z.number().default(0),
-  badge_text: z.string().optional().nullable(),
-  cta_text: z.string().default("Start free trial"),
-  cta_url: z.string().default("/contact"),
+  badge_text: z.string().max(191).optional().nullable(),
+  cta_text: z.string().max(191).default("Start free trial"),
+  cta_url: z.string().max(512).refine((value) => value.startsWith("/") || /^https:\/\//.test(value), "CTA URL must be a path or HTTPS URL").default("/contact"),
   display_order: z.number().default(0),
   is_active: z.number().default(1),
 });
@@ -99,22 +99,22 @@ export interface BlogPost {
 
 export const BlogPostSchema = z.object({
   id: z.string().optional(),
-  slug: z.string().min(2, "Slug is required"),
-  title: z.string().min(3, "Title must be at least 3 characters"),
-  excerpt: z.string().min(10, "Excerpt must be at least 10 characters"),
-  content: z.string().min(20, "Content must be at least 20 characters"),
-  cover_image: z.string().optional().nullable(),
-  author_name: z.string().default("AttendKH Team"),
-  author_role: z.string().default("Product & Operations"),
-  author_avatar: z.string().optional().nullable(),
-  category: z.string().default("Product"),
-  tags: z.array(z.string()).default([]),
+  slug: z.string().trim().min(2, "Slug is required").max(191).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  title: z.string().trim().min(3, "Title must be at least 3 characters").max(255),
+  excerpt: z.string().trim().min(10, "Excerpt must be at least 10 characters").max(5_000),
+  content: z.string().min(20, "Content must be at least 20 characters").max(750_000),
+  cover_image: z.string().max(512).optional().nullable(),
+  author_name: z.string().trim().max(191).default("AttendKH Team"),
+  author_role: z.string().trim().max(191).default("Product & Operations"),
+  author_avatar: z.string().max(512).optional().nullable(),
+  category: z.string().trim().max(96).default("Product"),
+  tags: z.array(z.string().trim().min(1).max(96)).max(30).default([]),
   status: z.enum(["draft", "published", "scheduled", "archived"]).default("draft"),
   published_at: z.string().optional().nullable(),
   scheduled_at: z.string().optional().nullable(),
-  seo_title: z.string().optional().nullable(),
-  seo_description: z.string().optional().nullable(),
-  og_image: z.string().optional().nullable(),
+  seo_title: z.string().max(255).optional().nullable(),
+  seo_description: z.string().max(500).optional().nullable(),
+  og_image: z.string().max(512).optional().nullable(),
 });
 
 // 4. Legal Documents Model
@@ -132,11 +132,11 @@ export interface LegalDocument {
 
 export const LegalDocumentSchema = z.object({
   slug: z.enum(["privacy", "terms", "cookies", "support"]),
-  title: z.string().min(3),
-  version: z.string().min(1),
-  content: z.string().min(20),
+  title: z.string().trim().min(3).max(255),
+  version: z.string().trim().min(1).max(32).regex(/^[0-9]+(?:\.[0-9]+)*$/),
+  content: z.string().min(20).max(750_000),
   is_active: z.number().default(1),
-  changelog: z.string().optional().nullable(),
+  changelog: z.string().max(5_000).optional().nullable(),
 });
 
 // 5. Legal Agreement Record
@@ -164,10 +164,10 @@ export interface CookieConsentRecord {
 }
 
 export const CookieConsentSchema = z.object({
-  visitor_id: z.string().min(1),
+  visitor_id: z.string().min(1).max(96).regex(/^[A-Za-z0-9_-]+$/),
   choice: z.enum(["accept_all", "reject_non_essential", "custom"]),
-  categories: z.array(z.string()).min(1),
-  policy_version: z.string().default("1.0"),
+  categories: z.array(z.enum(["necessary", "analytics", "functional", "marketing"])).min(1).max(4),
+  policy_version: z.string().max(32).default("1.0"),
   user_agent: z.string().optional().nullable(),
   country: z.string().optional().nullable(),
 });
@@ -191,17 +191,17 @@ export interface AnalyticsEvent {
 }
 
 export const AnalyticsEventSchema = z.object({
-  event_name: z.string().min(1),
-  visitor_id: z.string().min(1),
-  session_id: z.string().min(1),
-  page_path: z.string().min(1),
-  referrer: z.string().optional().nullable(),
-  traffic_source: z.string().optional().nullable(),
-  device_type: z.string().optional().nullable(),
-  browser: z.string().optional().nullable(),
-  os: z.string().optional().nullable(),
-  country: z.string().optional().nullable(),
-  city: z.string().optional().nullable(),
+  event_name: z.enum(["page_view", "signup_clicked", "pricing_view", "login_clicked", "contact_clicked"]),
+  visitor_id: z.string().min(1).max(96).regex(/^[A-Za-z0-9_-]+$/),
+  session_id: z.string().min(1).max(96).regex(/^[A-Za-z0-9_-]+$/),
+  page_path: z.string().min(1).max(512).startsWith("/"),
+  referrer: z.string().max(512).optional().nullable(),
+  traffic_source: z.string().max(191).optional().nullable(),
+  device_type: z.string().max(48).optional().nullable(),
+  browser: z.string().max(48).optional().nullable(),
+  os: z.string().max(48).optional().nullable(),
+  country: z.string().max(96).optional().nullable(),
+  city: z.string().max(96).optional().nullable(),
   payload: z.record(z.string(), z.any()).optional().nullable(),
 });
 
@@ -242,11 +242,11 @@ export const WebsiteSettingsSchema = z.object({
   announcement_enabled: z.number().min(0).max(1),
   announcement_text_en: z.string(),
   announcement_text_km: z.string(),
-  announcement_link: z.string().optional().nullable(),
+  announcement_link: z.string().max(512).refine((value) => !value || value.startsWith("/") || /^https:\/\//.test(value), "Announcement link must be a path or HTTPS URL").optional().nullable(),
   announcement_color: z.string().default("brand"),
   contact_email: z.string().email(),
   support_phone: z.string(),
-  telegram_url: z.string(),
+  telegram_url: z.string().url().startsWith("https://"),
   maintenance_mode: z.number().min(0).max(1),
   analytics_enabled: z.number().min(0).max(1),
   currency_rate_khr: z.number().min(1000).max(10000).default(4100),
@@ -287,22 +287,22 @@ export interface Lead {
 }
 
 export const LeadCreateSchema = z.object({
-  name: z.string().min(2, "Please enter your full name"),
-  company: z.string().min(2, "Please enter your company or business name"),
-  industry: z.string().min(2, "Please select your industry"),
-  employees_count: z.string().min(1, "Please select team size"),
-  branches_count: z.string().default("1"),
-  email: z.string().email("Please enter a valid email address"),
-  phone_telegram: z.string().min(6, "Please enter your phone or Telegram contact"),
+  name: z.string().trim().min(2, "Please enter your full name").max(191),
+  company: z.string().trim().min(2, "Please enter your company or business name").max(191),
+  industry: z.string().trim().min(2, "Please select your industry").max(191),
+  employees_count: z.string().trim().min(1, "Please select team size").max(48),
+  branches_count: z.string().trim().max(48).default("1"),
+  email: z.string().trim().toLowerCase().email("Please enter a valid email address").max(191),
+  phone_telegram: z.string().trim().min(6, "Please enter your phone or Telegram contact").max(96),
   preferred_language: z.enum(["km", "en"]).default("km"),
-  message: z.string().optional().nullable(),
-  source_page: z.string().optional().nullable(),
+  message: z.string().max(10_000).optional().nullable(),
+  source_page: z.string().max(512).startsWith("/").optional().nullable(),
 });
 
 export const LeadStatusUpdateSchema = z.object({
   id: z.string().min(1),
   status: z.enum(["new", "contacted", "qualified", "won", "lost"]),
-  admin_notes: z.string().optional().nullable(),
+  admin_notes: z.string().max(20_000).optional().nullable(),
 });
 
 // 12. Newsletter Subscribers Model
@@ -314,6 +314,6 @@ export interface NewsletterSubscriber {
 }
 
 export const NewsletterSubscribeSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  source_page: z.string().optional().nullable(),
+  email: z.string().trim().toLowerCase().email("Please enter a valid email address").max(191),
+  source_page: z.string().max(512).startsWith("/").optional().nullable(),
 });

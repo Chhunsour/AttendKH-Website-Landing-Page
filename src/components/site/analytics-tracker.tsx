@@ -2,32 +2,36 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { trackEvent } from "@/lib/analytics";
+import { isAnalyticsAllowed, trackEvent } from "@/lib/analytics";
+import { useSite } from "@/lib/i18n";
 
 export function AnalyticsTracker() {
+  const { publicSettings } = useSite();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const lastTrackedPath = useRef<string | null>(null);
 
   useEffect(() => {
-    // Avoid double tracking in strict mode
-    const currentUrl = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
-    if (lastTrackedPath.current === currentUrl) return;
-    lastTrackedPath.current = currentUrl;
+    const trackPage = () => {
+      const currentUrl = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
+      if (!publicSettings.analyticsEnabled || pathname.startsWith("/admin") || !isAnalyticsAllowed() || lastTrackedPath.current === currentUrl) return;
+      lastTrackedPath.current = currentUrl;
+      trackEvent("page_view", {
+        path: pathname,
+        search: searchParams?.toString() || "",
+        title: document.title,
+      });
+    };
 
-    // Do not track admin internal pages as public website events
-    if (pathname.startsWith("/admin")) return;
-
-    trackEvent("page_view", {
-      path: pathname,
-      search: searchParams?.toString() || "",
-      title: document.title,
-    });
-  }, [pathname, searchParams]);
+    trackPage();
+    window.addEventListener("attendkh:consent_updated", trackPage);
+    return () => window.removeEventListener("attendkh:consent_updated", trackPage);
+  }, [pathname, publicSettings.analyticsEnabled, searchParams]);
 
   // Global click listener for CTA tracking
   useEffect(() => {
     const handleDocumentClick = (e: MouseEvent) => {
+      if (!publicSettings.analyticsEnabled) return;
       const target = (e.target as HTMLElement).closest("a, button");
       if (!target) return;
 
@@ -38,7 +42,7 @@ export function AnalyticsTracker() {
         trackEvent("signup_clicked", { text, href });
       } else if (href?.includes("/pricing")) {
         trackEvent("pricing_view", { text, href });
-      } else if (href?.includes("/login") || text.toLowerCase().includes("sign in")) {
+      } else if (href?.includes("/login") || href?.includes("dashboard.attendkh.com") || text.toLowerCase().includes("sign in")) {
         trackEvent("login_clicked", { text, href });
       } else if (href?.includes("t.me") || text.toLowerCase().includes("telegram")) {
         trackEvent("contact_clicked", { channel: "telegram", text });
@@ -49,7 +53,7 @@ export function AnalyticsTracker() {
     return () => {
       document.removeEventListener("click", handleDocumentClick, { capture: true });
     };
-  }, []);
+  }, [publicSettings.analyticsEnabled]);
 
   return null;
 }

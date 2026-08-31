@@ -268,7 +268,7 @@ export default function AdminUsersPage() {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Sreymom Sok"
+              placeholder="e.g. Operations Manager"
               className="w-full rounded-lg border border-line bg-paper p-2 text-xs text-ink"
             />
           </div>

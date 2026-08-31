@@ -3,8 +3,11 @@ import { getAdminSession } from "@/lib/auth";
 import { getLegalDocumentVersions, createLegalDocumentVersion, setActiveLegalDocumentVersion, getActiveLegalDocument } from "@/lib/db";
 import { LegalDocumentSchema } from "@/lib/db/schema";
 import { logAdminAction } from "@/lib/audit";
+import { isSameOrigin, jsonBodyError, readJsonBody } from "@/lib/request-security";
 
 export async function GET(req: Request) {
+  const session = await getAdminSession();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { searchParams } = new URL(req.url);
   const slug = searchParams.get("slug") as "privacy" | "terms" | "cookies" | "support" | null;
 
@@ -32,13 +35,14 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const body = await req.json();
+    const body = await readJsonBody(req, 1_048_576) as Record<string, any>;
 
     // Check if activating existing version
     if (body.action === "set_active") {
@@ -46,7 +50,8 @@ export async function POST(req: Request) {
       if (!id || !slug) {
         return NextResponse.json({ error: "ID and slug required" }, { status: 400 });
       }
-      await setActiveLegalDocumentVersion(id, slug);
+      const activated = await setActiveLegalDocumentVersion(id, slug);
+      if (!activated) return NextResponse.json({ error: "Legal document version not found" }, { status: 404 });
       await logAdminAction({
         session,
         action: "legal_document_version_activated",
@@ -89,6 +94,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, document: doc });
   } catch (error: any) {
+    const bodyError = jsonBodyError(error);
+    if (bodyError) return bodyError;
     console.error("Failed to create legal document version:", error);
     return NextResponse.json({ error: "Failed to create legal document version" }, { status: 500 });
   }

@@ -57,7 +57,11 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
               size={16}
               className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
             />
+            <label htmlFor="blog-search" className="sr-only">
+              Search blog guides
+            </label>
             <input
+              id="blog-search"
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -256,7 +260,7 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
 
       <CtaBand
         title="Ready to automate attendance & payroll?"
-        sub="Try AttendKH free for 14 days with your own team. No credit card required."
+        sub="Get started with AttendKH for your entire team at just $1 per employee."
         cta="Book a Demo"
         href="/contact"
       />

@@ -3,11 +3,14 @@ import { getAdminSession } from "@/lib/auth";
 import { getBlogPostById, updateBlogPost, deleteBlogPost, getBlogPostBySlug } from "@/lib/db";
 import { BlogPostSchema } from "@/lib/db/schema";
 import { logAdminAction } from "@/lib/audit";
+import { isSameOrigin, jsonBodyError, readJsonBody } from "@/lib/request-security";
 
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const session = await getAdminSession();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { id } = await params;
   try {
     const post = await getBlogPostById(id);
@@ -24,6 +27,7 @@ export async function PUT(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -37,7 +41,7 @@ export async function PUT(
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
-    const body = await req.json();
+    const body = await readJsonBody(req, 1_048_576);
     const result = BlogPostSchema.safeParse(body);
 
     if (!result.success) {
@@ -79,15 +83,18 @@ export async function PUT(
 
     return NextResponse.json({ success: true, post: updated });
   } catch (error: any) {
+    const bodyError = jsonBodyError(error);
+    if (bodyError) return bodyError;
     console.error("Failed to update post:", error);
     return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
   }
 }
 
 export async function DELETE(
-  _req: Request,
+  req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
   const session = await getAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

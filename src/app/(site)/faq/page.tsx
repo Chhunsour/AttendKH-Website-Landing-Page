@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { absoluteUrl } from "@/lib/site";
 import { FaqView } from "./faq-view";
 import { siteCopy } from "@/lib/site-copy";
 
@@ -9,17 +10,19 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "https://attendkh.com/faq" },
+  alternates: { canonical: absoluteUrl("/faq") },
   openGraph: {
     title,
     description,
-    url: "https://attendkh.com/faq",
+    url: absoluteUrl("/faq"),
     siteName: "AttendKH",
     type: "website",
     locale: "en_US",
+    images: [{ url: absoluteUrl("/opengraph-image"), width: 1200, height: 630, alt: "AttendKH attendance and payroll software" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: [absoluteUrl("/opengraph-image")],
     title,
     description,
   },
@@ -37,13 +40,13 @@ export default function Page() {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://attendkh.com",
+            item: absoluteUrl("/"),
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "FAQ",
-            item: "https://attendkh.com/faq",
+            item: absoluteUrl("/faq"),
           },
         ],
       },

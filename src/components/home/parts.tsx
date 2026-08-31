@@ -11,15 +11,28 @@ export function useHomeCopy(): HomeCopy {
   return homeCopy[lang];
 }
 
+import { motion } from "framer-motion";
+
 export function Rise({
   children,
+  delay = 0,
   className = "",
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
 }) {
-  return <div className={className}>{children}</div>;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.55, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
 export interface ImageSlotProps {
@@ -67,8 +80,6 @@ export function ImageSlot({
           alt={alt || label}
           fill
           priority={priority}
-          quality={100}
-          unoptimized
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 800px"
           className="object-contain"
         />
@@ -208,14 +219,14 @@ export function StoreBadge({
 }) {
   return (
     <div
-      className={`group inline-flex min-w-[168px] items-center gap-3 rounded-[16px] px-3.5 py-2.5 select-none transition-all duration-200 hover:-translate-y-0.5 ${
+      className={`group inline-flex w-full min-w-0 items-center justify-center gap-2.5 rounded-[16px] px-3 py-2.5 select-none transition-all duration-200 hover:-translate-y-0.5 sm:w-auto sm:min-w-[168px] sm:justify-start sm:gap-3 sm:px-3.5 ${
         tone === "dark"
           ? "liquid-glass text-white"
           : "border border-line bg-white text-ink shadow-sm hover:border-[#0052FF]/40 hover:shadow-md"
       }`}
     >
       <span
-        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] transition-transform duration-200 group-hover:scale-105 ${
+        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[11px] transition-transform duration-200 group-hover:scale-105 sm:h-9 sm:w-9 ${
           tone === "dark" ? "bg-white/12" : "bg-[#EDF2FE]"
         }`}
       >
@@ -233,8 +244,8 @@ export function StoreBadge({
         )}
       </span>
       <span className="text-left leading-tight">
-        <span className="block whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.08em] opacity-70">{top}</span>
-        <span className="mt-0.5 block whitespace-nowrap text-[15px] font-semibold tracking-[-0.02em]">{name}</span>
+        <span className="block whitespace-nowrap text-[8.5px] font-medium uppercase tracking-[0.06em] opacity-70 sm:text-[9px] sm:tracking-[0.08em]">{top}</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[13.5px] font-semibold tracking-[-0.02em] sm:text-[15px]">{name}</span>
       </span>
     </div>
   );
