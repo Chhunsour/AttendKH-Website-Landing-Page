@@ -210,7 +210,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
   return (
     <>
-      <Section tone="paper">
+      <Section tone="white">
         <div className="mx-auto max-w-7xl">
           {/* Breadcrumb Navigation */}
           <nav className="mb-6 flex items-center gap-1.5 text-xs text-slate-500" aria-label="Breadcrumb">

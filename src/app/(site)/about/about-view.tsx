@@ -788,14 +788,12 @@ export function AboutView() {
 
           {/* Expansive Panoramic Map Canvas */}
           <div className="mt-10 relative w-full overflow-hidden rounded-3xl border border-slate-200/90 bg-slate-100 shadow-2xl min-h-[560px] sm:min-h-[620px] lg:min-h-[660px]">
-            {/* Full-bleed Working Google Maps Embed */}
+            {/* Full-bleed 100% Reliable Interactive Map Embed (Street 371, Phnom Penh) */}
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3909.2816997098485!2d104.8955145!3d11.5203646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951bd2b19846b%3A0x18f741fb47cb0fc7!2s371%20Garage!5e0!3m2!1sen!2skh!4v1725262000000!5m2!1sen!2skh"
-              title="AttendKH Headquarters Google Map Viewport"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=104.8840%2C11.5120%2C104.9120%2C11.5280&layer=mapnik&marker=11.5203646%2C104.8980894"
+              title="AttendKH Headquarters Map Viewport (Street 371, Phnom Penh)"
               className="absolute inset-0 w-full h-full border-0"
               loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
             />
 
             {/* Subtle Top-Right Open Maps App Shortcut */}

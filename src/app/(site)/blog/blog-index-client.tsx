@@ -13,9 +13,16 @@ import {
   Building2,
   Users,
   ShieldCheck,
+  Home,
+  ChevronRight,
+  Layers,
+  MapPin,
+  Coins,
+  Briefcase,
+  X,
 } from "lucide-react";
 import type { BlogPost } from "@/lib/site-content";
-import { Section, SectionHead, CtaBand } from "@/components/site/ui";
+import { Section, CtaBand } from "@/components/site/ui";
 import { useSite } from "@/lib/i18n";
 
 interface BlogIndexClientProps {
@@ -23,7 +30,7 @@ interface BlogIndexClientProps {
 }
 
 export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
-  const { lang, t } = useSite();
+  const { lang } = useSite();
   const isKm = lang === "km";
   const isZh = lang === "zh";
 
@@ -31,11 +38,31 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const categories = [
-    { key: "All", label: isKm ? "ទាំងអស់" : isZh ? "全部指南" : "All Guides" },
-    { key: "Attendance", label: isKm ? "វត្តមាន" : isZh ? "考勤管理" : "Attendance" },
-    { key: "Payroll", label: isKm ? "ប្រាក់ខែ" : isZh ? "薪酬核算" : "Payroll" },
-    { key: "Operations", label: isKm ? "ប្រតិបត្តិការ" : isZh ? "运营管理" : "Operations" },
-    { key: "Labor Law", label: isKm ? "ច្បាប់ការងារ" : isZh ? "劳工法规" : "Labor Law" },
+    {
+      key: "All",
+      label: isKm ? "ទាំងអស់" : isZh ? "全部指南" : "All Guides",
+      icon: Layers,
+    },
+    {
+      key: "Attendance",
+      label: isKm ? "វត្តមាន" : isZh ? "考勤管理" : "Attendance",
+      icon: MapPin,
+    },
+    {
+      key: "Payroll",
+      label: isKm ? "ប្រាក់ខែ" : isZh ? "薪酬核算" : "Payroll",
+      icon: Coins,
+    },
+    {
+      key: "Operations",
+      label: isKm ? "ប្រតិបត្តិការ" : isZh ? "运营管理" : "Operations",
+      icon: Building2,
+    },
+    {
+      key: "Labor Law",
+      label: isKm ? "ច្បាប់ការងារ" : isZh ? "劳工法规" : "Labor Law",
+      icon: ShieldCheck,
+    },
   ];
 
   // Helper to get localized post fields
@@ -62,6 +89,16 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
     if (isZh && post.author_role_zh) return post.author_role_zh;
     return post.author_role;
   };
+
+  // Count articles per category
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { All: initialPosts.length };
+    initialPosts.forEach((p) => {
+      const cat = p.category;
+      counts[cat] = (counts[cat] || 0) + 1;
+    });
+    return counts;
+  }, [initialPosts]);
 
   const filteredPosts = useMemo(() => {
     return initialPosts.filter((post) => {
@@ -125,35 +162,109 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
     }
   };
 
+  const selectedCategoryObj = categories.find((c) => c.key === selectedCategory) || categories[0];
+
   return (
     <>
-      <Section tone="mist">
-        <div className="mx-auto max-w-4xl text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3 py-1 text-xs font-bold text-brand uppercase tracking-wider mb-4">
-            <Sparkles size={13} />
-            {isKm
-              ? "មជ្ឈមណ្ឌលចំណេះដឹងធនធានមនុស្ស និងប្រតិបត្តិការ"
-              : isZh
-              ? "AttendKH 运营与人力资源知识库"
-              : "AttendKH Operations & HR Knowledge Hub"}
-          </span>
-          <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl leading-tight">
-            {isKm
-              ? "មគ្គុទ្ទេសក៍ជាក់ស្តែងសម្រាប់ប្រតិបត្តិការ និងការបើកប្រាក់ខែនៅកម្ពុជា"
-              : isZh
-              ? "柬埔寨企业本地化运营与薪酬管理实务指南"
-              : "Practical Guides for Cambodian Operations & Payroll"}
-          </h1>
-          <p className="mt-4 text-sm sm:text-base leading-relaxed text-body max-w-2xl mx-auto">
-            {isKm
-              ? "អត្ថបទស៊ីជម្រៅ មគ្គុទ្ទេសក៍គណនាតាមច្បាប់ការងារ និងការអនុវត្តជាក់ស្តែងល្អបំផុត សម្រាប់អាជីវកម្មពហុសាខានៅកម្ពុជា។"
-              : isZh
-              ? "深度解析柬埔寨劳工法规、精准薪酬计算公式与多门店运营实战经验，专为在柬发展的多分支企业量身打造。"
-              : "In-depth articles, statutory calculation guides, and operational best practices designed specifically for multi-branch businesses in Cambodia."}
-          </p>
+      {/* Hero Section with Breadcrumb Nav */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#011C6B] via-[#0042CF] to-[#0052FF] text-white border-b border-blue-400/20 shadow-xs">
+        {/* Ambient Glowing Background */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -top-24 -right-24 h-[450px] w-[450px] rounded-full bg-cyan-400/20 blur-3xl" />
+          <div className="absolute -bottom-28 -left-28 h-[450px] w-[450px] rounded-full bg-indigo-600/30 blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 h-[260px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-300/10 blur-2xl" />
+
+          {/* Dot Grid Pattern */}
+          <svg
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full opacity-[0.06]"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <pattern id="blog-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <circle cx="20" cy="20" r="1.5" fill="currentColor" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#blog-grid)" />
+          </svg>
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-5 pt-28 pb-14 sm:px-8 sm:pt-32 sm:pb-16">
+          {/* Breadcrumb Navigation Trail */}
+          <nav aria-label="Breadcrumb" className="mb-5 inline-flex items-center">
+            <ol className="flex flex-wrap items-center gap-1.5 text-xs font-medium text-blue-100/90">
+              <li className="flex items-center gap-1.5">
+                <Link
+                  href="/"
+                  className="flex items-center gap-1 text-blue-200/90 hover:text-white transition-colors"
+                >
+                  <Home size={13} className="shrink-0" />
+                  <span>{isKm ? "ទំព័រដើម" : isZh ? "首页" : "Home"}</span>
+                </Link>
+              </li>
+
+              <li className="text-white/40 font-normal">/</li>
+
+              <li className="flex items-center gap-1.5">
+                {selectedCategory === "All" ? (
+                  <span className="font-semibold text-white">
+                    {isKm ? "ប្លុក & មគ្គុទ្ទេសក៍" : isZh ? "知识库与博客" : "Blog & Guides"}
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCategory("All")}
+                    className="text-blue-200/90 hover:text-white hover:underline transition-colors cursor-pointer"
+                  >
+                    <span>{isKm ? "ប្លុក & មគ្គុទ្ទេសក៍" : isZh ? "知识库与博客" : "Blog & Guides"}</span>
+                  </button>
+                )}
+              </li>
+
+              {selectedCategory !== "All" && (
+                <>
+                  <li className="text-white/40 font-normal">/</li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="inline-flex items-center gap-1 font-semibold text-cyan-200 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15">
+                      <selectedCategoryObj.icon size={11} className="shrink-0" />
+                      <span>{selectedCategoryObj.label}</span>
+                    </span>
+                  </li>
+                </>
+              )}
+            </ol>
+          </nav>
+
+          {/* Hero Content */}
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 border border-white/20 px-3.5 py-1 text-xs font-bold text-cyan-200 uppercase tracking-wider backdrop-blur-md mb-4 shadow-2xs">
+              <Sparkles size={13} />
+              {isKm
+                ? "មជ្ឈមណ្ឌលចំណេះដឹងធនធានមនុស្ស និងប្រតិបត្តិការ"
+                : isZh
+                ? "AttendKH 运营与人力资源知识库"
+                : "AttendKH Operations & HR Knowledge Hub"}
+            </span>
+
+            <h1 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl leading-tight">
+              {isKm
+                ? "មគ្គុទ្ទេសក៍ជាក់ស្តែងសម្រាប់ប្រតិបត្តិការ និងការបើកប្រាក់ខែនៅកម្ពុជា"
+                : isZh
+                ? "柬埔寨企业本地化运营与薪酬管理实务指南"
+                : "Practical Guides for Cambodian Operations & Payroll"}
+            </h1>
+
+            <p className="mt-3.5 text-sm sm:text-base leading-relaxed text-blue-100/90 max-w-2xl">
+              {isKm
+                ? "អត្ថបទស៊ីជម្រៅ មគ្គុទ្ទេសក៍គណនាតាមច្បាប់ការងារ និងការអនុវត្តជាក់ស្តែងល្អបំផុត សម្រាប់អាជីវកម្មពហុសាខានៅកម្ពុជា។"
+                : isZh
+                ? "深度解析柬埔寨劳工法规、精准薪酬计算公式与多门店运营实战经验，专为在柬发展的多分支企业量身打造。"
+                : "In-depth articles, statutory calculation guides, and operational best practices designed specifically for multi-branch businesses in Cambodia."}
+            </p>
+          </div>
 
           {/* Search Bar */}
-          <div className="mt-8 mx-auto max-w-xl">
+          <div className="mt-8 max-w-xl">
             <div className="relative flex items-center">
               <Search className="absolute left-4 h-4 w-4 text-slate-400 pointer-events-none" />
               <input
@@ -167,42 +278,102 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
                     ? "搜索主题、关键词或劳工法规..."
                     : "Search by topic, keyword, or law..."
                 }
-                className="w-full rounded-2xl border border-slate-200 bg-white py-3.5 pl-11 pr-4 text-xs sm:text-sm text-ink placeholder-slate-400 shadow-xs focus:border-brand focus:outline-hidden focus:ring-2 focus:ring-brand/20 transition-all"
+                className="w-full rounded-2xl border border-white/20 bg-white/95 py-3.5 pl-11 pr-10 text-xs sm:text-sm text-slate-900 placeholder-slate-400 shadow-lg focus:bg-white focus:border-cyan-300 focus:outline-hidden focus:ring-2 focus:ring-cyan-400/30 transition-all backdrop-blur-md"
               />
               {searchQuery && (
                 <button
+                  type="button"
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-3 rounded-full bg-slate-100 p-1 text-xs text-slate-400 hover:text-slate-600 cursor-pointer"
+                  className="absolute right-3 rounded-full bg-slate-200/80 p-1 text-xs text-slate-600 hover:bg-slate-300 transition-colors cursor-pointer"
                 >
-                  ✕
+                  <X size={12} />
                 </button>
               )}
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Category Filter Pills */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            {categories.map((cat) => {
-              const isSelected = selectedCategory === cat.key;
-              return (
+      {/* Breadcrumb-Style Segmented Category Navigation Bar */}
+      <div className="sticky top-16 z-30 border-b border-slate-200 bg-white/95 backdrop-blur-md shadow-2xs">
+        <div className="mx-auto max-w-6xl px-5 py-3 sm:px-8">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            {/* Breadcrumb Categories Track */}
+            <nav
+              aria-label="Categories Breadcrumb Bar"
+              className="flex items-center overflow-x-auto py-1 no-scrollbar"
+            >
+              <div className="inline-flex items-center gap-1.5 p-1 rounded-2xl bg-slate-100/90 border border-slate-200/80 shadow-inner">
+                {categories.map((cat, idx) => {
+                  const isSelected = selectedCategory === cat.key;
+                  const count = categoryCounts[cat.key] || 0;
+                  const Icon = cat.icon;
+
+                  return (
+                    <div key={cat.key} className="flex items-center">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedCategory(cat.key)}
+                        className={`group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                          isSelected
+                            ? "bg-white text-brand shadow-xs ring-1 ring-slate-200 font-bold"
+                            : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
+                        }`}
+                      >
+                        <Icon
+                          size={13}
+                          className={`shrink-0 transition-colors ${
+                            isSelected
+                              ? "text-brand"
+                              : "text-slate-400 group-hover:text-slate-600"
+                          }`}
+                        />
+                        <span>{cat.label}</span>
+                        <span
+                          className={`rounded-full px-1.5 py-0.2 font-mono text-[10.5px] transition-colors ${
+                            isSelected
+                              ? "bg-brand/10 text-brand font-bold"
+                              : "bg-slate-200 text-slate-500 group-hover:bg-slate-300"
+                          }`}
+                        >
+                          {count}
+                        </span>
+                      </button>
+
+                      {/* Breadcrumb Separator between items */}
+                      {idx < categories.length - 1 && (
+                        <ChevronRight
+                          size={12}
+                          className="mx-0.5 text-slate-300 shrink-0 select-none hidden sm:inline-block"
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </nav>
+
+            {/* Active Filter Pill & Count Indicator */}
+            <div className="hidden md:flex items-center gap-2 text-xs text-slate-500">
+              {selectedCategory !== "All" && (
                 <button
-                  key={cat.key}
-                  onClick={() => setSelectedCategory(cat.key)}
-                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all cursor-pointer ${
-                    isSelected
-                      ? "bg-brand text-white shadow-xs"
-                      : "bg-white text-slate-600 border border-slate-200/80 hover:bg-slate-50 hover:border-slate-300"
-                  }`}
+                  type="button"
+                  onClick={() => setSelectedCategory("All")}
+                  className="inline-flex items-center gap-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 text-[11px] font-medium transition-colors cursor-pointer border border-slate-200"
                 >
-                  {cat.label}
+                  <span>{selectedCategoryObj.label}</span>
+                  <X size={11} className="text-slate-400 hover:text-slate-700" />
                 </button>
-              );
-            })}
+              )}
+              <span className="text-slate-400 font-mono">
+                {filteredPosts.length} {isKm ? "អត្ថបទ" : isZh ? "篇指南" : "articles"}
+              </span>
+            </div>
           </div>
         </div>
-      </Section>
+      </div>
 
-      <Section tone="mist">
+      <Section tone="white">
         {/* Featured Article Card */}
         {featuredPost && (
           <div className="mb-12">
