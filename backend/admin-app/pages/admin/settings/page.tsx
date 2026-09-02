@@ -126,7 +126,7 @@ export default function AdminSettingsPage() {
                 onChange={(e) =>
                   setSettings({ ...settings, announcement_text_en: e.target.value })
                 }
-                placeholder="🚀 New Feature Announcement..."
+                placeholder="New Feature Announcement..."
                 className="w-full rounded-lg border border-line bg-paper p-2.5 text-xs text-ink focus:border-brand focus:outline-none"
               />
             </div>
@@ -141,7 +141,7 @@ export default function AdminSettingsPage() {
                 onChange={(e) =>
                   setSettings({ ...settings, announcement_text_km: e.target.value })
                 }
-                placeholder="🚀 មុខងារថ្មី..."
+                placeholder="មុខងារថ្មី..."
                 className="w-full rounded-lg border border-line bg-paper p-2.5 text-xs text-ink font-khmer focus:border-brand focus:outline-none"
               />
             </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
-import { getPricingPlans } from "@/lib/db";
+import { getPricingPlans } from "@/lib/site-content";
 import { PricingView } from "./pricing-view";
 
 const title = "Pricing — Transparent Per-User Plans for Cambodia | AttendKH";

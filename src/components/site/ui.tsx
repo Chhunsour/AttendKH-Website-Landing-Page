@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import {
   ImageIcon,
@@ -14,6 +15,9 @@ import {
   ShieldCheck,
   TrendingUp,
   Users,
+  Home,
+  ChevronRight,
+  Sparkles,
 } from "lucide-react";
 import { useSite } from "@/lib/i18n";
 import { siteCopy, type SiteCopy } from "@/lib/site-copy";
@@ -295,7 +299,7 @@ export function ImageSlot({
           </div>
 
           <div className="flex items-center justify-between border-t border-white/10 pt-2 text-[10px] font-mono text-slate-400">
-            <span>Offline Resilient: Caches punches if network drops</span>
+            <span>Real-Time Sync: Instant live attendance stream</span>
             <span className="text-emerald-400">Selfie Review</span>
           </div>
         </div>
@@ -381,35 +385,228 @@ export function Button({ href, children, variant = "primary", className = "", ex
   );
 }
 
-/** Blue page header used at the top of every page. */
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+/** Rich, modern PageHero with interactive SEO Breadcrumbs, Aurora Depth, and Micro-Geometry */
 export function PageHero({
   title,
   sub,
+  badge,
+  breadcrumbs,
   children,
 }: {
   title: string;
   sub: string;
+  badge?: string;
+  breadcrumbs?: BreadcrumbItem[];
   children?: ReactNode;
 }) {
+  const pathname = usePathname();
+  const { lang } = useSite();
+  const isKm = lang === "km";
+
+  // Auto-generate intelligent SEO breadcrumbs based on active route
+  const activeBreadcrumbs: BreadcrumbItem[] =
+    breadcrumbs ||
+    (() => {
+      if (!pathname || pathname === "/") return [];
+      const segments = pathname.split("/").filter(Boolean);
+      const items: BreadcrumbItem[] = [
+        { label: isKm ? "ទំព័រដើម" : "Home", href: "/" },
+      ];
+
+      let currentPath = "";
+      segments.forEach((seg, idx) => {
+        currentPath += `/${seg}`;
+        const isLast = idx === segments.length - 1;
+
+        const labelMap: Record<string, { en: string; km: string }> = {
+          about: { en: "About Us", km: "អំពីយើង" },
+          attendance: { en: "Attendance", km: "វត្តមានការងារ" },
+          payroll: { en: "Payroll", km: "ប្រាក់បៀវត្សរ៍" },
+          "multi-branch": { en: "Multi-Branch", km: "ពហុសាខា" },
+          pricing: { en: "Pricing ($1/mo)", km: "តម្លៃសេវា" },
+          customers: { en: "Customers", km: "អតិថិជន" },
+          blog: { en: "Blog & Guides", km: "អត្ថបទ & មគ្គុទ្ទេសក៍" },
+          support: { en: "Support Center", km: "មជ្ឈមណ្ឌលគាំទ្រ" },
+          contact: { en: "Book a Demo", km: "ណាត់ជួបបង្ហាញប្រព័ន្ធ" },
+          downloads: { en: "Downloads", km: "ទាញយកកម្មវិធី" },
+          faq: { en: "FAQ", km: "សំណួរញឹកញាប់" },
+          trust: { en: "Trust & Security", km: "សុវត្ថិភាព & ទំនុកចិត្ត" },
+          solutions: { en: "Solutions", km: "ដំណោះស្រាយ" },
+          retail: { en: "Retail", km: "លក់រាយ" },
+          "restaurants-cafes": {
+            en: "Restaurants & Cafes",
+            km: "ភោជនីយដ្ឋាន & ហាងកាហ្វេ",
+          },
+          hospitality: {
+            en: "Hospitality & Hotels",
+            km: "បដិសណ្ឋារកិច្ច & សណ្ឋាគារ",
+          },
+          "construction-logistics": {
+            en: "Construction & Logistics",
+            km: "សំណង់ & ភស្តុភារកម្ម",
+          },
+          terms: { en: "Terms of Service", km: "លក្ខខណ្ឌប្រើប្រាស់" },
+          "privacy-policy": {
+            en: "Privacy Policy",
+            km: "គោលការណ៍ឯកជនភាព",
+          },
+          upcoming: { en: "Upcoming Releases", km: "មុខងារនឹងមកដល់" },
+        };
+
+        const mapped = labelMap[seg];
+        const label = mapped
+          ? isKm
+            ? mapped.km
+            : mapped.en
+          : seg
+              .replace(/-/g, " ")
+              .replace(/\b\w/g, (l) => l.toUpperCase());
+
+        items.push({
+          label,
+          href: isLast ? undefined : currentPath,
+        });
+      });
+
+      return items;
+    })();
+
   return (
-    <section className="relative overflow-hidden bg-brand">
-      <svg
-        aria-hidden="true"
-        className="signal-orbit pointer-events-none absolute left-1/2 top-1/2 h-[180%] w-[200%] -translate-x-1/2 -translate-y-1/2 text-white"
-        viewBox="0 0 1200 600"
-        fill="none"
-      >
-        <ellipse cx="600" cy="300" rx="540" ry="260" stroke="currentColor" strokeOpacity="0.07" />
-        <ellipse cx="600" cy="300" rx="380" ry="180" stroke="currentColor" strokeOpacity="0.06" />
-      </svg>
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#011C6B] via-[#0042CF] to-[#0052FF] text-white border-b border-blue-400/20 shadow-xs">
+      {/* Dynamic Ambient Background Elements */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Soft glowing ambient light orbs */}
+        <div className="absolute -top-24 -right-24 h-[450px] w-[450px] rounded-full bg-cyan-400/20 blur-3xl" />
+        <div className="absolute -bottom-28 -left-28 h-[450px] w-[450px] rounded-full bg-indigo-600/30 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 h-[260px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-300/10 blur-2xl" />
+
+        {/* Subtle geometric dot-grid overlay */}
+        <svg
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full opacity-[0.06]"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <pattern
+              id="pagehero-grid"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <circle cx="20" cy="20" r="1.5" fill="currentColor" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#pagehero-grid)" />
+        </svg>
+
+        {/* Curved signal orbits */}
+        <svg
+          aria-hidden="true"
+          className="signal-orbit absolute left-1/2 top-1/2 h-[180%] w-[200%] -translate-x-1/2 -translate-y-1/2 text-white opacity-20"
+          viewBox="0 0 1200 600"
+          fill="none"
+        >
+          <ellipse
+            cx="600"
+            cy="300"
+            rx="540"
+            ry="260"
+            stroke="currentColor"
+            strokeDasharray="6 6"
+            strokeOpacity="0.4"
+          />
+          <ellipse
+            cx="600"
+            cy="300"
+            rx="380"
+            ry="180"
+            stroke="currentColor"
+            strokeOpacity="0.3"
+          />
+        </svg>
+      </div>
+
       <div className="relative mx-auto max-w-6xl px-5 pt-28 pb-14 sm:px-8 sm:pt-32 sm:pb-20">
-        <Reveal>
-          <h1 className="font-display max-w-3xl text-[2.1rem] font-bold leading-[1.12] tracking-[-0.025em] text-white sm:text-[2.9rem]">
+        {/* Clean, Minimalist SEO Breadcrumbs */}
+        {activeBreadcrumbs.length > 0 && (
+          <Reveal>
+            <nav aria-label="Breadcrumb" className="mb-4 inline-flex items-center">
+              <ol
+                className="flex flex-wrap items-center gap-2 text-[13px] font-medium text-blue-100/90"
+                itemScope
+                itemType="https://schema.org/BreadcrumbList"
+              >
+                {activeBreadcrumbs.map((b, i) => {
+                  const isLast = i === activeBreadcrumbs.length - 1;
+                  return (
+                    <li
+                      key={b.label}
+                      className="flex items-center gap-2"
+                      itemProp="itemListElement"
+                      itemScope
+                      itemType="https://schema.org/ListItem"
+                    >
+                      {i === 0 && (
+                        <Home size={13} className="text-blue-200/80 shrink-0" />
+                      )}
+                      {b.href && !isLast ? (
+                        <Link
+                          href={b.href}
+                          itemProp="item"
+                          className="text-blue-100/80 hover:text-white hover:underline transition-colors"
+                        >
+                          <span itemProp="name">{b.label}</span>
+                        </Link>
+                      ) : (
+                        <span
+                          itemProp="name"
+                          className="font-semibold text-white"
+                        >
+                          {b.label}
+                        </span>
+                      )}
+                      <meta
+                        itemProp="position"
+                        content={String(i + 1)}
+                      />
+                      {!isLast && (
+                        <ChevronRight
+                          size={13}
+                          className="text-blue-300/50 shrink-0"
+                        />
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
+            </nav>
+          </Reveal>
+        )}
+
+        {/* Optional Clean Page Badge */}
+        {badge && (
+          <Reveal>
+            <div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyan-200">
+              <Sparkles size={14} className="text-cyan-300" />
+              <span>{badge}</span>
+            </div>
+          </Reveal>
+        )}
+
+        <Reveal delay={0.04}>
+          <h1 className="font-display max-w-3xl text-[2.2rem] font-bold leading-[1.14] tracking-[-0.03em] text-white sm:text-[3rem] drop-shadow-xs">
             {title}
           </h1>
         </Reveal>
         <Reveal delay={0.08}>
-          <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-blue-100">{sub}</p>
+          <p className="mt-4 max-w-xl text-[16.5px] sm:text-[17.5px] leading-relaxed text-blue-100/90 font-normal">
+            {sub}
+          </p>
         </Reveal>
         {children}
       </div>

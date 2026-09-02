@@ -30,11 +30,11 @@ const dictionaries: Record<Lang, Dict> = {
   en: {
     legal: {
       privacy: {
-        title: "Privacy Policy",
-        updated: "Review the current policy before using AttendKH",
-        p1: "AttendKH processes attendance, verification, and payroll records to provide the service selected by an organization.",
-        p2: "Access and retention depend on the organization's configuration and its agreement with AttendKH. GPS is checked at the time of a punch rather than used for continuous route tracking.",
-        p3: "Privacy questions can be sent to support@attendkh.com or Telegram @attendkh.",
+        title: "Privacy Policy & Workforce Data Governance",
+        updated: "Version 2.0 • Updated September 2026",
+        p1: "AttendKH provides GPS attendance verification, selfie anti-buddy punching, and automated Cambodian payroll for mobile apps (iOS & Android) and QR Kiosks.",
+        p2: "Zero 24/7 continuous background tracking: GPS location is queried exclusively at the exact moment of clock-in to verify the branch geofence radius. Biometric selfies are encrypted (AES-256) and never sold to third parties.",
+        p3: "For employee data access, rectification, or account deletion requests, please contact your organization's HR or email our Data Protection Officer at privacy@attendkh.com.",
       },
       terms: {
         title: "Terms of Service",
@@ -62,11 +62,11 @@ const dictionaries: Record<Lang, Dict> = {
   km: {
     legal: {
       privacy: {
-        title: "គោលការណ៍ភាពឯកជន",
-        updated: "សូមពិនិត្យគោលការណ៍បច្ចុប្បន្នមុនប្រើ AttendKH",
-        p1: "AttendKH ដំណើរការទិន្នន័យវត្តមាន ការផ្ទៀងផ្ទាត់ និងប្រាក់ខែ ដើម្បីផ្តល់សេវាកម្មដែលអង្គភាពបានជ្រើសរើស។",
-        p2: "ការចូលប្រើ និងរយៈពេលរក្សាទុកអាស្រ័យលើការកំណត់របស់អង្គភាព និងកិច្ចព្រមព្រៀងជាមួយ AttendKH។ GPS ត្រូវបានពិនិត្យនៅពេលចុះវត្តមាន មិនមែនតាមដានផ្លូវជាបន្តបន្ទាប់ទេ។",
-        p3: "សំណួរអំពីភាពឯកជនអាចផ្ញើទៅ support@attendkh.com ឬ Telegram @attendkh។",
+        title: "គោលការណ៍ភាពឯកជន និងអភិបាលកិច្ចទិន្នន័យ",
+        updated: "កំណែ ២.០ • កាលបរិច្ឆេទធ្វើបច្ចុប្បន្នភាព ខែកញ្ញា ឆ្នាំ២០២៦",
+        p1: "AttendKH ផ្តល់សេវាផ្ទៀងផ្ទាត់វត្តមាន GPS រូបថត Selfie ការពារការចុះជំនួស និងប្រព័ន្ធគណនាប្រាក់ខែកម្ពុជាសម្រាប់កម្មវិធីទូរស័ព្ទ (iOS & Android) និង QR Kiosk។",
+        p2: "គ្មានការតាមដាន GPS ២៤ម៉ោងជាប់ឡើយ៖ ទីតាំង GPS ត្រូវបានត្រួតពិនិត្យតែនៅពេលជាក់ស្តែងដែលចុះវត្តមានប៉ុណ្ណោះ។ រូបថត Selfie ត្រូវបានអ៊ិនគ្រីប (AES-256) និងមិនដែលលក់ទៅភាគីទីបីឡើយ។",
+        p3: "សម្រាប់សំណើសុំមើល កែតម្រូវ ឬលុបទិន្នន័យគណនី សូមទាក់ទង HR របស់ស្ថាប័នអ្នក ឬផ្ញើអ៊ីមែលទៅមន្ត្រីការពារទិន្នន័យ privacy@attendkh.com។",
       },
       terms: {
         title: "លក្ខខណ្ឌប្រើប្រាស់",
@@ -94,11 +94,11 @@ const dictionaries: Record<Lang, Dict> = {
   zh: {
     legal: {
       privacy: {
-        title: "隐私政策",
-        updated: "使用 AttendKH 前请查阅当前政策",
-        p1: "AttendKH 为提供企业所选服务而处理考勤、核验和薪酬记录。",
-        p2: "访问权限和保留期限取决于企业配置及其与 AttendKH 的协议。GPS 仅在打卡时核验，不用于持续路线追踪。",
-        p3: "隐私问题可发送至 support@attendkh.com 或 Telegram @attendkh。",
+        title: "隐私政策与劳动力数据治理标准",
+        updated: "版本 2.0 • 2026年9月更新",
+        p1: "AttendKH 为移动应用（iOS 和 Android）及平板 QR Kiosk 提供精准 GPS 考勤核验、实时自拍防代打卡以及柬埔寨合规薪酬自动核算。",
+        p2: "承诺零全天候后台追踪：仅在员工打卡瞬间核验分支地理围栏半径。人脸自拍照片均采用 AES-256 加密存储，绝不出售或分享给任何第三方广告网络。",
+        p3: "如需申请数据查阅、更正或个人账户及数据注销，请联系您所在企业的 HR，或直接向数据保护官发送邮件：privacy@attendkh.com。",
       },
       terms: {
         title: "服务条款",
@@ -163,23 +163,6 @@ export function Providers({ children }: { children: ReactNode }) {
     } catch {}
   }, []);
 
-  useEffect(() => {
-    fetch("/api/admin/settings")
-      .then((response) => (response.ok ? response.json() : null))
-      .then((data) => {
-        const settings = data?.settings;
-        if (!settings) return;
-        const rate = Number(settings.currency_rate_khr);
-        if (Number.isFinite(rate) && rate >= 1000 && rate <= 10000) setExchangeRate(rate);
-        setPublicSettings({
-          contactEmail: settings.contact_email || "support@attendkh.com",
-          supportPhone: settings.support_phone || "",
-          telegramUrl: settings.telegram_url || "https://t.me/attendkh",
-          analyticsEnabled: settings.analytics_enabled !== 0,
-        });
-      })
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle("lang-km", lang === "km");

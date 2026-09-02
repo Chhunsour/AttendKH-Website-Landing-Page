@@ -4,6 +4,8 @@ import {
   Google_Sans,
   JetBrains_Mono,
   Kantumruy_Pro,
+  Plus_Jakarta_Sans,
+  Space_Grotesk,
 } from "next/font/google";
 import { Providers } from "@/lib/i18n";
 import { AnalyticsTracker } from "@/components/site/analytics-tracker";
@@ -30,6 +32,20 @@ const kantumruy = Kantumruy_Pro({
   subsets: ["khmer", "latin"],
   variable: "--font-kantumruy",
   display: "swap",
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -70,7 +86,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${googleSans.variable} ${jetbrains.variable} ${kantumruy.variable}`}
+      className={`${googleSans.variable} ${jetbrains.variable} ${kantumruy.variable} ${plusJakarta.variable} ${spaceGrotesk.variable}`}
     >
       <body className="font-sans antialiased">
         <MotionConfig reducedMotion="user">

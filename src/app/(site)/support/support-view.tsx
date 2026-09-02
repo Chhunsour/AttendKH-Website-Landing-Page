@@ -9,7 +9,7 @@ import {
   Clock,
   HelpCircle,
   Smartphone,
-  WifiOff,
+  Radio,
   Calculator,
   ShieldAlert,
   ArrowRight,
@@ -56,8 +56,8 @@ export function SupportView() {
     },
     {
       icon: MapPin,
-      title: isKm ? "ការិយាល័យទួលគោក" : "Toul Kork Support Hub",
-      detail: isKm ? "ខណ្ឌទួលគោក រាជធានីភ្នំពេញ" : "No. 12, St 315, Toul Kork, Phnom Penh",
+      title: isKm ? "ការិយាល័យភ្នំពេញ" : "Phnom Penh Support Hub",
+      detail: isKm ? "ផ្លូវ ៣៧១ រាជធានីភ្នំពេញ" : "Street 371, Phnom Penh",
       href: "/contact",
       external: false,
       time: isKm ? "ច័ន្ទ–សុក្រ ៨:០០–១៧:៣០" : "Mon–Fri, 8:00 AM – 5:30 PM ICT",
@@ -76,11 +76,11 @@ export function SupportView() {
         : "Ensure 'Precise Location' is enabled in iOS Settings or Android App Info so clock-ins register within the branch geofence.",
     },
     {
-      icon: WifiOff,
-      title: isKm ? "ការដោះស្រាយបញ្ហាដាច់សេវា (Offline Sync)" : "Offline Punch Synchronization",
+      icon: Radio,
+      title: isKm ? "ការតភ្ជាប់ Cloud និងការធ្វើសមកាលកម្មទិន្នន័យ" : "Real-Time Cloud Synchronization",
       desc: isKm
-        ? "ប្រសិនបើដាច់សេវាទូរស័ព្ទ កម្មវិធីនឹងរក្សាទុកម៉ោងក្នុងទូរស័ព្ទ។ កុំលុបកម្មវិធី ហើយភ្ជាប់ Wi-Fi ឬ 4G វិញដើម្បី upload។"
-        : "Punches are safely stored in encrypted local storage. Connect to Wi-Fi or 4G to push cached punches to the cloud.",
+        ? "របៀបពិនិត្យការតភ្ជាប់អ៊ីនធឺណិត Wi-Fi ឬ 4G ដើម្បីធានាថាទិន្នន័យចុះវត្តមាន និងរូបថត Selfie បញ្ជូនទៅកាន់ប្រព័ន្ធគ្រប់គ្រងភ្លាមៗ។"
+        : "How real-time cloud connectivity streams attendance records and live selfies instantly to the central dashboard.",
     },
     {
       icon: Calculator,
@@ -168,8 +168,8 @@ export function SupportView() {
             }
             answer={
               isKm
-                ? "សម្រាប់ជំនួយបច្ចេកទេស វិធីដែលលឿនបំផុតគឺផ្ញើសារមកកាន់ Telegram Hotline @attendkh របស់យើង ក្នុងម៉ោងធ្វើការ (ច័ន្ទ–សុក្រ ៨:០០ ដល់ ១៧:៣០ ICT)។ អ្នកក៏អាចផ្ញើអ៊ីមែលមកកាន់ support@attendkh.com ឬណាត់ជួបនៅការិយាល័យទួលគោកបានផងដែរ។"
-                : "For technical assistance, message our direct Telegram hotline at @attendkh during business hours (Monday to Friday, 8:00 AM to 5:30 PM ICT). For account or billing requests, email support@attendkh.com or schedule an in-person session at our Toul Kork office."
+                ? "សម្រាប់ជំនួយបច្ចេកទេស វិធីដែលលឿនបំផុតគឺផ្ញើសារមកកាន់ Telegram Hotline @attendkh របស់យើង ក្នុងម៉ោងធ្វើការ (ច័ន្ទ–សុក្រ ៨:០០ ដល់ ១៧:៣០ ICT)។ អ្នកក៏អាចផ្ញើអ៊ីមែលមកកាន់ support@attendkh.com ឬណាត់ជួបនៅការិយាល័យភ្នំពេញបានផងដែរ។"
+                : "For technical assistance, message our direct Telegram hotline at @attendkh during business hours (Monday to Friday, 8:00 AM to 5:30 PM ICT). For account or billing requests, email support@attendkh.com or schedule an in-person session at our Phnom Penh office."
             }
             facts={[
               {
@@ -196,8 +196,8 @@ export function SupportView() {
             title={isKm ? "ការណែនាំអំពីបញ្ហាទូទៅ" : "Common Troubleshooting & Guides"}
             sub={
               isKm
-                ? "ដំណោះស្រាយរហ័សចំពោះបញ្ហាទីតាំង GPS ការដាច់សេវា និងការគណនាប្រាក់ខែ"
-                : "Quick steps for GPS permissions, offline punch caching, and supervisor overrides."
+                ? "ដំណោះស្រាយរហ័សចំពោះបញ្ហាទីតាំង GPS ការតភ្ជាប់ Cloud និងការគណនាប្រាក់ខែ"
+                : "Quick steps for GPS permissions, real-time sync connectivity, and supervisor overrides."
             }
           />
 

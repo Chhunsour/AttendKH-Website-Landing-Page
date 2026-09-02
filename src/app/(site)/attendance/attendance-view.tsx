@@ -6,7 +6,7 @@ import {
   MapPin,
   Camera,
   ShieldCheck,
-  WifiOff,
+  Radio,
   Tablet,
   FileSpreadsheet,
   CheckCircle2,
@@ -54,11 +54,11 @@ export function AttendanceView() {
         : "Detects and prevents GPS spoofing apps, emulator environments, and unrealistic coordinate jumps across Cambodia.",
     },
     {
-      icon: WifiOff,
-      title: isKm ? "ដំណើរការទោះគ្មានអ៊ីនធឺណិត (Offline)" : "Offline Resilient Sync",
+      icon: Radio,
+      title: isKm ? "ធ្វើសមកាលកម្ម Cloud ផ្ទាល់ (Real-Time)" : "Real-Time Cloud Sync",
       desc: isKm
-        ? "ប្រសិនបើដាច់សេវាទូរស័ព្ទ កម្មវិធីនៅតែកត់ត្រាម៉ោងជាក់ស្តែង ហើយធ្វើសមកាលកម្មដោយស្វ័យប្រវត្តិពេលមានអ៊ីនធឺណិតឡើងវិញ។"
-        : "When cellular signals drop at remote sites, punches are securely cached in local device storage and uploaded automatically once online.",
+        ? "ទិន្នន័យចុះវត្តមាន និងរូបថត Selfie បញ្ជូនទៅកាន់កុងសូលកណ្តាលភ្លាមៗ ដើម្បីឲ្យម្ចាស់អាជីវកម្ម និងអ្នកគ្រប់គ្រងដឹងពីវត្តមានជាក់ស្តែង។"
+        : "Punches and live selfies stream instantly to the central cloud console for immediate attendance visibility and payroll integration.",
     },
     {
       icon: Tablet,
@@ -183,8 +183,8 @@ export function AttendanceView() {
                 value: isKm ? "មិនមានការតាមដាន" : "No Background Tracking",
               },
               {
-                label: isKm ? "ដំណើរការពេលដាច់អ៊ីនធឺណិត" : "Offline Punch Handling",
-                value: isKm ? "រក្សាទុក និងបញ្ជូនពេលមានសេវា" : "Local Queue & Auto-Sync",
+                label: isKm ? "ល្បឿនសមកាលកម្ម" : "Cloud Sync Speed",
+                value: isKm ? "ភ្លាមៗ Real-Time (< ១ វិនាទី)" : "Instant Real-Time (< 1s)",
               },
             ]}
           />

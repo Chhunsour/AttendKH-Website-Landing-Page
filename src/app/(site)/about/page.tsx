@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { AboutView } from "./about-view";
 
-const title = "About AttendKH — Built in Toul Kork, Phnom Penh for Cambodian Businesses";
+const title = "About AttendKH — Built in Phnom Penh for Cambodian Businesses";
 const description =
-  "Discover how AttendKH builds GPS attendance, shift scheduling, and dual-currency (USD & KHR) payroll software from Toul Kork, Phnom Penh, crafted specifically for Cambodian labor law and workforce realities.";
+  "Discover how AttendKH builds GPS attendance, shift scheduling, and dual-currency (USD & KHR) payroll software from Phnom Penh, crafted specifically for Cambodian labor law and workforce realities.";
 
 export const metadata: Metadata = {
   title,
@@ -64,8 +64,8 @@ const jsonLdSchemas = {
         "Workforce management, GPS attendance, and dual-currency payroll platform engineered in Phnom Penh for Cambodian businesses.",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "No. 12, Street 315",
-        addressLocality: "Toul Kork",
+        streetAddress: "Street 371",
+        addressLocality: "Phnom Penh",
         addressRegion: "Phnom Penh",
         addressCountry: "KH",
       },

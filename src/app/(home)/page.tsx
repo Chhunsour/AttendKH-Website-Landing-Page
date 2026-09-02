@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { HomeView } from "./home-view";
 import { MaintenancePage } from "@/components/site/maintenance";
-import { getPricingPlans, getWebsiteSettings } from "@/lib/db";
-
-export const dynamic = "force-dynamic";
+import { getPricingPlans, getWebsiteSettings } from "@/lib/site-content";
 
 const title = "AttendKH — Take control of your attendance and payroll";
 const description =
@@ -36,7 +34,7 @@ const schema = {
       email: "support@attendkh.com",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "No. 12, Street 315, Toul Kork",
+        streetAddress: "Street 371",
         addressLocality: "Phnom Penh",
         addressCountry: "KH",
       },

@@ -17,12 +17,12 @@ import { PageHero, Section, DirectAnswerBlock, CtaBand, ImageSlot } from "@/comp
 export const metadata: Metadata = {
   title: "Attendance & Payroll for Construction & Logistics in Cambodia | AttendKH",
   description:
-    "Offline-resilient clock-in, 200m yard geofences, anti-mock GPS defense, and multi-site foreman approvals for Cambodian logistics and construction sites.",
+    "Real-time cloud sync clock-in, 200m yard geofences, anti-mock GPS defense, and multi-site foreman approvals for Cambodian logistics and construction sites.",
   alternates: { canonical: absoluteUrl("/solutions/construction-logistics") },
   openGraph: {
     title: "AttendKH for Logistics & Construction in Cambodia",
     description:
-      "Built for field teams with offline punch queues, wide yard geofences, location evidence, and configurable contractor payroll.",
+      "Built for field teams with real-time cloud sync, wide yard geofences, location evidence, and configurable contractor payroll.",
     url: absoluteUrl("/solutions/construction-logistics"),
     siteName: "AttendKH",
     type: "website",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     images: [absoluteUrl("/opengraph-image")],
     title: "Attendance & Payroll for Construction & Logistics in Cambodia",
-    description: "Offline clock-in, yard geofences, and multi-site job costing.",
+    description: "Real-time clock-in, yard geofences, and multi-site job costing.",
   },
 };
 
@@ -65,8 +65,8 @@ const breadcrumbSchema = {
 export default function ConstructionLogisticsSolutionPage() {
   const painPoints = [
     {
-      title: "Offline-Resilient Clock-In",
-      desc: "Remote sites with poor cellular coverage can queue punches on the device and sync them after connectivity returns.",
+      title: "Real-Time Cloud Clock-In",
+      desc: "Remote sites connect directly to the central cloud, streaming attendance and verification data in real time.",
     },
     {
       title: "Wide Perimeter 200m Yard Geofences",
@@ -103,7 +103,7 @@ export default function ConstructionLogisticsSolutionPage() {
             </h1>
 
             <p className="mt-4 text-[16px] leading-relaxed text-body sm:text-[17px]">
-              Designed for field environments, remote project sites, and large industrial yards across Cambodia. Operates smoothly even without constant internet connectivity.
+              Designed for field environments, remote project sites, and large industrial yards across Cambodia with instant live synchronization.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -126,10 +126,10 @@ export default function ConstructionLogisticsSolutionPage() {
           {/* Direct Answer Block */}
           <div className="mt-12">
             <DirectAnswerBlock
-              question="How does AttendKH operate in offline construction and logistics environments in Cambodia?"
-              answer="AttendKH provides offline punch queueing and anti-mock GPS checks. Remote job sites, logistics container yards, and warehouses with weak telecom signals store punches locally on the worker's device or shared kiosk tablet, syncing to central payroll once network coverage is restored."
+              question="How does AttendKH operate in construction and logistics environments in Cambodia?"
+              answer="AttendKH provides real-time cloud attendance synchronization and anti-mock GPS checks. Remote job sites, logistics container yards, and warehouses stream punches directly to central payroll with live supervisor visibility."
               facts={[
-                { label: "Offline Handling", value: "Local Queue & Sync" },
+                { label: "Cloud Sync", value: "Instant Real-Time" },
                 { label: "Yard Geofence", value: "Up to 500m Site Perimeter" },
                 { label: "Location Checks", value: "Anti-Mock GPS Checks" },
               ]}
@@ -144,10 +144,10 @@ export default function ConstructionLogisticsSolutionPage() {
                 Field Reliability
               </span>
               <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">
-                Attendance that can queue when a site goes offline
+                Attendance that streams live from any site
               </h2>
               <p className="text-sm leading-relaxed text-body">
-                Field teams often work beyond reliable office Wi-Fi. AttendKH can queue punches on the device and sync them when connectivity returns.
+                Field teams work across varied environments. AttendKH streams punches and live selfies directly to the central dashboard in real time.
               </p>
 
               <ul className="space-y-3 text-xs font-medium text-ink">

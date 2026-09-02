@@ -4,23 +4,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, X } from "lucide-react";
 import { useSite } from "@/lib/i18n";
-import type { WebsiteSettings } from "@/lib/db/schema";
+import { type WebsiteSettings, websiteSettings as defaultSettings } from "@/lib/site-content";
 
-export function AnnouncementBar({ initialSettings }: { initialSettings?: WebsiteSettings }) {
+export function AnnouncementBar({ initialSettings = defaultSettings }: { initialSettings?: WebsiteSettings }) {
   const { lang } = useSite();
-  const [settings, setSettings] = useState<WebsiteSettings | undefined>(initialSettings);
+  const [settings] = useState<WebsiteSettings | undefined>(initialSettings);
   const [dismissed, setDismissed] = useState(false);
-
-  useEffect(() => {
-    if (!initialSettings) {
-      fetch("/api/admin/settings")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.settings) setSettings(data.settings);
-        })
-        .catch(() => {});
-    }
-  }, [initialSettings]);
 
   if (!settings || settings.announcement_enabled !== 1 || dismissed) {
     return null;

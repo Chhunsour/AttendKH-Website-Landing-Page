@@ -107,7 +107,14 @@ export function BlogForm({ initialData, isEdit = false }: BlogFormProps) {
       const data = await res.json();
 
       if (!res.ok) {
-        toast.error(data.error || "Failed to save blog post");
+        let errorMsg = data.error || "Failed to save blog post";
+        if (data.details?.fieldErrors) {
+          const firstField = Object.entries(data.details.fieldErrors)[0];
+          if (firstField && Array.isArray(firstField[1]) && firstField[1].length > 0) {
+            errorMsg = `${firstField[0]}: ${firstField[1][0]}`;
+          }
+        }
+        toast.error(errorMsg);
         return;
       }
 

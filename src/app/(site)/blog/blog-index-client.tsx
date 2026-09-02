@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FileText, Clock, ArrowRight, Eye, Calendar, Search } from "lucide-react";
 import { PageHero, Section, CtaBand } from "@/components/site/ui";
-import type { BlogPost } from "@/lib/db/schema";
+import type { BlogPost } from "@/lib/site-content";
 
 export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -73,61 +73,79 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
 
         {/* Featured Post Card */}
         {featuredPost && (
-          <article className="mb-12 overflow-hidden rounded-2xl border border-line bg-paper shadow-xs transition-all hover:border-brand hover:shadow-md">
-            <Link href={`/blog/${featuredPost.slug}`} className="grid gap-6 md:grid-cols-12 p-6 sm:p-8">
+          <article className="group mb-12 overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-xs transition-all hover:border-brand/40 hover:shadow-lg">
+            <Link href={`/blog/${featuredPost.slug}`} className="grid gap-6 md:grid-cols-12 p-6 sm:p-8 items-center">
               <div className="md:col-span-7 flex flex-col justify-between space-y-4">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="rounded bg-brand/10 px-2.5 py-0.5 text-xs font-bold text-brand uppercase tracking-wider">
+                    <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold text-brand uppercase tracking-wider border border-blue-200/60">
                       Featured • {featuredPost.category}
                     </span>
-                    <span className="text-xs text-slate-400">•</span>
-                    <span className="text-xs font-mono text-slate-500">
+                    <span className="text-xs text-slate-300">•</span>
+                    <span className="text-xs font-medium text-slate-500">
                       {featuredPost.published_at
-                        ? new Date(featuredPost.published_at).toLocaleDateString()
+                        ? new Date(featuredPost.published_at).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })
                         : "Recent"}
                     </span>
                   </div>
 
-                  <h2 className="font-display mt-3 text-2xl font-bold text-ink sm:text-3xl hover:text-brand transition-colors">
+                  <h2 className="font-display mt-3 text-2xl font-bold text-slate-900 sm:text-3xl group-hover:text-brand transition-colors leading-tight">
                     {featuredPost.title}
                   </h2>
 
-                  <p className="mt-3 text-[14.5px] leading-relaxed text-body line-clamp-3">
+                  <p className="mt-3 text-[14.5px] leading-relaxed text-slate-600 line-clamp-3">
                     {featuredPost.excerpt}
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-line text-xs">
-                  <div className="flex items-center gap-2 font-medium text-slate-700">
-                    <div className="h-6 w-6 rounded-full bg-slate-200 flex items-center justify-center font-bold text-[10px]">
-                      {featuredPost.author_name.charAt(0)}
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100 text-xs">
+                  <div className="flex items-center gap-2.5 font-medium text-slate-700">
+                    {featuredPost.author_avatar ? (
+                      <img
+                        src={featuredPost.author_avatar}
+                        alt={featuredPost.author_name}
+                        className="h-8 w-8 rounded-full object-cover object-top border border-slate-200 shadow-2xs"
+                      />
+                    ) : (
+                      <div className="h-8 w-8 rounded-full bg-brand font-display text-white flex items-center justify-center font-bold text-xs shadow-2xs">
+                        {featuredPost.author_name.charAt(0)}
+                      </div>
+                    )}
+                    <div>
+                      <span className="font-semibold text-slate-900 block leading-tight">{featuredPost.author_name}</span>
+                      <span className="text-[11px] text-slate-400">{featuredPost.author_role || "Product Builder"}</span>
                     </div>
-                    <span>{featuredPost.author_name}</span>
                   </div>
 
-                  <span className="flex items-center gap-1 font-semibold text-brand">
-                    <span>Read article</span>
-                    <ArrowRight size={14} />
+                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-brand-soft px-3 py-1.5 font-semibold text-brand transition-transform group-hover:translate-x-0.5">
+                    <span>Read guide</span>
+                    <ArrowRight size={13} />
                   </span>
                 </div>
               </div>
 
-              {/* Cover Graphic / Slot */}
-              <div className="md:col-span-5 rounded-xl bg-gradient-to-br from-brand/10 to-indigo-50 border border-brand/20 p-8 flex flex-col justify-center items-center text-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand text-white shadow-lg shadow-brand/20 mb-3">
-                  <FileText size={28} />
-                </div>
-                <p className="font-display text-sm font-bold text-ink">
-                  AttendKH Operations Guide
-                </p>
-                <div className="mt-2 flex flex-wrap justify-center gap-1">
-                  {featuredPost.tags?.slice(0, 3).map((t) => (
-                    <span key={t} className="rounded bg-white px-2 py-0.5 text-[10.5px] font-mono text-slate-600 border border-line">
-                      #{t}
-                    </span>
-                  ))}
-                </div>
+              {/* Cover Image Frame */}
+              <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-100 shadow-sm aspect-video md:aspect-[4/3] relative">
+                {featuredPost.cover_image ? (
+                  <img
+                    src={featuredPost.cover_image}
+                    alt={featuredPost.title}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="h-full w-full bg-gradient-to-br from-brand/10 to-indigo-50 flex flex-col justify-center items-center text-center p-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-white shadow-md mb-2">
+                      <FileText size={24} />
+                    </div>
+                    <p className="font-display text-xs font-bold text-slate-900">
+                      AttendKH Operations Guide
+                    </p>
+                  </div>
+                )}
               </div>
             </Link>
           </article>
@@ -139,37 +157,74 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
             {gridPosts.map((post) => (
               <article
                 key={post.id}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-line bg-paper p-6 shadow-xs transition-all hover:border-brand hover:shadow-md"
+                className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-xs transition-all hover:border-brand/40 hover:shadow-lg"
               >
                 <div>
-                  <div className="flex items-center justify-between text-xs mb-3">
-                    <span className="rounded bg-slate-100 px-2 py-0.5 font-semibold text-slate-700">
-                      {post.category}
-                    </span>
-                    <span className="font-mono text-slate-400">
-                      {post.published_at
-                        ? new Date(post.published_at).toLocaleDateString()
-                        : "Recent"}
-                    </span>
+                  {/* Card Cover Image */}
+                  <Link href={`/blog/${post.slug}`} className="block overflow-hidden aspect-video bg-slate-100 relative border-b border-slate-100">
+                    {post.cover_image ? (
+                      <img
+                        src={post.cover_image}
+                        alt={post.title}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-gradient-to-br from-slate-50 to-blue-50/40 flex items-center justify-center">
+                        <FileText size={28} className="text-slate-300" />
+                      </div>
+                    )}
+                    <div className="absolute top-3 left-3">
+                      <span className="rounded-full bg-white/95 px-2.5 py-0.5 text-[10.5px] font-bold uppercase tracking-wider text-brand shadow-xs backdrop-blur-xs border border-white/60">
+                        {post.category}
+                      </span>
+                    </div>
+                  </Link>
+
+                  <div className="p-5 sm:p-6 pb-2">
+                    <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
+                      <Calendar size={12} className="text-slate-400" />
+                      <span>
+                        {post.published_at
+                          ? new Date(post.published_at).toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })
+                          : "Recent"}
+                      </span>
+                    </div>
+
+                    <h3 className="font-display text-[16.5px] font-bold text-slate-900 group-hover:text-brand transition-colors leading-snug">
+                      <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                    </h3>
+
+                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-600">
+                      {post.excerpt}
+                    </p>
                   </div>
-
-                  <h3 className="font-display text-[17px] font-bold text-ink group-hover:text-brand transition-colors">
-                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                  </h3>
-
-                  <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-body">
-                    {post.excerpt}
-                  </p>
                 </div>
 
-                <div className="mt-6 flex items-center justify-between border-t border-line pt-4 text-xs">
-                  <span className="text-slate-500 font-medium">{post.author_name}</span>
+                <div className="p-5 sm:p-6 pt-3 mt-2 flex items-center justify-between border-t border-slate-100 text-xs">
+                  <div className="flex items-center gap-2 font-medium text-slate-600">
+                    {post.author_avatar ? (
+                      <img
+                        src={post.author_avatar}
+                        alt={post.author_name}
+                        className="h-6 w-6 rounded-full object-cover object-top border border-slate-200"
+                      />
+                    ) : (
+                      <div className="h-6 w-6 rounded-full bg-brand-soft text-brand flex items-center justify-center font-bold text-[9px]">
+                        {post.author_name.charAt(0)}
+                      </div>
+                    )}
+                    <span className="truncate max-w-[120px] font-semibold text-slate-800">{post.author_name}</span>
+                  </div>
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="flex items-center gap-1 font-semibold text-brand hover:underline"
+                    className="inline-flex items-center gap-1 font-semibold text-brand hover:underline"
                   >
-                    <span>Read</span>
-                    <ArrowRight size={13} />
+                    <span>Read guide</span>
+                    <ArrowRight size={12} />
                   </Link>
                 </div>
               </article>

@@ -4,7 +4,7 @@ import { AttendanceView } from "./attendance-view";
 
 const title = "GPS Geofence & Selfie Attendance Tracking in Cambodia | AttendKH";
 const description =
-  "Reduce attendance disputes with point-in-time GPS geofencing (50–200m), configurable selfie verification, and offline punch queueing for Cambodian businesses.";
+  "Reduce attendance disputes with point-in-time GPS geofencing (50–200m), configurable selfie verification, and real-time cloud synchronization for Cambodian businesses.";
 
 export const metadata: Metadata = {
   title,

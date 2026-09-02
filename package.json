@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "migrate": "node scripts/migrate.mjs",
-    "migrate:status": "node scripts/migrate.mjs status",
-    "seed": "node scripts/seed.mjs",
-    "bootstrap:admin": "node scripts/bootstrap-admin.mjs",
-    "test:db": "node scripts/test-placeholders.mjs"
+    "migrate": "node backend/scripts/migrate.mjs",
+    "migrate:status": "node backend/scripts/migrate.mjs status",
+    "seed": "node backend/scripts/seed.mjs",
+    "bootstrap:admin": "node backend/scripts/bootstrap-admin.mjs",
+    "create:admin": "node backend/scripts/create-admin-user.mjs",
+    "test:db": "node backend/scripts/test-placeholders.mjs"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

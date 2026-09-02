@@ -37,6 +37,7 @@ import {
 import { useSite } from "@/lib/i18n";
 import { useHomeCopy, Rise, ImageSlot, StoreBadge } from "@/components/home/parts";
 import { Header, Footer } from "@/components/site/chrome";
+import { IndustriesSection } from "@/components/home/industries-section";
 
 const SHELL = "mx-auto w-full max-w-[1240px] px-6 sm:px-10 lg:px-14";
 const HEADER_H = 72;
@@ -151,6 +152,8 @@ function PhoneOrbit() {
 
 function Hero() {
   const c = useHomeCopy();
+  const { lang } = useSite();
+  const isKm = lang === "km";
 
   return (
     <section
@@ -161,17 +164,31 @@ function Hero() {
 
       <div className={`${SHELL} relative flex min-h-0 flex-1 -translate-y-[4%] flex-col justify-center pt-12 sm:pt-16`}>
         <Rise className="relative z-20 mx-auto max-w-[820px] text-center">
-          <h1 className="hero-headline mx-auto max-w-[1000px] text-balance text-[clamp(1.72rem,8.4vw,2.05rem)] font-extrabold leading-[1.08] tracking-[-0.035em] sm:text-[3.1rem] sm:leading-[1.06] lg:text-[3.6rem]">
-            {/* The rotating word gets its own line on mobile. Sharing a line with
-                "with AttendKH" re-wrapped the whole h1 every 3.2s as the word changed
-                length; alone on a centred line only the word itself moves. */}
-            {c.hero.titlePre}
-            <br />{" "}
-            <HeroWord words={c.hero.titleRotate} />
-            <br className="sm:hidden" /> {c.hero.titlePost}{" "}
-            <span className="hero-brand-mark whitespace-nowrap">
-              Attend<span className="text-[#00C853]">KH</span>
-            </span>
+          <h1 className="hero-headline mx-auto max-w-[1000px] text-balance text-[clamp(1.65rem,7.5vw,2.05rem)] font-extrabold leading-[1.14] tracking-[-0.035em] sm:text-[3.1rem] sm:leading-[1.06] lg:text-[3.6rem]">
+            {isKm ? (
+              <>
+                <span>
+                  {c.hero.titlePre} <HeroWord words={c.hero.titleRotate} />
+                </span>
+                <br />
+                <span>
+                  {c.hero.titlePost}{" "}
+                  <span className="hero-brand-mark whitespace-nowrap">
+                    Attend<span className="text-[#00C853]">KH</span>
+                  </span>
+                </span>
+              </>
+            ) : (
+              <>
+                {c.hero.titlePre}
+                <br />{" "}
+                <HeroWord words={c.hero.titleRotate} />
+                <br className="sm:hidden" /> {c.hero.titlePost}{" "}
+                <span className="hero-brand-mark whitespace-nowrap">
+                  Attend<span className="text-[#00C853]">KH</span>
+                </span>
+              </>
+            )}
           </h1>
 
           <p className="mx-auto mt-5 max-w-[52ch] text-balance text-[15.5px] leading-[1.7] text-white/80 sm:text-[17px]">
@@ -180,7 +197,7 @@ function Hero() {
 
           {/* Grid, not flex-wrap: at 375px the two badges would wrap to two rows and
               eat a third of the fold. Two equal columns keep them on one line. */}
-          <div className="mx-auto mt-7 grid max-w-[400px] grid-cols-1 gap-2.5 min-[360px]:grid-cols-2 sm:flex sm:max-w-none sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
+          <div className="mx-auto mt-5 sm:mt-7 grid max-w-[310px] xs:max-w-[340px] grid-cols-2 gap-2 sm:flex sm:max-w-none sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
             <StoreBadge kind="apple" top={c.footer.appStoreTop} name={c.footer.appStoreName} />
             <StoreBadge kind="play" top={c.footer.playTop} name={c.footer.playName} />
           </div>
@@ -258,27 +275,27 @@ function AttendanceVerificationSection() {
   const c = useHomeCopy();
 
   return (
-    <section id="verification" className={`${SHELL} scroll-mt-24 py-4 sm:py-6`}>
-      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-        <div className="lg:col-span-6">
+    <section id="verification" className={`${SHELL} scroll-mt-24 py-5 sm:py-8`}>
+      <div className="grid grid-cols-2 items-center gap-3.5 sm:gap-8 lg:grid-cols-12 lg:gap-14">
+        <div className="col-span-1 lg:col-span-6">
           <Rise>
-            <h2 className="text-[1.8rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#0F172A] sm:text-[2.25rem]">
+            <h2 className="text-[13px] xs:text-[15px] sm:text-[1.65rem] lg:text-[2.25rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#0F172A]">
               {c.featureOne.title}
             </h2>
           </Rise>
           <Rise delay={0.06}>
-            <p className="mt-4 max-w-[50ch] text-[14.5px] leading-[1.75] text-[#475569]">
+            <p className="mt-1.5 sm:mt-4 max-w-[50ch] text-[9.5px] xs:text-[11px] sm:text-[13.5px] lg:text-[14.5px] leading-snug sm:leading-[1.75] text-[#475569]">
               {c.featureOne.body}
             </p>
           </Rise>
           <Rise delay={0.1}>
-            <ul className="mt-6 space-y-3">
+            <ul className="mt-2 sm:mt-6 space-y-1 xs:space-y-1.5 sm:space-y-3">
               {c.featureOne.points.map((pt) => (
-                <li key={pt} className="flex items-center gap-3 text-[14px] font-semibold text-[#0F172A]">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EDF2FE] text-[#0052FF]">
-                    <Check size={14} strokeWidth={3} aria-hidden="true" />
+                <li key={pt} className="flex items-center gap-1.5 sm:gap-3 text-[9px] xs:text-[10.5px] sm:text-[13.5px] lg:text-[14px] font-semibold text-[#0F172A]">
+                  <span className="flex h-3.5 w-3.5 xs:h-4 xs:w-4 sm:h-6 sm:w-6 shrink-0 items-center justify-center rounded-full bg-[#EDF2FE] text-[#0052FF]">
+                    <Check className="h-2 w-2 xs:h-2.5 xs:w-2.5 sm:h-3.5 sm:w-3.5" strokeWidth={3} aria-hidden="true" />
                   </span>
-                  {pt}
+                  <span className="truncate sm:overflow-visible">{pt}</span>
                 </li>
               ))}
             </ul>
@@ -287,15 +304,15 @@ function AttendanceVerificationSection() {
             <Link
               href={c.featureOne.href}
               aria-label={`${c.featureOne.cta}: ${c.featureOne.title}`}
-              className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#0052FF] px-6 py-3 text-[14px] font-semibold text-white shadow-xs transition-colors hover:bg-[#0043D6]"
+              className="group mt-2.5 sm:mt-8 inline-flex items-center gap-1 sm:gap-2 rounded-full bg-[#0052FF] px-2.5 py-1.5 xs:px-3.5 xs:py-2 sm:px-6 sm:py-3 text-[9.5px] xs:text-[11px] sm:text-[14px] font-semibold text-white shadow-xs transition-colors hover:bg-[#0043D6]"
             >
               {c.featureOne.cta}<span className="sr-only">: {c.featureOne.title}</span>
-              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+              <ArrowRight className="h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-3.5 sm:w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </Rise>
         </div>
 
-        <Rise delay={0.08} className="lg:col-span-6 flex justify-center">
+        <Rise delay={0.08} className="col-span-1 lg:col-span-6 flex justify-center">
           <div className="w-full">
             <ImageSlot
               noteBadge={c.featureOne.slotBadge}
@@ -320,9 +337,9 @@ function PayrollSection() {
   const c = useHomeCopy();
 
   return (
-    <section id="payroll" className={`${SHELL} scroll-mt-24 py-4 sm:py-6`}>
-      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-        <Rise delay={0.08} className="lg:col-span-6 flex justify-center order-2 lg:order-1">
+    <section id="payroll" className={`${SHELL} scroll-mt-24 py-5 sm:py-8`}>
+      <div className="grid grid-cols-2 items-center gap-3.5 sm:gap-8 lg:grid-cols-12 lg:gap-14">
+        <Rise delay={0.08} className="col-span-1 lg:col-span-6 flex justify-center">
           <div className="w-full">
             <ImageSlot
               noteBadge={c.featureTwo.slotBadge}
@@ -337,25 +354,25 @@ function PayrollSection() {
           </div>
         </Rise>
 
-        <div className="lg:col-span-6 order-1 lg:order-2">
+        <div className="col-span-1 lg:col-span-6">
           <Rise>
-            <h2 className="text-[1.8rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#0F172A] sm:text-[2.25rem]">
+            <h2 className="text-[13px] xs:text-[15px] sm:text-[1.65rem] lg:text-[2.25rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#0F172A]">
               {c.featureTwo.title}
             </h2>
           </Rise>
           <Rise delay={0.06}>
-            <p className="mt-4 max-w-[50ch] text-[14.5px] leading-[1.75] text-[#475569]">
+            <p className="mt-1.5 sm:mt-4 max-w-[50ch] text-[9.5px] xs:text-[11px] sm:text-[13.5px] lg:text-[14.5px] leading-snug sm:leading-[1.75] text-[#475569]">
               {c.featureTwo.body}
             </p>
           </Rise>
           <Rise delay={0.1}>
-            <ul className="mt-6 space-y-3">
+            <ul className="mt-2 sm:mt-6 space-y-1 xs:space-y-1.5 sm:space-y-3">
               {c.featureTwo.points.map((pt) => (
-                <li key={pt} className="flex items-center gap-3 text-[14px] font-semibold text-[#0F172A]">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EDF2FE] text-[#0052FF]">
-                    <Check size={14} strokeWidth={3} aria-hidden="true" />
+                <li key={pt} className="flex items-center gap-1.5 sm:gap-3 text-[9px] xs:text-[10.5px] sm:text-[13.5px] lg:text-[14px] font-semibold text-[#0F172A]">
+                  <span className="flex h-3.5 w-3.5 xs:h-4 xs:w-4 sm:h-6 sm:w-6 shrink-0 items-center justify-center rounded-full bg-[#EDF2FE] text-[#0052FF]">
+                    <Check className="h-2 w-2 xs:h-2.5 xs:w-2.5 sm:h-3.5 sm:w-3.5" strokeWidth={3} aria-hidden="true" />
                   </span>
-                  {pt}
+                  <span className="truncate sm:overflow-visible">{pt}</span>
                 </li>
               ))}
             </ul>
@@ -364,10 +381,10 @@ function PayrollSection() {
             <Link
               href={c.featureTwo.href}
               aria-label={`${c.featureTwo.cta}: ${c.featureTwo.title}`}
-              className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#0052FF] px-6 py-3 text-[14px] font-semibold text-white shadow-xs transition-colors hover:bg-[#0043D6]"
+              className="group mt-2.5 sm:mt-8 inline-flex items-center gap-1 sm:gap-2 rounded-full bg-[#0052FF] px-2.5 py-1.5 xs:px-3.5 xs:py-2 sm:px-6 sm:py-3 text-[9.5px] xs:text-[11px] sm:text-[14px] font-semibold text-white shadow-xs transition-colors hover:bg-[#0043D6]"
             >
               {c.featureTwo.cta}<span className="sr-only">: {c.featureTwo.title}</span>
-              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+              <ArrowRight className="h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-3.5 sm:w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </Rise>
         </div>
@@ -382,27 +399,27 @@ function OvertimeLeaveSection() {
   const c = useHomeCopy();
 
   return (
-    <section id="requests" className={`${SHELL} scroll-mt-24 py-4 sm:py-6`}>
-      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-        <div className="lg:col-span-6">
+    <section id="requests" className={`${SHELL} scroll-mt-24 py-5 sm:py-8`}>
+      <div className="grid grid-cols-2 items-center gap-3.5 sm:gap-8 lg:grid-cols-12 lg:gap-14">
+        <div className="col-span-1 lg:col-span-6">
           <Rise>
-            <h2 className="text-[1.8rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#0F172A] sm:text-[2.25rem]">
+            <h2 className="text-[13px] xs:text-[15px] sm:text-[1.65rem] lg:text-[2.25rem] font-extrabold leading-[1.2] tracking-[-0.025em] text-[#0F172A]">
               {c.otLeave.title}
             </h2>
           </Rise>
           <Rise delay={0.06}>
-            <p className="mt-4 max-w-[50ch] text-[14.5px] leading-[1.75] text-[#475569]">
+            <p className="mt-1.5 sm:mt-4 max-w-[50ch] text-[9.5px] xs:text-[11px] sm:text-[13.5px] lg:text-[14.5px] leading-snug sm:leading-[1.75] text-[#475569]">
               {c.otLeave.body}
             </p>
           </Rise>
           <Rise delay={0.1}>
-            <ul className="mt-6 space-y-3">
+            <ul className="mt-2 sm:mt-6 space-y-1 xs:space-y-1.5 sm:space-y-3">
               {c.otLeave.points.map((pt) => (
-                <li key={pt} className="flex items-center gap-3 text-[14px] font-semibold text-[#0F172A]">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EDF2FE] text-[#0052FF]">
-                    <Check size={14} strokeWidth={3} aria-hidden="true" />
+                <li key={pt} className="flex items-center gap-1.5 sm:gap-3 text-[9px] xs:text-[10.5px] sm:text-[13.5px] lg:text-[14px] font-semibold text-[#0F172A]">
+                  <span className="flex h-3.5 w-3.5 xs:h-4 xs:w-4 sm:h-6 sm:w-6 shrink-0 items-center justify-center rounded-full bg-[#EDF2FE] text-[#0052FF]">
+                    <Check className="h-2 w-2 xs:h-2.5 xs:w-2.5 sm:h-3.5 sm:w-3.5" strokeWidth={3} aria-hidden="true" />
                   </span>
-                  {pt}
+                  <span className="truncate sm:overflow-visible">{pt}</span>
                 </li>
               ))}
             </ul>
@@ -411,15 +428,15 @@ function OvertimeLeaveSection() {
             <Link
               href={c.otLeave.href}
               aria-label={`${c.otLeave.cta}: ${c.otLeave.title}`}
-              className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#0052FF] px-6 py-3 text-[14px] font-semibold text-white shadow-xs transition-colors hover:bg-[#0043D6]"
+              className="group mt-2.5 sm:mt-8 inline-flex items-center gap-1 sm:gap-2 rounded-full bg-[#0052FF] px-2.5 py-1.5 xs:px-3.5 xs:py-2 sm:px-6 sm:py-3 text-[9.5px] xs:text-[11px] sm:text-[14px] font-semibold text-white shadow-xs transition-colors hover:bg-[#0043D6]"
             >
               {c.otLeave.cta}<span className="sr-only">: {c.otLeave.title}</span>
-              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+              <ArrowRight className="h-2.5 w-2.5 xs:h-3 xs:w-3 sm:h-3.5 sm:w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </Rise>
         </div>
 
-        <Rise delay={0.08} className="lg:col-span-6 flex justify-center">
+        <Rise delay={0.08} className="col-span-1 lg:col-span-6 flex justify-center">
           <div className="w-full">
             <ImageSlot
               noteBadge={c.otLeave.slotBadge}
@@ -441,7 +458,6 @@ function OvertimeLeaveSection() {
 /* -------------------- 04. cambodia fit section -------------------- */
 
 const CAMBODIA_ICONS = [Globe, Coins, FileCheck, WifiOff];
-const KH_INDEX = ["០១", "០២", "០៣", "០៤"];
 
 /**
  * Full-bleed blue break in an otherwise white page. Reuses HeroBackdrop so the
@@ -474,48 +490,15 @@ function CambodiaFitSection() {
           </div>
         </Rise>
 
-        <div className="mt-10 grid gap-12 lg:grid-cols-12 lg:gap-14">
-          {/* Glass spec ledger — stacked rows with a Khmer numeral watermark. */}
-          <div className="space-y-3 lg:col-span-7">
-            {c.cambodiaFit.items.map((item, i) => {
-              const Icon = CAMBODIA_ICONS[i] || Layers;
-              return (
-                <Rise key={item.title}>
-                  <div className="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] p-5 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/[0.12] sm:p-6">
-                    {/* Khmer index, oversized and translucent — the local signature. */}
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute right-4 top-3 select-none text-[2.75rem] font-extrabold leading-none text-white/[0.14] transition-colors duration-300 group-hover:text-white/25"
-                    >
-                      {KH_INDEX[i]}
-                    </span>
-                    <div className="flex items-start gap-4 sm:gap-5">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white shadow-xs transition-colors duration-300 group-hover:bg-white group-hover:text-[#0A47D6]">
-                        <Icon size={19} strokeWidth={2} />
-                      </span>
-                      <div className="min-w-0">
-                        <h3 className="pr-12 text-[15.5px] font-bold leading-snug sm:text-[17px]">
-                          {item.title}
-                        </h3>
-                        <p className="mt-2 max-w-[52ch] text-[13.5px] leading-relaxed text-white/70">
-                          {item.desc}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Rise>
-              );
-            })}
-          </div>
-
-          {/* Device floats in its own light, no frame, tilted off the grid. */}
-          <Rise className="lg:col-span-5">
+        <div className="mt-8 sm:mt-10 grid gap-8 lg:grid-cols-12 lg:gap-14">
+          {/* Device floats in its own light, on top on mobile, right on desktop */}
+          <Rise className="order-1 lg:order-2 lg:col-span-5">
             <div className="relative flex justify-center lg:sticky lg:top-28">
               <div
                 aria-hidden="true"
                 className="absolute inset-x-2 top-4 bottom-4 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.30),transparent_68%)] blur-3xl"
               />
-              <div className="relative w-full max-w-[290px] rotate-[-2.5deg] drop-shadow-[0_30px_60px_rgba(3,20,70,0.45)] transition-transform duration-500 hover:rotate-0">
+              <div className="relative w-full max-w-[200px] xs:max-w-[230px] sm:max-w-[290px] rotate-[-2deg] drop-shadow-[0_24px_50px_rgba(3,20,70,0.45)] transition-transform duration-500 hover:rotate-0">
                 <ImageSlot
                   noteBadge={c.cambodiaFit.slotBadge}
                   label={c.cambodiaFit.slotLabel}
@@ -529,6 +512,32 @@ function CambodiaFitSection() {
               </div>
             </div>
           </Rise>
+
+          {/* Glass spec ledger — 2-row grid (2 columns) below image on mobile, left on desktop. */}
+          <div className="order-2 lg:order-1 grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:col-span-7">
+            {c.cambodiaFit.items.map((item, i) => {
+              const Icon = CAMBODIA_ICONS[i] || Layers;
+              return (
+                <Rise key={item.title} className="h-full">
+                  <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-xl border border-white/15 bg-white/[0.07] p-3.5 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/[0.12] sm:rounded-2xl sm:p-5">
+                    <div>
+                      <div className="flex items-center gap-2.5 sm:gap-4">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/10 text-white shadow-xs transition-colors duration-300 group-hover:bg-white group-hover:text-[#0A47D6] sm:h-11 sm:w-11 sm:rounded-xl">
+                          <Icon className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={2} />
+                        </span>
+                      </div>
+                      <h3 className="mt-2.5 text-[12px] font-bold leading-snug sm:text-[15.5px]">
+                        {item.title}
+                      </h3>
+                      <p className="mt-1.5 text-[9.5px] leading-snug text-white/70 sm:mt-2 sm:text-[13px] sm:leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                </Rise>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
@@ -555,36 +564,8 @@ function ImpactSection() {
         </div>
       </Rise>
 
-      {/* Segmented rail: each milestone owns one length of the progress bar. */}
-      <div className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-        {c.impact.milestones.map((m, i) => (
-          <Rise key={m.step} delay={i * 0.08}>
-            <div className="group relative h-full pt-6">
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 top-0 h-0.5 rounded-full bg-line transition-colors duration-300 group-hover:bg-[#0052FF]"
-              />
-              <span
-                aria-hidden="true"
-                className="absolute -top-[3px] left-0 h-2 w-2 rounded-full bg-[#0052FF] ring-4 ring-white"
-              />
-              <span className="font-mono text-[12px] font-extrabold uppercase tracking-[0.12em] text-[#0052FF]">
-                {m.step}
-              </span>
-              <h3 className="mt-3 text-[16.5px] font-bold leading-[1.35] tracking-[-0.01em] text-[#0F172A]">
-                {m.title}
-              </h3>
-              <p className="mt-2.5 text-[13px] leading-[1.7] text-[#475569]">{m.body}</p>
-              <p className="mt-4 flex items-start gap-2 text-[12.5px] font-semibold text-[#0F172A]">
-                <Check size={14} strokeWidth={3} className="mt-0.5 shrink-0 text-[#0052FF]" aria-hidden="true" />
-                {m.tag}
-              </p>
-            </div>
-          </Rise>
-        ))}
-      </div>
-
-      <Rise delay={0.12} className="mt-14 flex justify-center">
+      {/* Horizontal Phone Interface Image placed on top */}
+      <Rise delay={0.06} className="mt-8 sm:mt-12 flex justify-center">
         <div className="relative w-full max-w-[1060px]">
           <Image
             src="/iphone-sleeping.webp"
@@ -596,6 +577,37 @@ function ImpactSection() {
           />
         </div>
       </Rise>
+
+      {/* Segmented rail: 2-column grid (2 rows on mobile, 4 columns on desktop). */}
+      <div className="mt-8 sm:mt-14 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-8 sm:gap-y-10 lg:grid-cols-4">
+        {c.impact.milestones.map((m, i) => (
+          <Rise key={m.step} delay={i * 0.08} className="h-full">
+            <div className="group relative h-full pt-4 sm:pt-6">
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-0.5 rounded-full bg-line transition-colors duration-300 group-hover:bg-[#0052FF]"
+              />
+              <span
+                aria-hidden="true"
+                className="absolute -top-[3px] left-0 h-2 w-2 rounded-full bg-[#0052FF] ring-4 ring-white"
+              />
+              <span className="font-mono text-[10px] sm:text-[12px] font-extrabold uppercase tracking-[0.12em] text-[#0052FF]">
+                {m.step}
+              </span>
+              <h3 className="mt-2 text-[12.5px] sm:text-[16.5px] font-bold leading-[1.3] sm:leading-[1.35] tracking-[-0.01em] text-[#0F172A]">
+                {m.title}
+              </h3>
+              <p className="mt-1.5 text-[9.5px] sm:text-[13px] leading-snug sm:leading-[1.7] text-[#475569]">
+                {m.body}
+              </p>
+              <p className="mt-2.5 sm:mt-4 flex items-start gap-1 sm:gap-2 text-[9.5px] sm:text-[12.5px] font-semibold text-[#0F172A]">
+                <Check className="mt-0.5 h-3 w-3 sm:h-3.5 sm:w-3.5 shrink-0 text-[#0052FF]" strokeWidth={3} aria-hidden="true" />
+                <span>{m.tag}</span>
+              </p>
+            </div>
+          </Rise>
+        ))}
+      </div>
     </section>
   );
 }
@@ -651,97 +663,34 @@ function Steps() {
         </div>
 
         {/* 2-Column Interactive Rollout Studio */}
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
-          {/* Left Column: Modern Vertical Stepper Rail */}
-          <div className="lg:col-span-4 relative">
-            {/* Background connecting vertical line */}
-            <div
-              aria-hidden="true"
-              className="absolute left-[28px] top-6 bottom-6 w-0.5 bg-slate-200 pointer-events-none"
-            />
-
-            <div className="space-y-3 relative">
-              {c.steps.items.map((step, i) => {
-                const isActive = activeStep === i;
-                const isCompleted = i < activeStep;
-
-                return (
-                  <button
-                    key={step.n}
-                    type="button"
-                    onClick={() => setActiveStep(i)}
-                    className={`group relative flex w-full items-start gap-4 rounded-2xl p-3.5 sm:p-4 text-left transition-all duration-200 cursor-pointer ${
-                      isActive
-                        ? "bg-white border border-slate-200/90 shadow-md shadow-slate-900/5 ring-1 ring-black/5"
-                        : "bg-transparent hover:bg-white/60 border border-transparent"
-                    }`}
-                  >
-                    {/* Node circle on the rail */}
-                    <div
-                      className={`relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-mono text-[12.5px] font-extrabold transition-all duration-200 ${
-                        isActive
-                          ? "bg-[#0052FF] text-white shadow-md shadow-blue-500/25 ring-4 ring-blue-50"
-                          : isCompleted
-                          ? "bg-emerald-500 text-white shadow-xs"
-                          : "bg-white border border-slate-300 text-slate-500 group-hover:border-slate-400 group-hover:text-slate-700"
-                      }`}
-                    >
-                      {isCompleted ? <Check size={14} strokeWidth={3} /> : step.n}
-                    </div>
-
-                    {/* Step Content */}
-                    <div className="min-w-0 flex-1 pt-0.5">
-                      <div className="flex items-center justify-between gap-2">
-                        <h3
-                          className={`font-display text-[15.5px] font-bold leading-snug tracking-tight transition-colors ${
-                            isActive
-                              ? "text-[#0F172A]"
-                              : "text-slate-700 group-hover:text-[#0F172A]"
-                          }`}
-                        >
-                          {step.title}
-                        </h3>
-
-                        {isActive && (
-                          <span className="shrink-0 font-mono text-[10.5px] font-bold text-[#0052FF] bg-[#EDF2FE] px-2 py-0.5 rounded-full">
-                            Step 0{i + 1}
-                          </span>
-                        )}
-                      </div>
-
-                      <p
-                        className={`mt-1.5 text-[13px] leading-relaxed transition-colors ${
-                          isActive
-                            ? "text-[#475569]"
-                            : "text-[#64748B] group-hover:text-[#475569]"
-                        }`}
-                      >
-                        {step.body}
-                      </p>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right Column: Expanded Large Transparent Image Display */}
-          <div className="lg:col-span-8 flex flex-col items-center justify-center">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-10">
+          {/* Right Column (on desktop): Expanded Large Transparent Image Display (on top on mobile) */}
+          <div className="order-1 lg:order-2 lg:col-span-8 flex flex-col items-center justify-center">
             <div className="relative w-full">
-              <div className="relative aspect-[10/7] min-h-[240px] w-full overflow-hidden transition-all duration-300 ease-out sm:min-h-[340px]">
-                <Image
-                  key={activeStep}
-                  src={stepImages[activeStep].src}
-                  alt={stepImages[activeStep].alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 880px"
-                  className="object-contain drop-shadow-2xl transition-all duration-300 hover:scale-[1.01]"
-                />
+              <div className="relative aspect-[10/7] min-h-[220px] w-full overflow-hidden sm:min-h-[340px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeStep}
+                    initial={{ opacity: 0, y: 12, scale: 0.985 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -12, scale: 0.985 }}
+                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative h-full w-full"
+                  >
+                    <Image
+                      src={stepImages[activeStep].src}
+                      alt={stepImages[activeStep].alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 880px"
+                      className="object-contain drop-shadow-2xl transition-transform duration-300 hover:scale-[1.01]"
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
 
             {/* Clean Minimal Navigation Bar */}
-            <div className="mt-4 flex w-full flex-col items-center justify-between gap-2 px-2 text-xs sm:flex-row">
+            <div className="mt-3 sm:mt-4 flex w-full flex-col items-center justify-between gap-2 px-2 text-xs sm:flex-row">
               <div className="flex items-center gap-2">
                 {stepImages.map((_, idx) => (
                   <button
@@ -765,31 +714,95 @@ function Steps() {
                 {activeStep > 0 && (
                   <button
                     type="button"
-                    onClick={() => setActiveStep((prev) => prev - 1)}
-                    className="min-h-11 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-xs hover:bg-slate-50 transition-colors cursor-pointer"
+                    onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
+                    className="rounded-full border border-slate-200 px-3 py-1 font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
                   >
                     {isKm ? "ថយក្រោយ" : isZh ? "上一步" : "Previous"}
                   </button>
                 )}
-                {activeStep < 2 ? (
+                {activeStep < stepImages.length - 1 && (
                   <button
                     type="button"
-                    onClick={() => setActiveStep((prev) => prev + 1)}
-                    className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[#0052FF] px-4 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-[#0043D6] transition-colors cursor-pointer"
+                    onClick={() => setActiveStep((prev) => Math.min(stepImages.length - 1, prev + 1))}
+                    className="rounded-full bg-[#0052FF] px-3.5 py-1 font-semibold text-white hover:bg-[#0043D6] transition-colors"
                   >
-                    <span>{isKm ? "ជំហានបន្ទាប់" : isZh ? "下一步" : "Next Step"}</span>
-                    <ArrowRight size={13} />
+                    {isKm ? "បន្ទាប់" : isZh ? "下一步" : "Next"}
                   </button>
-                ) : (
-                  <Link
-                    href="/contact"
-                    className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[#0052FF] px-4 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-[#0043D6] transition-colors"
-                  >
-                    <span>{isKm ? "ចាប់ផ្តើមឥឡូវនេះ" : isZh ? "立即使用" : "Get Started Now"}</span>
-                    <ArrowRight size={13} />
-                  </Link>
                 )}
               </div>
+            </div>
+          </div>
+
+          {/* Left Column (on desktop): Modern Vertical Stepper Rail (below image on mobile) */}
+          <div className="order-2 lg:order-1 lg:col-span-4 relative">
+            {/* Background connecting vertical line */}
+            <div
+              aria-hidden="true"
+              className="absolute left-[28px] top-6 bottom-6 w-0.5 bg-slate-200 pointer-events-none"
+            />
+
+            <div className="space-y-2.5 sm:space-y-3 relative">
+              {c.steps.items.map((step, i) => {
+                const isActive = activeStep === i;
+                const isCompleted = i < activeStep;
+
+                return (
+                  <button
+                    key={step.n}
+                    type="button"
+                    onClick={() => setActiveStep(i)}
+                    className={`group relative flex w-full items-start gap-3.5 sm:gap-4 rounded-2xl p-3 sm:p-4 text-left transition-all duration-200 cursor-pointer ${
+                      isActive
+                        ? "bg-white border border-slate-200/90 shadow-md shadow-slate-900/5 ring-1 ring-black/5"
+                        : "bg-transparent hover:bg-white/60 border border-transparent"
+                    }`}
+                  >
+                    {/* Node circle on the rail */}
+                    <div
+                      className={`relative z-10 flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full font-mono text-[11.5px] sm:text-[12.5px] font-extrabold transition-all duration-200 ${
+                        isActive
+                          ? "bg-[#0052FF] text-white shadow-md shadow-blue-500/25 ring-4 ring-blue-50"
+                          : isCompleted
+                          ? "bg-emerald-500 text-white shadow-xs"
+                          : "bg-white border border-slate-300 text-slate-500 group-hover:border-slate-400 group-hover:text-slate-700"
+                      }`}
+                    >
+                      {isCompleted ? <Check size={14} strokeWidth={3} /> : step.n}
+                    </div>
+
+                    {/* Step Content */}
+                    <div className="min-w-0 flex-1 pt-0.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3
+                          className={`font-display text-[14px] sm:text-[15.5px] font-bold leading-snug tracking-tight transition-colors ${
+                            isActive
+                              ? "text-[#0F172A]"
+                              : "text-slate-700 group-hover:text-[#0F172A]"
+                          }`}
+                        >
+                          {step.title}
+                        </h3>
+
+                        {isActive && (
+                          <span className="shrink-0 font-mono text-[10px] sm:text-[10.5px] font-bold text-[#0052FF] bg-[#EDF2FE] px-2 py-0.5 rounded-full">
+                            Step 0{i + 1}
+                          </span>
+                        )}
+                      </div>
+
+                      <p
+                        className={`mt-1 sm:mt-1.5 text-[12px] sm:text-[13px] leading-relaxed transition-colors ${
+                          isActive
+                            ? "text-[#475569]"
+                            : "text-[#64748B] group-hover:text-[#475569]"
+                        }`}
+                      >
+                        {step.body}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -1047,17 +1060,29 @@ function GetStarted() {
   const c = useHomeCopy();
 
   return (
-    <section className={`${SHELL} py-16 sm:py-24 overflow-hidden`}>
+    <section className={`${SHELL} py-14 sm:py-24 overflow-hidden`}>
       <Rise>
-        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
-            <h2 className="text-[2rem] font-extrabold leading-tight tracking-[-0.03em] text-[#0F172A] sm:text-[2.6rem]">
+            <h2 className="text-[1.85rem] font-extrabold leading-tight tracking-[-0.03em] text-[#0F172A] sm:text-[2.6rem]">
               {c.cta.title}
             </h2>
-            <p className="mt-4 max-w-[40ch] text-[15.5px] leading-[1.7] text-[#475569]">
+            <p className="mt-3 sm:mt-4 max-w-[40ch] text-[14.5px] sm:text-[15.5px] leading-[1.65] sm:leading-[1.7] text-[#475569]">
               {c.cta.sub}
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+
+            {/* Mobile Image: on top of buttons */}
+            <div className="my-6 flex w-full items-center justify-center lg:hidden">
+              <Image
+                src="/apple-products.webp"
+                alt="AttendKH on Apple Devices"
+                width={2000}
+                height={873}
+                className="h-auto w-full max-w-[460px] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.10)]"
+              />
+            </div>
+
+            <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/contact"
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#0052FF] px-7 py-3.5 text-[14px] font-bold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#0043D6]"
@@ -1074,7 +1099,8 @@ function GetStarted() {
             </div>
           </div>
 
-          <div className="relative flex w-full items-center justify-center lg:col-span-7">
+          {/* Desktop Image: right side */}
+          <div className="relative hidden w-full items-center justify-center lg:flex lg:col-span-7">
             <div className="w-full max-w-[780px] lg:scale-105 xl:scale-115 lg:origin-center">
               <Image
                 src="/apple-products.webp"
@@ -1114,6 +1140,7 @@ export function HomeView({ priceMonthly }: { priceMonthly: number }) {
         <PayrollSection />
         <OvertimeLeaveSection />
         <CambodiaFitSection />
+        <IndustriesSection />
         <ImpactSection />
         <Steps />
         <FAQSection />

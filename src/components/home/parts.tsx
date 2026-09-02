@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { Camera, Image as ImageIcon } from "lucide-react";
 import { useSite } from "@/lib/i18n";
@@ -211,31 +212,34 @@ export function StoreBadge({
   top,
   name,
   tone = "dark",
+  href = "/downloads",
 }: {
   kind: "apple" | "play";
   top: string;
   name: string;
   tone?: "dark" | "light";
+  href?: string;
 }) {
   return (
-    <div
-      className={`group inline-flex w-full min-w-0 items-center justify-center gap-2.5 rounded-[16px] px-3 py-2.5 select-none transition-all duration-200 hover:-translate-y-0.5 sm:w-auto sm:min-w-[168px] sm:justify-start sm:gap-3 sm:px-3.5 ${
+    <Link
+      href={href}
+      className={`group inline-flex w-full min-w-0 items-center justify-center gap-2 rounded-[13px] px-2.5 py-1.5 select-none transition-all duration-200 hover:-translate-y-0.5 sm:w-auto sm:min-w-[168px] sm:justify-start sm:gap-3 sm:rounded-[16px] sm:px-3.5 sm:py-2.5 ${
         tone === "dark"
-          ? "liquid-glass text-white"
+          ? "liquid-glass text-white hover:bg-white/20"
           : "border border-line bg-white text-ink shadow-sm hover:border-[#0052FF]/40 hover:shadow-md"
       }`}
     >
       <span
-        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[11px] transition-transform duration-200 group-hover:scale-105 sm:h-9 sm:w-9 ${
+        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-[9px] transition-transform duration-200 group-hover:scale-105 sm:h-9 sm:w-9 sm:rounded-[11px] ${
           tone === "dark" ? "bg-white/12" : "bg-[#EDF2FE]"
         }`}
       >
         {kind === "apple" ? (
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg className="h-4 w-4 sm:h-[19px] sm:w-[19px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M16.36 12.72c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74s1.78.74 3 .72c1.24-.02 2.02-1.12 2.78-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.69zM14.1 5.9c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.68-1.09 1.77-.95 2.81 1.02.08 2.06-.52 2.68-1.28z" />
           </svg>
         ) : (
-          <svg width="19" height="20" viewBox="0 0 24 26" aria-hidden="true">
+          <svg className="h-4 w-4 sm:h-[19px] sm:w-[20px]" viewBox="0 0 24 26" aria-hidden="true">
             <path d="M3.3 1.2A1.7 1.7 0 0 0 2.7 2.5v21c0 .5.2 1 .6 1.3L14.7 13 3.3 1.2z" fill="#3B82F6" />
             <path d="M18.6 9.2 15 12.9l3.6 3.7 4.1-2.3c.9-.5.9-1.9 0-2.5l-4.1-2.6z" fill="#F5B301" />
             <path d="M3.3 24.8 15 13l3.6 3.6-13.2 7.6a1.7 1.7 0 0 1-2.1-.4z" fill="#10B981" />
@@ -244,9 +248,9 @@ export function StoreBadge({
         )}
       </span>
       <span className="text-left leading-tight">
-        <span className="block whitespace-nowrap text-[8.5px] font-medium uppercase tracking-[0.06em] opacity-70 sm:text-[9px] sm:tracking-[0.08em]">{top}</span>
-        <span className="mt-0.5 block whitespace-nowrap text-[13.5px] font-semibold tracking-[-0.02em] sm:text-[15px]">{name}</span>
+        <span className="block whitespace-nowrap text-[7.5px] font-medium uppercase tracking-[0.06em] opacity-70 sm:text-[9px] sm:tracking-[0.08em]">{top}</span>
+        <span className="mt-0.5 block whitespace-nowrap text-[11.5px] font-semibold tracking-[-0.02em] sm:text-[15px]">{name}</span>
       </span>
-    </div>
+    </Link>
   );
 }

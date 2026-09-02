@@ -13,11 +13,12 @@ import {
   Calculator,
   Users,
   ChevronDown,
-  Globe,
-  WifiOff,
-  FileCheck,
   Sparkles,
   Zap,
+  Radio,
+  FileCheck,
+  CreditCard,
+  CheckCircle2,
 } from "lucide-react";
 import { formatUSD, formatKHR, usdToKhr } from "@/lib/currency";
 import { useSite } from "@/lib/i18n";
@@ -44,24 +45,26 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
 
   const [annual, setAnnual] = useState(false);
   const [calcUsers, setCalcUsers] = useState<number>(50);
+  const [selectedPlanIndex, setSelectedPlanIndex] = useState<number>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const primaryPlan = dynamicPlans?.[0];
+  const primaryPlan = dynamicPlans?.[selectedPlanIndex] || dynamicPlans?.[0];
   const unitRateMonthly = primaryPlan?.price_monthly ?? 1;
   const unitRateAnnual = unitRateMonthly * (primaryPlan?.annual_factor ?? DEFAULT_ANNUAL_FACTOR);
   const unitRate = annual ? unitRateAnnual : unitRateMonthly;
   const monthlyRateUsd = formatUSD(unitRateMonthly, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const monthlyRateKhr = formatKHR(usdToKhr(unitRateMonthly, exchangeRate));
   const annualRateUsd = formatUSD(unitRateAnnual, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
   const planFeatures: string[] = primaryPlan?.features?.length
     ? primaryPlan.features
     : [
-        "50–200m GPS Geofence & Selfie",
-        "Full Dual-Currency Payroll ($ / ៛)",
-        "1.5× / 2.0× Overtime & NSSF Lines",
-        "Unlimited Multi-Branch Locations",
-        "Offline Queuing & QR Door Kiosk",
-        "Local Phnom Penh Team Support",
+        "GPS attendance & geofenced radius",
+        "Live selfie verification",
+        "Leave tracking & balances",
+        "Mobile app for iOS & Android",
+        "Basic attendance reports",
+        "Telegram notifications",
       ];
 
   const formatUnitRate = () => {
@@ -76,6 +79,9 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
       ? formatKHR(usdToKhr(total, exchangeRate))
       : formatUSD(total, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
+
+  // Calculate percentage fill for range slider
+  const sliderPercentage = Math.min(100, Math.max(0, ((calcUsers - 5) / (250 - 5)) * 100));
 
   const allIncludedFeatures = [
     {
@@ -107,18 +113,18 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
         : "Oversee all shops and outlets from a single unified console with zero per-branch surcharges.",
     },
     {
-      icon: WifiOff,
-      title: isKm ? "ដំណើរការ Offline & QR Kiosk" : "Offline Device Resiliency & QR Kiosk",
+      icon: Radio,
+      title: isKm ? "សមកាលកម្ម Cloud ភ្លាមៗ & QR Kiosk" : "Real-Time Cloud Sync & QR Kiosk",
       desc: isKm
-        ? "ចុះវត្តមានទោះបីជាដាច់អ៊ីនធឺណិត និងគាំទ្រថេប្លេតរួម QR Kiosk នៅមាត់ទ្វារសាខា។"
-        : "Punches queue securely during outages, with shared QR tablet kiosk support at branch doors.",
+        ? "ទិន្នន័យវត្តមានធ្វើសមកាលកម្មភ្លាមៗ និងគាំទ្រថេប្លេតរួម QR Kiosk នៅមាត់ទ្វារសាខា។"
+        : "Instant live punch synchronization with shared QR tablet kiosk support at branch doors.",
     },
     {
       icon: Send,
       title: isKm ? "ជំនួយផ្ទាល់ជាភាសាខ្មែរនៅភ្នំពេញ" : "Local Phnom Penh Support via Telegram",
       desc: isKm
         ? "សេវាគាំទ្រទាន់ពេលតាម Telegram @attendkh និងទូរស័ព្ទក្នុងម៉ោងធ្វើការកម្ពុជា។"
-        : "Instant direct assistance via Telegram (@attendkh) and phone from our team in Toul Kork.",
+        : "Instant direct assistance via Telegram (@attendkh) and phone from our team in Phnom Penh.",
     },
   ];
 
@@ -179,48 +185,62 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
       />
 
       {/* -------------------------------------------------------------
-          2. THE $1 ALL-INCLUSIVE PLAN SHOWCASE & LIVE ESTIMATOR
+          2. THE ALL-INCLUSIVE PLAN SHOWCASE & LIVE ESTIMATOR
       ------------------------------------------------------------- */}
       <Section tone="white">
         <div className="mx-auto max-w-[1160px]">
-          {/* Controls Bar */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-8 border-b border-line">
+          {/* Controls Bar: Billing Frequency & Currency Selector */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-8 border-b border-slate-200/80">
             {/* Monthly / Annual Toggle */}
-            <div className="inline-flex items-center gap-1 rounded-xl bg-mist p-1.5 border border-line">
+            <div className="inline-flex items-center gap-1 rounded-2xl bg-slate-100/90 p-1.5 border border-slate-200/80 shadow-2xs">
               <button
                 type="button"
                 onClick={() => setAnnual(false)}
                 aria-pressed={!annual}
-                className={`rounded-lg px-4 py-2 text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                  !annual ? "bg-white text-ink shadow-xs" : "text-slate-600 hover:text-ink"
+                className={`rounded-xl px-4 py-2 text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                  !annual
+                    ? "bg-white text-slate-900 shadow-xs"
+                    : "text-slate-600 hover:text-slate-900"
                 }`}
               >
-                  {isKm ? `ទូទាត់ប្រចាំខែ (${formatUSD(unitRateMonthly)}/ម្នាក់)` : `Monthly (${formatUSD(unitRateMonthly)}/user)`}
+                <span>
+                  {isKm
+                    ? `ទូទាត់ប្រចាំខែ (${formatUSD(unitRateMonthly)}/ម្នាក់)`
+                    : `Monthly (${formatUSD(unitRateMonthly)}/user)`}
+                </span>
               </button>
               <button
                 type="button"
                 onClick={() => setAnnual(true)}
                 aria-pressed={annual}
-                className={`flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                  annual ? "bg-white text-ink shadow-xs" : "text-slate-600 hover:text-ink"
+                className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                  annual
+                    ? "bg-white text-slate-900 shadow-xs"
+                    : "text-slate-600 hover:text-slate-900"
                 }`}
               >
-                <span>{isKm ? `ទូទាត់ប្រចាំឆ្នាំ (${formatUSD(unitRateAnnual)}/ម្នាក់)` : `Annual (${formatUSD(unitRateAnnual)}/user)`}</span>
-                <span className="rounded-full bg-brand-soft px-2 py-0.5 text-[10.5px] font-bold text-brand uppercase">
+                <span>
+                  {isKm
+                    ? `ទូទាត់ប្រចាំឆ្នាំ (${formatUSD(unitRateAnnual)}/ម្នាក់)`
+                    : `Annual (${formatUSD(unitRateAnnual)}/user)`}
+                </span>
+                <span className="rounded-full bg-brand-soft border border-blue-200/60 px-2 py-0.5 text-[10.5px] font-bold text-brand uppercase tracking-wider">
                   {isKm ? "ឥតគិតថ្លៃ ២ ខែ" : "2 Months Free"}
                 </span>
               </button>
             </div>
 
             {/* Currency Switcher */}
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
-              <span className="font-semibold">{isKm ? "រូបិយប័ណ្ណ៖" : "Currency:"}</span>
-              <div className="inline-flex rounded-lg border border-line bg-mist p-1">
+            <div className="flex items-center gap-2.5 text-xs text-slate-500 font-medium">
+              <span className="font-semibold text-slate-700">{isKm ? "រូបិយប័ណ្ណ៖" : "Currency:"}</span>
+              <div className="inline-flex rounded-xl border border-slate-200/80 bg-slate-100/90 p-1 shadow-2xs">
                 <button
                   type="button"
                   onClick={() => setCurrency("USD")}
-                  className={`px-3 py-1 rounded font-bold transition-all cursor-pointer ${
-                    currency === "USD" ? "bg-brand text-white shadow-xs" : "text-slate-600 hover:text-ink"
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    currency === "USD"
+                      ? "bg-brand text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   USD ($)
@@ -228,8 +248,10 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
                 <button
                   type="button"
                   onClick={() => setCurrency("KHR")}
-                  className={`px-3 py-1 rounded font-bold transition-all cursor-pointer ${
-                    currency === "KHR" ? "bg-brand text-white shadow-xs" : "text-slate-600 hover:text-ink"
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    currency === "KHR"
+                      ? "bg-brand text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   KHR (៛)
@@ -238,66 +260,98 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
             </div>
           </div>
 
-          {/* Clean, Refined Single-Plan Showcase Card */}
-          <div className="mt-10 rounded-3xl border border-line bg-paper p-7 sm:p-10 lg:p-12 shadow-sm">
-            <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
-              {/* Left Column: Plan Identity, Rate & Unlocked Features */}
+          {/* Clean, Refined Showcase Card */}
+          <div className="relative mt-10 rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-10 lg:p-12 shadow-[0_20px_50px_rgba(0,82,255,0.04),0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
+            {/* Subtle ambient lighting decoration */}
+            <div className="absolute top-0 right-0 w-[480px] h-[480px] bg-[radial-gradient(ellipse_at_top_right,rgba(0,82,255,0.045),transparent_70%)] pointer-events-none" />
+
+            <div className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
+              {/* Left Column: Plan Identity, Rate & Feature List */}
               <div className="lg:col-span-7 space-y-6">
+                {/* Plan Tier Switcher (if multiple plans exist) */}
+                {dynamicPlans && dynamicPlans.length > 1 && (
+                  <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-slate-100/90 border border-slate-200/80 w-fit">
+                    {dynamicPlans.map((plan, idx) => (
+                      <button
+                        key={plan.id || plan.slug || idx}
+                        type="button"
+                        onClick={() => setSelectedPlanIndex(idx)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                          selectedPlanIndex === idx
+                            ? "bg-white text-slate-900 shadow-xs font-bold"
+                            : "text-slate-600 hover:text-slate-900"
+                        }`}
+                      >
+                        <span>{plan.name}</span>
+                        <span className="font-num text-[11px] text-brand ml-1 font-bold">
+                          (${plan.price_monthly ?? 1})
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Badges */}
                 <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider">
-                    <Sparkles size={13} />
-                    <span>{primaryPlan?.badge_text || (isKm ? "គម្រោងតម្លៃច្បាស់លាស់" : "Transparent Plan")}</span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 text-brand border border-blue-200/70 px-3.5 py-1 text-[11.5px] font-bold uppercase tracking-wider shadow-2xs">
+                    <Sparkles size={13} className="text-brand" />
+                    <span>{primaryPlan?.badge_text || (isKm ? "គម្រោងតម្លៃច្បាស់លាស់" : "TRANSPARENT PLAN")}</span>
                   </span>
-                  <span className="rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 text-xs font-semibold">
-                    {isKm ? "ដំណើរការភ្លាមៗ គ្មានថ្លៃដំឡើង" : "Instant Setup • No Hidden Fees"}
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-200/70 px-3.5 py-1 text-[11.5px] font-semibold">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>{isKm ? "ដំណើរការភ្លាមៗ គ្មានថ្លៃដំឡើង" : "Instant Setup • No Hidden Fees"}</span>
                   </span>
                 </div>
 
+                {/* Plan Title & Subtitle */}
                 <div>
-                  <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">
-                    {primaryPlan?.name || (isKm ? "AttendKH ពេញលេញគ្រប់មុខងារ" : "AttendKH Full Access")}
+                  <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-slate-900 leading-tight">
+                    {primaryPlan?.name || (isKm ? "គម្រោងរួមបញ្ចូលគ្រប់មុខងារ (All-in-One)" : "All-in-One Plan")}
                   </h2>
-                  <p className="mt-2 text-sm sm:text-[15px] leading-relaxed text-body max-w-xl">
-                    {primaryPlan?.description || (isKm
-                      ? "មុខងារទាំងអស់ត្រូវបានបើកដំណើរការសម្រាប់គ្រប់ក្រុម។ គ្មានការបែងចែកកម្រិតគម្រោង គ្មានថ្លៃដំឡើង និងគ្មានកិច្ចសន្យាចងភ្ជាប់។"
-                      : "Every feature unlocked for every team. No artificial tiers, no per-branch setup fees, and no long-term lock-in.")}
+                  <p className="mt-2 text-sm sm:text-[15px] leading-relaxed text-slate-600 max-w-xl">
+                    {primaryPlan?.description ||
+                      (isKm
+                        ? "ប្រព័ន្ធកត់ត្រាវត្តមានតាម GPS និងគណនាប្រាក់ខែពេញលេញត្រឹមតែ ១ ដុល្លារ/ម្នាក់/ខែ។ រួមបញ្ចូលគ្រប់មុខងារទាំងអស់ដោយគ្មានដែនកំណត់។"
+                        : "Complete attendance & automated Cambodian payroll engine for just $1 per active user per month. All features unlocked with zero tier restrictions.")}
                   </p>
                 </div>
 
-                {/* Flat Unit Price Strip */}
-                <div className="flex items-baseline gap-2 pt-1 border-t border-line/60 pt-5">
-                  <span className="font-mono text-4xl sm:text-5xl font-extrabold tracking-tight text-ink">
+                {/* Flat Unit Price Display with Unique Numeric Typography */}
+                <div className="flex items-baseline gap-2 pt-2 border-t border-slate-100">
+                  <span className="font-price text-5xl sm:text-6xl font-extrabold tracking-tight text-slate-900 tabular-nums">
                     {formatUnitRate()}
                   </span>
-                  <span className="text-sm font-semibold text-slate-500">
+                  <span className="text-xs sm:text-sm font-semibold text-slate-500">
                     {isKm ? "/ បុគ្គលិកសកម្ម / ខែ" : "/ active employee / month"}
                   </span>
                 </div>
 
-                {/* Feature Highlights Grid */}
-                <div className="grid sm:grid-cols-2 gap-3 pt-1">
+                {/* Feature Highlights Grid (2 Columns with Custom Bullet Pills) */}
+                <div className="grid sm:grid-cols-2 gap-3.5 pt-1">
                   {planFeatures.map((feature) => (
-                    <div key={feature} className="flex items-center gap-2.5 text-xs text-body font-medium">
-                      <Check size={15} className="text-brand shrink-0 font-bold" />
-                      <span>{feature}</span>
+                    <div key={feature} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700 font-medium">
+                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/10 text-brand shrink-0 border border-blue-200/60 mt-0.5">
+                        <Check size={12} strokeWidth={3} />
+                      </div>
+                      <span className="leading-snug">{feature}</span>
                     </div>
                   ))}
                 </div>
 
-                {/* CTA Action Bar */}
-                <div className="pt-3 flex flex-wrap items-center gap-3">
+                {/* Action CTA Buttons */}
+                <div className="pt-3 flex flex-wrap items-center gap-3.5">
                   <Link
                     href={primaryPlan?.cta_url || "/contact"}
-                    className="motion-button inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-xs hover:bg-brand-dark transition-all"
+                    className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-brand hover:bg-brand-dark px-6 py-3.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(0,82,255,0.28)] hover:shadow-[0_6px_20px_rgba(0,82,255,0.38)] transition-all duration-200 group cursor-pointer"
                   >
-                    <span>{primaryPlan?.cta_text || (isKm ? "ចាប់ផ្តើមប្រើប្រាស់ឥឡូវនេះ" : "Get Started Now")}</span>
-                    <ArrowRight size={14} />
+                    <span>{primaryPlan?.cta_text || (isKm ? "ចាប់ផ្តើមប្រើសាកល្បងឥតគិតថ្លៃ" : "Start free trial")}</span>
+                    <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
                   </Link>
                   <a
                     href={publicSettings.telegramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl border border-line bg-paper px-4 py-3.5 text-sm font-semibold text-ink hover:border-slate-400 transition-colors"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/90 bg-white hover:bg-slate-50 hover:border-slate-300 px-5 py-3.5 text-sm font-semibold text-slate-800 shadow-2xs transition-all duration-200 cursor-pointer"
                   >
                     <Send size={14} className="text-brand" />
                     <span>Telegram @attendkh</span>
@@ -307,85 +361,118 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
 
               {/* Right Column: Clean Interactive Team Cost Estimator Panel */}
               <div className="lg:col-span-5">
-                <div className="rounded-2xl border border-line bg-mist/60 p-6 sm:p-7 space-y-5 shadow-xs">
-                  <div className="flex items-center justify-between border-b border-line pb-4">
-                    <span className="font-display text-sm font-bold text-ink flex items-center gap-2">
-                      <Calculator size={16} className="text-brand" />
-                      <span>{isKm ? "គណនាថ្លៃសេវាសម្រាប់ក្រុម" : "Team Cost Calculator"}</span>
-                    </span>
-                    <span className="font-mono text-xs font-bold text-brand bg-brand-soft px-2.5 py-1 rounded-md">
-                      {calcUsers} {isKm ? "បុគ្គលិក" : "Staff"}
-                    </span>
-                  </div>
-                  {primaryPlan?.limits_text && (
-                    <p className="text-xs font-semibold text-slate-600">{primaryPlan.limits_text}</p>
-                  )}
+                <div className="relative rounded-2xl border border-slate-200/90 bg-slate-50/80 backdrop-blur-sm p-6 sm:p-7 space-y-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden">
+                  {/* Calculator Header */}
+                  <div className="flex items-center justify-between border-b border-slate-200/80 pb-4">
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-soft text-brand border border-blue-200/60 shadow-2xs">
+                        <Calculator size={16} />
+                      </div>
+                      <span className="font-display text-sm sm:text-[15px] font-bold text-slate-900">
+                        {isKm ? "គណនាថ្លៃសេវាសម្រាប់ក្រុម" : "Team Cost Calculator"}
+                      </span>
+                    </div>
 
-                  {/* Slider & Headcount Controls */}
-                  <div className="space-y-3">
-                    <label htmlFor="team-size-slider" className="flex items-center justify-between text-xs text-slate-500 font-medium cursor-pointer">
-                      <span>{isKm ? "ចំនួនបុគ្គលិក" : "Adjust headcount"}</span>
-                      <span className="font-mono text-ink font-semibold">{calcUsers} {isKm ? "នាក់" : "employees"}</span>
-                    </label>
-
-                    <input
-                      id="team-size-slider"
-                      type="range"
-                      min="5"
-                      max="250"
-                      step="5"
-                      value={calcUsers}
-                      aria-label={isKm ? "ចំនួនបុគ្គលិក" : "Adjust headcount"}
-                      aria-valuemin={5}
-                      aria-valuemax={250}
-                      aria-valuenow={calcUsers}
-                      onChange={(e) => setCalcUsers(Number(e.target.value))}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0052FF]"
-                    />
-
-                    {/* Quick Preset Buttons */}
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {[10, 25, 50, 70, 100, 200].map((preset) => (
-                        <button
-                          key={preset}
-                          type="button"
-                          onClick={() => setCalcUsers(preset)}
-                          className={`rounded-lg px-2.5 py-1 text-xs font-mono transition-colors cursor-pointer ${
-                            calcUsers === preset
-                              ? "bg-brand text-white font-bold shadow-xs"
-                              : "bg-paper border border-line text-slate-600 hover:border-slate-400"
-                          }`}
-                        >
-                          {preset}
-                        </button>
-                      ))}
+                    <div className="font-num text-xs font-bold text-brand bg-brand-soft border border-blue-200/60 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-2xs">
+                      <Users size={12} />
+                      <span>{calcUsers} {isKm ? "បុគ្គលិក" : "Staff"}</span>
                     </div>
                   </div>
 
-                  {/* Dynamic Total Cost Box */}
-                  <div className="rounded-xl border border-line bg-paper p-5 space-y-2">
-                    <span className="text-xs text-slate-500 block">
-                      {isKm ? "ថ្លៃសរុបប្រចាំខែ" : "Total Monthly Investment"}
+                  {/* Optional Plan Limits Notice */}
+                  {primaryPlan?.limits_text && (
+                    <p className="text-xs font-medium text-slate-500 -mt-1">{primaryPlan.limits_text}</p>
+                  )}
+
+                  {/* Slider & Headcount Controls */}
+                  <div className="space-y-3.5">
+                    <label
+                      htmlFor="team-size-slider"
+                      className="flex items-center justify-between text-xs text-slate-600 font-semibold cursor-pointer"
+                    >
+                      <span>{isKm ? "ចំនួនបុគ្គលិក" : "Adjust headcount"}</span>
+                      <span className="text-slate-800">
+                        <span className="font-num text-sm font-bold text-slate-900">{calcUsers}</span>{" "}
+                        <span className="font-normal text-slate-500">{isKm ? "នាក់" : "employees"}</span>
+                      </span>
+                    </label>
+
+                    {/* Styled Range Input */}
+                    <div className="relative flex items-center">
+                      <input
+                        id="team-size-slider"
+                        type="range"
+                        min="5"
+                        max="250"
+                        step="5"
+                        value={calcUsers}
+                        aria-label={isKm ? "ចំនួនបុគ្គលិក" : "Adjust headcount"}
+                        aria-valuemin={5}
+                        aria-valuemax={250}
+                        aria-valuenow={calcUsers}
+                        onChange={(e) => setCalcUsers(Number(e.target.value))}
+                        className="pricing-slider w-full"
+                        style={{
+                          background: `linear-gradient(to right, #0052FF 0%, #0052FF ${sliderPercentage}%, #E2E8F0 ${sliderPercentage}%, #E2E8F0 100%)`,
+                        }}
+                      />
+                    </div>
+
+                    {/* Quick Preset Buttons Row with Unique Number Font */}
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {[10, 25, 50, 70, 100, 200].map((preset) => {
+                        const isActive = calcUsers === preset;
+                        return (
+                          <button
+                            key={preset}
+                            type="button"
+                            onClick={() => setCalcUsers(preset)}
+                            className={`font-num rounded-lg px-3 py-1.5 text-xs font-bold transition-all duration-150 cursor-pointer ${
+                              isActive
+                                ? "bg-brand text-white shadow-xs border border-brand"
+                                : "bg-white border border-slate-200/90 text-slate-600 hover:text-slate-900 hover:border-slate-300 shadow-2xs"
+                            }`}
+                          >
+                            {preset}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Dynamic Total Cost Box with Elevated Contrast */}
+                  <div className="relative rounded-xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_2px_10px_rgba(0,0,0,0.03)] space-y-2.5 overflow-hidden">
+                    <span className="text-xs font-semibold text-slate-500 block">
+                      {annual
+                        ? isKm ? "ថ្លៃសរុបប្រចាំឆ្នាំ" : "Total Annual Investment"
+                        : isKm ? "ថ្លៃសរុបប្រចាំខែ" : "Total Monthly Investment"}
                     </span>
-                    <div className="flex items-baseline justify-between">
-                      <span className="font-mono text-3xl sm:text-4xl font-extrabold tracking-tight text-ink">
+
+                    <div className="flex items-baseline justify-between gap-2">
+                      <span className="font-price text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-slate-900 tabular-nums">
                         {calculateTotal(calcUsers)}
                       </span>
-                      <span className="text-xs font-mono text-slate-400">
+                      <span className="font-num text-xs font-medium text-slate-400">
                         {annual
                           ? isKm ? "គិតថ្លៃប្រចាំឆ្នាំ" : "billed annually"
                           : isKm ? "គិតថ្លៃប្រចាំខែ" : "billed monthly"}
                       </span>
                     </div>
-                    <p className="text-[11.5px] text-emerald-600 font-semibold pt-1 border-t border-line/60">
-                      ✓ {isKm ? "រួមបញ្ចូលទាំងវត្តមាន និងប្រាក់ខែពេញលេញ" : "Includes full payroll + attendance engine"}
-                    </p>
+
+                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                      <span className="text-emerald-600 font-semibold flex items-center gap-1.5">
+                        <CheckCircle2 size={13} className="shrink-0" />
+                        <span>{isKm ? "រួមបញ្ចូលទាំងវត្តមាន និងប្រាក់ខែពេញលេញ" : "Includes full payroll + attendance engine"}</span>
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Payment settlement note */}
-                  <div className="text-[11.5px] text-slate-500 flex items-center justify-between pt-1 font-mono">
-                    <span>{isKm ? "ទូទាត់តាម Bakong & ABA" : "Settle via Bakong KHQR & ABA"}</span>
-                    <span className="text-ink font-semibold">USD & KHR</span>
+                  {/* Settlement Note & Supported Currencies */}
+                  <div className="text-[11.5px] text-slate-500 flex items-center justify-between pt-1">
+                    <span className="font-medium">{isKm ? "ទូទាត់តាម Bakong & ABA" : "Settle via Bakong KHQR & ABA"}</span>
+                    <span className="font-num text-xs font-bold text-slate-700 bg-white border border-slate-200/80 px-2 py-0.5 rounded-md shadow-2xs">
+                      USD & KHR
+                    </span>
                   </div>
                 </div>
               </div>
@@ -417,21 +504,21 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
               const Icon = f.icon;
               return (
                 <Reveal key={f.title} delay={i * 0.05}>
-                  <div className="h-full rounded-2xl border border-line bg-paper p-6 sm:p-7 shadow-xs hover:border-brand hover:shadow-md transition-all flex flex-col justify-between">
+                  <div className="h-full rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs hover:border-brand hover:shadow-md transition-all flex flex-col justify-between">
                     <div>
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand mb-4">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand mb-4 border border-blue-200/60 shadow-2xs">
                         <Icon size={22} />
                       </div>
-                      <h3 className="font-display text-[17px] font-bold text-ink leading-snug">
+                      <h3 className="font-display text-[17px] font-bold text-slate-900 leading-snug">
                         {f.title}
                       </h3>
-                      <p className="mt-2.5 text-xs sm:text-[13.5px] leading-relaxed text-body">
+                      <p className="mt-2.5 text-xs sm:text-[13.5px] leading-relaxed text-slate-600">
                         {f.desc}
                       </p>
                     </div>
 
-                    <div className="mt-5 border-t border-line/60 pt-3 flex items-center gap-2 text-xs font-semibold text-emerald-600">
-                      <Check size={14} />
+                    <div className="mt-5 border-t border-slate-100 pt-3.5 flex items-center gap-2 text-xs font-semibold text-emerald-600">
+                      <CheckCircle2 size={14} />
                       <span>{isKm ? "រួមបញ្ចូលជាស្រេច" : "Included by Default"}</span>
                     </div>
                   </div>
@@ -447,20 +534,20 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
       ------------------------------------------------------------- */}
       <Section tone="white">
         <div className="mx-auto max-w-[1240px]">
-          <div className="rounded-2xl border border-line bg-mist/30 p-6 sm:p-8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-line">
+          <div className="rounded-2xl border border-slate-200/90 bg-slate-50/60 p-6 sm:p-8 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200/80">
               <div>
-                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#0052FF]">
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-brand">
                   {isKm ? "វិធីសាស្ត្រទូទាត់ប្រាក់នៅកម្ពុជា" : "Payment Infrastructure"}
                 </span>
-                <h3 className="font-display text-lg font-bold text-ink mt-1">
+                <h3 className="font-display text-lg font-bold text-slate-900 mt-1">
                   {isKm
                     ? "ទូទាត់ងាយស្រួលតាមធនាគារក្នុងស្រុក"
                     : "Seamless Settlement via Local Cambodian Banking Channels"}
                 </h3>
               </div>
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                <Check size={13} />
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-500/10 px-3.5 py-1 rounded-full border border-emerald-200/70 shadow-2xs">
+                <Check size={13} strokeWidth={2.5} />
                 <span>USD ($) & KHR (៛) Supported</span>
               </span>
             </div>
@@ -469,10 +556,10 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
               {paymentMethods.map((m) => (
                 <div
                   key={m.name}
-                  className="rounded-xl border border-line bg-paper p-3.5 text-center shadow-xs space-y-1"
+                  className="rounded-xl border border-slate-200/90 bg-white p-4 text-center shadow-2xs space-y-1 hover:border-slate-300 transition-colors"
                 >
-                  <span className="font-display text-xs font-bold text-ink block">{m.name}</span>
-                  <span className="text-[10px] text-slate-500 font-mono block">{m.tag}</span>
+                  <span className="font-display text-xs font-bold text-slate-900 block">{m.name}</span>
+                  <span className="text-[10.5px] text-slate-500 font-mono block">{m.tag}</span>
                 </div>
               ))}
             </div>
@@ -519,7 +606,7 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
 
           {/* Clean FAQ Accordion */}
           <div className="max-w-3xl mx-auto">
-            <h3 className="font-display text-2xl font-bold text-ink text-center mb-8">
+            <h3 className="font-display text-2xl font-bold text-slate-900 text-center mb-8">
               {isKm ? "សំណួរដែលសួរញឹកញាប់អំពីតម្លៃ" : "Frequently Asked Questions About Pricing"}
             </h3>
 
@@ -533,15 +620,17 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.35, delay: idx * 0.04 }}
-                    className="rounded-xl border border-line bg-paper overflow-hidden transition-colors"
+                    className="rounded-xl border border-slate-200/90 bg-white overflow-hidden transition-colors shadow-2xs"
                   >
                     <button
                       type="button"
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-mist/40 transition-colors select-none"
+                      className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/70 transition-colors select-none"
                       aria-expanded={isOpen}
                     >
-                      <span className={`font-display text-[15px] font-bold transition-colors ${isOpen ? "text-brand" : "text-ink"}`}>{faq.q}</span>
+                      <span className={`font-display text-[15px] font-bold transition-colors ${isOpen ? "text-brand" : "text-slate-900"}`}>
+                        {faq.q}
+                      </span>
                       <motion.span
                         animate={{
                           rotate: isOpen ? 180 : 0,
@@ -578,7 +667,7 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
                           }}
                           className="overflow-hidden"
                         >
-                          <div className="px-5 pb-5 text-xs sm:text-[13.5px] leading-relaxed text-body border-t border-line/60 pt-3">
+                          <div className="px-5 pb-5 text-xs sm:text-[13.5px] leading-relaxed text-slate-600 border-t border-slate-100 pt-3">
                             <p>{faq.a}</p>
                           </div>
                         </motion.div>

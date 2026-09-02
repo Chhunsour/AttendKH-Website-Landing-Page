@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
-import { recordAnalyticsEvent } from "@/lib/db";
-import { AnalyticsEventSchema } from "@/lib/db/schema";
-import { parseUserAgent, parseTrafficSource } from "@/lib/analytics";
+import { z } from "zod";
 import { checkRateLimit, isSameOrigin, readJsonBody } from "@/lib/request-security";
+
+const AnalyticsEventSchema = z.object({
+  event_name: z.string().min(1).max(64),
+  visitor_id: z.string().min(1).max(64),
+  session_id: z.string().min(1).max(64),
+  page_path: z.string().min(1).max(255),
+  referrer: z.string().max(500).optional().nullable(),
+  payload: z.record(z.string(), z.any()).optional().nullable(),
+});
 
 export async function POST(req: Request) {
   try {
@@ -15,36 +22,6 @@ export async function POST(req: Request) {
     if (!result.success) {
       return NextResponse.json({ error: "Invalid event format" }, { status: 400 });
     }
-
-    const data = result.data;
-    const ua = req.headers.get("user-agent") || "";
-    const parsedUa = parseUserAgent(ua);
-
-    // Country/City estimation from deployment edge headers
-    const country =
-      req.headers.get("x-vercel-ip-country") ||
-      req.headers.get("cf-ipcountry") ||
-      "Unknown";
-    const city =
-      req.headers.get("x-vercel-ip-city") ||
-      "Unknown";
-
-    const trafficSource = parseTrafficSource(data.referrer);
-
-    await recordAnalyticsEvent({
-      event_name: data.event_name,
-      visitor_id: data.visitor_id,
-      session_id: data.session_id,
-      page_path: data.page_path,
-      referrer: data.referrer || null,
-      traffic_source: trafficSource,
-      device_type: parsedUa.deviceType,
-      browser: parsedUa.browser,
-      os: parsedUa.os,
-      country,
-      city,
-      payload: data.payload || null,
-    });
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

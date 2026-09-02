@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
-import { getActiveLegalDocument } from "@/lib/db";
+import { getActiveLegalDocument } from "@/lib/site-content";
 import { LegalView } from "../legal-view";
 
 const title = "Terms of Service & Platform Agreement | AttendKH";

@@ -1,8 +1,6 @@
 import { Header, Footer } from "@/components/site/chrome";
 import { MaintenancePage } from "@/components/site/maintenance";
-import { getWebsiteSettings } from "@/lib/db";
-
-export const dynamic = "force-dynamic";
+import { getWebsiteSettings } from "@/lib/site-content";
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const settings = await getWebsiteSettings();

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Users, Eye, ShieldCheck, Clock, ArrowRight, ExternalLink } from "lucide-react";
+import { Users, Eye, ShieldCheck, Clock, ArrowRight, ExternalLink, MapPin } from "lucide-react";
 import { DataTable, type Column } from "@/components/admin/data-table";
 import { Modal } from "@/components/admin/modal";
 
@@ -72,8 +72,9 @@ export default function AdminVisitorsPage() {
       header: "Location & Tech",
       cell: (v) => (
         <div>
-          <p className="font-medium text-ink text-xs">
-            🇰🇭 {v.city || "Phnom Penh"}, {v.country || "Cambodia"}
+          <p className="font-medium text-ink text-xs flex items-center gap-1">
+            <MapPin size={12} className="text-brand shrink-0" />
+            <span>{v.city || "Phnom Penh"}, {v.country || "Cambodia"}</span>
           </p>
           <p className="text-[11.5px] text-slate-500">
             {v.browser} on {v.os} ({v.device_type})

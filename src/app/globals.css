@@ -14,6 +14,21 @@
   --font-display: var(--font-google-sans), var(--font-kantumruy), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
   --font-khmer: var(--font-kantumruy), var(--font-google-sans), sans-serif;
+  --font-num: var(--font-space-grotesk), var(--font-jetbrains), ui-monospace, monospace;
+  --font-price: var(--font-plus-jakarta), var(--font-space-grotesk), var(--font-google-sans), sans-serif;
+}
+
+.font-num {
+  font-family: var(--font-num);
+  font-feature-settings: "tnum" 1, "cv01" 1, "zero" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.font-price {
+  font-family: var(--font-price);
+  font-feature-settings: "tnum" 1, "ss01" 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
 }
 
 :focus-visible {
@@ -25,6 +40,19 @@
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --motion-quick: 180ms;
   --motion-reveal: 560ms;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
 }
 
 @keyframes page-enter {
@@ -432,6 +460,57 @@ textarea {
 
 input[type="range"] {
   accent-color: var(--color-brand);
+}
+
+/* Custom Range Slider Styling */
+input[type="range"].pricing-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+input[type="range"].pricing-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0052ff;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 82, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="range"].pricing-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 12px rgba(0, 82, 255, 0.5), 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+input[type="range"].pricing-slider::-webkit-slider-thumb:active {
+  transform: scale(1.25);
+  box-shadow: 0 4px 16px rgba(0, 82, 255, 0.6);
+}
+
+input[type="range"].pricing-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0052ff;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 82, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="range"].pricing-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 12px rgba(0, 82, 255, 0.5), 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 summary {

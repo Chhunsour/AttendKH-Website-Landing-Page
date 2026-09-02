@@ -123,11 +123,11 @@ export default async function Image() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "16px", color: "#E2E8F0" }}>
             <span style={{ color: "#38BDF8", fontWeight: "bold" }}>[+]</span>
-            <span>Offline Queue & Sync</span>
+            <span>Real-Time Cloud Sync</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "16px", color: "#E2E8F0" }}>
             <span style={{ color: "#38BDF8", fontWeight: "bold" }}>[+]</span>
-            <span>Toul Kork, Phnom Penh Hub</span>
+            <span>Phnom Penh Engineering Hub</span>
           </div>
         </div>
       </div>

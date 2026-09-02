@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
-import { getBlogPosts } from "@/lib/db";
+import { getBlogPosts } from "@/lib/site-content";
 import { BlogIndexClient } from "./blog-index-client";
 
 const title = "Blog & Practical Guides for Cambodian Operations | AttendKH";

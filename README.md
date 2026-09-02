@@ -2,7 +2,7 @@
 
 Official landing and marketing website for **AttendKH** — Smart Attendance, QR Verification, Leave Management, and Automated Payroll System tailored for modern Cambodian businesses and institutions.
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/) (App Router, Turbopack)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
@@ -12,7 +12,7 @@ Official landing and marketing website for **AttendKH** — Smart Attendance, QR
 
 ---
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -47,7 +47,7 @@ npm run start
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 src/
@@ -69,7 +69,7 @@ src/
 
 ---
 
-## 📄 License
+## License
 
 This project is proprietary and confidential. All rights reserved.
 

@@ -17,6 +17,7 @@ import {
   FileText,
   Clock,
   CheckCircle2,
+  MapPin,
 } from "lucide-react";
 import { StatCard } from "@/components/admin/stat-card";
 import {
@@ -300,7 +301,7 @@ export default function AdminDashboardPage() {
             {(stats?.locations || []).slice(0, 4).map((loc: any, i: number) => (
               <div key={i} className="flex items-center justify-between text-[13px]">
                 <span className="flex items-center gap-2 text-ink font-medium">
-                  <span className="text-slate-400">🇰🇭</span>
+                  <MapPin size={13} className="text-brand shrink-0" />
                   <span>{loc.city}</span>
                 </span>
                 <span className="font-mono text-slate-500">{loc.visitors} visitors</span>

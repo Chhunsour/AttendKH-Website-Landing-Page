@@ -5,7 +5,7 @@ import { siteCopy } from "@/lib/site-copy";
 
 const title = "Frequently Asked Questions (FAQ) | AttendKH Cambodia";
 const description =
-  "Find clear answers on GPS geofence radius, selfie proof, offline clock-in, Cambodian labor law overtime (1.5×/2.0×), and USD/KHR payslips.";
+  "Find clear answers on GPS geofence radius, selfie proof, real-time cloud sync, Cambodian labor law overtime (1.5×/2.0×), and USD/KHR payslips.";
 
 export const metadata: Metadata = {
   title,

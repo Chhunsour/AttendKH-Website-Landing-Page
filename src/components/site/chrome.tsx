@@ -105,7 +105,6 @@ export function Footer() {
         { label: "Privacy Policy", href: "/privacy-policy" },
         { label: "Terms of Service", href: "/terms" },
         { label: "Cookie Policy", href: "/cookies" },
-        { label: "Admin Portal", href: "/admin" },
       ],
     },
   ];
@@ -205,6 +204,13 @@ export function Footer() {
             <OpenCookieSettingsButton className="text-[13px] text-white/90 hover:text-white underline underline-offset-2" />
           </div>
           <p className="text-[13px] text-white/90">{f.madeIn}</p>
+        </div>
+
+        {/* Very bottom attribution */}
+        <div className="mt-6 border-t border-white/15 pt-5 text-center">
+          <p className="text-[11.5px] font-medium tracking-wide text-white/75 sm:text-[12px]">
+            © 2026 AttendKH. All rights reserved. · Led by Mr. Ong Phaly
+          </p>
         </div>
       </div>
     </footer>

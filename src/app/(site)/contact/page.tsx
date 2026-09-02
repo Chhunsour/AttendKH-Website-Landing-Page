@@ -4,7 +4,7 @@ import { ContactView } from "./contact-view";
 
 const title = "Book a Demo & Contact Our Phnom Penh Team | AttendKH";
 const description =
-  "Schedule a walkthrough, request pricing assistance, or contact our support team in Toul Kork, Phnom Penh. Operating Monday to Friday, 8:00 AM – 5:30 PM ICT.";
+  "Schedule a walkthrough, request pricing assistance, or contact our support team in Phnom Penh. Operating Monday to Friday, 8:00 AM – 5:30 PM ICT.";
 
 export const metadata: Metadata = {
   title,

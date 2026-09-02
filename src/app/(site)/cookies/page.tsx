@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
-import { getActiveLegalDocument } from "@/lib/db";
+import { getActiveLegalDocument } from "@/lib/site-content";
 import { LegalView } from "../legal-view";
 
 const title = "Cookie Policy & Privacy Preferences | AttendKH";

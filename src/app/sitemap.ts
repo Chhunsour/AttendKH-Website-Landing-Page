@@ -1,8 +1,6 @@
 import type { MetadataRoute } from "next";
-import { getBlogPosts } from "@/lib/db";
+import { getBlogPosts } from "@/lib/site-content";
 import { SITE_URL } from "@/lib/site";
-
-export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Core Static Routes
