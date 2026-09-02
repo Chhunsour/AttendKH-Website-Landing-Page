@@ -621,6 +621,7 @@ function Steps() {
   const isZh = lang === "zh";
 
   const [activeStep, setActiveStep] = useState<number>(0);
+  const [direction, setDirection] = useState<number>(0);
 
   const stepImages = [
     {
@@ -639,6 +640,27 @@ function Steps() {
       title: isKm ? "ផ្ទៀងផ្ទាត់ និងអនុម័តបើកប្រាក់ខែ" : isZh ? "考勤核算与一键发薪审批" : "Payroll Review & Approval Console",
     },
   ];
+
+  const goToStep = (newIndex: number) => {
+    setDirection(newIndex > activeStep ? 1 : -1);
+    setActiveStep(newIndex);
+  };
+
+  const handleNext = () => {
+    if (activeStep < stepImages.length - 1) {
+      goToStep(activeStep + 1);
+    } else {
+      goToStep(0);
+    }
+  };
+
+  const handlePrev = () => {
+    if (activeStep > 0) {
+      goToStep(activeStep - 1);
+    } else {
+      goToStep(stepImages.length - 1);
+    }
+  };
 
   return (
     <section className="relative border-y border-[#E2E8F0] bg-white py-16 sm:py-24">
@@ -664,71 +686,102 @@ function Steps() {
 
         {/* 2-Column Interactive Rollout Studio */}
         <div className="grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-10">
-          {/* Right Column (on desktop): Expanded Large Transparent Image Display (on top on mobile) */}
+          {/* Right Column (on desktop): Expanded Large Transparent Image Display with Touch Swipe Support */}
           <div className="order-1 lg:order-2 lg:col-span-8 flex flex-col items-center justify-center">
-            <div className="relative w-full">
-              <div className="relative aspect-[10/7] min-h-[220px] w-full overflow-hidden sm:min-h-[340px]">
-                <AnimatePresence mode="wait">
+            <div className="relative w-full select-none">
+              <div className="relative aspect-[10/7] min-h-[220px] w-full overflow-hidden sm:min-h-[340px] touch-pan-y">
+                <AnimatePresence mode="wait" initial={false} custom={direction}>
                   <motion.div
                     key={activeStep}
-                    initial={{ opacity: 0, y: 12, scale: 0.985 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -12, scale: 0.985 }}
+                    custom={direction}
+                    initial={{ opacity: 0, x: direction > 0 ? 30 : -30, scale: 0.985 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: direction > 0 ? -30 : 30, scale: 0.985 }}
                     transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative h-full w-full"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.15}
+                    onDragEnd={(_e, { offset, velocity }) => {
+                      const swipeThreshold = 40;
+                      if (offset.x < -swipeThreshold || velocity.x < -300) {
+                        handleNext();
+                      } else if (offset.x > swipeThreshold || velocity.x > 300) {
+                        handlePrev();
+                      }
+                    }}
+                    className="relative h-full w-full cursor-grab active:cursor-grabbing"
                   >
                     <Image
                       src={stepImages[activeStep].src}
                       alt={stepImages[activeStep].alt}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 880px"
-                      className="object-contain drop-shadow-2xl transition-transform duration-300 hover:scale-[1.01]"
+                      className="object-contain drop-shadow-2xl pointer-events-none"
+                      priority
                     />
                   </motion.div>
                 </AnimatePresence>
               </div>
             </div>
 
-            {/* Clean Minimal Navigation Bar */}
-            <div className="mt-3 sm:mt-4 flex w-full flex-col items-center justify-between gap-2 px-2 text-xs sm:flex-row">
-              <div className="flex items-center gap-2">
-                {stepImages.map((_, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setActiveStep(idx)}
-                    aria-label={`Go to step ${idx + 1}`}
-                    className="flex min-h-11 min-w-11 items-center justify-center rounded-full"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className={`h-2 rounded-full transition-all ${
-                        activeStep === idx ? "w-8 bg-[#0052FF]" : "w-2 bg-slate-300"
-                      }`}
-                    />
-                  </button>
-                ))}
+            {/* Clean, Simple & Premium Navigation Bar */}
+            <div className="mt-4 sm:mt-5 flex w-full items-center justify-between gap-3 px-2 text-xs">
+              {/* Smooth Animated Transit Indicator Dots */}
+              <div className="flex items-center gap-2 rounded-full bg-slate-100/90 border border-slate-200/80 px-3 py-1.5 shadow-2xs">
+                {stepImages.map((_, idx) => {
+                  const isActive = activeStep === idx;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => goToStep(idx)}
+                      aria-label={`Go to step ${idx + 1}`}
+                      className="group relative flex h-4 items-center justify-center p-0.5 cursor-pointer focus:outline-none"
+                    >
+                      <motion.span
+                        layout
+                        transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                        className={`h-2 rounded-full transition-colors duration-200 ${
+                          isActive
+                            ? "w-7 bg-[#0052FF] shadow-xs shadow-blue-500/40"
+                            : "w-2 bg-slate-300 group-hover:bg-slate-400"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
               </div>
 
+              {/* Next & Previous Buttons */}
               <div className="flex items-center gap-2">
                 {activeStep > 0 && (
                   <button
                     type="button"
-                    onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
-                    className="rounded-full border border-slate-200 px-3 py-1 font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+                    onClick={handlePrev}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-1.5 font-semibold text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-2xs transition-all cursor-pointer"
                   >
-                    {isKm ? "ថយក្រោយ" : isZh ? "上一步" : "Previous"}
+                    <span>{isKm ? "ថយក្រោយ" : isZh ? "上一步" : "Previous"}</span>
                   </button>
                 )}
-                {activeStep < stepImages.length - 1 && (
-                  <button
-                    type="button"
-                    onClick={() => setActiveStep((prev) => Math.min(stepImages.length - 1, prev + 1))}
-                    className="rounded-full bg-[#0052FF] px-3.5 py-1 font-semibold text-white hover:bg-[#0043D6] transition-colors"
-                  >
-                    {isKm ? "បន្ទាប់" : isZh ? "下一步" : "Next"}
-                  </button>
-                )}
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#0052FF] hover:bg-[#0043D6] px-4 py-1.5 font-semibold text-white shadow-[0_2px_8px_rgba(0,82,255,0.25)] hover:shadow-[0_4px_12px_rgba(0,82,255,0.35)] transition-all cursor-pointer"
+                >
+                  <span>
+                    {activeStep === stepImages.length - 1
+                      ? isKm
+                        ? "ចាប់ផ្តើមឡើងវិញ"
+                        : isZh
+                        ? "重新开始"
+                        : "Start Over"
+                      : isKm
+                      ? "បន្ទាប់"
+                      : isZh
+                      ? "下一步"
+                      : "Next"}
+                  </span>
+                </button>
               </div>
             </div>
           </div>
