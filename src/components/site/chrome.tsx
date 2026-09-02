@@ -70,7 +70,6 @@ function CurrencyToggle() {
   );
 }
 
-import { OpenCookieSettingsButton } from "@/components/site/cookie-banner";
 export { Header } from "@/components/home/header";
 
 export function Footer() {
@@ -200,8 +199,6 @@ export function Footer() {
         <div className="mt-12 flex flex-col gap-3 border-t border-white/25 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-4 text-[13px] text-white/90">
             <p>{f.rights}</p>
-            <span>•</span>
-            <OpenCookieSettingsButton className="text-[13px] text-white/90 hover:text-white underline underline-offset-2" />
           </div>
           <p className="text-[13px] text-white/90">{f.madeIn}</p>
         </div>
