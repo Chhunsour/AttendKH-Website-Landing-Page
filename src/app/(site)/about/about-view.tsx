@@ -790,7 +790,7 @@ export function AboutView() {
           <div className="mt-10 relative w-full overflow-hidden rounded-3xl border border-slate-200/90 bg-slate-100 shadow-2xl min-h-[560px] sm:min-h-[620px] lg:min-h-[660px]">
             {/* Full-bleed Working Google Maps Embed */}
             <iframe
-              src="https://maps.google.com/maps?q=11.5203647,104.8956222&hl=en&z=15&output=embed"
+              src="https://maps.google.com/maps?q=11.5203646,104.8980894&hl=en&z=16&output=embed"
               title="AttendKH Headquarters Google Map Viewport"
               className="absolute inset-0 w-full h-full border-0"
               loading="lazy"
@@ -800,7 +800,7 @@ export function AboutView() {
 
             {/* Subtle Top-Right Open Maps App Shortcut */}
             <a
-              href="https://maps.app.goo.gl/TwSLikG67qc976tR8"
+              href="https://maps.app.goo.gl/Qw1zEoirTn6TFoXg7"
               target="_blank"
               rel="noopener noreferrer"
               className="absolute top-5 right-5 z-20 inline-flex items-center gap-2 rounded-xl border border-slate-200/90 bg-white/95 px-4 py-2 text-xs font-bold text-slate-800 shadow-md backdrop-blur-md hover:bg-brand hover:text-white hover:border-brand transition-all cursor-pointer"
@@ -867,7 +867,7 @@ export function AboutView() {
                 {/* Primary Action Buttons */}
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-2 border-t border-slate-100">
                   <a
-                    href="https://maps.app.goo.gl/TwSLikG67qc976tR8"
+                    href="https://maps.app.goo.gl/Qw1zEoirTn6TFoXg7"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand hover:bg-brand-dark px-5 py-3 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_14px_rgba(0,82,255,0.28)] transition-all duration-200 cursor-pointer"

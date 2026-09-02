@@ -133,7 +133,7 @@ export function ContactView() {
         : isZh
         ? "柬埔寨王国 金边市 371 路"
         : "Street 371, Phnom Penh, Kingdom of Cambodia",
-      href: "https://maps.google.com/?q=Street+371+Phnom+Penh+Cambodia",
+      href: "https://maps.app.goo.gl/Qw1zEoirTn6TFoXg7",
       linkText: isKm ? "មើលផែនទី" : isZh ? "查看地图" : "View on Maps",
       badge: "Phnom Penh, KH",
     },
