@@ -115,13 +115,24 @@ export function IndustriesSection() {
 
   const topPillsRef = useDragToScroll<HTMLDivElement>();
   const thumbnailsRef = useDragToScroll<HTMLDivElement>();
+  const isFirstRender = useRef(true);
 
-  // Auto scroll active thumbnail into view when changed via arrows or pills
+  // Auto scroll active thumbnail horizontally within its container only (never scroll the browser window)
   useEffect(() => {
-    if (thumbnailsRef.current) {
-      const activeEl = thumbnailsRef.current.children[activeIndex] as HTMLElement;
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    const container = thumbnailsRef.current;
+    if (container) {
+      const activeEl = container.children[activeIndex] as HTMLElement;
       if (activeEl) {
-        activeEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        const containerLeft = container.getBoundingClientRect().left;
+        const elementLeft = activeEl.getBoundingClientRect().left;
+        const relativeLeft = elementLeft - containerLeft;
+        const targetScrollLeft =
+          container.scrollLeft + relativeLeft - container.clientWidth / 2 + activeEl.clientWidth / 2;
+        container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
       }
     }
   }, [activeIndex, thumbnailsRef]);
