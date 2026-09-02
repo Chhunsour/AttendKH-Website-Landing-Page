@@ -786,111 +786,39 @@ export function AboutView() {
             }
           />
 
-          {/* Expansive Panoramic Map Canvas */}
-          <div className="mt-10 relative w-full overflow-hidden rounded-3xl border border-slate-200/90 bg-slate-100 shadow-2xl min-h-[560px] sm:min-h-[620px] lg:min-h-[660px]">
-            {/* Full-bleed Official Google Maps Embed */}
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3909.2816997098485!2d104.8955145!3d11.5203646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951bd2b19846b%3A0x18f741fb47cb0fc7!2s371%20Garage!5e0!3m2!1sen!2skh!4v1725262000000!5m2!1sen!2skh"
-              title="AttendKH Headquarters Google Map Viewport"
-              className="absolute inset-0 w-full h-full border-0"
-              loading="eager"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-
-            {/* Subtle Top-Right Open Maps App Shortcut */}
-            <a
-              href="https://maps.app.goo.gl/Qw1zEoirTn6TFoXg7"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="absolute top-5 right-5 z-20 inline-flex items-center gap-2 rounded-xl border border-slate-200/90 bg-white/95 px-4 py-2 text-xs font-bold text-slate-800 shadow-md backdrop-blur-md hover:bg-brand hover:text-white hover:border-brand transition-all cursor-pointer"
-            >
-              <span>{isKm ? "បើកលើកម្មវិធី Maps" : "Open in Google Maps App"}</span>
-              <ExternalLink size={13} />
-            </a>
-
-            {/* Floating Glassmorphic Headquarters Console Card (Overlay on Desktop) */}
-            <div className="relative z-10 p-4 sm:p-6 lg:p-8 max-w-lg">
-              <div className="rounded-2xl sm:rounded-3xl border border-white/80 bg-white/95 backdrop-blur-xl p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.14)] space-y-5">
-                {/* Header Badge */}
-                <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft border border-blue-200/70 px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider shadow-2xs">
-                    <MapPin size={13} />
-                    <span>{isKm ? "ទីស្នាក់ការកណ្តាល" : "HEADQUARTERS & HUB"}</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200/70 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>Open Mon–Fri</span>
-                  </span>
-                </div>
-
-                {/* Address Title & Details */}
-                <div>
-                  <h3 className="font-display text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-                    {isKm ? "ផ្លូវ ៣៧១ រាជធានីភ្នំពេញ" : "Street 371, Phnom Penh, Cambodia"}
-                  </h3>
-                  <p className="mt-1.5 text-xs sm:text-[13px] leading-relaxed text-slate-600">
-                    {isKm
-                      ? "ការិយាល័យកណ្តាល និងមជ្ឈមណ្ឌលវិស្វកម្ម AttendKH។ សូមអញ្ជើញមកទស្សនាសម្រាប់ការណែនាំប្រព័ន្ធ និងការកំណត់សាខា។"
-                      : "Central engineering hub for system onboarding, multi-branch geofence calibration, and direct team training."}
-                  </p>
-                </div>
-
-                {/* Key Telemetry & Hours */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-                  <div className="rounded-xl border border-slate-200/70 bg-slate-50/80 p-3 space-y-1">
-                    <div className="flex items-center gap-1.5 text-slate-500 text-xs font-semibold">
-                      <Clock size={13} className="text-brand" />
-                      <span>{isKm ? "ម៉ោងធ្វើការ" : "Working Hours"}</span>
-                    </div>
-                    <p className="text-xs font-bold text-slate-900 font-num">
-                      8:00 – 17:30 ICT
-                    </p>
-                  </div>
-
-                  <div className="rounded-xl border border-slate-200/70 bg-slate-50/80 p-3 space-y-1">
-                    <div className="flex items-center gap-1.5 text-slate-500 text-xs font-semibold">
-                      <Send size={13} className="text-brand" />
-                      <span>{isKm ? "តេឡេក្រាមជំនួយ" : "Direct Support"}</span>
-                    </div>
-                    <a
-                      href="https://t.me/attendkh"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-xs font-bold text-brand hover:underline"
-                    >
-                      @attendkh
-                    </a>
-                  </div>
-                </div>
-
-                {/* Primary Action Buttons */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-2 border-t border-slate-100">
-                  <a
-                    href="https://maps.app.goo.gl/Qw1zEoirTn6TFoXg7"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand hover:bg-brand-dark px-5 py-3 text-xs sm:text-sm font-semibold text-white shadow-[0_4px_14px_rgba(0,82,255,0.28)] transition-all duration-200 cursor-pointer"
-                  >
-                    <Navigation size={14} />
-                    <span>{isKm ? "ទិសដៅលើ Google Maps" : "Get Directions"}</span>
-                    <ExternalLink size={12} className="opacity-80" />
-                  </a>
-
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/90 bg-white hover:bg-slate-50 px-4 py-3 text-xs sm:text-sm font-semibold text-slate-800 shadow-2xs transition-all duration-200"
-                  >
-                    <span>{isKm ? "កក់ការណាត់ជួប" : "Schedule a Visit"}</span>
-                  </Link>
-                </div>
+          {/* Custom Modern Google Maps Card */}
+          <div className="mt-8 mx-auto max-w-4xl rounded-3xl border border-slate-800 bg-[#0B1120] text-white shadow-2xl overflow-hidden">
+            {/* Top Header Bar */}
+            <div className="px-6 py-5 sm:px-8 sm:py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 bg-[#0B1120]">
+              <div>
+                <h3 className="font-display text-lg sm:text-xl font-bold text-white tracking-tight">
+                  371 Garage / MPG Production Studio
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+                  Street 371, Phnom Penh, Cambodia
+                </p>
               </div>
+
+              <a
+                href="https://maps.app.goo.gl/Qw1zEoirTn6TFoXg7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white hover:bg-slate-100 px-5 py-2.5 text-xs sm:text-sm font-bold text-slate-900 shadow-md hover:shadow-lg transition-all self-start sm:self-auto cursor-pointer shrink-0"
+              >
+                <span>{isKm ? "បើកលើ Google Maps" : "Open in Google Maps"}</span>
+                <ExternalLink size={14} className="text-slate-900" />
+              </a>
             </div>
 
-            {/* Bottom-Right Floating Telemetry Chip */}
-            <div className="hidden sm:inline-flex absolute bottom-5 right-5 z-20 items-center gap-2 rounded-xl border border-white/90 bg-white/95 backdrop-blur-md px-4 py-2 text-xs font-medium text-slate-700 shadow-lg">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Phnom Penh HQ • <strong className="font-num font-bold">11.5204° N, 104.8956° E</strong></span>
+            {/* Google Maps Viewport */}
+            <div className="relative w-full h-[360px] sm:h-[440px] bg-slate-900">
+              <iframe
+                src="https://maps.google.com/maps?q=11.5203646,104.8980894&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                title="371 Garage / MPG Production Studio on Google Maps"
+                className="w-full h-full border-0"
+                loading="eager"
+                allowFullScreen
+              />
             </div>
           </div>
         </div>
