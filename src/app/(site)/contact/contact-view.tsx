@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
   Mail,
@@ -24,8 +24,10 @@ import {
   Users,
   Award,
   BadgeCheck,
+  ChevronRight,
   MessageCircle,
   HelpCircle,
+  TrendingUp,
 } from "lucide-react";
 import { useSite } from "@/lib/i18n";
 import { PageHero, Section, DirectAnswerBlock, Reveal } from "@/components/site/ui";
@@ -36,6 +38,7 @@ export function ContactView() {
   const isZh = lang === "zh";
 
   const [copiedHandle, setCopiedHandle] = useState<string | null>(null);
+  const [selectedTopic, setSelectedTopic] = useState<number>(0);
 
   const copyToClipboard = (text: string) => {
     if (typeof navigator !== "undefined" && navigator.clipboard) {
@@ -50,7 +53,7 @@ export function ContactView() {
       badge: isKm
         ? "ទំនាក់ទំនងផ្ទាល់ជាមួយថ្នាក់ដឹកនាំ"
         : isZh
-        ? "直接联系管理层与技术团队"
+        ? "直接联系创始人与技术团队"
         : "Direct Executive Access • No Forms Needed",
       title: isKm
         ? "ទំនាក់ទំនងផ្ទាល់ជាមួយថ្នាក់ដឹកនាំ AttendKH"
@@ -71,22 +74,44 @@ export function ContactView() {
 
   const executivePillars = [
     {
-      title: isKm ? "ការបង្ហាញផលិតផលជាន់ខ្ពស់" : isZh ? "高管专属 1对1 演示" : "1-on-1 Executive Demo",
+      id: "demo",
+      title: isKm ? "ការបង្ហាញផលិតផលជាន់ខ្ពស់" : isZh ? "高管专属 1对1 演示" : "1-on-1 Executive Walkthrough",
       desc: isKm ? "បង្ហាញគ្រប់មុខងារផ្ទាល់តាមតម្រូវការជាក់ស្តែង" : isZh ? "针对您团队规模定制全流程功能演练" : "Tailored walkthrough for your headcount & branches",
+      telegramText: "Hello Mr. Ong Phaly, I would like to schedule a 1-on-1 Executive Walkthrough for AttendKH.",
+      telegramTextKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់កក់ការបង្ហាញផលិតផលជាន់ខ្ពស់ (1-on-1 Walkthrough) នៃ AttendKH។",
+      telegramTextZh: "您好 Ong Phaly 先生，我想预约一次 AttendKH 的高管专属一对一产品演示。",
     },
     {
+      id: "pricing",
       title: isKm ? "កិច្ចសន្យាសហគ្រាស & SLA" : isZh ? "企业级定制报价与 SLA" : "Enterprise Pricing & SLAs",
       desc: isKm ? "កិច្ចព្រមព្រៀងពិសេសសម្រាប់អាជីវកម្មខ្នាតធំ" : isZh ? "大客户专属服务等级协议与多门店方案" : "Volume contracts and customized billing arrangements",
+      telegramText: "Hello Mr. Ong Phaly, I would like to inquire about Enterprise Pricing and SLAs for our organization.",
+      telegramTextKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់ពិភាក្សាអំពីកិច្ចសន្យាសហគ្រាស និងគម្រោងតម្លៃ SLA សម្រាប់ស្ថាប័នយើងខ្ញុំ។",
+      telegramTextZh: "您好 Ong Phaly 先生，我想咨询关于我们企业的定制化报价方案与 SLA 服务协议。",
     },
     {
-      title: isKm ? "ច្បាប់ការងារ & ប.ស.ស." : isZh ? "柬埔寨劳工法与社保合规" : "Labor Law & NSSF Alignment",
+      id: "compliance",
+      title: isKm ? "ច្បាប់ការងារ & ប.ស.ស." : isZh ? "柬埔寨劳工法与社保合规" : "Labor Law & NSSF Compliance",
       desc: isKm ? "ប្រឹក្សាយោបល់លើរូបមន្តប្រាក់ខែ និងម៉ោងបន្ថែម" : isZh ? "柬埔寨法定加班与社保代扣专属规则" : "Guidance on Cambodian overtime multipliers & formulas",
+      telegramText: "Hello Mr. Ong Phaly, I would like to discuss Cambodian Labor Law and NSSF payroll formulas in AttendKH.",
+      telegramTextKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់ពិភាក្សាអំពីការអនុលោមតាមច្បាប់ការងារ និងរូបមន្ត ប.ស.ស. ក្នុង AttendKH។",
+      telegramTextZh: "您好 Ong Phaly 先生，我想了解 AttendKH 如何支持柬埔寨劳工法与 NSSF 社保计算合规。",
     },
     {
+      id: "partnership",
       title: isKm ? "ភាពជាដៃគូយុទ្ធសាស្ត្រ" : isZh ? "战略合作与生态拓展" : "Strategic Partnerships",
       desc: isKm ? "សហការជាមួយធនាគារ ស្ថាប័ន និងដៃគូអាជីវកម្ម" : isZh ? "本地商会、银行渠道及行业集成合作" : "Banking, payroll channel & technology alliances",
+      telegramText: "Hello Mr. Ong Phaly, I would like to explore a strategic business partnership with AttendKH.",
+      telegramTextKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់ពិភាក្សាអំពីកិច្ចសហការ និងភាពជាដៃគូយុទ្ធសាស្ត្រជាមួយ AttendKH។",
+      telegramTextZh: "您好 Ong Phaly 先生，我想探讨与 AttendKH 的战略商业合作机会。",
     },
   ];
+
+  const currentTopic = executivePillars[selectedTopic] || executivePillars[0];
+  const encodedTelegramMsg = encodeURIComponent(
+    isKm ? currentTopic.telegramTextKm : isZh ? currentTopic.telegramTextZh : currentTopic.telegramText
+  );
+  const activeTelegramUrl = `https://t.me/MPG_by_ongphaly?text=${encodedTelegramMsg}`;
 
   const quickChannels = [
     {
@@ -141,66 +166,68 @@ export function ContactView() {
       ------------------------------------------------------------- */}
       <Section tone="white">
         <div className="mx-auto max-w-[1240px]">
-          {/* Executive Spotlight Showcase Card */}
           <Reveal delay={0.05}>
-            <div className="relative rounded-[32px] border border-blue-200/90 bg-gradient-to-br from-white via-white to-blue-50/40 p-8 sm:p-12 lg:p-14 shadow-[0_25px_70px_rgba(0,82,255,0.08),0_1px_3px_rgba(0,0,0,0.02)] ring-1 ring-blue-500/10 overflow-hidden">
+            <div className="relative rounded-[36px] border border-blue-200/90 bg-gradient-to-br from-white via-white to-blue-50/50 p-8 sm:p-12 lg:p-14 shadow-[0_30px_90px_rgba(0,82,255,0.08),0_1px_3px_rgba(0,0,0,0.02)] ring-1 ring-blue-500/10 overflow-hidden">
               {/* Background ambient lighting effects */}
-              <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(0,82,255,0.12),transparent_70%)] blur-2xl pointer-events-none" />
-              <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.08),transparent_70%)] blur-2xl pointer-events-none" />
+              <div className="absolute -top-32 -right-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(0,82,255,0.12),transparent_70%)] blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-32 -left-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.10),transparent_70%)] blur-3xl pointer-events-none" />
 
               <div className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
-                {/* Left: Large Portrait Image & Executive Frame (5 cols) */}
+                {/* ----------------- LEFT: Large Framed Portrait & Live Badge (5 cols) ----------------- */}
                 <div className="lg:col-span-5 flex flex-col items-center sm:items-start">
                   <div className="relative group">
                     {/* Glowing outer backdrop */}
-                    <div className="absolute -inset-1.5 rounded-[28px] bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 opacity-30 blur-lg group-hover:opacity-50 transition-opacity duration-300" />
+                    <div className="absolute -inset-2 rounded-[32px] bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 opacity-25 blur-xl group-hover:opacity-45 transition-opacity duration-500" />
                     
                     {/* Main framed photo container */}
-                    <div className="relative h-72 w-72 sm:h-80 sm:w-80 rounded-[26px] overflow-hidden border-3 border-white shadow-2xl bg-slate-900">
+                    <div className="relative h-72 w-72 sm:h-84 sm:w-84 rounded-[28px] overflow-hidden border-4 border-white shadow-2xl bg-slate-900">
                       <Image
                         src="/avatars/ong-phaly.png"
                         alt="Mr. Ong Phaly - CEO & Founder of AttendKH"
                         fill
-                        sizes="(max-width: 640px) 288px, 320px"
-                        className="object-cover object-top scale-105 group-hover:scale-110 transition-transform duration-500"
+                        sizes="(max-width: 640px) 288px, 336px"
+                        className="object-cover object-top scale-100 group-hover:scale-105 transition-transform duration-500"
                         priority
                       />
                       
-                      {/* Dark gradient overlay at the bottom of the photo */}
-                      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                      {/* Smooth dark gradient vignette at the base of the image */}
+                      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
                       
-                      {/* Floating name badge over image */}
+                      {/* Overlay name and title on the photo */}
                       <div className="absolute bottom-4 left-4 right-4 text-white">
                         <div className="flex items-center gap-1.5 text-xs font-bold text-blue-300 tracking-wider uppercase">
-                          <BadgeCheck size={14} className="text-blue-400 fill-blue-400 text-white" />
+                          <BadgeCheck size={15} className="text-blue-400 fill-blue-400 text-white" />
                           <span>{isKm ? "ស្ថាបនិក & CEO" : isZh ? "创始人兼 CEO" : "CEO & Founder"}</span>
                         </div>
-                        <p className="font-display text-lg sm:text-xl font-bold text-white drop-shadow-md">
+                        <p className="font-display text-xl sm:text-2xl font-extrabold text-white drop-shadow-md">
                           {isKm ? "លោក អ៊ុង ផល្លី" : isZh ? "Ong Phaly 先生" : "Mr. Ong Phaly"}
                         </p>
                       </div>
                     </div>
 
-                    {/* Executive Gold/Blue Seal Badge */}
-                    <div className="absolute -top-3 -right-3 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-3.5 py-1.5 text-[11px] font-bold text-white shadow-lg border-2 border-white">
+                    {/* Executive Direct VIP Seal */}
+                    <div className="absolute -top-3 -right-3 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-1.5 text-[11px] font-bold text-white shadow-lg border-2 border-white">
                       <Award size={13} className="text-amber-300" />
-                      <span>Executive Direct</span>
+                      <span>Executive Direct Line</span>
                     </div>
                   </div>
 
-                  {/* Response time commitment */}
-                  <div className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white/90 border border-slate-200/90 px-4 py-2 text-xs font-semibold text-slate-700 shadow-xs">
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>{isKm ? "ឆ្លើយតបលឿនក្នុងរយៈពេល ៥–១៥ នាទី" : isZh ? "Telegram 通常 5–15 分钟内极速响应" : "Typically replies within 5–15 mins on Telegram"}</span>
+                  {/* Online presence badge */}
+                  <div className="mt-6 inline-flex items-center gap-2.5 rounded-2xl bg-white/95 border border-slate-200/90 px-4 py-2 text-xs font-semibold text-slate-800 shadow-xs">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                    </span>
+                    <span>{isKm ? "បើកទទួលសារផ្ទាល់ • ឆ្លើយតបក្នុងរយៈពេល ៥–១៥ នាទី" : isZh ? "Telegram 在线中 • 通常 5–15 分钟内极速响应" : "Online on Telegram • Fast 5–15 min response"}</span>
                   </div>
                 </div>
 
-                {/* Right: Executive Details, Topics & Instant Action (7 cols) */}
+                {/* ----------------- RIGHT: Executive Bio, Interactive Topics & CTA (7 cols) ----------------- */}
                 <div className="lg:col-span-7 space-y-6">
                   <div>
-                    <div className="inline-flex items-center gap-2 rounded-full bg-brand-soft border border-blue-200/70 px-4 py-1 text-xs font-bold text-brand uppercase tracking-wider mb-3">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-brand-soft border border-blue-200/70 px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider mb-3">
                       <Briefcase size={13} />
-                      <span>{isKm ? "ថ្នាក់ដឹកនាំកំពូល • ទំនាក់ទំនងផ្ទាល់" : isZh ? "最高管理层 • 一对一直通" : "Executive Office • Direct Line"}</span>
+                      <span>{isKm ? "ការិយាល័យអគ្គនាយកប្រតិបត្តិ" : isZh ? "最高管理层办公室 • 一对一直通" : "Office of the Chief Executive"}</span>
                     </div>
                     
                     <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-slate-900 tracking-tight leading-tight">
@@ -208,10 +235,10 @@ export function ContactView() {
                     </h2>
                     
                     <p className="font-display text-base sm:text-lg font-semibold text-brand mt-1">
-                      {isKm ? "អគ្គនាយកប្រតិបត្តិ (Chief Executive Officer)" : isZh ? "AttendKH 创始人兼首席执行官" : "Chief Executive Officer & Founder, AttendKH"}
+                      {isKm ? "អគ្គនាយកប្រតិបត្តិ (Chief Executive Officer) • AttendKH" : isZh ? "AttendKH 创始人兼首席执行官" : "Chief Executive Officer & Founder, AttendKH"}
                     </p>
 
-                    <blockquote className="mt-4 rounded-2xl border-l-4 border-brand bg-slate-50/80 p-4 text-xs sm:text-sm italic leading-relaxed text-slate-700">
+                    <blockquote className="mt-4 rounded-2xl border-l-4 border-brand bg-slate-50/90 p-4 text-xs sm:text-sm italic leading-relaxed text-slate-700">
                       {isKm
                         ? "«យើងប្តេជ្ញាផ្តល់នូវដំណោះស្រាយបច្ចេកវិទ្យាវត្តមាន និងប្រាក់ខែកម្ពុជាដែលងាយស្រួល ទំនើប និងមានទំនុកចិត្តបំផុតជូនម្ចាស់អាជីវកម្មគ្រប់រូប។»"
                         : isZh
@@ -220,39 +247,60 @@ export function ContactView() {
                     </blockquote>
                   </div>
 
-                  {/* 4 Executive Discussion Pillars */}
+                  {/* Interactive Consultation Topic Selector */}
                   <div>
-                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-3">
-                      {isKm ? "ប្រធានបទដែលអ្នកអាចពិភាក្សាផ្ទាល់៖" : isZh ? "主要负责与直接沟通事项：" : "Executive Consultation Topics:"}
-                    </span>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                      {executivePillars.map((p) => (
-                        <div
-                          key={p.title}
-                          className="rounded-xl border border-slate-200/80 bg-white p-3.5 shadow-2xs hover:border-brand/40 transition-colors"
-                        >
-                          <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
-                            <CheckCircle2 size={14} className="text-brand shrink-0" />
-                            <span>{p.title}</span>
-                          </div>
-                          <p className="mt-1 text-[11.5px] leading-snug text-slate-500 pl-5.5">
-                            {p.desc}
-                          </p>
-                        </div>
-                      ))}
+                    <div className="flex items-center justify-between mb-2.5">
+                      <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                        {isKm ? "ជ្រើសរើសប្រធានបទដើម្បីឆាតភ្លាមៗ៖" : isZh ? "点击选择咨询主题（自动生成 Telegram 问候）：" : "Select a topic to start instant chat:"}
+                      </span>
+                      <span className="text-[11px] font-medium text-brand">
+                        {isKm ? "ចុចដើម្បីជ្រើសរើស" : isZh ? "点击卡片切换" : "Click card to select"}
+                      </span>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-2.5">
+                      {executivePillars.map((p, idx) => {
+                        const isSelected = selectedTopic === idx;
+                        return (
+                          <button
+                            key={p.id}
+                            type="button"
+                            onClick={() => setSelectedTopic(idx)}
+                            className={`text-left rounded-2xl border p-3.5 transition-all duration-200 cursor-pointer relative overflow-hidden ${
+                              isSelected
+                                ? "border-brand bg-blue-50/70 shadow-sm ring-2 ring-brand/20 scale-[1.01]"
+                                : "border-slate-200/80 bg-white hover:border-slate-300 hover:bg-slate-50/50"
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-2">
+                              <span className={`font-display text-xs font-bold leading-snug ${isSelected ? "text-brand" : "text-slate-900"}`}>
+                                {p.title}
+                              </span>
+                              {isSelected ? (
+                                <CheckCircle2 size={14} className="text-brand shrink-0" />
+                              ) : (
+                                <span className="h-3.5 w-3.5 rounded-full border border-slate-300 shrink-0" />
+                              )}
+                            </div>
+                            <p className="mt-1 text-[11px] leading-snug text-slate-500 line-clamp-1">
+                              {p.desc}
+                            </p>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
-                  {/* Primary High-Impact CTA Row */}
-                  <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+                  {/* Primary High-Impact CTA Row with dynamic topic message */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
                     <a
-                      href="https://t.me/MPG_by_ongphaly"
+                      href={activeTelegramUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-3 rounded-2xl bg-[#229ED9] hover:bg-[#1688bd] px-8 py-4 text-sm sm:text-base font-bold text-white shadow-[0_8px_25px_rgba(34,158,217,0.38)] hover:shadow-[0_12px_32px_rgba(34,158,217,0.48)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
+                      className="flex-1 inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#229ED9] to-[#0088cc] hover:from-[#1a8bc2] hover:to-[#0077b3] px-8 py-4 text-sm sm:text-base font-bold text-white shadow-[0_8px_25px_rgba(34,158,217,0.38)] hover:shadow-[0_12px_32px_rgba(34,158,217,0.48)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
                     >
                       <Send size={19} className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                      <span>{isKm ? "ឆាតផ្ទាល់ជាមួយ CEO តាម Telegram" : isZh ? "在 Telegram 上联系 CEO (@MPG_by_ongphaly)" : "Chat with CEO on Telegram"}</span>
+                      <span>{isKm ? "ឆាតផ្ទាល់ជាមួយ CEO តាម Telegram" : isZh ? "联系 CEO 咨询 (@MPG_by_ongphaly)" : "Chat with CEO on Telegram"}</span>
                       <ExternalLink size={15} className="opacity-80" />
                     </a>
 
