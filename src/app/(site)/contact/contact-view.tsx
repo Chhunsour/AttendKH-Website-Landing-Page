@@ -39,7 +39,6 @@ export function ContactView() {
   const isZh = lang === "zh";
 
   const [copiedHandle, setCopiedHandle] = useState<string | null>(null);
-  const [selectedTopic, setSelectedTopic] = useState<number>(0);
 
   // Quick message composer state
   const [composerTopic, setComposerTopic] = useState<"demo" | "pricing" | "technical" | "general">("demo");
@@ -78,49 +77,6 @@ export function ContactView() {
       { label: isKm ? "ទំនាក់ទំនង" : isZh ? "联系យើង" : "Contact" },
     ],
   };
-
-  const ceoContactTopics = [
-    {
-      id: "demo",
-      title: isKm ? "កក់ការបង្ហាញប្រព័ន្ធ (Demo)" : isZh ? "预约 1对1 演示 (Demo)" : "Book 1-on-1 Product Demo",
-      desc: isKm ? "បង្ហាញគ្រប់មុខងារផ្ទាល់តាមតម្រូវការអាជីវកម្ម" : isZh ? "定制全流程功能演练与功能解答" : "Full feature walkthrough tailored to your team",
-      telegramMsg: "Hello Mr. Ong Phaly, I would like to schedule a 1-on-1 Product Demo for AttendKH.",
-      telegramMsgKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់កក់ការបង្ហាញផលិតផល (1-on-1 Product Demo) នៃ AttendKH។",
-      telegramMsgZh: "您好 Ong Phaly 先生，我想预约一次 AttendKH 的一对一产品演示。",
-    },
-    {
-      id: "pricing",
-      title: isKm ? "សាកសួរតម្លៃ & សាខា" : isZh ? "价格与分店定制报价" : "Pricing & Multi-Branch Quote",
-      desc: isKm ? "គម្រោងតម្លៃពិសេសសម្រាប់អាជីវកម្មច្រើនសាខា" : isZh ? "多门店结算方案与大客户批量报价" : "Custom pricing & terms for multi-branch teams",
-      telegramMsg: "Hello Mr. Ong Phaly, I would like to inquire about Pricing and Multi-Branch plans for our business.",
-      telegramMsgKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់សាកសួរអំពីគម្រោងតម្លៃ និងសាខាសម្រាប់អាជីវកម្មយើងខ្ញុំ។",
-      telegramMsgZh: "您好 Ong Phaly 先生，我想咨询多分店方案与企业定制报价。",
-    },
-    {
-      id: "labor-law",
-      title: isKm ? "ច្បាប់ការងារ & ប.ស.ស." : isZh ? "柬埔寨劳工法与社保支持" : "Labor Law & NSSF Formulas",
-      desc: isKm ? "ប្រឹក្សាយោបល់លើរូបមន្តប្រាក់ខែ និងម៉ោងបន្ថែម" : isZh ? "柬埔寨法定加班与 NSSF 社保合规咨询" : "Guidance on Cambodian overtime & NSSF rules",
-      telegramMsg: "Hello Mr. Ong Phaly, I would like to discuss Cambodian Labor Law & NSSF compliance in AttendKH.",
-      telegramMsgKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់ពិភាក្សាអំពីច្បាប់ការងារ និងរូបមន្ត ប.ស.ស. ក្នុង AttendKH។",
-      telegramMsgZh: "您好 Ong Phaly 先生，我想了解 AttendKH 如何支持柬埔寨劳工法与 NSSF 社保计算合规。",
-    },
-    {
-      id: "enterprise",
-      title: isKm ? "កិច្ចសន្យាសហគ្រាស & SLA" : isZh ? "企业级采购与 SLA" : "Enterprise Contracts & SLAs",
-      desc: isKm ? "កិច្ចព្រមព្រៀងសេវាកម្មកម្រិតខ្ពស់" : isZh ? "大客户专属服务协议与战略合作" : "Dedicated SLAs and commercial partnerships",
-      telegramMsg: "Hello Mr. Ong Phaly, I would like to discuss Enterprise SLA contracts and partnership opportunities.",
-      telegramMsgKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់ពិភាក្សាអំពីកិច្ចសន្យាសហគ្រាស SLA និងកិច្ចសហការ។",
-      telegramMsgZh: "您好 Ong Phaly 先生，我想咨询企业级采购协议与专属 SLA 合作。",
-    },
-  ];
-
-  const activeCeoTopic = ceoContactTopics[selectedTopic] || ceoContactTopics[0];
-  const activeCeoTelegramMsg = isKm
-    ? activeCeoTopic.telegramMsgKm
-    : isZh
-    ? activeCeoTopic.telegramMsgZh
-    : activeCeoTopic.telegramMsg;
-  const activeCeoTelegramUrl = `https://t.me/MPG_by_ongphaly?text=${encodeURIComponent(activeCeoTelegramMsg)}`;
 
   // Composer helpers
   const getComposerTopicLabel = () => {
@@ -198,7 +154,7 @@ export function ContactView() {
       <Section tone="white">
         <div className="mx-auto max-w-[1240px]">
           <Reveal delay={0.05}>
-            <div className="relative rounded-[36px] border border-blue-200/90 bg-gradient-to-br from-white via-white to-blue-50/50 p-7 sm:p-11 lg:p-14 shadow-[0_25px_80px_rgba(0,82,255,0.08),0_1px_3px_rgba(0,0,0,0.02)] ring-1 ring-blue-500/10 overflow-hidden">
+            <div className="relative rounded-[36px] border border-blue-200/90 bg-gradient-to-br from-white via-white to-blue-50/50 p-8 sm:p-12 lg:p-14 shadow-[0_25px_80px_rgba(0,82,255,0.08),0_1px_3px_rgba(0,0,0,0.02)] ring-1 ring-blue-500/10 overflow-hidden">
               {/* Background ambient lighting */}
               <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(0,82,255,0.12),transparent_70%)] blur-3xl pointer-events-none" />
 
@@ -252,10 +208,10 @@ export function ContactView() {
                   </div>
                 </div>
 
-                {/* Right Column: Inquiries, Topics & 1-Click Telegram Action (7 cols) */}
+                {/* Right Column: Direct Messaging & Telegram CTA (7 cols) */}
                 <div className="lg:col-span-7 space-y-6">
                   <div>
-                    <div className="inline-flex items-center gap-2 rounded-full bg-brand-soft border border-blue-200/70 px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider mb-2.5">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-brand-soft border border-blue-200/70 px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider mb-3">
                       <Briefcase size={13} />
                       <span>{isKm ? "ផ្នែកអាជីវកម្ម & សំណួរទូទៅ" : isZh ? "商业咨询 • 快速直达" : "Sales, Pricing & Demos"}</span>
                     </div>
@@ -264,58 +220,35 @@ export function ContactView() {
                       {isKm ? "ជជែកផ្ទាល់ជាមួយលោក អ៊ុង ផល្លី" : isZh ? "直接联系 Ong Phaly 先生" : "Chat Directly with Mr. Ong Phaly"}
                     </h2>
                     
-                    <p className="text-sm sm:text-[15px] leading-relaxed text-slate-600 mt-2">
+                    <p className="text-sm sm:text-base leading-relaxed text-slate-600 mt-3">
                       {isKm
-                        ? "សម្រាប់សំណួរអំពីការបង្ហាញប្រព័ន្ធ (Demo) គម្រោងតម្លៃតាមសាខា ច្បាប់ការងារ និងកិច្ចសន្យាសហគ្រាស សូមចុចជ្រើសរើសប្រធានបទខាងក្រោមដើម្បីឆាតភ្លាមៗ។"
+                        ? "សម្រាប់សំណួរអំពីការបង្ហាញប្រព័ន្ធ (Demo) គម្រោងតម្លៃតាមសាខា ច្បាប់ការងារ និងកិច្ចសន្យាសហគ្រាស សូមផ្ញើសារផ្ទាល់តាម Telegram ទៅកាន់ CEO ដោយមិនចាំបាច់បំពេញបែបបទស្មុគស្មាញឡើយ។"
                         : isZh
-                        ? "如需预约系统演示 (Demo)、咨询多门店价格方案、柬埔寨劳工法与社保合规或企业级采购协议，点击下方主题即可直接发起 Telegram 咨询。"
-                        : "For product walkthroughs, multi-branch quotes, labor law inquiries, or enterprise contracts, select a topic below to initiate an instant Telegram chat."}
+                        ? "如需预约系统演示 (Demo)、咨询多门店价格方案、柬埔寨劳工法与社保合规或企业级采购协议，欢迎直接通过 Telegram 发起对话。"
+                        : "For product walkthroughs, multi-branch quotes, labor law inquiries, or enterprise agreements, reach out directly on Telegram for immediate support."}
                     </p>
                   </div>
 
-                  {/* 4 Clickable Topic Cards */}
-                  <div>
-                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2.5">
-                      {isKm ? "ជ្រើសរើសប្រធានបទដើម្បីឆាតភ្លាមៗ៖" : isZh ? "点击选择咨询主题：" : "Select consultation topic:"}
-                    </span>
-
-                    <div className="grid sm:grid-cols-2 gap-2.5">
-                      {ceoContactTopics.map((item, idx) => {
-                        const isSelected = selectedTopic === idx;
-                        return (
-                          <button
-                            key={item.id}
-                            type="button"
-                            onClick={() => setSelectedTopic(idx)}
-                            className={`text-left rounded-2xl border p-3.5 transition-all duration-200 cursor-pointer relative overflow-hidden ${
-                              isSelected
-                                ? "border-brand bg-blue-50/80 shadow-sm ring-2 ring-brand/20 scale-[1.01]"
-                                : "border-slate-200/80 bg-white hover:border-slate-300 hover:bg-slate-50/50"
-                            }`}
-                          >
-                            <div className="flex items-center justify-between gap-2">
-                              <span className={`font-display text-xs font-bold leading-snug ${isSelected ? "text-brand" : "text-slate-900"}`}>
-                                {item.title}
-                              </span>
-                              {isSelected ? (
-                                <CheckCircle2 size={15} className="text-brand shrink-0" />
-                              ) : (
-                                <span className="h-3.5 w-3.5 rounded-full border border-slate-300 shrink-0" />
-                              )}
-                            </div>
-                            <p className="mt-1 text-[11px] leading-snug text-slate-500 line-clamp-1">
-                              {item.desc}
-                            </p>
-                          </button>
-                        );
-                      })}
+                  {/* Highlights Bar */}
+                  <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-2xs flex flex-wrap items-center gap-y-2 gap-x-6 text-xs font-semibold text-slate-700">
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 size={14} className="text-brand shrink-0" />
+                      <span>{isKm ? "បង្ហាញប្រព័ន្ធ 1-on-1" : isZh ? "1对1 演示" : "1-on-1 Product Demos"}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 size={14} className="text-brand shrink-0" />
+                      <span>{isKm ? "គម្រោងតម្លៃច្រើនសាខា" : isZh ? "多分店方案" : "Multi-Branch Quotes"}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 size={14} className="text-brand shrink-0" />
+                      <span>{isKm ? "កិច្ចសន្យាសហគ្រាស SLA" : isZh ? "企业级 SLA" : "Enterprise SLAs"}</span>
                     </div>
                   </div>
 
                   {/* Main Action Buttons */}
                   <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <a
-                      href={activeCeoTelegramUrl}
+                      href="https://t.me/MPG_by_ongphaly"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#229ED9] to-[#0088cc] hover:from-[#1a8bc2] hover:to-[#0077b3] px-7 py-4 text-sm sm:text-base font-bold text-white shadow-[0_8px_25px_rgba(34,158,217,0.38)] hover:shadow-[0_12px_32px_rgba(34,158,217,0.48)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
