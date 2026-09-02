@@ -173,10 +173,10 @@ For Cambodian retail chains, coffee shops, and hospitality groups, traditional a
 2. **Card Swiping Enables Buddy Punching**: It is common for staff to hand their RFID card or Telegram login to a colleague to clock them in when they are stuck in Phnom Penh traffic.
 3. **Paper Sign-in Sheets Cause Administrative Chaos**: At the end of every month, HR managers spend 3 to 5 full days manually transcribing paper logs into Excel spreadsheets.
 
-```
+\`\`\`
 Traditional Manual Reconciliation: ~40 Hours / Month
 AttendKH Verified GPS Clock-in: Real-Time Instant Cloud Sync
-```
+\`\`\`
 
 ## How Geofencing Works with AttendKH
 
@@ -212,10 +212,10 @@ When transitioning your team from hardware scanners to mobile GPS attendance, co
 ២. **ការចុះវត្តមានជំនួសគ្នា (Buddy Punching)**៖ ជារឿយៗ បុគ្គលិកតែងតែផ្ញើកាត RFID ឬគណនី Telegram ទៅឱ្យមិត្តរួមការងារដើម្បីជួយចុះឈ្មោះចូលធ្វើការជំនួស ខណៈពេលដែលខ្លួនកំពុងស្ទះចរាចរណ៍នៅភ្នំពេញ។
 ៣. **សៀវភៅចុះហត្ថលេខាបង្កការលំបាកដល់ផ្នែករដ្ឋបាល**៖ នៅរៀងរាល់ដំណាច់ខែ ប្រធានផ្នែកធនធានមនុស្ស (HR) ត្រូវចំណាយពេលពី ៣ ទៅ ៥ ថ្ងៃពេញ ដើម្បីចម្លងទិន្នន័យពីក្រដាសចូលក្នុងតារាង Excel ដោយដៃ។
 
-```
+\`\`\`
 ការផ្ទៀងផ្ទាត់ទិន្នន័យដោយដៃបែបចាស់៖ ~៤០ ម៉ោង / ខែ
 ការចុះវត្តមានតាម GPS របស់ AttendKH៖ សមកាលកម្ម Cloud ភ្លាមៗជាក់ស្តែង
-```
+\`\`\`
 
 ## របៀបដែលប្រព័ន្ធកំណត់រង្វង់ទីតាំង GPS (Geofencing) ដំណើរការលើ AttendKH
 
@@ -251,10 +251,10 @@ AttendKH បង្កើតរង្វង់ព្រំប្រទល់ន�
 2. **代刷卡与代打卡屡禁不止**：在金边早晚高峰严重堵车时，员工将 RFID 工牌或 Telegram 登录信息借给同事帮忙打卡已成为普遍现象。
 3. **纸质签到表引发月末对账噩梦**：每月月末，HR 经理需花费 3 至 5 个整工作日，手动将纸质登记册逐条录入 Excel 表格，极易发生人工核算纠纷。
 
-```
+\`\`\`
 传统人工月底对账耗时：每月约 40 小时
 AttendKH 智能 GPS 打卡：云端毫秒级实时自动同步
-```
+\`\`\`
 
 ## AttendKH GPS 地理围栏核心工作原理
 
@@ -333,11 +333,11 @@ $\\text{Hourly Base Rate} = \\frac{\\text{Monthly Gross Salary}}{\\text{Working 
 - **Night Shifts (22:00 – 06:00)**: Attracts an additional night differential as stipulated by MoLVT prakas.
 - **Weekly Rest Days & Official Public Holidays**: Remunerated at **2.0× (Double Pay)** the standard hourly rate.
 
-```
+\`\`\`
 Example: Base Hourly Wage = $2.50/hr
 Standard Overtime Rate (1.5x) = $3.75/hr
 Public Holiday Rate (2.0x) = $5.00/hr
-```
+\`\`\`
 
 ### 3. Grace Periods vs. Late Deductions
 
@@ -345,9 +345,9 @@ Many Cambodian employers adopt a standard 15-minute grace window. In AttendKH, y
 - **Per-minute deduction** from the exact clock-in minute after grace expiration.
 - **Tiered deduction brackets** (e.g., 16–30 min late = 30 min pay deduction).
 
-```
+\`\`\`
 Late Penalty = (Late Minutes - Grace Minutes) × (Hourly Rate / 60) × Penalty Factor
-```
+\`\`\`
 
 ## NSSF (National Social Security Fund) Calculations
 
@@ -375,11 +375,11 @@ $\\text{ប្រាក់ឈ្នួលគោលប្រចាំម៉ោង
 - **វេនយប់ (ម៉ោង ២២:០០ ដល់ ០៦:០០ ព្រឹក)**៖ ត្រូវទទួលបានប្រាក់បន្ថែមវេនយប់ស្របតាមប្រកាសរបស់ក្រសួងការងារ។
 - **ថ្ងៃឈប់សម្រាកប្រចាំសប្តាហ៍ និងថ្ងៃបុណ្យជាតិផ្លូវការ**៖ ត្រូវទទួលបានប្រាក់ឈ្នួលទ្វេដងគឺ **២.០ ដង (2.0× / Double Pay)** នៃប្រាក់ឈ្នួលម៉ោងគោល។
 
-```
+\`\`\`
 ឧទាហរណ៍៖ ប្រាក់ឈ្នួលម៉ោងគោល = $២.៥០ / ម៉ោង
 អត្រាថែមម៉ោងថ្ងៃធម្មតា (1.5x) = $៣.៧៥ / ម៉ោង
 អត្រាថែមម៉ោងថ្ងៃបុណ្យជាតិ (2.0x) = $៥.០០ / ម៉ោង
-```
+\`\`\`
 
 ### ៣. រយៈពេលអនុគ្រោះ និងការកាត់ប្រាក់ពេលមកធ្វើការយឺត
 
@@ -387,9 +387,9 @@ $\\text{ប្រាក់ឈ្នួលគោលប្រចាំម៉ោង
 - **កាត់តាមនាទីជាក់ស្តែង** បន្ទាប់ពីផុតរយៈពេលអនុគ្រោះ។
 - **កាត់តាមកម្រិតកំណត់** (ឧទាហរណ៍៖ យឺត ១៦-៣០ នាទី កាត់ស្មើនឹង ៣០ នាទី)។
 
-```
+\`\`\`
 ប្រាក់ពិន័យយឺត = (ចំនួននាទីយឺត - នាទីអនុគ្រោះ) × (ប្រាក់ឈ្នួលម៉ោង / ៦០) × មេគុណពិន័យ
-```
+\`\`\`
 
 ## ការគណនាវិភាគទាន ប.ស.ស. (បេឡាជាតិសន្តិសុខសង្គម)
 
@@ -417,11 +417,11 @@ $\\text{基础小时工资} = \\frac{\\text{月度税前总收入}}{\\text{法�
 - **夜班特殊津贴（22:00 – 次日 06:00）**：根据劳工部通令，夜班工时需叠加发放法定夜班津贴加成。
 - **法定每周休息日与国家公共假期**：在休息日或法定公共假期加班，必须依法发放 **2.0 倍（双倍工资 Double Pay）**。
 
-```
+\`\`\`
 核算范例：基础时薪 = $2.50 / 小时
 工作日加班时薪（1.5倍） = $3.75 / 小时
 法定公休日加班时薪（2.0倍） = $5.00 / 小时
-```
+\`\`\`
 
 ### 3. 迟到宽限期与按分钟扣款规则
 
@@ -429,9 +429,9 @@ $\\text{基础小时工资} = \\frac{\\text{月度税前总收入}}{\\text{法�
 - **按超出分钟精准扣减**：仅对超出宽限期之外的迟到分钟数折算时薪进行扣除。
 - **阶梯式区间扣减**（例如：迟到 16–30 分钟按 30 分钟工时折算）。
 
-```
+\`\`\`
 迟到应扣金额 = (实际迟到分钟数 - 豁免分钟数) × (时薪 ÷ 60) × 惩罚因子
-```
+\`\`\`
 
 ## 柬埔寨国家社会保障基金 (NSSF) 自动代扣核算
 
@@ -488,11 +488,11 @@ Managing shift work in Phnom Penh and Siem Reap restaurants requires juggling hi
 
 ## Structuring the Ideal Shift Roster
 
-```
+\`\`\`
 Shift A (Morning/Lunch):  06:30 – 14:30 (Prep + Peak Lunch)
 Shift B (Split Service):  10:30 – 14:00 & 17:00 – 21:30 (Peak Rush)
 Shift C (Night Closing):  14:00 – 22:30 (Dinner + Daily Closing)
-```
+\`\`\`
 
 ## How Digital Rostering Eliminates Shift Friction
 
@@ -512,11 +512,11 @@ Shift C (Night Closing):  14:00 – 22:30 (Dinner + Daily Closing)
 
 ## គំរូរៀបចំកាលវិភាគវេនការងារដ៏មានប្រសិទ្ធភាព
 
-```
+\`\`\`
 វេន A (ព្រឹក/ថ្ងៃត្រង់)៖   ០៦:៣០ – ១៤:៣០ (រៀបចំ + ម៉ោងថ្ងៃត្រង់មមាញឹក)
 វេន B (វេនបំបែកពីរពេល)៖ ១០:៣០ – ១៤:០០ និង ១៧:០០ – ២១:៣០ (ម៉ោងភ្ញៀវច្រើន)
 វេន C (វេនល្ងាច/បិទហាង)៖ ១៤:០០ – ២២:៣០ (អាហារពេលល្ងាច + បិទការិយាល័យ)
-```
+\`\`\`
 
 ## របៀបដែល AttendKH ជួយដោះស្រាយបញ្ហាវេនការងារ
 
@@ -536,11 +536,11 @@ Shift C (Night Closing):  14:00 – 22:30 (Dinner + Daily Closing)
 
 ## 餐饮门店标准排班架构示范
 
-```
+\`\`\`
 班次 A（早班/午餐峰值）：06:30 – 14:30（开店备料 + 午市高峰）
 班次 B（分段倒班两头班）：10:30 – 14:00 & 17:00 – 21:30（全天核心峰值）
 班次 C（晚班/打烊清算）：14:00 – 22:30（晚市服务 + 每日打烊盘点）
-```
+\`\`\`
 
 ## 数字化智能排班如何彻底消除管理摩擦
 
@@ -721,10 +721,10 @@ Operating construction projects in Siem Reap, coastal infrastructure in Sihanouk
 - **High Workforce Mobility**: Heavy equipment operators and subcontractors shift between job sites throughout the work week.
 - **Physical Fingerprint Wear**: Heavy manual labor damages biometric skin ridges, making hardware scanners completely unusable.
 
-```
+\`\`\`
 Offline Clock-in: Encrypted Local Cache -> Automatic Sync on Reconnect
 Selfie Validation: Front Camera Verification + Reverse Timestamp Signature
-```
+\`\`\`
 
 ## The AttendKH Offline Construction Protocol
 
@@ -742,10 +742,10 @@ Selfie Validation: Front Camera Verification + Reverse Timestamp Signature
 - **កម្លាំងពលកម្មមានការផ្លាស់ប្តូរទីតាំងច្រើន**៖ អ្នកបញ្ជាគ្រឿងចក្រធុនធ្ងន់ និងក្រុមការងារម៉ៅការបន្តត្រូវផ្លាស់ប្តូរទីតាំងការដ្ឋានជាបន្តបន្ទាប់ពេញមួយសប្តាហ៍។
 - **ស្នាមម្រាមដៃសឹក ឬប្រឡាក់**៖ ការងារធ្ងន់ៗធ្វើឱ្យស្នាមម្រាមដៃសឹក ដែលធ្វើឱ្យម៉ាស៊ីនស្កេនមេដៃមិនអាចប្រើប្រាស់បានទាំងស្រុង។
 
-```
+\`\`\`
 ការចុះវត្តមានពេលគ្មានអ៊ីនធឺណិត៖ អ៊ិនគ្រីបទុកក្នុងទូរស័ព្ទ -> ផ្ញើទិន្នន័យស្វ័យប្រវត្តិកាលណាមានសេវា
 ការផ្ទៀងផ្ទាត់ Selfie៖ ថតរូបផ្ទាល់ពីកាមេរ៉ាមុខ + ភ្ជាប់ត្រាពេលវេលាសុវត្ថិភាព
-```
+\`\`\`
 
 ## ពិធីការគ្រប់គ្រងការដ្ឋានសំណង់បែប Offline របស់ AttendKH
 
@@ -763,10 +763,10 @@ Selfie Validation: Front Camera Verification + Reverse Timestamp Signature
 - **人员流动性与跨现场作业频繁**：重型机械操作手、专业技工与分包施工队在多个工区之间动态轮换。
 - **高强度体力劳动导致指纹磨损严重**：建筑泥水工人的指纹极易磨损起皮，导致传统指纹机识别率极低、形同虚设。
 
-```
+\`\`\`
 离线打卡流程：本地高强度加密暂存 -> 恢复网络秒级静默自动同步
 自拍防伪核验：前置摄像头实时自拍 + 防篡改时间戳数字水印
-```
+\`\`\`
 
 ## AttendKH 专为工地打造的离线打卡作业规范
 

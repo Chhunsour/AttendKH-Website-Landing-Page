@@ -1,160 +1,292 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
-import { FileText, Clock, ArrowRight, Eye, Calendar, Search } from "lucide-react";
-import { PageHero, Section, CtaBand } from "@/components/site/ui";
+import {
+  Search,
+  Calendar,
+  Clock,
+  ArrowRight,
+  Sparkles,
+  Tag,
+  FileText,
+  Building2,
+  Users,
+  ShieldCheck,
+} from "lucide-react";
 import type { BlogPost } from "@/lib/site-content";
+import { Section, SectionHead, CtaBand } from "@/components/site/ui";
+import { useSite } from "@/lib/i18n";
 
-export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) {
+interface BlogIndexClientProps {
+  initialPosts: BlogPost[];
+}
+
+export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
+  const { lang, t } = useSite();
+  const isKm = lang === "km";
+  const isZh = lang === "zh";
+
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [search, setSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const categories = ["All", "Attendance", "Payroll", "Operations", "Labor Law"];
+  const categories = [
+    { key: "All", label: isKm ? "ទាំងអស់" : isZh ? "全部指南" : "All Guides" },
+    { key: "Attendance", label: isKm ? "វត្តមាន" : isZh ? "考勤管理" : "Attendance" },
+    { key: "Payroll", label: isKm ? "ប្រាក់ខែ" : isZh ? "薪酬核算" : "Payroll" },
+    { key: "Operations", label: isKm ? "ប្រតិបត្តិការ" : isZh ? "运营管理" : "Operations" },
+    { key: "Labor Law", label: isKm ? "ច្បាប់ការងារ" : isZh ? "劳工法规" : "Labor Law" },
+  ];
 
-  const filteredPosts = initialPosts.filter((p) => {
-    const matchesCat = selectedCategory === "All" || p.category === selectedCategory;
-    const matchesSearch =
-      !search ||
-      p.title.toLowerCase().includes(search.toLowerCase()) ||
-      p.excerpt.toLowerCase().includes(search.toLowerCase()) ||
-      p.tags?.some((t) => t.toLowerCase().includes(search.toLowerCase()));
-    return matchesCat && matchesSearch;
-  });
+  // Helper to get localized post fields
+  const getPostTitle = (post: BlogPost) => {
+    if (isKm && post.title_km) return post.title_km;
+    if (isZh && post.title_zh) return post.title_zh;
+    return post.title;
+  };
 
-  const featuredPost = filteredPosts[0];
-  const gridPosts = filteredPosts.slice(1);
+  const getPostExcerpt = (post: BlogPost) => {
+    if (isKm && post.excerpt_km) return post.excerpt_km;
+    if (isZh && post.excerpt_zh) return post.excerpt_zh;
+    return post.excerpt;
+  };
+
+  const getPostCategory = (post: BlogPost) => {
+    if (isKm && post.category_km) return post.category_km;
+    if (isZh && post.category_zh) return post.category_zh;
+    return post.category;
+  };
+
+  const getPostAuthorRole = (post: BlogPost) => {
+    if (isKm && post.author_role_km) return post.author_role_km;
+    if (isZh && post.author_role_zh) return post.author_role_zh;
+    return post.author_role;
+  };
+
+  const filteredPosts = useMemo(() => {
+    return initialPosts.filter((post) => {
+      const title = getPostTitle(post);
+      const excerpt = getPostExcerpt(post);
+      const category = post.category;
+
+      const matchesCategory =
+        selectedCategory === "All" ||
+        category.toLowerCase() === selectedCategory.toLowerCase();
+
+      const q = searchQuery.toLowerCase().trim();
+      const matchesSearch =
+        !q ||
+        title.toLowerCase().includes(q) ||
+        excerpt.toLowerCase().includes(q) ||
+        post.title.toLowerCase().includes(q) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(q)) ||
+        (post.tags_km && post.tags_km.some((tag) => tag.toLowerCase().includes(q))) ||
+        (post.tags_zh && post.tags_zh.some((tag) => tag.toLowerCase().includes(q)));
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [initialPosts, selectedCategory, searchQuery, isKm, isZh]);
+
+  // Designate the first post as featured if showing All and no search
+  const featuredPost =
+    selectedCategory === "All" && !searchQuery.trim() && filteredPosts.length > 0
+      ? filteredPosts[0]
+      : null;
+
+  const standardPosts = featuredPost
+    ? filteredPosts.slice(1)
+    : filteredPosts;
+
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return isKm ? "ថ្មីៗ" : isZh ? "近期" : "Recent";
+    try {
+      const d = new Date(dateStr);
+      if (isKm) {
+        return d.toLocaleDateString("km-KH", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      }
+      if (isZh) {
+        return d.toLocaleDateString("zh-CN", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+      }
+      return d.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+    } catch {
+      return dateStr;
+    }
+  };
 
   return (
     <>
-      <PageHero
-        title="Insights, Guides & Labor Law"
-        sub="Best practices for modern Cambodian organizations scaling attendance and payroll."
-      />
+      <Section tone="mist">
+        <div className="mx-auto max-w-4xl text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3 py-1 text-xs font-bold text-brand uppercase tracking-wider mb-4">
+            <Sparkles size={13} />
+            {isKm
+              ? "មជ្ឈមណ្ឌលចំណេះដឹងធនធានមនុស្ស និងប្រតិបត្តិការ"
+              : isZh
+              ? "AttendKH 运营与人力资源知识库"
+              : "AttendKH Operations & HR Knowledge Hub"}
+          </span>
+          <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl leading-tight">
+            {isKm
+              ? "មគ្គុទ្ទេសក៍ជាក់ស្តែងសម្រាប់ប្រតិបត្តិការ និងការបើកប្រាក់ខែនៅកម្ពុជា"
+              : isZh
+              ? "柬埔寨企业本地化运营与薪酬管理实务指南"
+              : "Practical Guides for Cambodian Operations & Payroll"}
+          </h1>
+          <p className="mt-4 text-sm sm:text-base leading-relaxed text-body max-w-2xl mx-auto">
+            {isKm
+              ? "អត្ថបទស៊ីជម្រៅ មគ្គុទ្ទេសក៍គណនាតាមច្បាប់ការងារ និងការអនុវត្តជាក់ស្តែងល្អបំផុត សម្រាប់អាជីវកម្មពហុសាខានៅកម្ពុជា។"
+              : isZh
+              ? "深度解析柬埔寨劳工法规、精准薪酬计算公式与多门店运营实战经验，专为在柬发展的多分支企业量身打造。"
+              : "In-depth articles, statutory calculation guides, and operational best practices designed specifically for multi-branch businesses in Cambodia."}
+          </p>
 
-      <Section tone="white">
-        {/* Search & Category Filter Bar */}
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-10">
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                className={`whitespace-nowrap rounded-lg px-3.5 py-2 text-xs font-semibold transition-all ${
-                  selectedCategory === cat
-                    ? "bg-brand text-white shadow-xs"
-                    : "bg-mist text-slate-600 hover:bg-slate-200 hover:text-ink"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* Search Bar */}
+          <div className="mt-8 mx-auto max-w-xl">
+            <div className="relative flex items-center">
+              <Search className="absolute left-4 h-4 w-4 text-slate-400 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={
+                  isKm
+                    ? "ស្វែងរកតាមប្រធានបទ ពាក្យគន្លឹះ ឬច្បាប់ការងារ..."
+                    : isZh
+                    ? "搜索主题、关键词或劳工法规..."
+                    : "Search by topic, keyword, or law..."
+                }
+                className="w-full rounded-2xl border border-slate-200 bg-white py-3.5 pl-11 pr-4 text-xs sm:text-sm text-ink placeholder-slate-400 shadow-xs focus:border-brand focus:outline-hidden focus:ring-2 focus:ring-brand/20 transition-all"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 rounded-full bg-slate-100 p-1 text-xs text-slate-400 hover:text-slate-600 cursor-pointer"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
           </div>
 
-          <div className="relative max-w-sm w-full">
-            <Search
-              size={16}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
-            />
-            <label htmlFor="blog-search" className="sr-only">
-              Search blog guides
-            </label>
-            <input
-              id="blog-search"
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search guides, labor law, GPS..."
-              className="w-full rounded-xl border border-line bg-mist/40 py-2.5 pl-10 pr-4 text-xs text-ink placeholder:text-slate-400 focus:border-brand focus:bg-white focus:outline-none"
-            />
+          {/* Category Filter Pills */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+            {categories.map((cat) => {
+              const isSelected = selectedCategory === cat.key;
+              return (
+                <button
+                  key={cat.key}
+                  onClick={() => setSelectedCategory(cat.key)}
+                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all cursor-pointer ${
+                    isSelected
+                      ? "bg-brand text-white shadow-xs"
+                      : "bg-white text-slate-600 border border-slate-200/80 hover:bg-slate-50 hover:border-slate-300"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
           </div>
         </div>
+      </Section>
 
-        {/* Featured Post Card */}
+      <Section tone="mist">
+        {/* Featured Article Card */}
         {featuredPost && (
-          <article className="group mb-12 overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-xs transition-all hover:border-brand/40 hover:shadow-lg">
-            <Link href={`/blog/${featuredPost.slug}`} className="grid gap-6 md:grid-cols-12 p-6 sm:p-8 items-center">
-              <div className="md:col-span-7 flex flex-col justify-between space-y-4">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold text-brand uppercase tracking-wider border border-blue-200/60">
-                      Featured • {featuredPost.category}
-                    </span>
-                    <span className="text-xs text-slate-300">•</span>
-                    <span className="text-xs font-medium text-slate-500">
-                      {featuredPost.published_at
-                        ? new Date(featuredPost.published_at).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })
-                        : "Recent"}
-                    </span>
+          <div className="mb-12">
+            <article className="group relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all hover:border-brand/40 hover:shadow-xl lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+              {/* Image Side */}
+              <div className="lg:col-span-6 relative aspect-video lg:aspect-auto lg:h-full overflow-hidden bg-slate-100">
+                {featuredPost.cover_image ? (
+                  <img
+                    src={featuredPost.cover_image}
+                    alt={getPostTitle(featuredPost)}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="h-full w-full bg-gradient-to-br from-blue-50 to-indigo-50/50 flex items-center justify-center min-h-[260px]">
+                    <FileText size={48} className="text-brand/30" />
                   </div>
-
-                  <h2 className="font-display mt-3 text-2xl font-bold text-slate-900 sm:text-3xl group-hover:text-brand transition-colors leading-tight">
-                    {featuredPost.title}
-                  </h2>
-
-                  <p className="mt-3 text-[14.5px] leading-relaxed text-slate-600 line-clamp-3">
-                    {featuredPost.excerpt}
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between pt-4 border-t border-slate-100 text-xs">
-                  <div className="flex items-center gap-2.5 font-medium text-slate-700">
-                    {featuredPost.author_avatar ? (
-                      <img
-                        src={featuredPost.author_avatar}
-                        alt={featuredPost.author_name}
-                        className="h-8 w-8 rounded-full object-cover object-top border border-slate-200 shadow-2xs"
-                      />
-                    ) : (
-                      <div className="h-8 w-8 rounded-full bg-brand font-display text-white flex items-center justify-center font-bold text-xs shadow-2xs">
-                        {featuredPost.author_name.charAt(0)}
-                      </div>
-                    )}
-                    <div>
-                      <span className="font-semibold text-slate-900 block leading-tight">{featuredPost.author_name}</span>
-                      <span className="text-[11px] text-slate-400">{featuredPost.author_role || "Product Builder"}</span>
-                    </div>
-                  </div>
-
-                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-brand-soft px-3 py-1.5 font-semibold text-brand transition-transform group-hover:translate-x-0.5">
-                    <span>Read guide</span>
-                    <ArrowRight size={13} />
+                )}
+                <div className="absolute top-4 left-4">
+                  <span className="rounded-full bg-white/95 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand shadow-xs backdrop-blur-xs border border-white/60">
+                    {getPostCategory(featuredPost)}
                   </span>
                 </div>
               </div>
 
-              {/* Cover Image Frame */}
-              <div className="md:col-span-5 overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-100 shadow-sm aspect-video md:aspect-[4/3] relative">
-                {featuredPost.cover_image ? (
-                  <img
-                    src={featuredPost.cover_image}
-                    alt={featuredPost.title}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="h-full w-full bg-gradient-to-br from-brand/10 to-indigo-50 flex flex-col justify-center items-center text-center p-6">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-white shadow-md mb-2">
-                      <FileText size={24} />
+              {/* Text Content Side */}
+              <div className="p-6 sm:p-8 lg:col-span-6 lg:py-10">
+                <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
+                  <span className="inline-flex items-center gap-1 font-semibold text-brand">
+                    <Sparkles size={13} />
+                    {isKm ? "មគ្គុទ្ទេសក៍ពិសេស" : isZh ? "本期精选" : "Featured Practical Guide"}
+                  </span>
+                  <span>•</span>
+                  <span className="inline-flex items-center gap-1 text-slate-400">
+                    <Calendar size={12} />
+                    {formatDate(featuredPost.published_at)}
+                  </span>
+                </div>
+
+                <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-brand transition-colors leading-snug">
+                  <Link href={`/blog/${featuredPost.slug}`}>
+                    {getPostTitle(featuredPost)}
+                  </Link>
+                </h2>
+
+                <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-3">
+                  {getPostExcerpt(featuredPost)}
+                </p>
+
+                <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-100">
+                  <div className="flex items-center gap-2.5">
+                    {featuredPost.author_avatar ? (
+                      <img
+                        src={featuredPost.author_avatar}
+                        alt={featuredPost.author_name}
+                        className="h-7 w-7 rounded-full object-cover object-top border border-slate-200"
+                      />
+                    ) : (
+                      <div className="h-7 w-7 rounded-full bg-brand-soft text-brand flex items-center justify-center font-bold text-xs">
+                        {featuredPost.author_name.charAt(0)}
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-xs font-bold text-slate-900">{featuredPost.author_name}</p>
+                      <p className="text-[10.5px] text-slate-400">{getPostAuthorRole(featuredPost)}</p>
                     </div>
-                    <p className="font-display text-xs font-bold text-slate-900">
-                      AttendKH Operations Guide
-                    </p>
                   </div>
-                )}
+
+                  <Link
+                    href={`/blog/${featuredPost.slug}`}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-brand px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-brand-dark transition-colors"
+                  >
+                    <span>{isKm ? "អានមគ្គុទ្ទេសក៍ពេញលេញ" : isZh ? "阅读完整指南" : "Read Full Guide"}</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                </div>
               </div>
-            </Link>
-          </article>
+            </article>
+          </div>
         )}
 
-        {/* Grid of Remaining Posts */}
-        {gridPosts.length > 0 ? (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {gridPosts.map((post) => (
+        {/* Standard Articles Grid */}
+        {standardPosts.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {standardPosts.map((post) => (
               <article
                 key={post.id}
                 className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-xs transition-all hover:border-brand/40 hover:shadow-lg"
@@ -165,7 +297,7 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
                     {post.cover_image ? (
                       <img
                         src={post.cover_image}
-                        alt={post.title}
+                        alt={getPostTitle(post)}
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
@@ -175,7 +307,7 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
                     )}
                     <div className="absolute top-3 left-3">
                       <span className="rounded-full bg-white/95 px-2.5 py-0.5 text-[10.5px] font-bold uppercase tracking-wider text-brand shadow-xs backdrop-blur-xs border border-white/60">
-                        {post.category}
+                        {getPostCategory(post)}
                       </span>
                     </div>
                   </Link>
@@ -183,23 +315,15 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
                   <div className="p-5 sm:p-6 pb-2">
                     <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
                       <Calendar size={12} className="text-slate-400" />
-                      <span>
-                        {post.published_at
-                          ? new Date(post.published_at).toLocaleDateString("en-US", {
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            })
-                          : "Recent"}
-                      </span>
+                      <span>{formatDate(post.published_at)}</span>
                     </div>
 
                     <h3 className="font-display text-[16.5px] font-bold text-slate-900 group-hover:text-brand transition-colors leading-snug">
-                      <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                      <Link href={`/blog/${post.slug}`}>{getPostTitle(post)}</Link>
                     </h3>
 
                     <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-600">
-                      {post.excerpt}
+                      {getPostExcerpt(post)}
                     </p>
                   </div>
                 </div>
@@ -223,7 +347,7 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
                     href={`/blog/${post.slug}`}
                     className="inline-flex items-center gap-1 font-semibold text-brand hover:underline"
                   >
-                    <span>Read guide</span>
+                    <span>{isKm ? "អានអត្ថបទ" : isZh ? "阅读指南" : "Read guide"}</span>
                     <ArrowRight size={12} />
                   </Link>
                 </div>
@@ -233,8 +357,16 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
         ) : !featuredPost ? (
           <div className="rounded-2xl border border-line bg-paper py-16 text-center">
             <FileText size={36} className="mx-auto text-slate-300 mb-2" />
-            <h3 className="font-display font-bold text-ink">No matching articles found</h3>
-            <p className="text-xs text-slate-500 mt-1">Try adjusting your category or search query.</p>
+            <h3 className="font-display font-bold text-ink">
+              {isKm ? "រកមិនឃើញអត្ថបទដែលត្រូវគ្នាទេ" : isZh ? "未找到匹配的指南文章" : "No matching articles found"}
+            </h3>
+            <p className="text-xs text-slate-500 mt-1">
+              {isKm
+                ? "សូមសាកល្បងផ្លាស់ប្តូរប្រភេទ ឬពាក្យគន្លឹះស្វែងរក។"
+                : isZh
+                ? "请尝试调整分类筛选或更换搜索关键词。"
+                : "Try adjusting your category or search query."}
+            </p>
           </div>
         ) : null}
 
@@ -242,13 +374,17 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
         <div className="mt-16 rounded-3xl border border-line bg-gradient-to-br from-mist via-white to-white p-6 sm:p-10">
           <div className="max-w-2xl">
             <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold text-brand uppercase tracking-wider">
-              Free Operational Resources
+              {isKm ? "ឯកសារធនធានប្រតិបត្តិការឥតគិតថ្លៃ" : isZh ? "免费企业运营资源" : "Free Operational Resources"}
             </span>
             <h3 className="font-display mt-3 text-2xl font-bold text-ink sm:text-3xl">
-              Cambodian HR & Operations Toolkits
+              {isKm ? "ឧបករណ៍ជំនួយការងារ HR និងប្រតិបត្តិការនៅកម្ពុជា" : isZh ? "柬埔寨人力资源与运营实战工具箱" : "Cambodian HR & Operations Toolkits"}
             </h3>
             <p className="mt-2 text-sm text-body">
-              Practical calculators, compliance summaries, and operational checklists curated for Cambodian business leaders.
+              {isKm
+                ? "ម៉ាស៊ីនគណនាជាក់ស្តែង សង្ខេបច្បាប់អនុលោមភាព និងបញ្ជីផ្ទៀងផ្ទាត់សម្រាប់ថ្នាក់ដឹកនាំអាជីវកម្មនៅកម្ពុជា។"
+                : isZh
+                ? "专为柬埔寨企业打造的在线薪资模拟器、合规备忘录与实操清单。"
+                : "Practical calculators, compliance summaries, and operational checklists curated for Cambodian business leaders."}
             </p>
           </div>
 
@@ -261,13 +397,17 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
                 ៛/$
               </span>
               <h4 className="font-display font-bold text-ink text-sm group-hover:text-brand transition-colors">
-                Interactive Cambodia Payroll Simulator
+                {isKm ? "កម្មវិធីគណនាប្រាក់បៀវត្សរ៍កម្ពុជា" : isZh ? "柬埔寨薪资实时交互模拟器" : "Interactive Cambodia Payroll Simulator"}
               </h4>
               <p className="mt-1.5 text-xs text-body">
-                Calculate base hourly rates, late deductions, and overtime bonuses live in USD and KHR.
+                {isKm
+                  ? "គណនាប្រាក់ឈ្នួលម៉ោងគោល ការកាត់ប្រាក់យឺត និងប្រាក់ថែមម៉ោងជាដុល្លារ ($) និងប្រាក់រៀល (៛)។"
+                  : isZh
+                  ? "实时计算基础时薪、迟到扣除及平日/节日加班奖金，支持美元与柬币瑞尔双币。"
+                  : "Calculate base hourly rates, late deductions, and overtime bonuses live in USD and KHR."}
               </p>
               <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand">
-                <span>Open Calculator</span>
+                <span>{isKm ? "បើកកម្មវិធីគណនា" : isZh ? "打开模拟器" : "Open Calculator"}</span>
                 <ArrowRight size={12} />
               </span>
             </Link>
@@ -280,13 +420,17 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
                 GPS
               </span>
               <h4 className="font-display font-bold text-ink text-sm group-hover:text-brand transition-colors">
-                Anti-Buddy Punching Field Guide
+                {isKm ? "មគ្គុទ្ទេសក៍ទប់ស្កាត់ការចុះវត្តមានជំនួសគ្នា" : isZh ? "企业防代打卡实地落地指南" : "Anti-Buddy Punching Field Guide"}
               </h4>
               <p className="mt-1.5 text-xs text-body">
-                How geofencing, selfie records, and location checks can reduce attendance disputes in retail and F&B.
+                {isKm
+                  ? "របៀបដែលប្រព័ន្ធ Geofencing ការស្កេនមុខ Selfie និងទីតាំង GPS កាត់បន្ថយវិវាទវត្តមានក្នុងវិស័យលក់រាយ និង F&B។"
+                  : isZh
+                  ? "详解如何通过电子围栏、实时自拍照及反模拟定位消弭零售与餐饮业考勤纠纷。"
+                  : "How geofencing, selfie records, and location checks can reduce attendance disputes in retail and F&B."}
               </p>
               <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand">
-                <span>View Guide</span>
+                <span>{isKm ? "មើលមគ្គុទ្ទេសក៍" : isZh ? "查看指南" : "View Guide"}</span>
                 <ArrowRight size={12} />
               </span>
             </Link>
@@ -299,13 +443,17 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
                 HQ
               </span>
               <h4 className="font-display font-bold text-ink text-sm group-hover:text-brand transition-colors">
-                Multi-Branch Roster Framework
+                {isKm ? "ក្របខ័ណ្ឌគ្រប់គ្រងវេនការងារពហុសាខា" : isZh ? "多门店多层级排班管理架构" : "Multi-Branch Roster Framework"}
               </h4>
               <p className="mt-1.5 text-xs text-body">
-                Setup guide for 4-tier access levels: Owner, HR Admin, Branch Manager, and frontline Employee.
+                {isKm
+                  ? "ការកំណត់សិទ្ធិប្រើប្រាស់ ៤ កម្រិត៖ ម្ចាស់អាជីវកម្ម, HR Admin, អ្នកគ្រប់គ្រងសាខា, និងបុគ្គលិកជួរមុខ។"
+                  : isZh
+                  ? "深度配置4级权限架构：企业主 (Owner)、HR 管理员、分店店长及一线基层员工。"
+                  : "Setup guide for 4-tier access levels: Owner, HR Admin, Branch Manager, and frontline Employee."}
               </p>
               <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand">
-                <span>Explore Framework</span>
+                <span>{isKm ? "ស្វែងយល់បន្ថែម" : isZh ? "了解架构" : "Explore Framework"}</span>
                 <ArrowRight size={12} />
               </span>
             </Link>
@@ -314,9 +462,21 @@ export function BlogIndexClient({ initialPosts }: { initialPosts: BlogPost[] }) 
       </Section>
 
       <CtaBand
-        title="Ready to automate attendance & payroll?"
-        sub="Get started with AttendKH for your entire team at just $1 per employee."
-        cta="Book a Demo"
+        title={
+          isKm
+            ? "ត្រៀមខ្លួនស្វ័យប្រវត្តិកម្មវត្តមាន និងការបើកប្រាក់ខែហើយឬនៅ?"
+            : isZh
+            ? "准备好开启智能考勤与自动算薪了吗？"
+            : "Ready to automate attendance & payroll?"
+        }
+        sub={
+          isKm
+            ? "ចាប់ផ្តើមប្រើ AttendKH សម្រាប់ក្រុមការងាររបស់អ្នកត្រឹមតែ $1 ក្នុងមួយខែសម្រាប់បុគ្គលិកម្នាក់។"
+            : isZh
+            ? "每位员工仅需 1 美元/月，立即接入 AttendKH 全功能平台。"
+            : "Get started with AttendKH for your entire team at just $1 per employee."
+        }
+        cta={isKm ? "ណាត់ជួបបង្ហាញប្រព័ន្ធ" : isZh ? "预约系统演示" : "Book a Demo"}
         href="/contact"
       />
     </>
