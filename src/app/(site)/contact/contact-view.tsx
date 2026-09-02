@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Send,
   Mail,
@@ -22,11 +22,13 @@ import {
   Zap,
   Building2,
   Users,
-  MessageCircle,
-  HelpCircle,
+  Award,
+  BadgeCheck,
   Calendar,
   Layers,
   ArrowRight,
+  Headphones,
+  HelpCircle,
 } from "lucide-react";
 import { useSite } from "@/lib/i18n";
 import { PageHero, Section, DirectAnswerBlock, Reveal } from "@/components/site/ui";
@@ -37,9 +39,10 @@ export function ContactView() {
   const isZh = lang === "zh";
 
   const [copiedHandle, setCopiedHandle] = useState<string | null>(null);
+  const [selectedTopic, setSelectedTopic] = useState<number>(0);
 
   // Quick message composer state
-  const [topic, setTopic] = useState<"demo" | "pricing" | "technical" | "general">("demo");
+  const [composerTopic, setComposerTopic] = useState<"demo" | "pricing" | "technical" | "general">("demo");
   const [senderName, setSenderName] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [userNote, setUserNote] = useState("");
@@ -58,17 +61,17 @@ export function ContactView() {
         ? "ទំនាក់ទំនង & ជំនួយបច្ចេកទេស"
         : isZh
         ? "联系我们 • 实时沟通"
-        : "Contact & Support • Fast Direct Chat",
+        : "Direct Messaging • Fast Contact",
       title: isKm
-        ? "ទំនាក់ទំនងមកកាន់ក្រុមការងារ AttendKH"
+        ? "ទំនាក់ទំនងមកកាន់យើងខ្ញុំ"
         : isZh
         ? "联系 AttendKH 团队"
         : "Get in Touch with AttendKH",
       sub: isKm
         ? "មានចម្ងល់ ចង់សាកល្បងប្រព័ន្ធ ឬត្រូវការជំនួយបច្ចេកទេស? ទំនាក់ទំនងផ្ទាល់ជាមួយក្រុមការងារយើងខ្ញុំតាម Telegram អ៊ីមែល ឬទូរស័ព្ទ។"
         : isZh
-        ? "无论是产品演示预约、价格方案咨询还是技术支持，欢迎随时通过 Telegram、邮件或电话直接联系我们的团队。"
-        : "Have questions about AttendKH, want a live product walkthrough, or need technical onboarding? Message our leadership or technical team directly on Telegram, email, or phone.",
+        ? "无论是产品演示预约、价格方案咨询还是技术支持，欢迎随时通过 Telegram、邮件或电话直接联系我们。"
+        : "Have questions about AttendKH, want a live product walkthrough, or need custom enterprise pricing? Message our CEO directly on Telegram for immediate assistance.",
     },
     breadcrumbs: [
       { label: isKm ? "ទំព័រដើម" : isZh ? "首页" : "Home", href: "/" },
@@ -76,27 +79,70 @@ export function ContactView() {
     ],
   };
 
-  // Generate dynamic Telegram and Email URLs based on composer state
-  const getTopicLabel = () => {
-    if (topic === "demo") return isKm ? "កក់ការបង្ហាញផលិតផល (Book a Demo)" : isZh ? "预约产品演示 (Book a Demo)" : "Book a Product Demo";
-    if (topic === "pricing") return isKm ? "សាកសួរតម្លៃ & សាខា (Pricing Inquiry)" : isZh ? "价格与分店咨询 (Pricing Inquiry)" : "Pricing & Branches Inquiry";
-    if (topic === "technical") return isKm ? "ជំនួយបច្ចេកទេស & GPS (Technical Setup)" : isZh ? "技术支持与围栏配置 (Technical Setup)" : "Technical & GPS Setup";
-    return isKm ? "សំណួរទូទៅ (General Inquiry)" : isZh ? "通用业务咨询 (General Inquiry)" : "General Inquiry";
+  const ceoContactTopics = [
+    {
+      id: "demo",
+      title: isKm ? "កក់ការបង្ហាញប្រព័ន្ធ (Demo)" : isZh ? "预约 1对1 演示 (Demo)" : "Book 1-on-1 Product Demo",
+      desc: isKm ? "បង្ហាញគ្រប់មុខងារផ្ទាល់តាមតម្រូវការអាជីវកម្ម" : isZh ? "定制全流程功能演练与功能解答" : "Full feature walkthrough tailored to your team",
+      telegramMsg: "Hello Mr. Ong Phaly, I would like to schedule a 1-on-1 Product Demo for AttendKH.",
+      telegramMsgKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់កក់ការបង្ហាញផលិតផល (1-on-1 Product Demo) នៃ AttendKH។",
+      telegramMsgZh: "您好 Ong Phaly 先生，我想预约一次 AttendKH 的一对一产品演示。",
+    },
+    {
+      id: "pricing",
+      title: isKm ? "សាកសួរតម្លៃ & សាខា" : isZh ? "价格与分店定制报价" : "Pricing & Multi-Branch Quote",
+      desc: isKm ? "គម្រោងតម្លៃពិសេសសម្រាប់អាជីវកម្មច្រើនសាខា" : isZh ? "多门店结算方案与大客户批量报价" : "Custom pricing & terms for multi-branch teams",
+      telegramMsg: "Hello Mr. Ong Phaly, I would like to inquire about Pricing and Multi-Branch plans for our business.",
+      telegramMsgKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់សាកសួរអំពីគម្រោងតម្លៃ និងសាខាសម្រាប់អាជីវកម្មយើងខ្ញុំ។",
+      telegramMsgZh: "您好 Ong Phaly 先生，我想咨询多分店方案与企业定制报价。",
+    },
+    {
+      id: "labor-law",
+      title: isKm ? "ច្បាប់ការងារ & ប.ស.ស." : isZh ? "柬埔寨劳工法与社保支持" : "Labor Law & NSSF Formulas",
+      desc: isKm ? "ប្រឹក្សាយោបល់លើរូបមន្តប្រាក់ខែ និងម៉ោងបន្ថែម" : isZh ? "柬埔寨法定加班与 NSSF 社保合规咨询" : "Guidance on Cambodian overtime & NSSF rules",
+      telegramMsg: "Hello Mr. Ong Phaly, I would like to discuss Cambodian Labor Law & NSSF compliance in AttendKH.",
+      telegramMsgKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់ពិភាក្សាអំពីច្បាប់ការងារ និងរូបមន្ត ប.ស.ស. ក្នុង AttendKH។",
+      telegramMsgZh: "您好 Ong Phaly 先生，我想了解 AttendKH 如何支持柬埔寨劳工法与 NSSF 社保计算合规。",
+    },
+    {
+      id: "enterprise",
+      title: isKm ? "កិច្ចសន្យាសហគ្រាស & SLA" : isZh ? "企业级采购与 SLA" : "Enterprise Contracts & SLAs",
+      desc: isKm ? "កិច្ចព្រមព្រៀងសេវាកម្មកម្រិតខ្ពស់" : isZh ? "大客户专属服务协议与战略合作" : "Dedicated SLAs and commercial partnerships",
+      telegramMsg: "Hello Mr. Ong Phaly, I would like to discuss Enterprise SLA contracts and partnership opportunities.",
+      telegramMsgKm: "ជម្រាបសួរលោក អ៊ុង ផល្លី ខ្ញុំចង់ពិភាក្សាអំពីកិច្ចសន្យាសហគ្រាស SLA និងកិច្ចសហការ។",
+      telegramMsgZh: "您好 Ong Phaly 先生，我想咨询企业级采购协议与专属 SLA 合作。",
+    },
+  ];
+
+  const activeCeoTopic = ceoContactTopics[selectedTopic] || ceoContactTopics[0];
+  const activeCeoTelegramMsg = isKm
+    ? activeCeoTopic.telegramMsgKm
+    : isZh
+    ? activeCeoTopic.telegramMsgZh
+    : activeCeoTopic.telegramMsg;
+  const activeCeoTelegramUrl = `https://t.me/MPG_by_ongphaly?text=${encodeURIComponent(activeCeoTelegramMsg)}`;
+
+  // Composer helpers
+  const getComposerTopicLabel = () => {
+    if (composerTopic === "demo") return "Book a Product Demo";
+    if (composerTopic === "pricing") return "Pricing & Branches Inquiry";
+    if (composerTopic === "technical") return "Technical & GPS Setup";
+    return "General Inquiry";
   };
 
-  const targetTelegramHandle = topic === "technical" ? "ChhunsourSENG" : "MPG_by_ongphaly";
+  const composerTargetHandle = composerTopic === "technical" ? "ChhunsourSENG" : "MPG_by_ongphaly";
 
-  const composeMessageBody = () => {
-    let msg = `Hello AttendKH Team,\n\nI am reaching out regarding: ${getTopicLabel()}\n`;
+  const composeCustomMessage = () => {
+    let msg = `Hello AttendKH Team,\n\nInquiry Type: ${getComposerTopicLabel()}\n`;
     if (senderName.trim()) msg += `Name: ${senderName.trim()}\n`;
-    if (companyName.trim()) msg += `Company / Team: ${companyName.trim()}\n`;
-    if (userNote.trim()) msg += `Note: ${userNote.trim()}\n`;
-    msg += `\nSent via AttendKH Contact Page.`;
+    if (companyName.trim()) msg += `Company: ${companyName.trim()}\n`;
+    if (userNote.trim()) msg += `Message: ${userNote.trim()}\n`;
+    msg += `\nSent via AttendKH Contact Portal.`;
     return msg;
   };
 
-  const dynamicTelegramUrl = `https://t.me/${targetTelegramHandle}?text=${encodeURIComponent(composeMessageBody())}`;
-  const dynamicMailtoUrl = `mailto:support@attendkh.com?subject=${encodeURIComponent(`[AttendKH Inquiry] ${getTopicLabel()}`)}&body=${encodeURIComponent(composeMessageBody())}`;
+  const dynamicComposerTelegramUrl = `https://t.me/${composerTargetHandle}?text=${encodeURIComponent(composeCustomMessage())}`;
+  const dynamicComposerMailtoUrl = `mailto:support@attendkh.com?subject=${encodeURIComponent(`[AttendKH] ${getComposerTopicLabel()}`)}&body=${encodeURIComponent(composeCustomMessage())}`;
 
   const quickChannels = [
     {
@@ -147,222 +193,166 @@ export function ContactView() {
       />
 
       {/* -------------------------------------------------------------
-          1. DIRECT CONTACT TRACKS: SALES & TECHNICAL CHANNELS
+          1. PRIMARY HERO SPOTLIGHT: DIRECT CONTACT WITH CEO
       ------------------------------------------------------------- */}
       <Section tone="white">
         <div className="mx-auto max-w-[1240px]">
-          <div className="mx-auto max-w-3xl text-center mb-10 sm:mb-12">
-            <span className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-4 py-1.5 text-xs font-bold text-brand uppercase tracking-wider">
-              <Sparkles size={13} className="text-brand" />
-              <span>{isKm ? "ជម្រើសទំនាក់ទំនងផ្ទាល់" : isZh ? "直接沟通渠道" : "Direct Contact Options"}</span>
-            </span>
-            <h2 className="font-display mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
-              {isKm
-                ? "ជ្រើសរើសផ្នែកដែលអ្នកចង់ទំនាក់ទំនង"
-                : isZh
-                ? "根据您的需求，直接联系业务或技术负责人"
-                : "Choose the Department You Wish to Reach"}
-            </h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
-              {isKm
-                ? "ចុចលើប៊ូតុង Telegram ខាងក្រោមដើម្បីជជែកផ្ទាល់ភ្លាមៗ គ្មានការរង់ចាំយូរឡើយ។"
-                : isZh
-                ? "点击下方专属 Telegram 按钮，即可立即开启 1 对 1 实时对话。"
-                : "Connect with our team in seconds via direct Telegram messaging."}
-            </p>
-          </div>
+          <Reveal delay={0.05}>
+            <div className="relative rounded-[36px] border border-blue-200/90 bg-gradient-to-br from-white via-white to-blue-50/50 p-7 sm:p-11 lg:p-14 shadow-[0_25px_80px_rgba(0,82,255,0.08),0_1px_3px_rgba(0,0,0,0.02)] ring-1 ring-blue-500/10 overflow-hidden">
+              {/* Background ambient lighting */}
+              <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(0,82,255,0.12),transparent_70%)] blur-3xl pointer-events-none" />
 
-          <div className="grid gap-8 md:grid-cols-2">
-            {/* ----------------- TRACK A: SALES & EXECUTIVE (MR. ONG PHALY) ----------------- */}
-            <Reveal delay={0.05}>
-              <div className="relative h-full rounded-3xl border border-slate-200/90 bg-gradient-to-b from-white via-white to-blue-50/30 p-7 sm:p-9 shadow-sm hover:border-brand/40 hover:shadow-md transition-all flex flex-col justify-between">
-                <div>
-                  {/* Card Header: Category + Live Status */}
-                  <div className="flex items-center justify-between gap-3 pb-5 border-b border-slate-100">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft border border-blue-200/70 px-3 py-1 text-xs font-bold text-brand uppercase tracking-wider">
-                      <Briefcase size={13} />
-                      <span>{isKm ? "ផ្នែកអាជីវកម្ម & លក់" : isZh ? "商业合作与销售咨询" : "Sales & Inquiries"}</span>
-                    </span>
-
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-200/70 px-3 py-1 text-xs font-semibold shadow-2xs">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>Online</span>
-                    </span>
-                  </div>
-
-                  {/* Profile info with Avatar */}
-                  <div className="mt-6 flex items-center gap-4">
-                    <div className="relative h-18 w-18 sm:h-20 sm:w-20 rounded-2xl overflow-hidden border-2 border-brand/30 shadow-md bg-slate-900 shrink-0">
+              <div className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
+                {/* Left Column: Framed Portrait of Mr. Ong Phaly (5 cols) */}
+                <div className="lg:col-span-5 flex flex-col items-center sm:items-start">
+                  <div className="relative group">
+                    {/* Glowing outer backdrop */}
+                    <div className="absolute -inset-2 rounded-[32px] bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 opacity-25 blur-xl group-hover:opacity-40 transition-opacity duration-500" />
+                    
+                    {/* Main framed photo container */}
+                    <div className="relative h-72 w-72 sm:h-80 sm:w-80 rounded-[28px] overflow-hidden border-4 border-white shadow-2xl bg-slate-900">
                       <Image
                         src="/avatars/ong-phaly.png"
-                        alt="Mr. Ong Phaly - CEO & Sales Lead"
+                        alt="Mr. Ong Phaly - CEO & Head of Sales & Demos"
                         fill
-                        sizes="(max-width: 640px) 72px, 80px"
-                        className="object-cover object-top"
+                        sizes="(max-width: 640px) 288px, 320px"
+                        className="object-cover object-top scale-100 group-hover:scale-105 transition-transform duration-500"
                         priority
                       />
+                      
+                      {/* Vignette overlay */}
+                      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+                      
+                      {/* Name overlay on photo */}
+                      <div className="absolute bottom-4 left-4 right-4 text-white">
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-blue-300 tracking-wider uppercase">
+                          <BadgeCheck size={15} className="text-blue-400 fill-blue-400 text-white" />
+                          <span>{isKm ? "អគ្គនាយកប្រតិបត្តិ & ផ្នែកលក់" : isZh ? "创始人兼 CEO" : "CEO & Sales Lead"}</span>
+                        </div>
+                        <p className="font-display text-xl sm:text-2xl font-extrabold text-white drop-shadow-md">
+                          {isKm ? "លោក អ៊ុង ផល្លី" : isZh ? "Ong Phaly 先生" : "Mr. Ong Phaly"}
+                        </p>
+                      </div>
                     </div>
 
-                    <div>
-                      <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
-                        {isKm ? "អគ្គនាយកប្រតិបត្តិ (CEO)" : isZh ? "创始人兼 CEO" : "Chief Executive Officer"}
-                      </span>
-                      <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900">
-                        {isKm ? "លោក អ៊ុង ផល្លី (Ong Phaly)" : isZh ? "Ong Phaly 先生" : "Mr. Ong Phaly"}
-                      </h3>
-                      <p className="text-xs text-slate-500 font-mono mt-0.5">
-                        @MPG_by_ongphaly
-                      </p>
+                    {/* Direct Contact Badge */}
+                    <div className="absolute -top-3 -right-3 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-1.5 text-[11px] font-bold text-white shadow-lg border-2 border-white">
+                      <Zap size={13} className="text-amber-300 fill-amber-300" />
+                      <span>Direct Contact</span>
                     </div>
                   </div>
 
-                  {/* Best for tags */}
-                  <div className="mt-5 space-y-2">
-                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
-                      {isKm ? "ទាក់ទងសម្រាប់៖" : isZh ? "适合咨询的事项：" : "Best for:"}
+                  {/* Availability pill */}
+                  <div className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-white border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-800 shadow-xs">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
                     </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {(isKm
-                        ? ["កក់ការបង្ហាញប្រព័ន្ធ (Demo)", "សាកសួរតម្លៃ & កញ្ចប់សេវា", "កិច្ចសន្យាសហគ្រាស", "ភាពជាដៃគូ"]
-                        : isZh
-                        ? ["预约系统演示 (Demo)", "价格与多门店方案", "企业定制 SLA", "商业合作洽谈"]
-                        : ["1-on-1 Product Demos", "Pricing & Multi-Branch Quotes", "Enterprise Contracts", "Partnerships"]
-                      ).map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex items-center gap-1 rounded-xl bg-blue-500/10 text-brand border border-blue-200/70 px-2.5 py-1 text-xs font-semibold"
-                        >
-                          <Check size={12} strokeWidth={2.5} />
-                          <span>{tag}</span>
-                        </span>
-                      ))}
-                    </div>
+                    <span>{isKm ? "ឆ្លើយតបផ្ទាល់ក្នុងរយៈពេល ៥–១៥ នាទី" : isZh ? "Telegram 通常 5–15 分钟内极速回复" : "Direct response within 5–15 mins on Telegram"}</span>
                   </div>
                 </div>
 
-                {/* Direct Action Button */}
-                <div className="mt-7 pt-5 border-t border-slate-100 flex items-center gap-2.5">
-                  <a
-                    href="https://t.me/MPG_by_ongphaly"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#229ED9] hover:bg-[#1688bd] px-5 py-3.5 text-xs sm:text-sm font-bold text-white shadow-[0_4px_14px_rgba(34,158,217,0.3)] transition-all cursor-pointer"
-                  >
-                    <Send size={16} />
-                    <span>{isKm ? "ឆាតជាមួយផ្នែកលក់ (@MPG_by_ongphaly)" : isZh ? "联系销售负责人 (@MPG_by_ongphaly)" : "Chat for Sales (@MPG_by_ongphaly)"}</span>
-                    <ExternalLink size={13} className="opacity-80" />
-                  </a>
+                {/* Right Column: Inquiries, Topics & 1-Click Telegram Action (7 cols) */}
+                <div className="lg:col-span-7 space-y-6">
+                  <div>
+                    <div className="inline-flex items-center gap-2 rounded-full bg-brand-soft border border-blue-200/70 px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider mb-2.5">
+                      <Briefcase size={13} />
+                      <span>{isKm ? "ផ្នែកអាជីវកម្ម & សំណួរទូទៅ" : isZh ? "商业咨询 • 快速直达" : "Sales, Pricing & Demos"}</span>
+                    </div>
+                    
+                    <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                      {isKm ? "ជជែកផ្ទាល់ជាមួយលោក អ៊ុង ផល្លី" : isZh ? "直接联系 Ong Phaly 先生" : "Chat Directly with Mr. Ong Phaly"}
+                    </h2>
+                    
+                    <p className="text-sm sm:text-[15px] leading-relaxed text-slate-600 mt-2">
+                      {isKm
+                        ? "សម្រាប់សំណួរអំពីការបង្ហាញប្រព័ន្ធ (Demo) គម្រោងតម្លៃតាមសាខា ច្បាប់ការងារ និងកិច្ចសន្យាសហគ្រាស សូមចុចជ្រើសរើសប្រធានបទខាងក្រោមដើម្បីឆាតភ្លាមៗ។"
+                        : isZh
+                        ? "如需预约系统演示 (Demo)、咨询多门店价格方案、柬埔寨劳工法与社保合规或企业级采购协议，点击下方主题即可直接发起 Telegram 咨询。"
+                        : "For product walkthroughs, multi-branch quotes, labor law inquiries, or enterprise contracts, select a topic below to initiate an instant Telegram chat."}
+                    </p>
+                  </div>
 
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard("@MPG_by_ongphaly")}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200/90 bg-white hover:bg-slate-50 px-3.5 py-3.5 text-xs font-medium text-slate-700 transition-colors cursor-pointer"
-                    title="Copy Telegram handle"
-                  >
-                    {copiedHandle === "@MPG_by_ongphaly" ? (
-                      <CheckCircle2 size={15} className="text-emerald-600" />
-                    ) : (
-                      <Copy size={15} />
-                    )}
-                  </button>
+                  {/* 4 Clickable Topic Cards */}
+                  <div>
+                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2.5">
+                      {isKm ? "ជ្រើសរើសប្រធានបទដើម្បីឆាតភ្លាមៗ៖" : isZh ? "点击选择咨询主题：" : "Select consultation topic:"}
+                    </span>
+
+                    <div className="grid sm:grid-cols-2 gap-2.5">
+                      {ceoContactTopics.map((item, idx) => {
+                        const isSelected = selectedTopic === idx;
+                        return (
+                          <button
+                            key={item.id}
+                            type="button"
+                            onClick={() => setSelectedTopic(idx)}
+                            className={`text-left rounded-2xl border p-3.5 transition-all duration-200 cursor-pointer relative overflow-hidden ${
+                              isSelected
+                                ? "border-brand bg-blue-50/80 shadow-sm ring-2 ring-brand/20 scale-[1.01]"
+                                : "border-slate-200/80 bg-white hover:border-slate-300 hover:bg-slate-50/50"
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-2">
+                              <span className={`font-display text-xs font-bold leading-snug ${isSelected ? "text-brand" : "text-slate-900"}`}>
+                                {item.title}
+                              </span>
+                              {isSelected ? (
+                                <CheckCircle2 size={15} className="text-brand shrink-0" />
+                              ) : (
+                                <span className="h-3.5 w-3.5 rounded-full border border-slate-300 shrink-0" />
+                              )}
+                            </div>
+                            <p className="mt-1 text-[11px] leading-snug text-slate-500 line-clamp-1">
+                              {item.desc}
+                            </p>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Main Action Buttons */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <a
+                      href={activeCeoTelegramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#229ED9] to-[#0088cc] hover:from-[#1a8bc2] hover:to-[#0077b3] px-7 py-4 text-sm sm:text-base font-bold text-white shadow-[0_8px_25px_rgba(34,158,217,0.38)] hover:shadow-[0_12px_32px_rgba(34,158,217,0.48)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
+                    >
+                      <Send size={19} className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      <span>{isKm ? "ឆាតជាមួយ CEO តាម Telegram" : isZh ? "联系 CEO 咨询 (@MPG_by_ongphaly)" : "Chat with CEO on Telegram"}</span>
+                      <ExternalLink size={15} className="opacity-80" />
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard("@MPG_by_ongphaly")}
+                      className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200/90 bg-white hover:bg-slate-50 px-5 py-4 text-xs sm:text-sm font-bold text-slate-700 shadow-2xs transition-colors cursor-pointer"
+                      title={isKm ? "ចម្លង Telegram handle" : "Copy Telegram handle"}
+                    >
+                      {copiedHandle === "@MPG_by_ongphaly" ? (
+                        <>
+                          <CheckCircle2 size={16} className="text-emerald-600" />
+                          <span className="text-emerald-600 font-bold">{isKm ? "បានចម្លង!" : "Copied!"}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={16} />
+                          <span>@MPG_by_ongphaly</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </Reveal>
-
-            {/* ----------------- TRACK B: TECHNICAL & SUPPORT (CHHUNSOUR SENG) ----------------- */}
-            <Reveal delay={0.1}>
-              <div className="relative h-full rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-9 shadow-sm hover:border-slate-300 transition-all flex flex-col justify-between">
-                <div>
-                  {/* Card Header: Category + Live Status */}
-                  <div className="flex items-center justify-between gap-3 pb-5 border-b border-slate-100">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 border border-slate-200 px-3 py-1 text-xs font-bold text-slate-700 uppercase tracking-wider">
-                      <Code2 size={13} />
-                      <span>{isKm ? "ផ្នែកបច្ចេកទេស & ដំឡើង" : isZh ? "技术支持与系统对接" : "Technical & Setup"}</span>
-                    </span>
-
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-xs font-semibold">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>Online</span>
-                    </span>
-                  </div>
-
-                  {/* Profile info with Clean Terminal icon */}
-                  <div className="mt-6 flex items-center gap-4">
-                    <div className="flex h-18 w-18 sm:h-20 sm:w-20 items-center justify-center rounded-2xl bg-slate-900 text-emerald-400 font-mono shadow-md shrink-0">
-                      <Terminal size={30} />
-                    </div>
-
-                    <div>
-                      <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
-                        {isKm ? "ប្រធានផ្នែកបច្ចេកទេស" : isZh ? "技术负责人 (Technical Lead)" : "Technical Lead"}
-                      </span>
-                      <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900">
-                        Chhunsour Seng
-                      </h3>
-                      <p className="text-xs text-slate-500 font-mono mt-0.5">
-                        @ChhunsourSENG
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Best for tags */}
-                  <div className="mt-5 space-y-2">
-                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
-                      {isKm ? "ទាក់ទងសម្រាប់៖" : isZh ? "适合咨询的事项：" : "Best for:"}
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {(isKm
-                        ? ["ការដំឡើង GPS Geofencing", "ម៉ាស៊ីនប្រាក់ខែ & ប.ស.ស.", "តភ្ជាប់ Telegram Bot", "ជំនួយ API"]
-                        : isZh
-                        ? ["GPS 电子围栏校准", "柬埔寨双币种算薪规则", "Telegram 机器人与通知", "API 与系统对接"]
-                        : ["GPS Geofencing Setup", "Payroll & NSSF Logic", "Telegram Bot Integration", "API Assistance"]
-                      ).map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex items-center gap-1 rounded-xl bg-slate-100/90 border border-slate-200/70 px-2.5 py-1 text-xs font-medium text-slate-700"
-                        >
-                          <Code2 size={11} className="text-slate-500" />
-                          <span>{tag}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Direct Action Button */}
-                <div className="mt-7 pt-5 border-t border-slate-100 flex items-center gap-2.5">
-                  <a
-                    href="https://t.me/ChhunsourSENG"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 px-5 py-3.5 text-xs sm:text-sm font-bold text-white shadow-xs transition-colors cursor-pointer"
-                  >
-                    <Send size={15} />
-                    <span>{isKm ? "ឆាតជាមួយផ្នែកបច្ចេកទេស (@ChhunsourSENG)" : isZh ? "联系技术负责人 (@ChhunsourSENG)" : "Chat for Tech (@ChhunsourSENG)"}</span>
-                    <ExternalLink size={13} className="opacity-80" />
-                  </a>
-
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard("@ChhunsourSENG")}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200/90 bg-white hover:bg-slate-50 px-3.5 py-3.5 text-xs font-medium text-slate-700 transition-colors cursor-pointer"
-                    title="Copy Telegram handle"
-                  >
-                    {copiedHandle === "@ChhunsourSENG" ? (
-                      <CheckCircle2 size={15} className="text-emerald-600" />
-                    ) : (
-                      <Copy size={15} />
-                    )}
-                  </button>
-                </div>
-              </div>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
         </div>
       </Section>
 
       {/* -------------------------------------------------------------
-          2. INTERACTIVE QUICK MESSAGE DISPATCHER (NO BACKEND NEEDED)
+          2. QUICK MESSAGE COMPOSER (INSTANT DISPATCH)
       ------------------------------------------------------------- */}
       <Section tone="mist">
         <div className="mx-auto max-w-[1240px]">
@@ -395,13 +385,13 @@ export function ContactView() {
                 { id: "technical", label: isKm ? "ជំនួយបច្ចេកទេស (Tech)" : isZh ? "技术支持 (Technical)" : "Technical Help", icon: Code2 },
                 { id: "general", label: isKm ? "សំណួរទូទៅ (General)" : isZh ? "其他咨询 (General)" : "General Inquiry", icon: HelpCircle },
               ].map((item) => {
-                const isSelected = topic === item.id;
+                const isSelected = composerTopic === item.id;
                 const Icon = item.icon;
                 return (
                   <button
                     key={item.id}
                     type="button"
-                    onClick={() => setTopic(item.id as any)}
+                    onClick={() => setComposerTopic(item.id as any)}
                     className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                       isSelected
                         ? "bg-brand text-white shadow-xs"
@@ -461,7 +451,7 @@ export function ContactView() {
               {/* Action buttons */}
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <a
-                  href={dynamicTelegramUrl}
+                  href={dynamicComposerTelegramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#229ED9] hover:bg-[#1688bd] px-6 py-3.5 text-sm font-bold text-white shadow-[0_4px_14px_rgba(34,158,217,0.3)] transition-all cursor-pointer group"
@@ -472,7 +462,7 @@ export function ContactView() {
                 </a>
 
                 <a
-                  href={dynamicMailtoUrl}
+                  href={dynamicComposerMailtoUrl}
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/90 bg-white hover:bg-slate-50 px-6 py-3.5 text-sm font-semibold text-slate-700 shadow-2xs transition-colors cursor-pointer"
                 >
                   <Mail size={16} />
@@ -485,9 +475,68 @@ export function ContactView() {
       </Section>
 
       {/* -------------------------------------------------------------
-          3. OFFICIAL CHANNELS & HEADQUARTERS DIRECTORY
+          3. COMPACT TECHNICAL LEAD & ONBOARDING STRIP (AT BOTTOM)
       ------------------------------------------------------------- */}
       <Section tone="white">
+        <div className="mx-auto max-w-[1240px]">
+          <Reveal delay={0.08}>
+            <div className="rounded-2xl border border-slate-200/90 bg-slate-50/80 p-5 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-2xs">
+              <div className="flex items-center gap-4">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-900 text-emerald-400 font-mono shadow-xs shrink-0">
+                  <Terminal size={20} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-display text-sm sm:text-base font-bold text-slate-900">
+                      Chhunsour Seng
+                    </span>
+                    <span className="font-mono text-[10.5px] font-bold text-slate-500 bg-slate-200/70 px-2 py-0.5 rounded-md">
+                      Technical Lead
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-0.5 max-w-xl">
+                    {isKm
+                      ? "ជំនួយបច្ចេកទេសលើការដំឡើង GPS Geofencing ការកំណត់ច្បាប់ប្រាក់ខែកម្ពុជា ការតភ្ជាប់ Telegram Bot និង API។"
+                      : isZh
+                      ? "负责 GPS 电子围栏校准、柬埔寨双币种算薪公式配置、Telegram 机器人告警与 API 对接支持。"
+                      : "Need developer help with GPS geofencing calibration, Cambodian payroll formula setup, Telegram bot alerts, or API integrations?"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 self-stretch sm:self-auto shrink-0">
+                <a
+                  href="https://t.me/ChhunsourSENG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 hover:bg-slate-800 px-4 py-2.5 text-xs font-bold text-white transition-colors cursor-pointer"
+                >
+                  <Send size={13} />
+                  <span>{isKm ? "ឆាតជាមួយ Tech Lead (@ChhunsourSENG)" : isZh ? "联系技术负责人 (@ChhunsourSENG)" : "Message Tech Lead (@ChhunsourSENG)"}</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard("@ChhunsourSENG")}
+                  className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2.5 text-xs font-medium text-slate-700 transition-colors cursor-pointer"
+                  title="Copy handle"
+                >
+                  {copiedHandle === "@ChhunsourSENG" ? (
+                    <CheckCircle2 size={14} className="text-emerald-600" />
+                  ) : (
+                    <Copy size={14} />
+                  )}
+                </button>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* -------------------------------------------------------------
+          4. OFFICIAL CHANNELS & HEADQUARTERS DIRECTORY
+      ------------------------------------------------------------- */}
+      <Section tone="mist">
         <div className="mx-auto max-w-[1240px]">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-brand">
@@ -576,9 +625,9 @@ export function ContactView() {
       </Section>
 
       {/* -------------------------------------------------------------
-          4. DIRECT ANSWER BLOCK FOR SEO & SEARCH ENGINES
+          5. DIRECT ANSWER BLOCK FOR SEO & SEARCH ENGINES
       ------------------------------------------------------------- */}
-      <Section tone="mist">
+      <Section tone="white">
         <div className="mx-auto max-w-[1240px]">
           <DirectAnswerBlock
             question={
