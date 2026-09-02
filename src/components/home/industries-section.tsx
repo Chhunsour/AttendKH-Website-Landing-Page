@@ -171,30 +171,24 @@ export function IndustriesSection() {
             </p>
           </Rise>
 
-          {/* Minimalist Prev/Next Arrow Controls with Index Counter */}
-          <Rise delay={0.06} className="flex items-center gap-3 shrink-0 self-end md:self-auto">
-            <span className="font-mono text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full">
-              {String(activeIndex + 1).padStart(2, "0")} / {String(ind.items.length).padStart(2, "0")}
-            </span>
-
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={handlePrev}
-                aria-label="Previous industry"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-xs transition-colors hover:border-[#0052FF] hover:text-[#0052FF] active:scale-95 cursor-pointer"
-              >
-                <ChevronLeft size={16} />
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                aria-label="Next industry"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-xs transition-colors hover:border-[#0052FF] hover:text-[#0052FF] active:scale-95 cursor-pointer"
-              >
-                <ChevronRight size={16} />
-              </button>
-            </div>
+          {/* Minimalist Prev/Next Arrow Controls */}
+          <Rise delay={0.06} className="flex items-center gap-1.5 shrink-0 self-end md:self-auto">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous industry"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-xs transition-colors hover:border-[#0052FF] hover:text-[#0052FF] active:scale-95 cursor-pointer"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next industry"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-xs transition-colors hover:border-[#0052FF] hover:text-[#0052FF] active:scale-95 cursor-pointer"
+            >
+              <ChevronRight size={16} />
+            </button>
           </Rise>
         </div>
 
@@ -329,13 +323,10 @@ export function IndustriesSection() {
 
                     {/* Content inside the card */}
                     <div className="absolute inset-x-0 bottom-0 p-3 text-white">
-                      <div className="flex items-center gap-1.5 mb-1">
+                      <div className="flex items-center gap-1.5 mb-1.5">
                         <div className="flex h-5 w-5 items-center justify-center rounded-md bg-white/20 backdrop-blur-xs text-white">
-                          <Icon size={11} />
+                          <Icon size={12} />
                         </div>
-                        <span className="font-mono text-[10px] text-blue-300 font-bold uppercase tracking-wider">
-                          0{idx + 1}
-                        </span>
                       </div>
                       <p className="font-display text-xs sm:text-[13px] font-bold text-white leading-snug line-clamp-1 drop-shadow-xs">
                         {item.name}
