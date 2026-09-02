@@ -6,7 +6,6 @@ import { useSite } from "@/lib/i18n";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
 import type { LegalDocument } from "@/lib/site-content";
-import { OpenCookieSettingsButton } from "@/components/site/cookie-banner";
 import {
   ReadingProgressBar,
   PrivacySearchInput,
@@ -453,24 +452,7 @@ export function LegalView({
           </div>
         )}
 
-        {/* Cookie Management Box (Cookies Page) */}
-        {page === "cookies" && (
-          <div className="mb-10 rounded-2xl border border-blue-200 bg-brand-soft/30 p-6 print:hidden">
-            <h3 className="font-display text-base font-bold text-ink">
-              {isKm ? "គ្រប់គ្រងការយល់ព្រម Cookie របស់អ្នក" : isZh ? "管理您的 Cookie 偏好设置" : "Manage Your Cookie Preferences"}
-            </h3>
-            <p className="mt-1 text-xs text-body">
-              {isKm
-                ? "អ្នកអាចបើក ឬបិទ Cookie វិភាគទិន្នន័យបានគ្រប់ពេលវេលា"
-                : isZh
-                ? "您可以随时修改可选性能与数据分析 Cookie 的授权设置。"
-                : "You can modify your consent settings for optional performance and analytics cookies at any time."}
-            </p>
-            <div className="mt-4">
-              <OpenCookieSettingsButton className="rounded-xl bg-brand px-5 py-2.5 text-xs font-semibold text-white hover:bg-brand-dark transition-colors cursor-pointer" />
-            </div>
-          </div>
-        )}
+
 
         {/* 2-Column Desktop Grid with Sticky Table of Contents & Search */}
         {legalDoc ? (

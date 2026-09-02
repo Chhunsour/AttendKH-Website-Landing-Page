@@ -9,7 +9,6 @@ import {
 } from "next/font/google";
 import { Providers } from "@/lib/i18n";
 import { AnalyticsTracker } from "@/components/site/analytics-tracker";
-import { CookieBanner } from "@/components/site/cookie-banner";
 import { MotionConfig } from "framer-motion";
 import { absoluteUrl, SITE_URL, SOCIAL_IMAGE_PATH } from "@/lib/site";
 import "./globals.css";
@@ -95,7 +94,6 @@ export default function RootLayout({
               <AnalyticsTracker />
             </Suspense>
             {children}
-            <CookieBanner />
           </Providers>
         </MotionConfig>
       </body>
