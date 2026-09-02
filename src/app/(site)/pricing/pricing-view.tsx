@@ -31,6 +31,14 @@ import {
   Reveal,
   CtaBand,
 } from "@/components/site/ui";
+import {
+  BakongLogo,
+  AbaBankLogo,
+  AcledaBankLogo,
+  CanadiaBankLogo,
+  WingBankLogo,
+  CorporateTransferLogo,
+} from "@/components/site/bank-logos";
 
 const DEFAULT_ANNUAL_FACTOR = 10 / 12; // 2 months free
 
@@ -42,6 +50,7 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
   const c = useCopy();
   const { currency, setCurrency, lang, exchangeRate, publicSettings } = useSite();
   const isKm = lang === "km";
+  const isZh = lang === "zh";
 
   const [annual, setAnnual] = useState(false);
   const [calcUsers, setCalcUsers] = useState<number>(50);
@@ -55,17 +64,6 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
   const monthlyRateUsd = formatUSD(unitRateMonthly, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const monthlyRateKhr = formatKHR(usdToKhr(unitRateMonthly, exchangeRate));
   const annualRateUsd = formatUSD(unitRateAnnual, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-  const planFeatures: string[] = primaryPlan?.features?.length
-    ? primaryPlan.features
-    : [
-        "GPS attendance & geofenced radius",
-        "Live selfie verification",
-        "Leave tracking & balances",
-        "Mobile app for iOS & Android",
-        "Basic attendance reports",
-        "Telegram notifications",
-      ];
 
   const formatUnitRate = () => {
     return currency === "KHR"
@@ -86,82 +84,164 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
   const allIncludedFeatures = [
     {
       icon: ShieldCheck,
-      title: isKm ? "វត្តមាន GPS Geofence & Selfie" : "50–200m GPS Geofence & Live Selfie",
+      title: isKm
+        ? "វត្តមាន GPS Geofence & Selfie"
+        : isZh
+        ? "50–200m GPS 围栏与真人自拍打卡"
+        : "50–200m GPS Geofence & Live Selfie",
       desc: isKm
         ? "កំណត់កូអរដោនេសាខា ៥០–២០០ម រារាំង Mock GPS និងផ្ទៀងផ្ទាត់រូបថតផ្ទាល់រាល់ការចុះវត្តមាន។"
+        : isZh
+        ? "精准定位门市半径，底层拦截虚拟定位作弊，打卡同时附带真人自拍。"
         : "Precise branch pinpoints, anti-mock GPS defense, and live snapshot verification on every punch.",
     },
     {
       icon: Coins,
-      title: isKm ? "ប្រាក់ខែស្វ័យប្រវត្តិ ដុល្លារ ($) និងរៀល (៛)" : "Automated Dual-Currency Payroll ($ / ៛)",
+      title: isKm
+        ? "ប្រាក់ខែស្វ័យប្រវត្តិ ដុល្លារ ($) និងរៀល (៛)"
+        : isZh
+        ? "美元与柬币双币自动化算薪引擎"
+        : "Automated Dual-Currency Payroll ($ / ៛)",
       desc: isKm
         ? "គណនាកិច្ចសន្យាជា USD ឬ KHR ដោយឥតលម្អៀង និងចេញប័ណ្ណបើកប្រាក់ខែ PDF ពីរភាសាលើទូរស័ព្ទ។"
+        : isZh
+        ? "灵活支持美元与柬币合同，自动依据官方汇率结算并生成双语电子工资条。"
         : "Contract calculations in USD or KHR with real-time conversion and bilingual digital mobile payslips.",
     },
     {
       icon: FileCheck,
-      title: isKm ? "ច្បាប់ការងារកម្ពុជា & ប.ស.ស." : "Labor Law Overtime (1.5× / 2.0×) & NSSF",
+      title: isKm
+        ? "ច្បាប់ការងារ & របាយការណ៍ ប.ស.ស."
+        : isZh
+        ? "柬埔寨劳工法加班规则与 NSSF 导出"
+        : "Labor Law Overtime & NSSF Reports",
       desc: isKm
-        ? "មេគុណម៉ោងបន្ថែម ១.៥x និង ២.០x ថ្ងៃបុណ្យជាតិ រយៈពេលអនុគ្រោះ និងវិភាគទាន ប.ស.ស. ស្វ័យប្រវត្តិ។"
-        : "1.5× regular OT, 2.0× public holiday rates, 15-min grace periods, and statutory NSSF deductions.",
+        ? "អនុវត្តរូបមន្តម៉ោងបន្ថែម ១.៥x និង ២.០x ស្វ័យប្រវត្តិ រួមទាំងការនាំចេញទិន្នន័យស្របតាមទម្រង់ ប.ស.ស.។"
+        : isZh
+        ? "内置法定1.5倍平日与2.0倍节日加班公式，一键导出合规 NSSF 社保申报报表。"
+        : "Built-in statutory 1.5x regular and 2.0x holiday multipliers with 1-click NSSF-ready exports.",
     },
     {
       icon: Building,
-      title: isKm ? "គ្រប់គ្រងច្រើនសាខា គ្មានដែនកំណត់" : "Unlimited Multi-Branch Console",
+      title: isKm
+        ? "គ្រប់គ្រងច្រើនសាខា គ្មានដែនកំណត់"
+        : isZh
+        ? "无限多分店接入与四级角色权限"
+        : "Unlimited Branch Network & 4 Tiers",
       desc: isKm
-        ? "គ្រប់គ្រងទីតាំង និងហាងទាំងអស់ពីផ្ទាំងតែមួយ គ្មានការគិតប្រាក់បន្ថែមតាមចំនួនសាខាឡើយ។"
-        : "Oversee all shops and outlets from a single unified console with zero per-branch surcharges.",
+        ? "បង្កើតសាខាបានគ្មានដែនកំណត់ ជាមួយការបែងចែកសិទ្ធិ ៤ កម្រិត ចាប់ពី Owner រហូតដល់បុគ្គលិក។"
+        : isZh
+        ? "支持全国无限门店接入，提供老板、HR、店长及员工4级精细化权限隔离。"
+        : "Add unlimited physical outlets across Cambodia with 4-tier Role-Based Access Control.",
     },
     {
-      icon: Radio,
-      title: isKm ? "សមកាលកម្ម Cloud ភ្លាមៗ & QR Kiosk" : "Real-Time Cloud Sync & QR Kiosk",
+      icon: Zap,
+      title: isKm
+        ? "ដំណើរការ Offline & Sync ស្វ័យប្រវត្តិ"
+        : isZh
+        ? "弱网离线打卡与静默数据同步"
+        : "Offline Queue & Silent Cloud Sync",
       desc: isKm
-        ? "ទិន្នន័យវត្តមានធ្វើសមកាលកម្មភ្លាមៗ និងគាំទ្រថេប្លេតរួម QR Kiosk នៅមាត់ទ្វារសាខា។"
-        : "Instant live punch synchronization with shared QR tablet kiosk support at branch doors.",
+        ? "បុគ្គលិកអាចចុះវត្តមានបានទោះបីជាគ្មានអ៊ីនធឺណិត ហើយប្រព័ន្ធនឹង sync ដោយស្វ័យប្រវត្តិពេលមានសេវា។"
+        : isZh
+        ? "施工现场或地库断网亦可正常自拍打卡，恢复网络后自动加密同步至云端。"
+        : "Frontline teams clock in without cellular data; encrypted timestamps sync silently once reconnected.",
     },
     {
       icon: Send,
-      title: isKm ? "ជំនួយផ្ទាល់ជាភាសាខ្មែរនៅភ្នំពេញ" : "Local Phnom Penh Support via Telegram",
+      title: isKm
+        ? "ដំណឹង Telegram & សេវាគាំទ្រផ្ទាល់"
+        : isZh
+        ? "Telegram 智能预警与金边专属支持"
+        : "Telegram Alerts & Direct Phnom Penh Support",
       desc: isKm
-        ? "សេវាគាំទ្រទាន់ពេលតាម Telegram @attendkh និងទូរស័ព្ទក្នុងម៉ោងធ្វើការកម្ពុជា។"
-        : "Instant direct assistance via Telegram (@attendkh) and phone from our team in Phnom Penh.",
+        ? "ផ្ញើសារជូនដំណឹងពេលបុគ្គលិកយឺតតាម Telegram Bot ជាមួយក្រុមការងារគាំទ្រផ្ទាល់នៅភ្នំពេញ។"
+        : isZh
+        ? "缺勤迟到即刻触发 Telegram Bot 预警通知，金边技术顾问随时响应解答。"
+        : "Instant Telegram bot alerts on late punches, backed by our dedicated support team in Phnom Penh.",
     },
   ];
 
   const paymentMethods = [
-    { name: "Bakong KHQR", tag: isKm ? "ស្កេនទូទាត់រហ័ស" : "Instant National QR" },
-    { name: "ABA PAY", tag: isKm ? "ផ្ទេរប្រាក់ផ្ទាល់" : "ABA Bank Direct" },
-    { name: "ACLEDA Corporate", tag: isKm ? "គណនីក្រុមហ៊ុន" : "ACLEDA Bank Transfer" },
-    { name: "Wing Bank", tag: isKm ? "ទូទាត់ទូទាំងប្រទេស" : "Wing Cash & Account" },
-    { name: "Canadia Bank", tag: isKm ? "ផ្ទេរប្រាក់ក្នុងស្រុក" : "Corporate Billing" },
-    { name: "Corporate Invoice", tag: isKm ? "វិក្កយបត្រផ្លូវការ" : "Official Tax Invoice" },
-  ];
-
-  const pricingFaqs = [
     {
-      q: isKm
-        ? `តើពិតជាត្រឹមតែ ${monthlyRateUsd} ក្នុងម្នាក់/ខែ មែនទេ? តើមានថ្លៃលាក់កំបាំងទេ?`
-        : `Is it really just ${monthlyRateUsd} per employee per month? Are there any hidden fees?`,
-      a: isKm
-        ? `ពិតប្រាកដណាស់! AttendKH គិតតម្លៃត្រឹមតែ ${monthlyRateUsd} ក្នុងម្នាក់/ខែ ដោយរួមបញ្ចូលគ្រប់មុខងារទាំងអស់ (វត្តមាន GPS សេលហ្វី ប្រាក់ខែទ្វេប្រាក់ ច្បាប់ការងារ និងការគ្រប់គ្រងច្រើនសាខា) ដោយគ្មានថ្លៃដំឡើង និងគ្មានថ្លៃពិន័យតាមសាខាឡើយ។`
-        : `Yes, exactly ${monthlyRateUsd} per active employee per month with all features included (GPS geofencing, live selfies, dual-currency payroll, NSSF formulas, and unlimited branches). No setup fees, no feature gates, and no per-branch surcharges.`,
+      name: "Bakong KHQR",
+      tag: "National Bank of Cambodia",
+      logo: BakongLogo,
     },
     {
-      q: isKm ? "តើខ្ញុំអាចទូទាត់ជាប្រាក់រៀល (KHR) បានទេ?" : "Can our company pay in Cambodian Riel (KHR)?",
+      name: "ABA Bank",
+      tag: "PayWay / KHQR",
+      logo: AbaBankLogo,
+    },
+    {
+      name: "ACLEDA Bank",
+      tag: "ToanChet / QR",
+      logo: AcledaBankLogo,
+    },
+    {
+      name: "Canadia Bank",
+      tag: "Direct Settlement",
+      logo: CanadiaBankLogo,
+    },
+    {
+      name: "Wing Bank",
+      tag: "Enterprise Payroll",
+      logo: WingBankLogo,
+    },
+    {
+      name: "Corporate Transfer",
+      tag: "Official Bank Invoice",
+      logo: CorporateTransferLogo,
+    },
+  ];
+
+  const faqs = [
+    {
+      q: isKm
+        ? "តើមានការគិតថ្លៃដំឡើង ឬថ្លៃលាក់កំបាំងផ្សេងទៀតទេ?"
+        : isZh
+        ? "系统是否有任何初装费、硬件费或隐藏收费？"
+        : "Are there any setup fees, hardware purchases, or hidden charges?",
+      a: isKm
+        ? "គ្មានដាច់ខាត។ AttendKH ដំណើរការលើទូរស័ព្ទដៃរបស់បុគ្គលិក (iOS & Android) ឬថេប្លេត QR Kiosk ដែលមានស្រាប់។ គ្មានថ្លៃដំឡើង និងគ្មានកិច្ចសន្យាចងភ្ជាប់ឡើយ។"
+        : isZh
+        ? "完全没有。AttendKH 纯云端运行，员工直接使用自有 iOS/Android 手机或门市既有平板打卡，无需购买昂贵的考勤机，无任何初装费。"
+        : "Zero. AttendKH runs entirely on employee smartphones (iOS & Android) and existing tablet kiosks. There is no hardware to buy, no installation fees, and no annual lock-in.",
+    },
+    {
+      q: isKm
+        ? "តើខ្ញុំអាចទូទាត់ជាប្រាក់រៀល (KHR) បានទេ?"
+        : isZh
+        ? "企业是否可以使用柬币瑞尔 (KHR) 进行账单结算？"
+        : "Can our company pay in Cambodian Riel (KHR)?",
       a: isKm
         ? "បាន។ យើងគាំទ្រការទូទាត់ទាំងប្រាក់ដុល្លារអាមេរិក ($) និងប្រាក់រៀល (៛) តាមរយៈ Bakong KHQR, ABA, ACLEDA ឬវិក្កយបត្រផ្លូវការ។"
+        : isZh
+        ? "完全支持。支持通过 Bakong KHQR、ABA、ACLEDA 或银行公账电汇，以美元或柬币等额结算并开具正式商业发票。"
         : "Yes. Invoices can be settled in either USD ($) or KHR (៛) via Bakong KHQR, ABA Bank, ACLEDA, or corporate bank transfer.",
     },
     {
-      q: isKm ? "ចុះប្រសិនបើក្រុមហ៊ុនយើងមានច្រើនសាខា?" : "What if our business operates across 10 or 20 branches?",
+      q: isKm
+        ? "ចុះប្រសិនបើក្រុមហ៊ុនយើងមានច្រើនសាខា?"
+        : isZh
+        ? "如果企业旗下拥有 10 家或 20 家以上分店，如何计费？"
+        : "What if our business operates across 10 or 20 branches?",
       a: isKm
         ? `អ្នកអាចបន្ថែមសាខាបានដោយសេរី គ្មានដែនកំណត់! យើងគិតតែលើចំនួនបុគ្គលិកសរុបប៉ុណ្ណោះ។ ឧទាហរណ៍៖ បើអ្នកមាន ៥ សាខា សរុប ២៥ នាក់ នោះថ្លៃសេវាគឺ ${formatUSD(unitRateMonthly * 25)}/ខែ។`
+        : isZh
+        ? `分店数量完全不限！系统按全公司实际活跃员工总数计费。例如：5家分店共计25人，月费仅为 ${formatUSD(unitRateMonthly * 25)}/月。`
         : `You can add as many physical branches as you need with zero extra branch fees. Pricing is strictly based on total active headcount. For example, 5 branches with 25 total staff is simply ${formatUSD(unitRateMonthly * 25)}/month.`,
     },
     {
-      q: isKm ? `តើការគិតប្រាក់ ${monthlyRateUsd} ដំណើរការយ៉ាងដូចម្តេច?` : `How does the ${monthlyRateUsd} per user pricing work?`,
+      q: isKm
+        ? `តើការគិតប្រាក់ ${monthlyRateUsd} ដំណើរការយ៉ាងដូចម្តេច?`
+        : isZh
+        ? `每人每月 ${monthlyRateUsd} 的计费规则是怎样的？`
+        : `How does the ${monthlyRateUsd} per user pricing work?`,
       a: isKm
         ? `អ្នកបង់ត្រឹមតែ ${monthlyRateUsd} ក្នុងមួយបុគ្គលិកសកម្មក្នុងមួយខែ។ គ្មានថ្លៃដំឡើង គ្មានកិច្ចសន្យាចងភ្ជាប់ និងគ្មានការគិតប្រាក់បន្ថែមតាមសាខាឡើយ។`
+        : isZh
+        ? `按月度实际激活的在岗人数结算，每人每月仅需 ${monthlyRateUsd}。员工离职即可随时停用，次月不再计费。`
         : `You only pay ${monthlyRateUsd} per active employee per month. There are zero setup fees, no lock-in contracts, and zero per-branch surcharges.`,
     },
   ];
@@ -169,17 +249,21 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
   return (
     <div className="w-full bg-paper text-ink">
       {/* -------------------------------------------------------------
-          1. UNIFIED PAGE HERO
+          1. PAGE HERO
       ------------------------------------------------------------- */}
       <PageHero
         title={
           isKm
             ? `តម្លៃសាមញ្ញ និងតម្លាភាព៖ ${monthlyRateUsd} ក្នុងម្នាក់`
+            : isZh
+            ? `透明定价：每位员工仅需 ${monthlyRateUsd} / 月`
             : "Simple, transparent pricing for every employee."
         }
         sub={
           isKm
             ? "រួមបញ្ចូលគ្រប់មុខងារទាំងអស់។ គ្មានថ្លៃដំឡើង គ្មានថ្លៃបន្ថែមតាមសាខា។"
+            : isZh
+            ? "全功能一揽子解锁，无初装费、无门店费、无功能等级限制。"
             : "Every feature included. No setup fees, no tiers, and no per-branch surcharges."
         }
       />
@@ -188,7 +272,7 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
           2. THE ALL-INCLUSIVE PLAN SHOWCASE & LIVE ESTIMATOR
       ------------------------------------------------------------- */}
       <Section tone="white">
-        <div className="mx-auto max-w-[1160px]">
+        <div className="mx-auto max-w-[1120px]">
           {/* Controls Bar: Billing Frequency & Currency Selector */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-8 border-b border-slate-200/80">
             {/* Monthly / Annual Toggle */}
@@ -206,6 +290,8 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
                 <span>
                   {isKm
                     ? `ទូទាត់ប្រចាំខែ (${formatUSD(unitRateMonthly)}/ម្នាក់)`
+                    : isZh
+                    ? `按月付费 (${formatUSD(unitRateMonthly)}/人)`
                     : `Monthly (${formatUSD(unitRateMonthly)}/user)`}
                 </span>
               </button>
@@ -222,22 +308,26 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
                 <span>
                   {isKm
                     ? `ទូទាត់ប្រចាំឆ្នាំ (${formatUSD(unitRateAnnual)}/ម្នាក់)`
+                    : isZh
+                    ? `按年付费 (${formatUSD(unitRateAnnual)}/人)`
                     : `Annual (${formatUSD(unitRateAnnual)}/user)`}
                 </span>
-                <span className="rounded-full bg-brand-soft border border-blue-200/60 px-2 py-0.5 text-[10.5px] font-bold text-brand uppercase tracking-wider">
-                  {isKm ? "ឥតគិតថ្លៃ ២ ខែ" : "2 Months Free"}
+                <span className="rounded-full bg-blue-600 px-2 py-0.5 text-[10px] font-bold text-white uppercase tracking-wider">
+                  {isKm ? "ឥតគិតថ្លៃ ២ ខែ" : isZh ? "赠送2个月" : "2 Months Free"}
                 </span>
               </button>
             </div>
 
             {/* Currency Switcher */}
-            <div className="flex items-center gap-2.5 text-xs text-slate-500 font-medium">
-              <span className="font-semibold text-slate-700">{isKm ? "រូបិយប័ណ្ណ៖" : "Currency:"}</span>
-              <div className="inline-flex rounded-xl border border-slate-200/80 bg-slate-100/90 p-1 shadow-2xs">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-medium text-slate-500">
+                {isKm ? "រូបិយប័ណ្ណបង្ហាញ៖" : isZh ? "币种切换：" : "Currency:"}
+              </span>
+              <div className="inline-flex rounded-xl bg-slate-100 p-1 border border-slate-200/80 shadow-2xs">
                 <button
                   type="button"
                   onClick={() => setCurrency("USD")}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`rounded-lg px-3 py-1 text-xs font-bold transition-all cursor-pointer ${
                     currency === "USD"
                       ? "bg-brand text-white shadow-xs"
                       : "text-slate-600 hover:text-slate-900"
@@ -248,7 +338,7 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
                 <button
                   type="button"
                   onClick={() => setCurrency("KHR")}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`rounded-lg px-3 py-1 text-xs font-bold transition-all cursor-pointer ${
                     currency === "KHR"
                       ? "bg-brand text-white shadow-xs"
                       : "text-slate-600 hover:text-slate-900"
@@ -260,177 +350,156 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
             </div>
           </div>
 
-          {/* Clean, Refined Showcase Card */}
-          <div className="relative mt-10 rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-10 lg:p-12 shadow-[0_20px_50px_rgba(0,82,255,0.04),0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
-            {/* Subtle ambient lighting decoration */}
-            <div className="absolute top-0 right-0 w-[480px] h-[480px] bg-[radial-gradient(ellipse_at_top_right,rgba(0,82,255,0.045),transparent_70%)] pointer-events-none" />
-
-            <div className="relative grid gap-10 lg:grid-cols-12 lg:items-center">
-              {/* Left Column: Plan Identity, Rate & Feature List */}
+          {/* Unified Clean Pricing Card */}
+          <div className="mt-8 rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-10 shadow-sm">
+            <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+              {/* Left Column: Plan Details & Core Features */}
               <div className="lg:col-span-7 space-y-6">
-                {/* Plan Tier Switcher (if multiple plans exist) */}
-                {dynamicPlans && dynamicPlans.length > 1 && (
-                  <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-slate-100/90 border border-slate-200/80 w-fit">
-                    {dynamicPlans.map((plan, idx) => (
-                      <button
-                        key={plan.id || plan.slug || idx}
-                        type="button"
-                        onClick={() => setSelectedPlanIndex(idx)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                          selectedPlanIndex === idx
-                            ? "bg-white text-slate-900 shadow-xs font-bold"
-                            : "text-slate-600 hover:text-slate-900"
-                        }`}
-                      >
-                        <span>{plan.name}</span>
-                        <span className="font-num text-[11px] text-brand ml-1 font-bold">
-                          (${plan.price_monthly ?? 1})
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {/* Badges */}
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 text-brand border border-blue-200/70 px-3.5 py-1 text-[11.5px] font-bold uppercase tracking-wider shadow-2xs">
-                    <Sparkles size={13} className="text-brand" />
-                    <span>{primaryPlan?.badge_text || (isKm ? "គម្រោងតម្លៃច្បាស់លាស់" : "TRANSPARENT PLAN")}</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-200/70 px-3.5 py-1 text-[11.5px] font-semibold">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>{isKm ? "ដំណើរការភ្លាមៗ គ្មានថ្លៃដំឡើង" : "Instant Setup • No Hidden Fees"}</span>
-                  </span>
-                </div>
-
-                {/* Plan Title & Subtitle */}
                 <div>
-                  <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-slate-900 leading-tight">
-                    {primaryPlan?.name || (isKm ? "គម្រោងរួមបញ្ចូលគ្រប់មុខងារ (All-in-One)" : "All-in-One Plan")}
+                  <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-bold text-brand mb-3">
+                    <Sparkles size={13} />
+                    <span>{primaryPlan?.badge_text || (isKm ? "គម្រោងរួមបញ្ចូលគ្រប់មុខងារ" : isZh ? "全功能一揽子计划" : "All-in-One Plan")}</span>
+                  </div>
+
+                  <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+                    {primaryPlan?.name || (isKm ? "គម្រោងតម្លៃសាមញ្ញតែមួយគត់" : isZh ? "透明统一的全功能企业套餐" : "One Simple, Transparent Plan")}
                   </h2>
-                  <p className="mt-2 text-sm sm:text-[15px] leading-relaxed text-slate-600 max-w-xl">
-                    {primaryPlan?.description ||
-                      (isKm
-                        ? "ប្រព័ន្ធកត់ត្រាវត្តមានតាម GPS និងគណនាប្រាក់ខែពេញលេញត្រឹមតែ ១ ដុល្លារ/ម្នាក់/ខែ។ រួមបញ្ចូលគ្រប់មុខងារទាំងអស់ដោយគ្មានដែនកំណត់។"
-                        : "Complete attendance & automated Cambodian payroll engine for just $1 per active user per month. All features unlocked with zero tier restrictions.")}
+
+                  <p className="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed max-w-lg">
+                    {isKm
+                      ? "ប្រព័ន្ធកត់ត្រាវត្តមានតាម GPS និងគណនាប្រាក់ខែពេញលេញត្រឹមតែ ១ ដុល្លារ/ម្នាក់/ខែ។ រួមបញ្ចូលគ្រប់មុខងារទាំងអស់ដោយគ្មានដែនកំណត់។"
+                      : isZh
+                      ? "每位员工仅需 1 美元/月，全面解锁 GPS 围栏打卡、多门店倒班排班与柬埔寨本土合规算薪。"
+                      : "Complete attendance & automated Cambodian payroll engine with zero tier restrictions or hidden fees."}
                   </p>
                 </div>
 
-                {/* Flat Unit Price Display with Unique Numeric Typography */}
+                {/* Main Price Tag */}
                 <div className="flex items-baseline gap-2 pt-2 border-t border-slate-100">
                   <span className="font-price text-5xl sm:text-6xl font-extrabold tracking-tight text-slate-900 tabular-nums">
                     {formatUnitRate()}
                   </span>
                   <span className="text-xs sm:text-sm font-semibold text-slate-500">
-                    {isKm ? "/ បុគ្គលិកសកម្ម / ខែ" : "/ active employee / month"}
+                    {isKm ? "/ បុគ្គលិកសកម្ម / ខែ" : isZh ? "/ 在岗员工 / 月" : "/ active employee / month"}
                   </span>
                 </div>
 
-                {/* Feature Highlights Grid (2 Columns with Custom Bullet Pills) */}
-                <div className="grid sm:grid-cols-2 gap-3.5 pt-1">
-                  {planFeatures.map((feature) => (
-                    <div key={feature} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700 font-medium">
-                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/10 text-brand shrink-0 border border-blue-200/60 mt-0.5">
+                {/* Curated 6 High-Impact Inclusions */}
+                <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                  {[
+                    isKm
+                      ? "វត្តមាន GPS Geofence (៥០–២០០ម) & សេលហ្វី"
+                      : isZh
+                      ? "50m–200m GPS 围栏与自拍活体核验"
+                      : "50m–200m GPS Geofence & Live Selfie Check",
+                    isKm
+                      ? "គណនាប្រាក់ខែស្វ័យប្រវត្តិ (OT ១.៥x, ២.០x & ប.ស.ស.)"
+                      : isZh
+                      ? "柬埔寨法定算薪 (1.5倍OT / 2.0倍双薪 / NSSF)"
+                      : "Cambodia Payroll (1.5x OT, 2.0x Holiday & NSSF)",
+                    isKm
+                      ? "គ្រប់គ្រងវេនបំបែក និងវេនយប់ឆ្លងអធ្រាត្រ"
+                      : isZh
+                      ? "支持餐饮分段班与跨夜连续夜班"
+                      : "Split Shift & Midnight Crossing Rosters",
+                    isKm
+                      ? "មុខងារ QR Door Kiosk លើថេប្លេត"
+                      : isZh
+                      ? "平板端 QR Kiosk 极速公共打卡"
+                      : "Shared Tablet QR Kiosk Mode (iOS & Android)",
+                    isKm
+                      ? "ការជូនដំណឹងស្វ័យប្រវត្តិតាម Telegram Bot"
+                      : isZh
+                      ? "Telegram Bot 自动化推送与双语工资条"
+                      : "Telegram Bot Alerts & Bilingual PDF Payslips",
+                    isKm
+                      ? "បន្ថែមសាខាបានគ្មានដែនកំណត់ ឥតគិតថ្លៃ"
+                      : isZh
+                      ? "无限多分店接入，零分店加价费用"
+                      : "Unlimited Branches with Zero Surcharges",
+                  ].map((feat) => (
+                    <div key={feat} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700 font-medium">
+                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-50 text-brand shrink-0 border border-blue-200 mt-0.5">
                         <Check size={12} strokeWidth={3} />
                       </div>
-                      <span className="leading-snug">{feature}</span>
+                      <span className="leading-snug">{feat}</span>
                     </div>
                   ))}
                 </div>
 
-                {/* Action CTA Buttons */}
-                <div className="pt-3 flex flex-wrap items-center gap-3.5">
+                {/* Primary & Secondary Action CTAs */}
+                <div className="pt-3 flex flex-wrap items-center gap-3">
                   <Link
                     href={primaryPlan?.cta_url || "/contact"}
-                    className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-brand hover:bg-brand-dark px-6 py-3.5 text-sm font-semibold text-white shadow-[0_4px_14px_rgba(0,82,255,0.28)] hover:shadow-[0_6px_20px_rgba(0,82,255,0.38)] transition-all duration-200 group cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand hover:bg-brand-dark px-6 py-3.5 text-sm font-bold text-white shadow-xs transition-all cursor-pointer"
                   >
-                    <span>{primaryPlan?.cta_text || (isKm ? "ចាប់ផ្តើមប្រើសាកល្បងឥតគិតថ្លៃ" : "Start free trial")}</span>
-                    <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+                    <span>{primaryPlan?.cta_text || (isKm ? "ចាប់ផ្តើមប្រើសាកល្បងឥតគិតថ្លៃ" : isZh ? "免费试用 14 天" : "Start 14-day free trial")}</span>
+                    <ArrowRight size={15} />
                   </Link>
                   <a
                     href={publicSettings.telegramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200/90 bg-white hover:bg-slate-50 hover:border-slate-300 px-5 py-3.5 text-sm font-semibold text-slate-800 shadow-2xs transition-all duration-200 cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-5 py-3.5 text-sm font-semibold text-slate-700 shadow-2xs transition-all cursor-pointer"
                   >
                     <Send size={14} className="text-brand" />
-                    <span>Telegram @attendkh</span>
+                    <span>Telegram @MPG_by_ongphaly</span>
                   </a>
                 </div>
               </div>
 
-              {/* Right Column: Clean Interactive Team Cost Estimator Panel */}
+              {/* Right Column: Clean, Direct Team Cost Estimator */}
               <div className="lg:col-span-5">
-                <div className="relative rounded-2xl border border-slate-200/90 bg-slate-50/80 backdrop-blur-sm p-6 sm:p-7 space-y-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden">
-                  {/* Calculator Header */}
-                  <div className="flex items-center justify-between border-b border-slate-200/80 pb-4">
-                    <div className="flex items-center gap-2.5">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-soft text-brand border border-blue-200/60 shadow-2xs">
-                        <Calculator size={16} />
-                      </div>
-                      <span className="font-display text-sm sm:text-[15px] font-bold text-slate-900">
-                        {isKm ? "គណនាថ្លៃសេវាសម្រាប់ក្រុម" : "Team Cost Calculator"}
+                <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6 sm:p-7 space-y-5">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-200/80">
+                    <div className="flex items-center gap-2">
+                      <Calculator size={16} className="text-brand" />
+                      <span className="font-display text-sm font-bold text-slate-900">
+                        {isKm ? "គណនាថ្លៃសេវាសម្រាប់ក្រុម" : isZh ? "团队费用实时估算" : "Team Cost Estimator"}
                       </span>
                     </div>
-
-                    <div className="font-num text-xs font-bold text-brand bg-brand-soft border border-blue-200/60 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-2xs">
-                      <Users size={12} />
-                      <span>{calcUsers} {isKm ? "បុគ្គលិក" : "Staff"}</span>
-                    </div>
+                    <span className="font-mono text-xs font-bold text-brand bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-lg">
+                      {calcUsers} {isKm ? "នាក់" : isZh ? "人" : "Staff"}
+                    </span>
                   </div>
 
-                  {/* Optional Plan Limits Notice */}
-                  {primaryPlan?.limits_text && (
-                    <p className="text-xs font-medium text-slate-500 -mt-1">{primaryPlan.limits_text}</p>
-                  )}
-
-                  {/* Slider & Headcount Controls */}
-                  <div className="space-y-3.5">
-                    <label
-                      htmlFor="team-size-slider"
-                      className="flex items-center justify-between text-xs text-slate-600 font-semibold cursor-pointer"
-                    >
-                      <span>{isKm ? "ចំនួនបុគ្គលិក" : "Adjust headcount"}</span>
-                      <span className="text-slate-800">
-                        <span className="font-num text-sm font-bold text-slate-900">{calcUsers}</span>{" "}
-                        <span className="font-normal text-slate-500">{isKm ? "នាក់" : "employees"}</span>
+                  {/* Range Slider */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs font-semibold text-slate-600">
+                      <span>{isKm ? "ជ្រើសរើសចំនួនបុគ្គលិក" : isZh ? "滑动选择团队人数" : "Select Headcount"}</span>
+                      <span className="font-mono text-sm font-bold text-slate-900">
+                        {calcUsers} {isKm ? "បុគ្គលិក" : isZh ? "名员工" : "employees"}
                       </span>
-                    </label>
-
-                    {/* Styled Range Input */}
-                    <div className="relative flex items-center">
-                      <input
-                        id="team-size-slider"
-                        type="range"
-                        min="5"
-                        max="250"
-                        step="5"
-                        value={calcUsers}
-                        aria-label={isKm ? "ចំនួនបុគ្គលិក" : "Adjust headcount"}
-                        aria-valuemin={5}
-                        aria-valuemax={250}
-                        aria-valuenow={calcUsers}
-                        onChange={(e) => setCalcUsers(Number(e.target.value))}
-                        className="pricing-slider w-full"
-                        style={{
-                          background: `linear-gradient(to right, #0052FF 0%, #0052FF ${sliderPercentage}%, #E2E8F0 ${sliderPercentage}%, #E2E8F0 100%)`,
-                        }}
-                      />
                     </div>
 
-                    {/* Quick Preset Buttons Row with Unique Number Font */}
+                    <input
+                      id="team-size-slider"
+                      type="range"
+                      min="5"
+                      max="250"
+                      step="5"
+                      value={calcUsers}
+                      aria-label={isKm ? "ចំនួនបុគ្គលិក" : "Adjust headcount"}
+                      onChange={(e) => setCalcUsers(Number(e.target.value))}
+                      className="pricing-slider w-full cursor-pointer"
+                      style={{
+                        background: `linear-gradient(to right, #0052FF 0%, #0052FF ${sliderPercentage}%, #E2E8F0 ${sliderPercentage}%, #E2E8F0 100%)`,
+                      }}
+                    />
+
+                    {/* Quick Presets */}
                     <div className="flex flex-wrap gap-1.5 pt-1">
-                      {[10, 25, 50, 70, 100, 200].map((preset) => {
+                      {[10, 25, 50, 75, 100, 200].map((preset) => {
                         const isActive = calcUsers === preset;
                         return (
                           <button
                             key={preset}
                             type="button"
                             onClick={() => setCalcUsers(preset)}
-                            className={`font-num rounded-lg px-3 py-1.5 text-xs font-bold transition-all duration-150 cursor-pointer ${
+                            className={`font-mono rounded-lg px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                               isActive
-                                ? "bg-brand text-white shadow-xs border border-brand"
-                                : "bg-white border border-slate-200/90 text-slate-600 hover:text-slate-900 hover:border-slate-300 shadow-2xs"
+                                ? "bg-brand text-white shadow-xs"
+                                : "bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:border-slate-300"
                             }`}
                           >
                             {preset}
@@ -440,37 +509,35 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
                     </div>
                   </div>
 
-                  {/* Dynamic Total Cost Box with Elevated Contrast */}
-                  <div className="relative rounded-xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_2px_10px_rgba(0,0,0,0.03)] space-y-2.5 overflow-hidden">
-                    <span className="text-xs font-semibold text-slate-500 block">
+                  {/* Calculated Price Box */}
+                  <div className="rounded-xl border border-slate-200/90 bg-white p-5 space-y-2 shadow-2xs">
+                    <span className="text-xs font-medium text-slate-500 block">
                       {annual
-                        ? isKm ? "ថ្លៃសរុបប្រចាំឆ្នាំ" : "Total Annual Investment"
-                        : isKm ? "ថ្លៃសរុបប្រចាំខែ" : "Total Monthly Investment"}
+                        ? isKm ? "ថ្លៃសរុបប្រចាំឆ្នាំ" : isZh ? "年度投资总额" : "Total Annual Investment"
+                        : isKm ? "ថ្លៃសរុបប្រចាំខែ" : isZh ? "月度投资总额" : "Total Monthly Investment"}
                     </span>
 
                     <div className="flex items-baseline justify-between gap-2">
-                      <span className="font-price text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-slate-900 tabular-nums">
+                      <span className="font-price text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 tabular-nums">
                         {calculateTotal(calcUsers)}
                       </span>
-                      <span className="font-num text-xs font-medium text-slate-400">
+                      <span className="font-mono text-xs text-slate-400">
                         {annual
-                          ? isKm ? "គិតថ្លៃប្រចាំឆ្នាំ" : "billed annually"
-                          : isKm ? "គិតថ្លៃប្រចាំខែ" : "billed monthly"}
+                          ? isKm ? "គិតថ្លៃប្រចាំឆ្នាំ" : isZh ? "按年计费" : "billed annually"
+                          : isKm ? "គិតថ្លៃប្រចាំខែ" : isZh ? "按月计费" : "billed monthly"}
                       </span>
                     </div>
 
-                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-                      <span className="text-emerald-600 font-semibold flex items-center gap-1.5">
-                        <CheckCircle2 size={13} className="shrink-0" />
-                        <span>{isKm ? "រួមបញ្ចូលទាំងវត្តមាន និងប្រាក់ខែពេញលេញ" : "Includes full payroll + attendance engine"}</span>
-                      </span>
-                    </div>
+                    <p className="text-[11.5px] text-emerald-700 font-medium flex items-center gap-1.5 pt-1 border-t border-slate-100">
+                      <CheckCircle2 size={13} className="shrink-0 text-emerald-600" />
+                      <span>{isKm ? "រួមបញ្ចូលទាំងវត្តមាន និងប្រាក់ខែពេញលេញ" : isZh ? "包含全部考勤、排班与算薪功能" : "Includes full payroll + attendance engine"}</span>
+                    </p>
                   </div>
 
-                  {/* Settlement Note & Supported Currencies */}
+                  {/* Settlement Note */}
                   <div className="text-[11.5px] text-slate-500 flex items-center justify-between pt-1">
-                    <span className="font-medium">{isKm ? "ទូទាត់តាម Bakong & ABA" : "Settle via Bakong KHQR & ABA"}</span>
-                    <span className="font-num text-xs font-bold text-slate-700 bg-white border border-slate-200/80 px-2 py-0.5 rounded-md shadow-2xs">
+                    <span>{isKm ? "ទូទាត់តាម Bakong & ABA" : isZh ? "支持 Bakong KHQR 与 ABA 结算" : "Settle via Bakong KHQR & ABA"}</span>
+                    <span className="font-mono text-xs font-bold text-slate-700 bg-white border border-slate-200 px-2 py-0.5 rounded-md">
                       USD & KHR
                     </span>
                   </div>
@@ -490,11 +557,15 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
             title={
               isKm
                 ? `អ្វីគ្រប់យ៉ាងដែលទទួលបានក្នុងតម្លៃ ${monthlyRateUsd} / ម្នាក់`
+                : isZh
+                ? `每位员工仅需 ${monthlyRateUsd}，即可解锁全部功能`
                 : `Everything Unlocked for ${monthlyRateUsd} Per Employee`
             }
             sub={
               isKm
                 ? "គ្មានការចាក់សោមុខងារ គ្មានការបង្ខំដំឡើងគម្រោង។ គ្រប់អាជីវកម្មទទួលបានប្រព័ន្ធពេញលេញ។"
+                : isZh
+                ? "无功能等级限制，无强制升级套路。任意规模企业均享全功能企业级引擎。"
                 : "No locked features or artificial tier walls. Every business gets the full enterprise engine."
             }
           />
@@ -519,7 +590,7 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
 
                     <div className="mt-5 border-t border-slate-100 pt-3.5 flex items-center gap-2 text-xs font-semibold text-emerald-600">
                       <CheckCircle2 size={14} />
-                      <span>{isKm ? "រួមបញ្ចូលជាស្រេច" : "Included by Default"}</span>
+                      <span>{isKm ? "រួមបញ្ចូលជាស្រេច" : isZh ? "默认全包" : "Included by Default"}</span>
                     </div>
                   </div>
                 </Reveal>
@@ -530,38 +601,53 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
       </Section>
 
       {/* -------------------------------------------------------------
-          4. CAMBODIAN PAYMENT METHODS INFRASTRUCTURE
+          4. CAMBODIAN PAYMENT METHODS INFRASTRUCTURE (WITH REAL SVG LOGOS)
       ------------------------------------------------------------- */}
       <Section tone="white">
         <div className="mx-auto max-w-[1240px]">
-          <div className="rounded-2xl border border-slate-200/90 bg-slate-50/60 p-6 sm:p-8 shadow-xs">
+          <div className="rounded-3xl border border-slate-200/90 bg-slate-50/70 p-6 sm:p-9 shadow-xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200/80">
               <div>
                 <span className="font-mono text-xs font-bold uppercase tracking-widest text-brand">
-                  {isKm ? "វិធីសាស្ត្រទូទាត់ប្រាក់នៅកម្ពុជា" : "Payment Infrastructure"}
+                  {isKm ? "វិធីសាស្ត្រទូទាត់ប្រាក់នៅកម្ពុជា" : isZh ? "柬埔寨本土支付支持" : "Payment Infrastructure"}
                 </span>
-                <h3 className="font-display text-lg font-bold text-slate-900 mt-1">
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 mt-1">
                   {isKm
                     ? "ទូទាត់ងាយស្រួលតាមធនាគារក្នុងស្រុក"
+                    : isZh
+                    ? "无缝接入柬埔寨本土主流银行与结算通道"
                     : "Seamless Settlement via Local Cambodian Banking Channels"}
                 </h3>
               </div>
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-500/10 px-3.5 py-1 rounded-full border border-emerald-200/70 shadow-2xs">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-200/70 shadow-2xs">
                 <Check size={13} strokeWidth={2.5} />
                 <span>USD ($) & KHR (៛) Supported</span>
               </span>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-              {paymentMethods.map((m) => (
-                <div
-                  key={m.name}
-                  className="rounded-xl border border-slate-200/90 bg-white p-4 text-center shadow-2xs space-y-1 hover:border-slate-300 transition-colors"
-                >
-                  <span className="font-display text-xs font-bold text-slate-900 block">{m.name}</span>
-                  <span className="text-[10.5px] text-slate-500 font-mono block">{m.tag}</span>
-                </div>
-              ))}
+            {/* 6 Clean Cambodian Banking Cards with SVG Logos */}
+            <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+              {paymentMethods.map((m) => {
+                const Logo = m.logo;
+                return (
+                  <div
+                    key={m.name}
+                    className="group rounded-2xl border border-slate-200/90 bg-white p-5 text-center shadow-2xs hover:border-brand/40 hover:shadow-md transition-all flex flex-col items-center justify-between gap-3.5"
+                  >
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl shadow-xs transition-transform duration-200 group-hover:scale-105">
+                      <Logo className="h-11 w-11" />
+                    </div>
+                    <div>
+                      <span className="font-display text-xs font-bold text-slate-900 block group-hover:text-brand transition-colors leading-tight">
+                        {m.name}
+                      </span>
+                      <span className="text-[11px] text-slate-500 block mt-1 leading-snug">
+                        {m.tag}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -577,103 +663,70 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
             question={
               isKm
                 ? "តើ AttendKH មានតម្លៃប៉ុន្មានសម្រាប់អាជីវកម្មនៅកម្ពុជា?"
+                : isZh
+                ? "AttendKH 针对柬埔寨企业的收费标准是怎样的？"
                 : "How much does AttendKH cost for businesses in Cambodia?"
             }
             answer={
               isKm
                 ? `AttendKH គិតតម្លៃសាមញ្ញត្រឹមតែ ${monthlyRateUsd} ក្នុងម្នាក់/ខែ (ឬ ${monthlyRateKhr}) ដោយរួមបញ្ចូលគ្រប់មុខងារទាំងអស់ រួមមាន វត្តមានតាម GPS Geofencing ការផ្ទៀងផ្ទាត់សេលហ្វី ម៉ាស៊ីនប្រាក់ខែស្វ័យប្រវត្តិកម្ពុជា និងការគ្រប់គ្រងច្រើនសាខា។ គ្មានថ្លៃដំឡើង និងគ្មានថ្លៃពិន័យតាមសាខាឡើយ។`
+                : isZh
+                ? `AttendKH 采用全包统一定价，每位活跃员工仅需 ${monthlyRateUsd}/月（或约 ${monthlyRateKhr}），涵盖 GPS 电子围栏、实时自拍打卡、柬埔寨双币薪酬引擎、NSSF 社保报表及无限多分店管理，无任何初装费或门店附加费。`
                 : `AttendKH charges one simple rate of ${monthlyRateUsd} per active employee per month with all capabilities included (GPS geofencing, live selfie verification, Cambodian dual-currency payroll, NSSF formulas, and unlimited branches). There are zero setup fees or branch surcharges.`
             }
             facts={[
               {
-                label: isKm ? "តម្លៃសេវា" : "Pricing Rate",
+                label: isKm ? "តម្លៃសេវា" : isZh ? "月费标准" : "Pricing Rate",
                 value: `${monthlyRateUsd} / user / mo`,
               },
               {
-                label: isKm ? "មុខងាររួមបញ្ចូល" : "Included Features",
-                value: isKm ? "គ្រប់មុខងារទាំងអស់ (All-In)" : "All-Inclusive Access",
+                label: isKm ? "មុខងាររួមបញ្ចូល" : isZh ? "包含功能" : "Included Features",
+                value: isKm ? "គ្រប់មុខងារទាំងអស់ (All-In)" : isZh ? "全功能一揽子包含" : "All-Inclusive Access",
               },
               {
-                label: isKm ? "ការទូទាត់ប្រចាំឆ្នាំ" : "Annual Billing",
-                value: isKm ? `ការទូទាត់ប្រចាំឆ្នាំ (${annualRateUsd}/ម្នាក់)` : `Annual billing (${annualRateUsd}/mo)`,
+                label: isKm ? "ការទូទាត់ប្រចាំឆ្នាំ" : isZh ? "年付优惠" : "Annual Billing",
+                value: isKm ? `ការទូទាត់ប្រចាំឆ្នាំ (${annualRateUsd}/ម្នាក់)` : isZh ? `年付优惠折合 (${annualRateUsd}/人/月)` : `Annual billing (${annualRateUsd}/mo)`,
               },
               {
-                label: isKm ? "វិធីសាស្ត្រទូទាត់" : "Payment Options",
-                value: "Bakong KHQR, ABA, ACLEDA, USD & KHR",
+                label: isKm ? "ការទូទាត់ប្រាក់" : isZh ? "支持币种" : "Settlement",
+                value: "USD ($) & KHR (៛) KHQR",
               },
             ]}
           />
 
-          {/* Clean FAQ Accordion */}
-          <div className="max-w-3xl mx-auto">
+          {/* FAQ Accordion */}
+          <div className="mx-auto max-w-3xl">
             <h3 className="font-display text-2xl font-bold text-slate-900 text-center mb-8">
-              {isKm ? "សំណួរដែលសួរញឹកញាប់អំពីតម្លៃ" : "Frequently Asked Questions About Pricing"}
+              {isKm ? "សំណួរដែលសួរញឹកញាប់អំពីតម្លៃ" : isZh ? "关于价格与计费的常见问题" : "Frequently Asked Questions About Pricing"}
             </h3>
 
             <div className="space-y-3">
-              {pricingFaqs.map((faq, idx) => {
+              {faqs.map((faq, idx) => {
                 const isOpen = openFaq === idx;
                 return (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.35, delay: idx * 0.04 }}
-                    className="rounded-xl border border-slate-200/90 bg-white overflow-hidden transition-colors shadow-2xs"
+                  <div
+                    key={faq.q}
+                    className="rounded-2xl border border-slate-200/90 bg-white overflow-hidden shadow-2xs transition-all"
                   >
                     <button
                       type="button"
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/70 transition-colors select-none"
-                      aria-expanded={isOpen}
+                      className="w-full flex items-center justify-between p-5 text-left font-display text-sm font-bold text-slate-900 hover:text-brand transition-colors cursor-pointer"
                     >
-                      <span className={`font-display text-[15px] font-bold transition-colors ${isOpen ? "text-brand" : "text-slate-900"}`}>
-                        {faq.q}
-                      </span>
-                      <motion.span
-                        animate={{
-                          rotate: isOpen ? 180 : 0,
-                          backgroundColor: isOpen ? "var(--color-brand, #0052FF)" : "#F1F5F9",
-                          color: isOpen ? "#FFFFFF" : "#64748B",
-                        }}
-                        transition={{ type: "spring", stiffness: 350, damping: 24 }}
-                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors"
-                      >
-                        <ChevronDown size={14} />
-                      </motion.span>
+                      <span>{faq.q}</span>
+                      <ChevronDown
+                        size={16}
+                        className={`text-slate-400 shrink-0 transition-transform duration-200 ${
+                          isOpen ? "rotate-180 text-brand" : ""
+                        }`}
+                      />
                     </button>
-
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          key="faq-a"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{
-                            height: "auto",
-                            opacity: 1,
-                            transition: {
-                              height: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
-                              opacity: { duration: 0.25, delay: 0.04, ease: "easeOut" },
-                            },
-                          }}
-                          exit={{
-                            height: 0,
-                            opacity: 0,
-                            transition: {
-                              height: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
-                              opacity: { duration: 0.15, ease: "easeIn" },
-                            },
-                          }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-5 pb-5 text-xs sm:text-[13.5px] leading-relaxed text-slate-600 border-t border-slate-100 pt-3">
-                            <p>{faq.a}</p>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
+                    {isOpen && (
+                      <div className="px-5 pb-5 pt-1 text-xs sm:text-[13.5px] leading-relaxed text-slate-600 border-t border-slate-100">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </div>
@@ -681,19 +734,14 @@ export function PricingView({ dynamicPlans }: PricingViewProps = {}) {
         </div>
       </Section>
 
-      {/* -------------------------------------------------------------
-          6. CLOSING CALL TO ACTION
-      ------------------------------------------------------------- */}
       <CtaBand
-        title={
-          isKm
-            ? `ចាប់ផ្តើមប្រើប្រាស់ AttendKH ត្រឹមតែ ${monthlyRateUsd} ក្នុងម្នាក់`
-            : `Ready to streamline your attendance and payroll for ${monthlyRateUsd} per employee?`
-        }
+        title={c.pricing.ctaTitle}
         sub={
           isKm
-            ? "ដំឡើងសាខាដំបូងរបស់អ្នកក្នុងរយៈពេល ៥ នាទី ឬទាក់ទងមកកាន់ក្រុមការងារយើងនៅភ្នំពេញ។"
-            : "Set up your first branch in five minutes, or contact our Phnom Penh team."
+            ? "ចាប់ផ្តើមប្រើ AttendKH សម្រាប់ក្រុមការងាររបស់អ្នកត្រឹមតែ $1 ក្នុងមួយខែសម្រាប់បុគ្គលិកម្នាក់។"
+            : isZh
+            ? "每位员工仅需 1 美元/月，立即接入 AttendKH 全功能平台。"
+            : "Get started with AttendKH for your entire team at just $1 per employee."
         }
       />
     </div>

@@ -98,22 +98,22 @@ export function ContactView() {
   };
 
   const dynamicComposerTelegramUrl = `https://t.me/${composerTargetHandle}?text=${encodeURIComponent(composeCustomMessage())}`;
-  const dynamicComposerMailtoUrl = `mailto:support@attendkh.com?subject=${encodeURIComponent(`[AttendKH] ${getComposerTopicLabel()}`)}&body=${encodeURIComponent(composeCustomMessage())}`;
+  const dynamicComposerMailtoUrl = `mailto:support@MPG_by_ongphaly.com?subject=${encodeURIComponent(`[AttendKH] ${getComposerTopicLabel()}`)}&body=${encodeURIComponent(composeCustomMessage())}`;
 
   const quickChannels = [
     {
       icon: MessageSquare,
       title: isKm ? "ឆានែល Telegram ផ្លូវការ" : isZh ? "官方 Telegram 频道" : "Official Telegram Channel",
-      desc: "@attendkh",
-      href: "https://t.me/attendkh",
+      desc: "@MPG_by_ongphaly",
+      href: "https://t.me/MPG_by_ongphaly",
       linkText: isKm ? "ចូលរួម Telegram" : isZh ? "打开 Telegram" : "Open Telegram",
       badge: isKm ? "ឆ្លើយតបរហ័ស" : isZh ? "极速响应" : "Instant Reply",
     },
     {
       icon: Mail,
       title: isKm ? "អ៊ីមែលជំនួយការងារ" : isZh ? "官方技术支持与隐私邮箱" : "Direct Support Email",
-      desc: "support@attendkh.com",
-      href: "mailto:support@attendkh.com",
+      desc: "support@MPG_by_ongphaly.com",
+      href: "mailto:support@MPG_by_ongphaly.com",
       linkText: isKm ? "ផ្ញើអ៊ីមែល" : isZh ? "发送邮件" : "Send Email",
       badge: isKm ? "ផ្លូវការ" : isZh ? "官方渠道" : "Official",
     },
@@ -588,7 +588,7 @@ export function ContactView() {
               },
               {
                 label: isKm ? "ឆានែលផ្លូវការ" : "Official Channel",
-                value: "@attendkh",
+                value: "@MPG_by_ongphaly",
               },
               {
                 label: isKm ? "ទីតាំង" : "Location",

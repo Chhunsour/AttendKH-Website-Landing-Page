@@ -72,10 +72,10 @@ const jsonLdSchemas = {
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "Customer Support",
-        email: "support@attendkh.com",
+        email: "support@MPG_by_ongphaly.com",
         availableLanguage: ["Khmer", "English"],
       },
-      sameAs: ["https://t.me/attendkh"],
+      sameAs: ["https://t.me/MPG_by_ongphaly"],
     },
   ],
 };

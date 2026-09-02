@@ -214,12 +214,12 @@ export function HeadquartersMap({
                 <span>{isKm ? "តេឡេក្រាមជំនួយ" : "Direct Support"}</span>
               </div>
               <a
-                href="https://t.me/attendkh"
+                href="https://t.me/MPG_by_ongphaly"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-xs font-bold text-brand hover:underline"
               >
-                @attendkh
+                @MPG_by_ongphaly
               </a>
             </div>
           </div>

@@ -4,7 +4,7 @@ import { SupportView } from "./support-view";
 
 const title = "Customer Support Center & Hotline (Phnom Penh) | AttendKH";
 const description =
-  "Contact AttendKH support in Phnom Penh. Telegram hotline @attendkh, email support@attendkh.com, and troubleshooting guides in Khmer and English.";
+  "Contact AttendKH support in Phnom Penh. Telegram hotline @MPG_by_ongphaly, email support@MPG_by_ongphaly.com, and troubleshooting guides in Khmer and English.";
 
 export const metadata: Metadata = {
   title,

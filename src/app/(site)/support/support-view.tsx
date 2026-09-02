@@ -35,7 +35,7 @@ export function SupportView() {
     {
       icon: Send,
       title: isKm ? "Telegram Hotline" : "Telegram Support Hotline",
-      detail: "@attendkh",
+      detail: "@MPG_by_ongphaly",
       href: publicSettings.telegramUrl,
       external: true,
       time: isKm ? "ក្នុងម៉ោងធ្វើការ" : "Mon–Fri, 8:00 AM – 5:30 PM ICT",
@@ -168,8 +168,8 @@ export function SupportView() {
             }
             answer={
               isKm
-                ? "សម្រាប់ជំនួយបច្ចេកទេស វិធីដែលលឿនបំផុតគឺផ្ញើសារមកកាន់ Telegram Hotline @attendkh របស់យើង ក្នុងម៉ោងធ្វើការ (ច័ន្ទ–សុក្រ ៨:០០ ដល់ ១៧:៣០ ICT)។ អ្នកក៏អាចផ្ញើអ៊ីមែលមកកាន់ support@attendkh.com ឬណាត់ជួបនៅការិយាល័យភ្នំពេញបានផងដែរ។"
-                : "For technical assistance, message our direct Telegram hotline at @attendkh during business hours (Monday to Friday, 8:00 AM to 5:30 PM ICT). For account or billing requests, email support@attendkh.com or schedule an in-person session at our Phnom Penh office."
+                ? "សម្រាប់ជំនួយបច្ចេកទេស វិធីដែលលឿនបំផុតគឺផ្ញើសារមកកាន់ Telegram Hotline @MPG_by_ongphaly របស់យើង ក្នុងម៉ោងធ្វើការ (ច័ន្ទ–សុក្រ ៨:០០ ដល់ ១៧:៣០ ICT)។ អ្នកក៏អាចផ្ញើអ៊ីមែលមកកាន់ support@MPG_by_ongphaly.com ឬណាត់ជួបនៅការិយាល័យភ្នំពេញបានផងដែរ។"
+                : "For technical assistance, message our direct Telegram hotline at @MPG_by_ongphaly during business hours (Monday to Friday, 8:00 AM to 5:30 PM ICT). For account or billing requests, email support@MPG_by_ongphaly.com or schedule an in-person session at our Phnom Penh office."
             }
             facts={[
               {
@@ -178,7 +178,7 @@ export function SupportView() {
               },
               {
                 label: isKm ? "ឆានែលគាំទ្រផ្ទាល់" : "Direct Channel",
-                value: "Telegram @attendkh",
+                value: "Telegram @MPG_by_ongphaly",
               },
               {
                 label: isKm ? "ភាសាគាំទ្រ" : "Support Languages",

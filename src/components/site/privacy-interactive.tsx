@@ -116,7 +116,7 @@ export function PrivacySearchInput({
             {isKm ? "រកឃើញ " : isZh ? "找到 " : "Found "}
             <strong className="text-brand font-semibold">{resultsCount}</strong>
             {isKm ? " ផ្នែកដែលត្រូវនឹង " : isZh ? " 个相关章节：" : " sections matching "}
-            <span className="text-ink font-medium">"{value}"</span>
+            <span className="text-ink font-medium">&ldquo;{value}&rdquo;</span>
           </span>
         </div>
       )}

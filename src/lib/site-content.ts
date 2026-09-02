@@ -108,9 +108,9 @@ export const websiteSettings: WebsiteSettings = {
     "មុខងារថ្មី៖ មុខងារ QR Kiosk នៅមាត់ទ្វារជាមួយសមកាលកម្ម Cloud ផ្ទាល់ដំណើរការហើយ!",
   announcement_link: "/attendance",
   announcement_color: "brand",
-  contact_email: "hello@attendkh.com",
+  contact_email: "hello@MPG_by_ongphaly.com",
   support_phone: "+855 23 999 888",
-  telegram_url: "https://t.me/attendkh",
+  telegram_url: "https://t.me/MPG_by_ongphaly",
   maintenance_mode: 0,
   analytics_enabled: 1,
   currency_rate_khr: 4100,
@@ -957,11 +957,11 @@ AttendKH provides clear, accessible, and transparent mechanisms for both individ
 
 ### For Individual Employees:
 - If you wish to delete your mobile account credentials, profile details, or personal data, you may submit a request directly to your employer's HR administrator (the Data Controller).
-- Alternatively, you can submit an individual deletion request directly to our Data Protection Officer by emailing **[privacy@attendkh.com](mailto:privacy@attendkh.com)** with the subject line *"Employee Data Deletion Request"*. Include your registered phone number, organization name, and Staff ID.
+- Alternatively, you can submit an individual deletion request directly to our Data Protection Officer by emailing **[privacy@MPG_by_ongphaly.com](mailto:privacy@MPG_by_ongphaly.com)** with the subject line *"Employee Data Deletion Request"*. Include your registered phone number, organization name, and Staff ID.
 - Upon receiving verified confirmation from your employer or upon account deactivation, all personal authentication tokens, biometric selfie photos, and device identifiers associated with your profile will be permanently deleted from active databases within **30 calendar days**.
 
 ### For Organizations & Business Owners:
-- Organization administrators can request complete deletion of their enterprise account, all branch geofences, staff profiles, attendance logs, and payroll records by emailing **[privacy@attendkh.com](mailto:privacy@attendkh.com)** from the verified owner's corporate email address or via the Admin Dashboard.
+- Organization administrators can request complete deletion of their enterprise account, all branch geofences, staff profiles, attendance logs, and payroll records by emailing **[privacy@MPG_by_ongphaly.com](mailto:privacy@MPG_by_ongphaly.com)** from the verified owner's corporate email address or via the Admin Dashboard.
 - All organizational data will be queued for permanent hard deletion across all production servers and storage buckets within 30 days.
 
 ---
@@ -993,7 +993,7 @@ Subject to applicable Cambodian laws and international standards, you have speci
 4. **Right to Restrict Processing**: You may request restrictions on how your data is processed if you dispute its accuracy.
 5. **Right to Data Portability**: Organizational administrators and employees can export attendance logs, overtime reports, and payslips in standardized formats (CSV, Excel, PDF).
 
-To exercise any of these rights, please contact your employer's HR team or contact our privacy team at **[privacy@attendkh.com](mailto:privacy@attendkh.com)**.
+To exercise any of these rights, please contact your employer's HR team or contact our privacy team at **[privacy@MPG_by_ongphaly.com](mailto:privacy@MPG_by_ongphaly.com)**.
 
 ---
 
@@ -1030,9 +1030,9 @@ When material changes occur:
 If you have questions, concerns, feedback, or complaints regarding this Privacy Policy, your personal data, or our mobile attendance security practices, please contact our Data Protection Office:
 
 - **Data Protection Officer (DPO)**: AttendKH Privacy & Security Compliance Team
-- **Email**: [privacy@attendkh.com](mailto:privacy@attendkh.com)
-- **General Support**: [support@attendkh.com](mailto:support@attendkh.com)
-- **Official Telegram Hotline**: [@attendkh](https://t.me/attendkh)
+- **Email**: [privacy@MPG_by_ongphaly.com](mailto:privacy@MPG_by_ongphaly.com)
+- **General Support**: [support@MPG_by_ongphaly.com](mailto:support@MPG_by_ongphaly.com)
+- **Official Telegram Hotline**: [@MPG_by_ongphaly](https://t.me/MPG_by_ongphaly)
 - **Phone Hotline**: +855 23 999 888
 - **Operating Hours**: Monday to Saturday, 8:00 AM – 6:00 PM (ICT / UTC+7)
 - **Physical Address**: Phnom Penh, Kingdom of Cambodia`,
@@ -1138,7 +1138,7 @@ AttendKH ("យើង", "ពួកយើង" ឬ "AttendKH") ប្តេជ្�
 ## ៨. គោលការណ៍លុបគណនី និងទិន្នន័យ (Account & Data Deletion)
 
 AttendKH ផ្តល់យន្តការច្បាស់លាស់ និងងាយស្រួលក្នុងការស្នើសុំលុបគណនី និងទិន្នន័យផ្ទាល់ខ្លួន៖
-- **សម្រាប់បុគ្គលិក**៖ អ្នកអាចស្នើសុំតាមរយៈ HR ក្រុមហ៊ុនរបស់អ្នក ឬផ្ញើអ៊ីមែលដោយផ្ទាល់ទៅកាន់ **privacy@attendkh.com** ដោយបញ្ជាក់ឈ្មោះ លេខទូរស័ព្ទ និង Staff ID។
+- **សម្រាប់បុគ្គលិក**៖ អ្នកអាចស្នើសុំតាមរយៈ HR ក្រុមហ៊ុនរបស់អ្នក ឬផ្ញើអ៊ីមែលដោយផ្ទាល់ទៅកាន់ **privacy@MPG_by_ongphaly.com** ដោយបញ្ជាក់ឈ្មោះ លេខទូរស័ព្ទ និង Staff ID។
 - **រយៈពេលអនុវត្ត**៖ រាល់ទិន្នន័យផ្ទៀងផ្ទាត់ រូបថត Selfie និង token គណនីនឹងត្រូវបានលុបចេញពីប្រព័ន្ធជាស្ថាពរក្នុងរយៈពេល **៣០ ថ្ងៃ** ស្របតាមគោលការណ៍ Apple App Store និង Google Play។
 
 ---
@@ -1161,9 +1161,9 @@ AttendKH ផ្តល់យន្តការច្បាស់លាស់ ន�
 ## ១១. ព័ត៌មានទំនាក់ទំនងមន្ត្រីការពារទិន្នន័យ (DPO)
 
 - **មន្ត្រីការពារទិន្នន័យ (DPO)**៖ ក្រុមការងារអនុលោមភាព AttendKH
-- **អ៊ីមែល**៖ [privacy@attendkh.com](mailto:privacy@attendkh.com)
-- **ជំនួយទូទៅ**៖ [support@attendkh.com](mailto:support@attendkh.com)
-- **Telegram Hotline**៖ [@attendkh](https://t.me/attendkh)
+- **អ៊ីមែល**៖ [privacy@MPG_by_ongphaly.com](mailto:privacy@MPG_by_ongphaly.com)
+- **ជំនួយទូទៅ**៖ [support@MPG_by_ongphaly.com](mailto:support@MPG_by_ongphaly.com)
+- **Telegram Hotline**៖ [@MPG_by_ongphaly](https://t.me/MPG_by_ongphaly)
 - **ទូរស័ព្ទ**៖ +855 23 999 888
 - **អាសយដ្ឋាន**៖ រាជធានីភ្នំពេញ ព្រះរាជាណាចក្រកម្ពុជា`,
     content_zh: `## 1. 概述与适用范围
@@ -1235,7 +1235,7 @@ AttendKH（以下简称“我们”或“平台”）高度重视组织、雇主
 
 ## 6. 账户注销与个人数据硬删除（30日 SLA）
 
-- **申请途径**：员工可通过企业 HR 提交注销申请，或直接发送邮件至 **privacy@attendkh.com**。
+- **申请途径**：员工可通过企业 HR 提交注销申请，或直接发送邮件至 **privacy@MPG_by_ongphaly.com**。
 - **删除时限**：身份认证凭证、自拍照片及设备标识将在 **30 个日历日内**从生产数据库执行物理硬删除，严格符合苹果与谷歌商店规范。
 
 ---
@@ -1249,9 +1249,9 @@ AttendKH（以下简称“我们”或“平台”）高度重视组织、雇主
 ## 8. 数据保护官 (DPO) 联系方式
 
 - **数据保护专员**：AttendKH 合规与安全团队
-- **隐私专属邮箱**：[privacy@attendkh.com](mailto:privacy@attendkh.com)
-- **技术支持**：[support@attendkh.com](mailto:support@attendkh.com)
-- **Telegram 热线**：[@attendkh](https://t.me/attendkh)
+- **隐私专属邮箱**：[privacy@MPG_by_ongphaly.com](mailto:privacy@MPG_by_ongphaly.com)
+- **技术支持**：[support@MPG_by_ongphaly.com](mailto:support@MPG_by_ongphaly.com)
+- **Telegram 热线**：[@MPG_by_ongphaly](https://t.me/MPG_by_ongphaly)
 - **电话热线**：+855 23 999 888
 - **办公地点**：柬埔寨王国 金边市`,
     is_active: 1,
@@ -1395,8 +1395,8 @@ AttendKH provides dedicated multi-channel customer support for businesses via Te
 - **Priority Enterprise Support**: 24/7 dedicated Telegram emergency hotline with guaranteed 15-minute response SLA.
 
 ## 3. Contact Details
-- **Official Telegram Hotline**: [@attendkh](https://t.me/attendkh)
-- **Email Support**: [support@attendkh.com](mailto:support@attendkh.com)
+- **Official Telegram Hotline**: [@MPG_by_ongphaly](https://t.me/MPG_by_ongphaly)
+- **Email Support**: [support@MPG_by_ongphaly.com](mailto:support@MPG_by_ongphaly.com)
 - **Phone Hotline**: +855 23 999 888`,
     content_km: `## ១. ទិដ្ឋភាពទូទៅនៃជំនួយបច្ចេកទេស
 
@@ -1407,8 +1407,8 @@ AttendKH ផ្តល់ការគាំទ្រអតិថិជនពហ�
 - **ជំនួយអាទិភាពសហគ្រាស**៖ បណ្តាញបន្ទាន់ Telegram ២៤/៧ ជាមួយការធានាឆ្លើយតបក្នុងរយៈពេល ១៥ នាទី (SLA)។
 
 ## ៣. ព័ត៌មានទំនាក់ទំនង
-- **Telegram Hotline ផ្លូវការ**៖ [@attendkh](https://t.me/attendkh)
-- **អ៊ីមែលជំនួយ**៖ [support@attendkh.com](mailto:support@attendkh.com)
+- **Telegram Hotline ផ្លូវការ**៖ [@MPG_by_ongphaly](https://t.me/MPG_by_ongphaly)
+- **អ៊ីមែលជំនួយ**៖ [support@MPG_by_ongphaly.com](mailto:support@MPG_by_ongphaly.com)
 - **ទូរស័ព្ទ Hotline**៖ +855 23 999 888`,
     content_zh: `## 1. 技术支持与服务保障概览
 
@@ -1419,8 +1419,8 @@ AttendKH 通过 Telegram 专属频道、技术支持邮箱及电话热线为企�
 - **企业尊享专属支持**：7x24 小时全天候 Telegram 紧急响应通道，承诺 15 分钟内极速响应（SLA）。
 
 ## 3. 官方联系渠道
-- **官方 Telegram 热线**：[@attendkh](https://t.me/attendkh)
-- **技术支持邮箱**：[support@attendkh.com](mailto:support@attendkh.com)
+- **官方 Telegram 热线**：[@MPG_by_ongphaly](https://t.me/MPG_by_ongphaly)
+- **技术支持邮箱**：[support@MPG_by_ongphaly.com](mailto:support@MPG_by_ongphaly.com)
 - **客服电话热线**：+855 23 999 888`,
     is_active: 1,
     changelog: "Upgraded Support SLA policy with full trilingual support (English, Khmer, Chinese).",

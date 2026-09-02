@@ -21,12 +21,6 @@ import {
   Briefcase,
   X,
   Calculator,
-  CheckCircle2,
-  Lock,
-  Smartphone,
-  Zap,
-  TrendingUp,
-  Cpu,
 } from "lucide-react";
 import type { BlogPost } from "@/lib/site-content";
 import { Section, CtaBand } from "@/components/site/ui";
@@ -175,11 +169,10 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
     <>
       {/* Hero Section with Breadcrumb Nav */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#011C6B] via-[#0042CF] to-[#0052FF] text-white border-b border-blue-400/20 shadow-xs">
-        {/* Ambient Glowing Background */}
+        {/* Ambient Subtle Orbs */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -top-24 -right-24 h-[450px] w-[450px] rounded-full bg-cyan-400/20 blur-3xl" />
           <div className="absolute -bottom-28 -left-28 h-[450px] w-[450px] rounded-full bg-indigo-600/30 blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 h-[260px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-300/10 blur-2xl" />
 
           {/* Dot Grid Pattern */}
           <svg
@@ -549,331 +542,147 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
         ) : null}
 
         {/* ========================================================================= */}
-        {/* REDESIGNED ULTRA-PREMIUM BENTO HR & OPERATIONS TOOLKIT SHOWCASE */}
+        {/* CLEAN, ELEGANT HR & OPERATIONS TOOLKITS SECTION (NO AI SLOP) */}
         {/* ========================================================================= */}
-        <div className="mt-20 relative overflow-hidden rounded-3xl border border-blue-400/25 bg-gradient-to-br from-[#060D27] via-[#091C5A] to-[#012E99] p-6 sm:p-10 lg:p-12 text-white shadow-2xl ring-1 ring-white/10">
-          {/* Ambient Lighting Orbs */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-blue-500/25 blur-3xl"
-          />
-
-          {/* Dot matrix background overlay */}
-          <svg
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 h-full w-full opacity-10"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <pattern id="toolkit-dots" width="24" height="24" patternUnits="userSpaceOnUse">
-                <circle cx="12" cy="12" r="1" fill="currentColor" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#toolkit-dots)" />
-          </svg>
-
-          {/* Section Header */}
-          <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/10">
-            <div className="max-w-2xl space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-cyan-200 backdrop-blur-md shadow-2xs">
-                <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                <span>
-                  {isKm
-                    ? "ឧបករណ៍ និងធនធានប្រតិបត្តិការឥតគិតថ្លៃ"
-                    : isZh
-                    ? "免费企业级 HR 与数字化运营实战工具箱"
-                    : "Free Interactive Operational Toolkits"}
-                </span>
-              </div>
-
-              <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight">
-                {isKm
-                  ? "ឧបករណ៍ជំនួយការងារ HR និងប្រតិបត្តិការនៅកម្ពុជា"
-                  : isZh
-                  ? "柬埔寨人力资源与多门店运营数字化工具箱"
-                  : "Cambodian HR & Operations Interactive Toolkits"}
-              </h3>
-
-              <p className="text-xs sm:text-sm leading-relaxed text-blue-100/80">
-                {isKm
-                  ? "ម៉ាស៊ីនគណនាប្រាក់បៀវត្សរ៍ផ្ទាល់ សង្ខេបច្បាប់ការងារ MoLVT និងក្របខ័ណ្ឌរៀបចំវេនការងារសម្រាប់ម្ចាស់អាជីវកម្ម និងអ្នកគ្រប់គ្រង HR នៅកម្ពុជា។"
-                  : isZh
-                  ? "专为在柬企业主、HR 总监与多分支管理者打造的实时薪酬模拟器、防代打卡落地指引与4级排班权限架构。"
-                  : "Curated live calculators, statutory compliance frameworks, and operational rosters engineered specifically for Cambodian enterprise leaders."}
+        <div className="mt-20 border-t border-slate-200/80 pt-14 sm:pt-16">
+          {/* Clean Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-brand">
+                {isKm ? "ធនធាន & ឧបករណ៍ជំនួយ" : isZh ? "实用工具与资源" : "Resources & Toolkits"}
               </p>
+              <h3 className="font-display mt-1.5 text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+                {isKm
+                  ? "ឧបករណ៍ជំនួយការងារ HR និងប្រតិបត្តិការ"
+                  : isZh
+                  ? "柬埔寨人力资源与运营实战工具箱"
+                  : "HR & Operational Toolkits for Cambodia"}
+              </h3>
             </div>
-
-            {/* Quick trust metrics capsule */}
-            <div className="flex flex-wrap items-center gap-2 shrink-0">
-              <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/10 border border-white/15 px-3 py-1.5 text-[11px] font-medium text-cyan-200 backdrop-blur-xs">
-                <ShieldCheck size={13} className="text-cyan-300" />
-                <span>{isKm ? "អនុលោមតាមច្បាប់ MoLVT" : isZh ? "符合柬埔寨劳工法" : "MoLVT Compliant"}</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/10 border border-white/15 px-3 py-1.5 text-[11px] font-medium text-emerald-200 backdrop-blur-xs">
-                <Coins size={13} className="text-emerald-300" />
-                <span>{isKm ? "រូបិយប័ណ្ណពីរ USD & KHR" : isZh ? "美元/柬币双币支持" : "USD & KHR Dual-Currency"}</span>
-              </span>
-            </div>
+            <p className="text-xs sm:text-sm text-slate-500 max-w-md leading-relaxed">
+              {isKm
+                ? "ម៉ាស៊ីនគណនាប្រាក់ខែ មគ្គុទ្ទេសក៍ទប់ស្កាត់ការចុះវត្តមានជំនួស និងក្របខ័ណ្ឌរៀបចំវេនការងារសម្រាប់អាជីវកម្មនៅកម្ពុជា។"
+                : isZh
+                ? "专为在柬企业打造的实用薪资计算器、防代打卡落地方案与多门店排班管理架构。"
+                : "Interactive calculators, attendance frameworks, and multi-branch roster blueprints built for local operations."}
+            </p>
           </div>
 
-          {/* 3 Premium Bento Cards */}
-          <div className="relative z-10 mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* Card 1: Interactive Cambodia Payroll Simulator */}
-            <div className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-b from-white/10 to-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:shadow-2xl hover:shadow-cyan-500/10">
-              <div className="space-y-4">
-                {/* Card Header: Icon + Badge */}
-                <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 text-white font-extrabold text-sm shadow-lg shadow-cyan-500/20">
-                    ៛/$
+          {/* 3 Clean, Polished Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Card 1: Payroll Calculator */}
+            <Link
+              href="/payroll"
+              className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-brand/40 hover:shadow-lg"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-brand border border-blue-100 transition-colors group-hover:bg-brand group-hover:text-white">
+                    <Calculator size={20} />
                   </div>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-cyan-500/20 border border-cyan-400/30 px-2.5 py-0.5 text-[10.5px] font-bold text-cyan-300">
-                    <Zap size={10} />
-                    <span>{isKm ? "ម៉ាស៊ីនគណនាផ្ទាល់" : isZh ? "实时交互计算" : "Live Simulator"}</span>
+                  <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-600">
+                    {isKm ? "ឧបករណ៍គណនា" : isZh ? "交互工具" : "Calculator"}
                   </span>
                 </div>
 
-                <div>
-                  <h4 className="font-display text-lg font-bold text-white group-hover:text-cyan-200 transition-colors">
-                    {isKm
-                      ? "កម្មវិធីគណនាប្រាក់បៀវត្សរ៍កម្ពុជា"
-                      : isZh
-                      ? "柬埔寨薪资与加班费实时模拟器"
-                      : "Interactive Cambodia Payroll Simulator"}
-                  </h4>
-                  <p className="mt-1.5 text-xs text-blue-100/80 leading-relaxed">
-                    {isKm
-                      ? "គណនាប្រាក់ឈ្នួលម៉ោងគោល ការកាត់ប្រាក់យឺត ប្រាក់ថែមម៉ោង ១.៥x/២.០x និងការកាត់វិភាគទាន ប.ស.ស. ផ្ទាល់។"
-                      : isZh
-                      ? "秒级模拟基础时薪、迟到精准扣除、平日1.5倍/节假日2.0倍双倍加班费及 NSSF 社保自动分摊。"
-                      : "Simulate base hourly rates, late penalties, 1.5× OT, 2.0× public holiday double-pay, and NSSF statutory brackets."}
-                  </p>
-                </div>
+                <h4 className="font-display text-lg font-bold text-slate-900 group-hover:text-brand transition-colors">
+                  {isKm
+                    ? "កម្មវិធីគណនាប្រាក់បៀវត្សរ៍កម្ពុជា"
+                    : isZh
+                    ? "柬埔寨薪资与加班费计算器"
+                    : "Cambodia Payroll Simulator"}
+                </h4>
 
-                {/* Mini UI Preview Box */}
-                <div className="rounded-xl border border-white/15 bg-[#020D30]/80 p-3 space-y-2 text-[11px] font-mono shadow-inner">
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">Base Hourly:</span>
-                    <span className="text-cyan-300 font-bold">$2.50 / hr (10,250 ៛)</span>
-                  </div>
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">Overtime (1.5x):</span>
-                    <span className="text-emerald-300 font-bold">$3.75 / hr</span>
-                  </div>
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">Holiday (2.0x):</span>
-                    <span className="text-amber-300 font-bold">$5.00 (Double Pay)</span>
-                  </div>
-                </div>
-
-                {/* Feature Pills */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-blue-200">
-                    {isKm ? "មេគុណ 1.5x / 2.0x" : isZh ? "1.5x/2.0x 加班倍率" : "1.5x / 2.0x OT"}
-                  </span>
-                  <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-blue-200">
-                    {isKm ? "ពិដាន ប.ស.ស." : isZh ? "NSSF 官方基数上限" : "NSSF Cap"}
-                  </span>
-                  <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-blue-200">
-                    {isKm ? "អត្រាប្តូរប្រាក់ NBC" : isZh ? "NBC 央行官方汇率" : "NBC Rate"}
-                  </span>
-                </div>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">
+                  {isKm
+                    ? "គណនាប្រាក់ឈ្នួលម៉ោងគោល ការកាត់ប្រាក់យឺត ប្រាក់ថែមម៉ោង ១.៥x និង ២.០x ព្រមទាំងការបង់វិភាគទាន ប.ស.ស. ជាដុល្លារ ($) និងប្រាក់រៀល (៛)។"
+                    : isZh
+                    ? "在线模拟基础时薪、迟到按分钟扣除、平日1.5倍及法定假日2.0倍加班费，支持美元与瑞尔双币及 NSSF 自动扣缴。"
+                    : "Estimate base hourly rates, late penalties, 1.5× OT, and 2.0× holiday pay in USD and KHR with official NSSF statutory formulas."}
+                </p>
               </div>
 
-              {/* Card Action Link */}
-              <div className="mt-6 pt-4 border-t border-white/10">
-                <Link
-                  href="/payroll"
-                  className="w-full inline-flex items-center justify-between rounded-xl bg-cyan-400/20 hover:bg-cyan-400 border border-cyan-400/40 px-4 py-2.5 text-xs font-bold text-cyan-200 hover:text-slate-950 transition-all duration-200 shadow-xs cursor-pointer group-hover:bg-cyan-400 group-hover:text-slate-950"
-                >
-                  <span>{isKm ? "បើកកម្មវិធីគណនាប្រាក់ខែ" : isZh ? "启动薪资模拟器" : "Launch Payroll Simulator"}</span>
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-brand">
+                <span>{isKm ? "បើកកម្មវិធីគណនា" : isZh ? "打开计算器" : "Open Calculator"}</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
-            </div>
+            </Link>
 
-            {/* Card 2: Anti-Buddy Punching Field Guide */}
-            <div className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-b from-white/10 to-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400/60 hover:shadow-2xl hover:shadow-emerald-500/10">
-              <div className="space-y-4">
-                {/* Card Header: Icon + Badge */}
-                <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-700 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/20">
-                    <ShieldCheck size={24} />
+            {/* Card 2: Attendance & Anti-Buddy Punching */}
+            <Link
+              href="/attendance"
+              className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-emerald-500/40 hover:shadow-lg"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
+                    <MapPin size={20} />
                   </div>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 px-2.5 py-0.5 text-[10.5px] font-bold text-emerald-300">
-                    <CheckCircle2 size={10} />
-                    <span>{isKm ? "ទប់ស្កាត់ចុះជំនួស ១០០%" : isZh ? "100% 杜绝代打卡" : "Anti-Fraud Lock"}</span>
+                  <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-600">
+                    {isKm ? "មគ្គុទ្ទេសក៍" : isZh ? "落地方案" : "Field Guide"}
                   </span>
                 </div>
 
-                <div>
-                  <h4 className="font-display text-lg font-bold text-white group-hover:text-emerald-200 transition-colors">
-                    {isKm
-                      ? "មគ្គុទ្ទេសក៍ទប់ស្កាត់ការចុះវត្តមានជំនួសគ្នា"
-                      : isZh
-                      ? "企业防代打卡与电子围栏实地指南"
-                      : "Anti-Buddy Punching Field Guide"}
-                  </h4>
-                  <p className="mt-1.5 text-xs text-blue-100/80 leading-relaxed">
-                    {isKm
-                      ? "របៀបកំណត់កាំរង្វង់ Geofence ៥០ម–៣០០ម ទប់ស្កាត់ការក្លែងបន្លំ GPS និងការថតរូប Selfie ផ្ទៀងផ្ទាត់ផ្ទាល់។"
-                      : isZh
-                      ? "详解如何实地校准 50m–300m 门市围栏、底层拦截虚拟定位软件并结合活体自拍杜绝虚假工时。"
-                      : "How to calibrate 50m–300m branch geofences, intercept fake mock GPS apps, and enforce live selfie proofs."}
-                  </p>
-                </div>
+                <h4 className="font-display text-lg font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                  {isKm
+                    ? "មគ្គុទ្ទេសក៍ទប់ស្កាត់ការចុះវត្តមានជំនួសគ្នា"
+                    : isZh
+                    ? "企业防代打卡与定位核验方案"
+                    : "Anti-Buddy Punching Guide"}
+                </h4>
 
-                {/* Mini UI Preview Box */}
-                <div className="rounded-xl border border-white/15 bg-[#020D30]/80 p-3 space-y-2 text-[11px] font-mono shadow-inner">
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">Branch Geofence:</span>
-                    <span className="text-emerald-300 font-bold">50m Locked (Inside)</span>
-                  </div>
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">Identity Proof:</span>
-                    <span className="text-cyan-300 font-bold">Live Selfie Verified</span>
-                  </div>
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">Anti-Spoofing:</span>
-                    <span className="text-emerald-300 font-bold">Mock GPS Blocked</span>
-                  </div>
-                </div>
-
-                {/* Feature Pills */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-emerald-200">
-                    {isKm ? "កាំរង្វង់ ៥០ម–៣០០ម" : isZh ? "50-300m 定位锁" : "50m-300m Radius"}
-                  </span>
-                  <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-emerald-200">
-                    {isKm ? "ថតរូប Selfie ផ្ទាល់" : isZh ? "实时自拍活体核验" : "Live Selfie"}
-                  </span>
-                  <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-emerald-200">
-                    {isKm ? "ដំណើរការ Offline" : isZh ? "断网离线缓存" : "Offline Mode"}
-                  </span>
-                </div>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">
+                  {isKm
+                    ? "ស្វែងយល់ពីរបៀបកំណត់កាំរង្វង់ GPS ៥០ម–៣០០ម ជុំវិញហាង ការស្កេនមុខ Selfie ផ្ទាល់ និងប្រព័ន្ធទប់ស្កាត់ Mock GPS លើទូរស័ព្ទដៃ។"
+                    : isZh
+                    ? "掌握 50m–300m 门市电子围栏校准技巧、自拍活体核验流程以及 Android / iOS 底层反虚拟定位防作弊规范。"
+                    : "Best practices for setting 50m–300m branch geofences, requiring live selfie checks, and blocking fake GPS spoofing tools on frontline devices."}
+                </p>
               </div>
 
-              {/* Card Action Link */}
-              <div className="mt-6 pt-4 border-t border-white/10">
-                <Link
-                  href="/attendance"
-                  className="w-full inline-flex items-center justify-between rounded-xl bg-emerald-400/20 hover:bg-emerald-400 border border-emerald-400/40 px-4 py-2.5 text-xs font-bold text-emerald-200 hover:text-slate-950 transition-all duration-200 shadow-xs cursor-pointer group-hover:bg-emerald-400 group-hover:text-slate-950"
-                >
-                  <span>{isKm ? "មើលមគ្គុទ្ទេសក៍វត្តមាន" : isZh ? "查看防作弊指南" : "Explore Field Guide"}</span>
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-emerald-600">
+                <span>{isKm ? "មើលមគ្គុទ្ទេសក៍" : isZh ? "查看实操指南" : "View Field Guide"}</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
-            </div>
+            </Link>
 
-            {/* Card 3: Multi-Branch Roster Framework */}
-            <div className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-b from-white/10 to-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-purple-400/60 hover:shadow-2xl hover:shadow-purple-500/10">
-              <div className="space-y-4">
-                {/* Card Header: Icon + Badge */}
-                <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-700 text-white font-extrabold text-sm shadow-lg shadow-purple-500/20">
-                    <Building2 size={24} />
+            {/* Card 3: Multi-Branch Framework */}
+            <Link
+              href="/multi-branch"
+              className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-purple-500/40 hover:shadow-lg"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-600 border border-purple-100 transition-colors group-hover:bg-purple-600 group-hover:text-white">
+                    <Building2 size={20} />
                   </div>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-purple-500/20 border border-purple-400/30 px-2.5 py-0.5 text-[10.5px] font-bold text-purple-300">
-                    <Users size={10} />
-                    <span>{isKm ? "សិទ្ធិ ៤ កម្រិត" : isZh ? "4级组织权限" : "4-Tier RBAC"}</span>
+                  <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-600">
+                    {isKm ? "ក្របខ័ណ្ឌ" : isZh ? "架构指南" : "Framework"}
                   </span>
                 </div>
 
-                <div>
-                  <h4 className="font-display text-lg font-bold text-white group-hover:text-purple-200 transition-colors">
-                    {isKm
-                      ? "ក្របខ័ណ្ឌគ្រប់គ្រងវេនការងារពហុសាខា"
-                      : isZh
-                      ? "多门店多层级智能排班管理架构"
-                      : "Multi-Branch Roster Framework"}
-                  </h4>
-                  <p className="mt-1.5 text-xs text-blue-100/80 leading-relaxed">
-                    {isKm
-                      ? "ការកំណត់សិទ្ធិ ៤ កម្រិត (Owner, HR Admin, Branch Manager, Staff) និងការគ្រប់គ្រងវេនបំបែក (Split Shifts)។"
-                      : isZh
-                      ? "标准配置企业主、HR 管理员、分店店长及基层员工4级权限，轻松掌控分段倒班与跨店调度。"
-                      : "Role-based permissions & split-shift roster architecture for enterprise owners, HR admins, and frontline branch teams."}
-                  </p>
-                </div>
+                <h4 className="font-display text-lg font-bold text-slate-900 group-hover:text-purple-700 transition-colors">
+                  {isKm
+                    ? "ក្របខ័ណ្ឌគ្រប់គ្រងវេនការងារពហុសាខា"
+                    : isZh
+                    ? "多门店排班与4级权限管理架构"
+                    : "Multi-Branch Roster Framework"}
+                </h4>
 
-                {/* Mini UI Preview Box */}
-                <div className="rounded-xl border border-white/15 bg-[#020D30]/80 p-3 space-y-2 text-[11px] font-mono shadow-inner">
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">HQ Owner:</span>
-                    <span className="text-purple-300 font-bold">Full Executive Control</span>
-                  </div>
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">HR Admin:</span>
-                    <span className="text-cyan-300 font-bold">Payroll, OT & NSSF Export</span>
-                  </div>
-                  <div className="flex items-center justify-between text-slate-300">
-                    <span className="text-slate-400">Branch Manager:</span>
-                    <span className="text-emerald-300 font-bold">Shift Swaps & Approvals</span>
-                  </div>
-                </div>
-
-                {/* Feature Pills */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-purple-200">
-                    {isKm ? "វេនបំបែក Split Shifts" : isZh ? "分段倒班排班" : "Split Shifts"}
-                  </span>
-                  <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-purple-200">
-                    {isKm ? "ប្តូរវេនឆ្លងសាខា" : isZh ? "跨门店智能支援" : "Cross-Branch"}
-                  </span>
-                  <span className="rounded-md bg-white/10 px-2 py-0.5 text-[10px] text-purple-200">
-                    {isKm ? "ដំណឹង Telegram" : isZh ? "Telegram 缺勤预警" : "Telegram Bot"}
-                  </span>
-                </div>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">
+                  {isKm
+                    ? "រៀបចំការបែងចែកសិទ្ធិ ៤ កម្រិត (Owner, HR Admin, Branch Manager, Staff) ការគ្រប់គ្រងវេនបំបែក និងការដោះដូរបុគ្គលិកឆ្លងសាខា។"
+                    : isZh
+                    ? "构建企业主、HR 管理员、分店店长与基层员工4级权限体系，实现餐饮零售分段倒班与跨门店无缝调度。"
+                    : "Architect 4-tier access levels (Owner, HR Admin, Branch Manager, Staff), schedule split shifts, and manage cross-branch staff coverage."}
+                </p>
               </div>
 
-              {/* Card Action Link */}
-              <div className="mt-6 pt-4 border-t border-white/10">
-                <Link
-                  href="/multi-branch"
-                  className="w-full inline-flex items-center justify-between rounded-xl bg-purple-400/20 hover:bg-purple-400 border border-purple-400/40 px-4 py-2.5 text-xs font-bold text-purple-200 hover:text-slate-950 transition-all duration-200 shadow-xs cursor-pointer group-hover:bg-purple-400 group-hover:text-slate-950"
-                >
-                  <span>{isKm ? "ស្វែងយល់ពីក្របខ័ណ្ឌ" : isZh ? "查看排班管理架构" : "View Roster Framework"}</span>
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-purple-600">
+                <span>{isKm ? "ស្វែងយល់បន្ថែម" : isZh ? "了解架构" : "Explore Framework"}</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
-            </div>
-          </div>
-
-          {/* Bottom Data Trust Strip */}
-          <div className="relative z-10 mt-10 pt-6 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center sm:text-left text-xs text-blue-200/80">
-            <div className="flex items-center justify-center sm:justify-start gap-2">
-              <Zap size={15} className="text-cyan-400 shrink-0" />
-              <span>
-                {isKm
-                  ? "ចូលប្រើប្រាស់ឥតគិតថ្លៃ ១០០% • មិនទាមទារការចុះឈ្មោះ"
-                  : isZh
-                  ? "100% 免费公开访问 • 无需注册即开即用"
-                  : "100% Free Public Access • No signup required"}
-              </span>
-            </div>
-            <div className="flex items-center justify-center sm:justify-start gap-2">
-              <ShieldCheck size={15} className="text-emerald-400 shrink-0" />
-              <span>
-                {isKm
-                  ? "រៀបចំស្របតាមច្បាប់ការងារ MoLVT និងរូបិយប័ណ្ណ NBC"
-                  : isZh
-                  ? "内置柬埔寨 MoLVT 劳工法与 NBC 官方双币汇率"
-                  : "Pre-configured for NBC & MoLVT labor laws"}
-              </span>
-            </div>
-            <div className="flex items-center justify-center sm:justify-start gap-2">
-              <Smartphone size={15} className="text-purple-400 shrink-0" />
-              <span>
-                {isKm
-                  ? "ដំណើរការលើ iOS, Android, QR Kiosk & Telegram"
-                  : isZh
-                  ? "全平台支持 iOS、Android、平板 Kiosk 及 Telegram"
-                  : "Ready for iOS, Android, QR Kiosk & Telegram"}
-              </span>
-            </div>
+            </Link>
           </div>
         </div>
       </Section>

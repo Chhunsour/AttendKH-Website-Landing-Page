@@ -9,6 +9,7 @@ import {
 } from "next/font/google";
 import { Providers } from "@/lib/i18n";
 import { AnalyticsTracker } from "@/components/site/analytics-tracker";
+import { ChatbotWidget } from "@/components/site/chatbot-widget";
 import { MotionConfig } from "framer-motion";
 import { absoluteUrl, SITE_URL, SOCIAL_IMAGE_PATH } from "@/lib/site";
 import "./globals.css";
@@ -85,6 +86,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${googleSans.variable} ${jetbrains.variable} ${kantumruy.variable} ${plusJakarta.variable} ${spaceGrotesk.variable}`}
     >
       <body className="font-sans antialiased">
@@ -94,6 +96,7 @@ export default function RootLayout({
               <AnalyticsTracker />
             </Suspense>
             {children}
+            <ChatbotWidget />
           </Providers>
         </MotionConfig>
       </body>

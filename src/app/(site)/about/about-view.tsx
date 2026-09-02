@@ -1,35 +1,28 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   MapPin,
   Building,
   ShieldCheck,
   Headphones,
   Check,
-  CheckCircle2,
   ArrowRight,
   Send,
   Globe,
   Coins,
-  WifiOff,
   FileCheck,
   Sparkles,
   Users,
-  Activity,
-  Layers,
   Radio,
   ExternalLink,
-  Navigation,
-  Clock,
-  Mail,
+  Compass,
 } from "lucide-react";
 import {
   useCopy,
-  PageHero,
   Section,
   SectionHead,
-  DirectAnswerBlock,
   Reveal,
   CtaBand,
 } from "@/components/site/ui";
@@ -38,7 +31,6 @@ import { useSite } from "@/lib/i18n";
 
 export function AboutView() {
   const c = useCopy();
-  const a = c.about;
   const { lang } = useSite();
   const isKm = lang === "km";
 
@@ -126,7 +118,7 @@ export function AboutView() {
       title: isKm ? "សេវាគាំទ្រទាន់ពេលនៅភ្នំពេញ" : "Real Local Support in Phnom Penh",
       desc: isKm
         ? "ក្រុមការងារយើងនៅទួលគោក ឆ្លើយតបជាភាសាខ្មែរ និងអង់គ្លេសភ្លាមៗតាម Telegram និងទូរស័ព្ទ ព្រមទាំងចុះជួយបណ្តុះបណ្តាលដល់ទីកន្លែងក្នុងម៉ោងធ្វើការកម្ពុជា។"
-        : "Direct access to our Phnom Penh team via Telegram (@attendkh), phone, and on-site branch setup visits during standard Cambodian business hours.",
+        : "Direct access to our Phnom Penh team via Telegram (@MPG_by_ongphaly), phone, and on-site branch setup visits during standard Cambodian business hours.",
     },
   ];
 
@@ -166,181 +158,209 @@ export function AboutView() {
   ];
 
   return (
-    <>
-      {/* 1. Standard AttendKH Blue PageHero */}
-      <PageHero
-        title={
-          isKm
-            ? "បង្កើតឡើងនៅភ្នំពេញ សម្រាប់អាជីវកម្មកម្ពុជា"
-            : "Built in Phnom Penh for Cambodian Businesses"
-        }
-        sub={
-          isKm
-            ? "ភាសាខ្មែរជាចម្បង គិតជារៀល និងដុល្លារ និងសង្វាក់តាមការងារជាក់ស្តែងនៅទីនេះ។"
-            : "Khmer first, dual-currency by default, and engineered for the realities of running shifts here."
-        }
-      />
+    <div className="bg-paper">
+      {/* 1. Cinematic Hero Header with Phnom Penh Studio Imagery */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#0052FF] to-[#0043D6] text-white pt-28 pb-20 sm:pt-36 sm:pb-28">
+        {/* Subtle geometric grid backdrop */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-blue-400/20 blur-3xl pointer-events-none" />
 
-      {/* 2. Story & Central Operations Console Showcase */}
-      <Section tone="white">
-        <div className="mx-auto max-w-[1240px]">
-          <div className="overflow-hidden rounded-3xl border border-line bg-mist/30 p-6 sm:p-10 shadow-xs">
-            <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
-              {/* Left Column: Origin Story */}
-              <div className="lg:col-span-6 space-y-5">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider">
-                  <Building size={13} />
-                  <span>{isKm ? "ដំណើរដើមទងរបស់យើង" : "Our Origin Story"}</span>
-                </span>
+        <div className="relative mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-14">
+          <div className="max-w-3xl space-y-5">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-md px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white border border-white/20 shadow-xs">
+              <MapPin size={13} className="text-amber-300" />
+              <span>{isKm ? "វិស្វកម្មនៅរាជធានីភ្នំពេញ" : "Engineered in Phnom Penh"}</span>
+            </div>
 
-                <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  {isKm
-                    ? "ដោះស្រាយបញ្ហាវត្តមាន និងប្រាក់ខែជាក់ស្តែងនៅភ្នំពេញ"
-                    : "Born from Real Workforce Challenges in Phnom Penh"}
-                </h2>
+            <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white leading-tight">
+              {isKm
+                ? "បង្កើតឡើងនៅភ្នំពេញ សម្រាប់អាជីវកម្មកម្ពុជា"
+                : "Built in Phnom Penh for Cambodian Businesses"}
+            </h1>
 
-                <div className="space-y-4 text-[15px] leading-relaxed text-body">
-                  <p>
-                    {isKm
-                      ? "AttendKH បានចាប់ផ្តើមឡើងពីសំណួរមួយរបស់ម្ចាស់ហាងកាហ្វេនៅរាជធានីភ្នំពេញ៖ «តើបុគ្គលិកណាម្នាក់កំពុងនៅសាខាពិតប្រាកដនៅពេលនេះ?»"
-                      : "AttendKH began with one straightforward question from a coffee chain owner in Phnom Penh: who is actually at the branch right now?"}
-                  </p>
-                  <p>
-                    {isKm
-                      ? "កម្មវិធីបរទេសភាគច្រើនដំណើរការតែជាភាសាអង់គ្លេស គិតតែប្រាក់ដុល្លារ និងមិនស្គាល់ថ្ងៃបុណ្យជាតិកម្ពុជា ឬច្បាប់ ប.ស.ស. ឡើយ។ ដូច្នេះយើងបានកសាងចម្លើយនៅទីនេះ — ខ្មែរ និងអង់គ្លេស រៀល និងដុល្លារ និងរូបមន្តស្របតាមច្បាប់ការងារកម្ពុជា។"
-                      : "Global HR tools answered it in English, in USD, on a holiday calendar that was not ours. So we built the answer here in Phnom Penh — Khmer and English, riel and dollar, with Cambodian labor rules built directly into the formulas."}
-                  </p>
-                  <p>
-                    {isKm
-                      ? "សព្វថ្ងៃ ក្រុមការងារនៅភ្នំពេញ សៀមរាប និងព្រះសីហនុ ប្រើប្រាស់ AttendKH សម្រាប់វត្តមាន និងប្រាក់ខែ ចាប់ពីហាងទោល រហូតដល់ក្រុមហ៊ុន ៥០ សាខា។"
-                      : "Today teams across Phnom Penh, Siem Reap, and Sihanoukville run their attendance and payroll on AttendKH, from single shops to fifty-branch groups."}
+            <p className="text-base sm:text-lg leading-relaxed text-blue-100 max-w-2xl">
+              {isKm
+                ? "ភាសាខ្មែរជាចម្បង គិតជារៀល និងដុល្លារ និងសង្វាក់តាមការងារជាក់ស្តែងនៅទីនេះ។"
+                : "Khmer first, dual-currency by default, and engineered for the daily realities of running shifts and payroll in Cambodia."}
+            </p>
+
+            <div className="pt-3 flex flex-wrap items-center gap-4">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-brand shadow-lg shadow-blue-950/20 hover:bg-blue-50 transition"
+              >
+                <span>{isKm ? "កក់ការបង្ហាញប្រព័ន្ធ" : "Book a Demonstration"}</span>
+                <ArrowRight size={14} />
+              </Link>
+              <a
+                href="https://t.me/MPG_by_ongphaly"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-5 py-3 text-sm font-semibold text-white border border-white/20 hover:bg-white/20 transition"
+              >
+                <Send size={14} />
+                <span>Telegram @MPG_by_ongphaly</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Hero Visual Bento: Authentic Phnom Penh Studio & Engineering Imagery */}
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+            {/* Main Office / Team Photo */}
+            <div className="md:col-span-8 relative overflow-hidden rounded-3xl border border-white/20 bg-slate-900 shadow-2xl h-[320px] sm:h-[400px]">
+              <Image
+                src="/about/office.jpg"
+                alt="AttendKH Engineering Studio in Phnom Penh"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+              <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
+                <div>
+                  <span className="inline-flex items-center gap-1.5 rounded-md bg-brand px-2.5 py-1 text-[11px] font-bold text-white uppercase tracking-wider mb-1.5">
+                    <Building size={12} />
+                    Headquarters
+                  </span>
+                  <h3 className="font-display text-lg sm:text-xl font-bold text-white leading-snug">
+                    AttendKH Tech Studio • Street 371, Phnom Penh
+                  </h3>
+                  <p className="text-xs text-white/80">
+                    Local software architecture, customer support, and product engineering.
                   </p>
                 </div>
+              </div>
+            </div>
 
-                <div className="pt-2 flex flex-wrap items-center gap-4">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-white shadow-xs hover:bg-brand-dark transition-all"
-                  >
-                    <span>{isKm ? "កក់ការបង្ហាញប្រព័ន្ធ" : "Book a Demonstration"}</span>
-                    <ArrowRight size={14} />
-                  </Link>
-                  <a
-                    href="https://t.me/attendkh"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline"
-                  >
-                    <Send size={14} />
-                    <span>Telegram @attendkh</span>
-                  </a>
+            {/* Team Snapshot & Metrics Card */}
+            <div className="md:col-span-4 flex flex-col gap-5">
+              <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-slate-900 shadow-xl flex-1 min-h-[190px]">
+                <Image
+                  src="/about/team.jpg"
+                  alt="AttendKH Engineering Team"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                <div className="absolute bottom-3.5 left-4 right-4">
+                  <span className="text-[11px] font-bold text-amber-300 uppercase">Product & Engineering</span>
+                  <p className="text-sm font-bold text-white">Cambodian Talent Building for Cambodia</p>
                 </div>
               </div>
 
-              {/* Right Column: High-Precision Operations Console (Clean White Theme) */}
-              <div className="lg:col-span-6">
-                <div
-                  role="region"
-                  aria-label="AttendKH Central Operations Console"
-                  className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-xl shadow-slate-900/5 ring-1 ring-slate-900/5 space-y-4"
-                >
-                  {/* Header */}
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-3.5">
-                    <div className="flex items-center gap-2.5">
-                      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-soft text-brand font-bold text-xs shadow-2xs border border-blue-200/60">
-                        <Building size={16} />
-                      </span>
-                      <div>
-                        <span className="font-display text-sm sm:text-[15px] font-bold text-slate-900 block">
-                          Central Operations Console
-                        </span>
-                        <span className="text-xs text-slate-500 font-medium block">
-                          Phnom Penh • Siem Reap • Sihanoukville
-                        </span>
-                      </div>
-                    </div>
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200/80 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 shadow-2xs">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span><strong className="font-num font-bold">4</strong> Branches Online</span>
+              {/* Fast live stats badge */}
+              <div className="rounded-3xl border border-white/20 bg-white/10 backdrop-blur-xl p-5 text-white flex flex-col justify-between">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-blue-100 font-medium">Active Deployment</span>
+                  <span className="flex items-center gap-1 text-emerald-300 font-bold">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Real-Time
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <span className="font-price text-2xl font-extrabold text-white">50–200m</span>
+                  <p className="text-xs text-blue-100">Point-in-time GPS geofence with zero 24/7 background tracking.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Origin Story & Founder Leadership Showcase */}
+      <Section tone="white">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+            {/* Left Column: The Real Story */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3.5 py-1 text-xs font-bold text-brand uppercase tracking-wider">
+                <Compass size={13} />
+                <span>{isKm ? "ដំណើរដើមទងរបស់យើង" : "Our Origin Story"}</span>
+              </div>
+
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-ink leading-tight">
+                {isKm
+                  ? "ដោះស្រាយបញ្ហាវត្តមាន និងប្រាក់ខែជាក់ស្តែងនៅភ្នំពេញ"
+                  : "Born from Real Workforce Challenges in Phnom Penh"}
+              </h2>
+
+              <div className="space-y-4 text-[15px] leading-relaxed text-body">
+                <p>
+                  {isKm
+                    ? "AttendKH បានចាប់ផ្តើមឡើងពីសំណួរមួយរបស់ម្ចាស់ហាងកាហ្វេនៅរាជធានីភ្នំពេញ៖ «តើបុគ្គលិកណាម្នាក់កំពុងនៅសាខាពិតប្រាកដនៅពេលនេះ?»"
+                    : "AttendKH began with one straightforward question from a coffee chain owner in Phnom Penh: who is actually at the branch right now?"}
+                </p>
+                <p>
+                  {isKm
+                    ? "កម្មវិធីបរទេសភាគច្រើនដំណើរការតែជាភាសាអង់គ្លេស គិតតែប្រាក់ដុល្លារ និងមិនស្គាល់ថ្ងៃបុណ្យជាតិកម្ពុជា ឬច្បាប់ ប.ស.ស. ឡើយ។ ដូច្នេះយើងបានកសាងចម្លើយនៅទីនេះ — ខ្មែរ និងអង់គ្លេស រៀល និងដុល្លារ និងរូបមន្តស្របតាមច្បាប់ការងារកម្ពុជា។"
+                    : "Global HR tools answered it in English, in USD, on a holiday calendar that was not ours. So we built the answer here in Phnom Penh — Khmer and English, riel and dollar, with Cambodian labor rules built directly into the formulas."}
+                </p>
+                <p>
+                  {isKm
+                    ? "សព្វថ្ងៃ ក្រុមការងារនៅភ្នំពេញ សៀមរាប និងព្រះសីហនុ ប្រើប្រាស់ AttendKH សម្រាប់វត្តមាន និងប្រាក់ខែ ចាប់ពីហាងទោល រហូតដល់ក្រុមហ៊ុន ៥០ សាខា។"
+                    : "Today teams across Phnom Penh, Siem Reap, and Sihanoukville run their attendance and payroll on AttendKH, from single shops to fifty-branch groups."}
+                </p>
+              </div>
+
+              {/* Verified Trust Badges */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+                <div className="rounded-xl border border-line bg-mist/60 p-3 text-left">
+                  <span className="font-price text-lg font-extrabold text-ink block">$1.00</span>
+                  <span className="text-[11.5px] text-slate-500 font-medium">Per user / month</span>
+                </div>
+                <div className="rounded-xl border border-line bg-mist/60 p-3 text-left">
+                  <span className="font-price text-lg font-extrabold text-ink block">&lt; 1s</span>
+                  <span className="text-[11.5px] text-slate-500 font-medium">Real-time sync</span>
+                </div>
+                <div className="rounded-xl border border-line bg-mist/60 p-3 text-left col-span-2 sm:col-span-1">
+                  <span className="font-price text-lg font-extrabold text-brand block">100%</span>
+                  <span className="text-[11.5px] text-slate-500 font-medium">Khmer-native code</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Founder & Leadership Card */}
+            <div className="lg:col-span-5">
+              <div className="overflow-hidden rounded-3xl border border-line bg-white shadow-xl shadow-slate-900/5 ring-1 ring-slate-900/5">
+                <div className="relative h-64 sm:h-72 w-full bg-slate-100">
+                  <Image
+                    src="/ong-phaly.png"
+                    alt="Mr. Ong Phaly — Managing Director of AttendKH"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 480px"
+                    className="object-cover object-top"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-5 right-5 text-white">
+                    <span className="rounded-md bg-brand px-2 py-0.5 text-[10.5px] font-bold uppercase tracking-wider text-white">
+                      Executive Leadership
                     </span>
+                    <h3 className="font-display text-xl font-bold text-white mt-1">Mr. Ong Phaly</h3>
+                    <p className="text-xs text-blue-100">Managing Director & Product Architect</p>
                   </div>
+                </div>
 
-                  {/* 4 Branch Live Status Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 py-1">
-                    <div className="rounded-2xl border border-slate-200/80 bg-slate-50/50 p-3.5 transition-all hover:border-brand/40 hover:bg-white shadow-2xs">
-                      <div className="flex justify-between items-center">
-                        <span className="font-display font-bold text-slate-900 text-xs sm:text-[13px] truncate">Phnom Penh (HQ)</span>
-                        <span className="font-num text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-2.5 py-0.5 rounded-lg shrink-0 ml-1 tabular-nums shadow-2xs">
-                          18/18
-                        </span>
-                      </div>
-                      <div className="mt-2 flex items-center justify-between text-xs text-slate-500 font-medium">
-                        <span>Morning Shift • <span className="font-num font-semibold">50m</span></span>
-                        <span className="text-emerald-700 font-semibold flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                          On Shift
-                        </span>
-                      </div>
-                    </div>
+                <div className="p-6 space-y-4">
+                  <blockquote className="border-l-2 border-brand pl-3.5 italic text-[13.5px] text-body leading-relaxed">
+                    {isKm
+                      ? "«យើងមិនគ្រាន់តែបង្កើតកម្មវិធីទេ — យើងកសាងប្រព័ន្ធហេដ្ឋារចនាសម្ព័ន្ធគ្រប់គ្រងកម្លាំងពលកម្ម ដែលផ្តល់តម្លៃដល់ពេលវេលា និងការខិតខំរបស់បុគ្គលិកគ្រប់រូបនៅកម្ពុជា។»"
+                      : "“We did not just build software — we engineered a transparent workforce infrastructure that respects the time and hard work of every Cambodian employee.”"}
+                  </blockquote>
 
-                    <div className="rounded-2xl border border-slate-200/80 bg-slate-50/50 p-3.5 transition-all hover:border-brand/40 hover:bg-white shadow-2xs">
-                      <div className="flex justify-between items-center">
-                        <span className="font-display font-bold text-slate-900 text-xs sm:text-[13px] truncate">BKK1 Tech Center</span>
-                        <span className="font-num text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200/70 px-2.5 py-0.5 rounded-lg shrink-0 ml-1 tabular-nums shadow-2xs">
-                          12/12
-                        </span>
-                      </div>
-                      <div className="mt-2 flex items-center justify-between text-xs text-slate-500 font-medium">
-                        <span>Split Shift • <span className="font-num font-semibold">65m</span></span>
-                        <span className="text-brand font-semibold flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                          Dinner Peak
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="rounded-2xl border border-slate-200/80 bg-slate-50/50 p-3.5 transition-all hover:border-brand/40 hover:bg-white shadow-2xs">
-                      <div className="flex justify-between items-center">
-                        <span className="font-display font-bold text-slate-900 text-xs sm:text-[13px] truncate">Siem Reap Boutique</span>
-                        <span className="font-num text-xs font-bold text-purple-700 bg-purple-50 border border-purple-200/70 px-2.5 py-0.5 rounded-lg shrink-0 ml-1 tabular-nums shadow-2xs">
-                          8/8
-                        </span>
-                      </div>
-                      <div className="mt-2 flex items-center justify-between text-xs text-slate-500 font-medium">
-                        <span>Flexi Shift • <span className="font-num font-semibold">75m</span></span>
-                        <span className="text-purple-700 font-semibold flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
-                          Flexible
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="rounded-2xl border border-slate-200/80 bg-slate-50/50 p-3.5 transition-all hover:border-brand/40 hover:bg-white shadow-2xs">
-                      <div className="flex justify-between items-center">
-                        <span className="font-display font-bold text-slate-900 text-xs sm:text-[13px] truncate">Sihanoukville Yard</span>
-                        <span className="font-num text-xs font-bold text-amber-700 bg-amber-50 border border-amber-200/70 px-2.5 py-0.5 rounded-lg shrink-0 ml-1 tabular-nums shadow-2xs">
-                          15/15
-                        </span>
-                      </div>
-                      <div className="mt-2 flex items-center justify-between text-xs text-slate-500 font-medium">
-                        <span>24/7 Shift • <span className="font-num font-semibold">100m</span></span>
-                        <span className="text-amber-700 font-semibold flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-                          Overnight
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Footer */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-3 text-xs">
-                    <span className="text-slate-600 font-medium">
-                      Dual-Currency: USD ($) + KHR (៛)
-                    </span>
-                    <span className="text-emerald-700 font-semibold flex items-center gap-1.5">
-                      <CheckCircle2 size={13} className="shrink-0" />
-                      <span><strong className="font-num font-bold">53/53</strong> Staff In-Perimeter</span>
-                    </span>
+                  <div className="flex items-center justify-between border-t border-line pt-3.5 text-xs text-slate-500">
+                    <span className="font-medium">Phnom Penh, Cambodia</span>
+                    <a
+                      href="https://t.me/MPG_by_ongphaly"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 font-semibold text-brand hover:underline"
+                    >
+                      <Send size={12} />
+                      <span>Contact @MPG_by_ongphaly</span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -349,7 +369,7 @@ export function AboutView() {
         </div>
       </Section>
 
-      {/* 3. Core Capability Highlights - Clean & Professional Grid */}
+      {/* 3. Core Capability Highlights - 4 Clean Cards */}
       <Section tone="mist">
         <div className="mx-auto max-w-[1240px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
@@ -357,21 +377,21 @@ export function AboutView() {
               const Icon = s.icon;
               return (
                 <Reveal key={s.label} delay={i * 0.05}>
-                  <div className="group relative h-full rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs hover:border-brand/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between">
+                  <div className="group relative h-full rounded-2xl sm:rounded-3xl border border-line bg-white p-6 shadow-xs hover:border-brand/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between">
                     <div>
                       {/* Icon & Pill Badge */}
                       <div className="flex items-center justify-between gap-2 mb-5">
                         <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand border border-blue-200/60 shadow-2xs">
                           <Icon size={20} />
                         </div>
-                        <span className="rounded-full bg-slate-100/90 px-3 py-1 text-[11px] font-semibold text-slate-600 border border-slate-200/70 shadow-2xs">
+                        <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold text-slate-600 border border-slate-200/70 shadow-2xs">
                           {s.pill}
                         </span>
                       </div>
 
                       {/* Stat Value */}
                       <div>
-                        <span className="font-price text-2xl sm:text-[26px] font-extrabold tracking-tight text-slate-900 block leading-tight">
+                        <span className="font-price text-2xl font-extrabold tracking-tight text-slate-900 block leading-tight">
                           {s.value}
                         </span>
                         <span className="font-display text-sm font-bold text-slate-800 mt-1.5 block leading-snug">
@@ -401,7 +421,7 @@ export function AboutView() {
         </div>
       </Section>
 
-      {/* 4. Six Core Product Principles - Engineered Bento Matrix */}
+      {/* 4. Six Core Product Principles - Engineered Bento Grid */}
       <Section tone="white">
         <div className="mx-auto max-w-[1240px]">
           <SectionHead
@@ -414,16 +434,16 @@ export function AboutView() {
           />
 
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 sm:gap-6">
-            {/* 01. Khmer-Native by Design (Hero Pillar - 7 cols) */}
+            {/* 01. Khmer-Native by Design */}
             <div className="lg:col-span-7">
               <Reveal delay={0.02}>
-                <article className="h-full rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-5">
+                <article className="h-full rounded-2xl sm:rounded-3xl border border-line bg-white p-6 sm:p-8 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-5">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand border border-blue-200/60 shadow-2xs">
                         <Globe size={22} />
                       </div>
-                      <span className="font-num text-xs font-bold text-slate-400 bg-slate-100/90 px-3 py-1 rounded-full border border-slate-200/70 shadow-2xs">
+                      <span className="font-num text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full border border-slate-200/70">
                         01
                       </span>
                     </div>
@@ -459,16 +479,16 @@ export function AboutView() {
               </Reveal>
             </div>
 
-            {/* 02. Dual-Currency USD & KHR Engine (5 cols) */}
+            {/* 02. Dual-Currency USD & KHR Engine */}
             <div className="lg:col-span-5">
               <Reveal delay={0.06}>
-                <article className="h-full rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-5">
+                <article className="h-full rounded-2xl sm:rounded-3xl border border-line bg-white p-6 sm:p-8 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-5">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand border border-blue-200/60 shadow-2xs">
                         <Coins size={22} />
                       </div>
-                      <span className="font-num text-xs font-bold text-slate-400 bg-slate-100/90 px-3 py-1 rounded-full border border-slate-200/70 shadow-2xs">
+                      <span className="font-num text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full border border-slate-200/70">
                         02
                       </span>
                     </div>
@@ -501,16 +521,16 @@ export function AboutView() {
               </Reveal>
             </div>
 
-            {/* 03. Point-in-Time GPS Verification (4 cols) */}
+            {/* 03. Point-in-Time GPS Verification */}
             <div className="lg:col-span-4">
               <Reveal delay={0.09}>
-                <article className="h-full rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-5">
+                <article className="h-full rounded-2xl sm:rounded-3xl border border-line bg-white p-6 sm:p-7 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-5">
                   <div className="space-y-3.5">
                     <div className="flex items-center justify-between">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand border border-blue-200/60 shadow-2xs">
                         <ShieldCheck size={22} />
                       </div>
-                      <span className="font-num text-xs font-bold text-slate-400 bg-slate-100/90 px-3 py-1 rounded-full border border-slate-200/70 shadow-2xs">
+                      <span className="font-num text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full border border-slate-200/70">
                         03
                       </span>
                     </div>
@@ -525,7 +545,6 @@ export function AboutView() {
                     </div>
                   </div>
 
-                  {/* Micro-UI: Privacy Perimeter Indicator */}
                   <div className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-3 flex items-center justify-between text-xs">
                     <span className="text-slate-600 font-medium">Privacy Perimeter</span>
                     <span className="font-num font-bold text-slate-900 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs">
@@ -536,16 +555,16 @@ export function AboutView() {
               </Reveal>
             </div>
 
-            {/* 04. Cambodian Labor Law & NSSF (4 cols) */}
+            {/* 04. Cambodian Labor Law & NSSF */}
             <div className="lg:col-span-4">
               <Reveal delay={0.12}>
-                <article className="h-full rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-5">
+                <article className="h-full rounded-2xl sm:rounded-3xl border border-line bg-white p-6 sm:p-7 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-5">
                   <div className="space-y-3.5">
                     <div className="flex items-center justify-between">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand border border-blue-200/60 shadow-2xs">
                         <FileCheck size={22} />
                       </div>
-                      <span className="font-num text-xs font-bold text-slate-400 bg-slate-100/90 px-3 py-1 rounded-full border border-slate-200/70 shadow-2xs">
+                      <span className="font-num text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full border border-slate-200/70">
                         04
                       </span>
                     </div>
@@ -560,12 +579,11 @@ export function AboutView() {
                     </div>
                   </div>
 
-                  {/* Micro-UI: Statutory Formula Tags */}
                   <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                    <span className="font-num text-[11px] font-bold text-slate-700 bg-slate-100/90 px-2.5 py-1 rounded-lg border border-slate-200/70">
+                    <span className="font-num text-[11px] font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200/70">
                       1.5× OT
                     </span>
-                    <span className="font-num text-[11px] font-bold text-slate-700 bg-slate-100/90 px-2.5 py-1 rounded-lg border border-slate-200/70">
+                    <span className="font-num text-[11px] font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200/70">
                       2.0× Holiday
                     </span>
                     <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200/70">
@@ -576,16 +594,16 @@ export function AboutView() {
               </Reveal>
             </div>
 
-            {/* 05. Real-Time Cloud Synchronization (4 cols) */}
+            {/* 05. Real-Time Cloud Synchronization */}
             <div className="lg:col-span-4">
               <Reveal delay={0.15}>
-                <article className="h-full rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-5">
+                <article className="h-full rounded-2xl sm:rounded-3xl border border-line bg-white p-6 sm:p-7 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-5">
                   <div className="space-y-3.5">
                     <div className="flex items-center justify-between">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand border border-blue-200/60 shadow-2xs">
                         <Radio size={22} />
                       </div>
-                      <span className="font-num text-xs font-bold text-slate-400 bg-slate-100/90 px-3 py-1 rounded-full border border-slate-200/70 shadow-2xs">
+                      <span className="font-num text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full border border-slate-200/70">
                         05
                       </span>
                     </div>
@@ -600,7 +618,6 @@ export function AboutView() {
                     </div>
                   </div>
 
-                  {/* Micro-UI: Live Latency Specimen */}
                   <div className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-3 flex items-center justify-between text-xs">
                     <span className="text-slate-600 font-medium flex items-center gap-1.5">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -614,17 +631,17 @@ export function AboutView() {
               </Reveal>
             </div>
 
-            {/* 06. Real Local Support in Phnom Penh (Wide Showcase Footer - 12 cols) */}
+            {/* 06. Real Local Support in Phnom Penh */}
             <div className="lg:col-span-12">
               <Reveal delay={0.18}>
-                <article className="rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200">
+                <article className="rounded-2xl sm:rounded-3xl border border-line bg-white p-6 sm:p-8 shadow-xs hover:border-brand/40 hover:shadow-lg transition-all duration-200">
                   <div className="grid lg:grid-cols-12 gap-6 items-center">
                     <div className="lg:col-span-7 space-y-3">
                       <div className="flex items-center gap-3">
                         <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand border border-blue-200/60 shadow-2xs">
                           <Headphones size={22} />
                         </div>
-                        <span className="font-num text-xs font-bold text-slate-400 bg-slate-100/90 px-3 py-1 rounded-full border border-slate-200/70 shadow-2xs">
+                        <span className="font-num text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full border border-slate-200/70">
                           06 • Local Support
                         </span>
                       </div>
@@ -639,17 +656,17 @@ export function AboutView() {
 
                     <div className="lg:col-span-5 flex flex-wrap lg:justify-end items-center gap-3">
                       <a
-                        href="https://t.me/attendkh"
+                        href="https://t.me/MPG_by_ongphaly"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-3 text-xs sm:text-sm font-semibold text-white shadow-xs hover:bg-brand-dark transition-all"
                       >
                         <Send size={14} />
-                        <span>Telegram @attendkh</span>
+                        <span>Telegram @MPG_by_ongphaly</span>
                       </a>
                       <Link
                         href="/contact"
-                        className="inline-flex items-center gap-2 rounded-xl border border-slate-200/90 bg-white hover:bg-slate-50 px-5 py-3 text-xs sm:text-sm font-semibold text-slate-800 shadow-2xs transition-all"
+                        className="inline-flex items-center gap-2 rounded-xl border border-line bg-white hover:bg-slate-50 px-5 py-3 text-xs sm:text-sm font-semibold text-slate-800 shadow-2xs transition-all"
                       >
                         <span>{isKm ? "ទាក់ទងមកយើង" : "Contact Team"}</span>
                         <ArrowRight size={14} />
@@ -663,120 +680,104 @@ export function AboutView() {
         </div>
       </Section>
 
-      {/* 5. Proudly Made in Cambodia */}
+      {/* 5. Nationwide Operations & Real Workplaces Across Cambodia */}
       <Section tone="mist">
         <div className="mx-auto max-w-[1240px]">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-3xl text-center space-y-3">
             <span className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-4 py-1.5 text-xs font-bold text-brand uppercase tracking-wider">
-              <MapPin size={13} className="text-brand" />
-              <span>{isKm ? "មោទនភាពផលិតផលកម្ពុជា" : "Proudly Made in Cambodia"}</span>
+              <Building size={13} className="text-brand" />
+              <span>{isKm ? "វត្តមានទូទាំងប្រទេសកម្ពុជា" : "Nationwide Coverage"}</span>
             </span>
-            <h2 className="font-display mt-4 text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-4xl">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-4xl">
               {isKm
                 ? "បច្ចេកវិទ្យាបង្កើតឡើងដោយកូនខ្មែរ ដើម្បីអាជីវកម្មកម្ពុជា"
-                : "Built by Cambodian Talent, Crafted for Cambodian Enterprise"}
+                : "Powering Operations Across Every Cambodian Province"}
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-body sm:text-base">
+            <p className="text-sm leading-relaxed text-body sm:text-base">
               {isKm
-                ? "AttendKH កើតចេញពីក្តីស្រឡាញ់ និងការប្តេជ្ញាចិត្តរបស់វិស្វករកម្ពុជានៅរាជធានីភ្នំពេញ ក្នុងការនាំយកបច្ចេកវិទ្យាទំនើប ងាយស្រួល និងមានតម្លៃសមរម្យបំផុតជូនម្ចាស់អាជីវកម្មគ្រប់រូប។"
-                : "AttendKH was founded on a simple conviction: Cambodian businesses deserve world-class workforce technology built specifically for local workflow realities, dual-currency commerce, and statutory labor standards."}
+                ? "ពីហាងកាហ្វេ និងភោជនីយដ្ឋាននៅភ្នំពេញ ដល់សណ្ឋាគារនៅសៀមរាប និងឃ្លាំងស្តុកទំនិញនៅកំពង់ផែក្រុងព្រះសីហនុ — AttendKH ដំណើរការយ៉ាងរលូនគ្រប់ទីកន្លែង។"
+                : "From cafes and boutiques in Phnom Penh to boutique hotels in Siem Reap and logistics yards in Sihanoukville."}
             </p>
           </div>
 
-          {/* Pillars Grid */}
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {cambodiaPridePillars.map((p, i) => {
-              const Icon = p.icon;
-              return (
-                <Reveal key={p.title} delay={i * 0.05}>
-                  <div className="h-full rounded-2xl border border-line bg-paper p-6 shadow-xs flex flex-col justify-between hover:border-brand hover:shadow-md transition-all">
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand">
-                          <Icon size={22} />
-                        </div>
-                        <span className="rounded-full bg-mist px-2.5 py-1 text-[11px] font-semibold text-slate-600">
-                          {p.badge}
-                        </span>
-                      </div>
+          {/* Sector Realities Grid with Real Cambodian Workplace Photography */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Sector 1: Restaurants & Cafes */}
+            <div className="overflow-hidden rounded-3xl border border-line bg-white shadow-xs hover:border-brand hover:shadow-lg transition-all">
+              <div className="relative h-48 w-full bg-slate-100">
+                <Image
+                  src="/industry_restaurants_cambodia_1788319571060.jpg"
+                  alt="Cambodian F&B and Coffee Chain Operations"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-4 text-xs font-bold text-white uppercase tracking-wider">
+                  Food & Beverage
+                </span>
+              </div>
+              <div className="p-5 space-y-2">
+                <h4 className="font-display text-base font-bold text-ink">Restaurants & Coffee Chains</h4>
+                <p className="text-xs text-body leading-relaxed">
+                  Split shifts, morning openings, late-night closing staff, and door QR tablet kiosks for fast check-in.
+                </p>
+              </div>
+            </div>
 
-                      <h3 className="font-display text-[16px] font-bold text-ink leading-snug">
-                        {p.title}
-                      </h3>
+            {/* Sector 2: Offices & Tech Workplaces */}
+            <div className="overflow-hidden rounded-3xl border border-line bg-white shadow-xs hover:border-brand hover:shadow-lg transition-all">
+              <div className="relative h-48 w-full bg-slate-100">
+                <Image
+                  src="/industry_offices_cambodia_1788319517336.jpg"
+                  alt="Cambodian Tech and Corporate Offices"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-4 text-xs font-bold text-white uppercase tracking-wider">
+                  Corporate & Tech
+                </span>
+              </div>
+              <div className="p-5 space-y-2">
+                <h4 className="font-display text-base font-bold text-ink">Agencies & Corporate Teams</h4>
+                <p className="text-xs text-body leading-relaxed">
+                  Flexible working hours, leave balance approvals, and automatic NSSF reporting exports in 1-click.
+                </p>
+              </div>
+            </div>
 
-                      <p className="mt-2.5 text-xs leading-relaxed text-body">
-                        {p.desc}
-                      </p>
-                    </div>
-
-                    <div className="mt-5 border-t border-line/70 pt-3 flex items-center justify-between text-[11px] font-mono text-slate-400">
-                      <span>Phnom Penh, KH</span>
-                      <span className="text-brand font-semibold">AttendKH</span>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-
-          {/* Bottom highlight banner */}
-          <div className="mt-10 rounded-2xl border border-brand/20 bg-brand-soft/50 p-6 sm:p-8 text-center">
-            <p className="font-display text-base font-bold text-brand sm:text-lg">
-              {isKm
-                ? "«យើងមានមោទនភាពក្នុងការរួមចំណែកកសាងអនាគតឌីជីថលនៃកម្លាំងពលកម្មកម្ពុជា»"
-                : "“Proudly powering Cambodian teams from Phnom Penh to Siem Reap and Sihanoukville.”"}
-            </p>
-            <p className="mt-2 text-xs font-medium text-slate-600">
-              {isKm
-                ? "ទីស្នាក់ការកណ្តាល៖ ផ្លូវ ៣៧១ រាជធានីភ្នំពេញ • បង្កើតឡើងដោយក្តីស្រឡាញ់ចំពោះសហគ្រិនកម្ពុជា"
-                : "Headquartered on Street 371, Phnom Penh • Built with pride for Cambodian entrepreneurs"}
-            </p>
+            {/* Sector 3: Logistics & Hospitality */}
+            <div className="overflow-hidden rounded-3xl border border-line bg-white shadow-xs hover:border-brand hover:shadow-lg transition-all">
+              <div className="relative h-48 w-full bg-slate-100">
+                <Image
+                  src="/about/network-map.jpg"
+                  alt="Cambodia Multi-Branch Logistics and Branch Network"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-4 text-xs font-bold text-white uppercase tracking-wider">
+                  Multi-Branch Retail
+                </span>
+              </div>
+              <div className="p-5 space-y-2">
+                <h4 className="font-display text-base font-bold text-ink">Nationwide Multi-Location</h4>
+                <p className="text-xs text-body leading-relaxed">
+                  Single management console spanning 50+ branches across Phnom Penh, Siem Reap, Battambang, and Sihanoukville.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </Section>
 
-      {/* 6. Quick Definition / Direct Answer Block for Search & AI */}
+
+
+      {/* 7. Headquarters & Interactive Map Section */}
       <Section tone="mist">
-        <div className="mx-auto max-w-[1240px]">
-          <DirectAnswerBlock
-            question={
-              isKm
-                ? "តើ AttendKH ជាអ្វី ហើយមានទីស្នាក់ការនៅទីណា?"
-                : "What is AttendKH and where is it located?"
-            }
-            answer={
-              isKm
-                ? "AttendKH គឺជាផលិតផលបច្ចេកវិទ្យាគ្រប់គ្រងកម្លាំងពលកម្មកម្ពុជា ដែលមានទីស្នាក់ការកណ្តាលនៅផ្លូវ ៣៧១ រាជធានីភ្នំពេញ។ វាដោះស្រាយបញ្ហាចុះវត្តមានតាម GPS Geofencing ការផ្ទៀងផ្ទាត់សេលហ្វី ការធ្វើសមកាលកម្ម Cloud ផ្ទាល់ និងការគណនាប្រាក់ខែទ្វេប្រាក់ USD/KHR ស្របតាមច្បាប់ការងារ និង ប.ស.ស. កម្ពុជា។"
-                : "AttendKH is a workforce technology platform headquartered on Street 371, Phnom Penh, Cambodia. It addresses multi-branch attendance, shift scheduling, dual-currency payroll in USD and KHR, real-time cloud synchronization, and bilingual Khmer/English workflows."
-            }
-            facts={[
-              {
-                label: isKm ? "ទីតាំងការិយាល័យ" : "Headquarters",
-                value: isKm ? "ផ្លូវ ៣៧១ រាជធានីភ្នំពេញ" : "Street 371, Phnom Penh, KH",
-              },
-              {
-                label: isKm ? "កូអរដោនេ GPS" : "GPS Coordinates",
-                value: "11.5204° N, 104.8956° E",
-              },
-              {
-                label: isKm ? "ភាសាគាំទ្រ" : "Supported Languages",
-                value: isKm ? "ភាសាខ្មែរ និង អង់គ្លេស" : "Khmer & English Native",
-              },
-              {
-                label: isKm ? "រូបិយប័ណ្ណប្រាក់ខែ" : "Payroll Currencies",
-                value: "USD ($) + KHR (៛)",
-              },
-              {
-                label: isKm ? "កាំ Geofence សាខា" : "Geofence Radius",
-                value: "50m – 200m per branch",
-              },
-            ]}
-          />
-        </div>
-      </Section>
-
-      {/* 7. Grand Panoramic Headquarters & Interactive Map Section */}
-      <Section tone="white">
         <div className="mx-auto max-w-[1240px]">
           <SectionHead
             title={isKm ? "ទីស្នាក់ការកណ្តាល AttendKH នៅរាជធានីភ្នំពេញ" : "Our Phnom Penh Headquarters"}
@@ -787,14 +788,13 @@ export function AboutView() {
             }
           />
 
-          {/* High-Resolution Interactive Headquarters Map Canvas */}
           <div className="mt-10">
             <HeadquartersMap googleMapsUrl="https://maps.app.goo.gl/Qw1zEoirTn6TFoXg7" />
           </div>
         </div>
       </Section>
 
-      {/* 7. Standard Conversion CTA Band */}
+      {/* 8. Conversion CTA Band */}
       <CtaBand
         title={
           isKm
@@ -807,6 +807,6 @@ export function AboutView() {
             : "Set up your first branch in about five minutes for just $1 per employee."
         }
       />
-    </>
+    </div>
   );
 }

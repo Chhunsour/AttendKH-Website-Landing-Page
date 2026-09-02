@@ -552,11 +552,11 @@ AttendKH provides clear, accessible, and transparent mechanisms for both individ
 
 ### For Individual Employees:
 - If you wish to delete your mobile account credentials, profile details, or personal data, you may submit a request directly to your employer's HR administrator (the Data Controller).
-- Alternatively, you can submit an individual deletion request directly to our Data Protection Officer by emailing **[privacy@attendkh.com](mailto:privacy@attendkh.com)** with the subject line *"Employee Data Deletion Request"*. Include your registered phone number, organization name, and Staff ID.
+- Alternatively, you can submit an individual deletion request directly to our Data Protection Officer by emailing **[privacy@MPG_by_ongphaly.com](mailto:privacy@MPG_by_ongphaly.com)** with the subject line *"Employee Data Deletion Request"*. Include your registered phone number, organization name, and Staff ID.
 - Upon receiving verified confirmation from your employer or upon account deactivation, all personal authentication tokens, biometric selfie photos, and device identifiers associated with your profile will be permanently deleted from active databases within **30 calendar days**.
 
 ### For Organizations & Business Owners:
-- Organization administrators can request complete deletion of their enterprise account, all branch geofences, staff profiles, attendance logs, and payroll records by emailing **[privacy@attendkh.com](mailto:privacy@attendkh.com)** from the verified owner's corporate email address or via the Admin Dashboard.
+- Organization administrators can request complete deletion of their enterprise account, all branch geofences, staff profiles, attendance logs, and payroll records by emailing **[privacy@MPG_by_ongphaly.com](mailto:privacy@MPG_by_ongphaly.com)** from the verified owner's corporate email address or via the Admin Dashboard.
 - All organizational data will be queued for permanent hard deletion across all production servers and storage buckets within 30 days.
 
 ---
@@ -588,7 +588,7 @@ Subject to applicable Cambodian laws and international standards, you have speci
 4. **Right to Restrict Processing**: You may request restrictions on how your data is processed if you dispute its accuracy.
 5. **Right to Data Portability**: Organizational administrators and employees can export attendance logs, overtime reports, and payslips in standardized formats (CSV, Excel, PDF).
 
-To exercise any of these rights, please contact your employer's HR team or contact our privacy team at **[privacy@attendkh.com](mailto:privacy@attendkh.com)**.
+To exercise any of these rights, please contact your employer's HR team or contact our privacy team at **[privacy@MPG_by_ongphaly.com](mailto:privacy@MPG_by_ongphaly.com)**.
 
 ---
 
@@ -625,9 +625,9 @@ When material changes occur:
 If you have questions, concerns, feedback, or complaints regarding this Privacy Policy, your personal data, or our mobile attendance security practices, please contact our Data Protection Office:
 
 - **Data Protection Officer (DPO)**: AttendKH Privacy & Security Compliance Team
-- **Email**: [privacy@attendkh.com](mailto:privacy@attendkh.com)
-- **General Support**: [support@attendkh.com](mailto:support@attendkh.com)
-- **Official Telegram Hotline**: [@attendkh](https://t.me/attendkh)
+- **Email**: [privacy@MPG_by_ongphaly.com](mailto:privacy@MPG_by_ongphaly.com)
+- **General Support**: [support@MPG_by_ongphaly.com](mailto:support@MPG_by_ongphaly.com)
+- **Official Telegram Hotline**: [@MPG_by_ongphaly](https://t.me/MPG_by_ongphaly)
 - **Phone Hotline**: +855 23 999 888
 - **Operating Hours**: Monday to Saturday, 8:00 AM – 6:00 PM (ICT / UTC+7)
 - **Physical Address**: Phnom Penh, Kingdom of Cambodia`,
@@ -701,8 +701,8 @@ AttendKH provides multi-channel customer support for Cambodian businesses via Te
 - **Priority Enterprise Support**: 24/7 dedicated Telegram emergency hotline with guaranteed 15-minute response SLA.
 
 ## 3. Contact Details
-- **Telegram Hotline**: @attendkh
-- **Email Support**: support@attendkh.com
+- **Telegram Hotline**: @MPG_by_ongphaly
+- **Email Support**: support@MPG_by_ongphaly.com
 - **Phone**: +855 23 999 888`,
       is_active: 1,
       changelog: "Initial release of Support SLA policy.",
@@ -723,9 +723,9 @@ AttendKH provides multi-channel customer support for Cambodian businesses via Te
       "មុខងារថ្មី៖ មុខងារ QR Kiosk នៅមាត់ទ្វារជាមួយសមកាលកម្ម Cloud ផ្ទាល់ដំណើរការហើយ!",
     announcement_link: "/attendance",
     announcement_color: "brand",
-    contact_email: "hello@attendkh.com",
+    contact_email: "hello@MPG_by_ongphaly.com",
     support_phone: "+855 23 999 888",
-    telegram_url: "https://t.me/attendkh",
+    telegram_url: "https://t.me/MPG_by_ongphaly",
     maintenance_mode: 0,
     analytics_enabled: 1,
     currency_rate_khr: 4100,
