@@ -428,7 +428,7 @@ export function PageHero({
           attendance: { en: "Attendance", km: "វត្តមានការងារ" },
           payroll: { en: "Payroll", km: "ប្រាក់បៀវត្សរ៍" },
           "multi-branch": { en: "Multi-Branch", km: "ពហុសាខា" },
-          pricing: { en: "Pricing ($1/mo)", km: "តម្លៃសេវា" },
+          pricing: { en: "Pricing", km: "តម្លៃសេវា" },
           customers: { en: "Customers", km: "អតិថិជន" },
           blog: { en: "Blog & Guides", km: "អត្ថបទ & មគ្គុទ្ទេសក៍" },
           support: { en: "Support Center", km: "មជ្ឈមណ្ឌលគាំទ្រ" },

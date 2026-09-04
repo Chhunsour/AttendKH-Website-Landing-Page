@@ -17,7 +17,7 @@ function Mark({ solid }: { solid: boolean }) {
     <span className="inline-flex items-center gap-2.5">
       <Image src="/logo.png" alt="" width={28} height={28} priority className="h-7 w-7" />
       <span
-        className={`text-[19px] font-extrabold tracking-tight transition-colors ${
+        className={`text-[19px] font-extrabold tracking-tight transition-colors duration-300 ease-out ${
           solid ? "text-[#0052FF]" : "text-white"
         }`}
       >
@@ -121,7 +121,7 @@ function ProductMenu({ solid }: { solid: boolean }) {
         aria-expanded={open}
         aria-haspopup="true"
         onClick={() => setOpen((v) => !v)}
-        className={`flex items-center gap-1.5 text-[14px] transition-colors ${
+        className={`flex items-center gap-1.5 text-[14px] transition-colors duration-300 ease-out ${
           solid
             ? isProductActive
               ? "font-semibold text-[#0052FF]"
@@ -203,10 +203,21 @@ export function Header() {
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    let rafId: number | null = null;
+    const onScroll = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        const top = window.scrollY;
+        setScrolled((prev) => (prev ? top > 18 : top > 36));
+        rafId = null;
+      });
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -261,82 +272,104 @@ export function Header() {
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 px-3 transition-[padding] duration-300 sm:px-4 ${
-          scrolled ? "pt-3" : "pt-0"
-        }`}
-      >
+      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-2.5 sm:px-6 sm:pt-3">
         <div
-          className={`mx-auto flex h-[62px] items-center justify-between gap-4 px-4 transition-all duration-300 sm:px-6 ${
+          className={`relative mx-auto flex h-[62px] sm:h-[64px] items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             scrolled
-              ? "motion-surface-in max-w-[1180px] rounded-2xl border border-black/5 bg-white/95 shadow-[0_10px_34px_rgba(15,23,42,0.12)] backdrop-blur-xl"
-              : "max-w-[1240px] rounded-none border border-transparent bg-transparent lg:px-8"
+              ? "max-w-[960px] px-4 sm:px-5 lg:px-6"
+              : "max-w-[1240px] px-4 sm:px-6 lg:px-8"
           }`}
         >
-          <Link href="/" aria-label="AttendKH — home">
-            <Mark solid={scrolled} />
-          </Link>
+          {/* Hardware-accelerated glass background: zero layout reflow, pure compositor-level opacity */}
+          <div
+            aria-hidden="true"
+            className={`pointer-events-none absolute inset-0 rounded-2xl border border-black/[0.07] bg-white/95 shadow-[0_10px_34px_rgba(15,23,42,0.10)] backdrop-blur-md transition-opacity duration-300 ease-out ${
+              scrolled ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ willChange: "opacity" }}
+          />
 
-          <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
-            <ProductMenu solid={scrolled} />
-            {links.map((l) => {
-              const isActive = pathname === l.href || (l.href !== "/" && pathname.startsWith(`${l.href}/`));
-              return (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  aria-current={isActive ? "page" : undefined}
-                  className={`text-[14px] transition-colors ${
-                    scrolled
-                      ? isActive
-                        ? "font-semibold text-[#0052FF]"
-                        : "font-medium text-[#5C5C5C] hover:text-[#141414]"
-                      : isActive
-                        ? "font-semibold text-white underline underline-offset-4"
-                        : "font-medium text-white/85 hover:text-white"
-                  }`}
-                >
-                  {l.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="flex items-center gap-2.5">
-            <div className="hidden md:block">
-              <LangSwitch solid={scrolled} />
-            </div>
-
-            <a
-              href="https://dashboard.attendkh.com"
-              className={`hidden text-[14px] font-medium transition-colors lg:inline-flex ${
-                scrolled ? "text-[#5C5C5C] hover:text-[#141414]" : "text-white/85 hover:text-white"
-              }`}
-            >
-              {c.nav.signIn}
-            </a>
-
-            <Link
-              href="/contact"
-              className={`hidden rounded-full px-5 py-2.5 text-[13.5px] font-semibold transition-colors sm:inline-flex ${
-                scrolled
-                  ? "bg-[#0052FF] text-white hover:bg-[#0045D8]"
-                  : "bg-white text-[#141414] hover:bg-[#EAF0FE]"
-              }`}
-            >
-              {c.nav.getStarted}
+          <div
+            className={`relative z-10 flex w-full items-center justify-between transition-[gap] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              scrolled ? "gap-4 sm:gap-6" : "gap-6 sm:gap-8"
+            }`}
+          >
+            <Link href="/" aria-label="AttendKH — home" className="shrink-0">
+              <Mark solid={scrolled} />
             </Link>
 
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              aria-label={c.nav.openMenu}
-              className={`flex min-h-11 min-w-11 items-center justify-center rounded-full border p-2 transition-colors lg:hidden ${
-                scrolled ? "border-[#E4E4E4] text-[#141414]" : "border-white/30 text-white"
+            <nav
+              aria-label="Main"
+              className={`hidden items-center transition-[gap] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:flex ${
+                scrolled ? "gap-5" : "gap-8"
               }`}
             >
-              <Menu size={18} />
-            </button>
+              <ProductMenu solid={scrolled} />
+              {links.map((l) => {
+                const isActive = pathname === l.href || (l.href !== "/" && pathname.startsWith(`${l.href}/`));
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`text-[14px] transition-colors duration-300 ease-out ${
+                      scrolled
+                        ? isActive
+                          ? "font-semibold text-[#0052FF]"
+                          : "font-medium text-[#5C5C5C] hover:text-[#141414]"
+                        : isActive
+                          ? "font-semibold text-white underline underline-offset-4"
+                          : "font-medium text-white/85 hover:text-white"
+                    }`}
+                  >
+                    {l.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div
+              className={`flex items-center shrink-0 transition-[gap] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                scrolled ? "gap-2 sm:gap-2.5" : "gap-2.5"
+              }`}
+            >
+              <div className="hidden md:block">
+                <LangSwitch solid={scrolled} />
+              </div>
+
+              <a
+                href="https://dashboard.attendkh.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`hidden text-[14px] font-medium transition-colors duration-300 ease-out lg:inline-flex ${
+                  scrolled ? "text-[#5C5C5C] hover:text-[#141414]" : "text-white/85 hover:text-white"
+                }`}
+              >
+                {c.nav.signIn}
+              </a>
+
+              <Link
+                href="/contact"
+                className={`hidden rounded-full font-semibold transition-all duration-300 ease-out sm:inline-flex ${
+                  scrolled
+                    ? "bg-[#0052FF] text-white hover:bg-[#0045D8] shadow-sm shadow-[#0052FF]/20 px-4 py-2 text-[13px]"
+                    : "bg-white text-[#141414] hover:bg-[#EAF0FE] px-5 py-2.5 text-[13.5px]"
+                }`}
+              >
+                {c.nav.getStarted}
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => setOpen(true)}
+                aria-label={c.nav.openMenu}
+                className={`flex min-h-11 min-w-11 items-center justify-center rounded-full border p-2 transition-all duration-300 ease-out lg:hidden ${
+                  scrolled ? "border-[#E4E4E4] text-[#141414]" : "border-white/30 text-white"
+                }`}
+              >
+                <Menu size={18} />
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -416,6 +449,8 @@ export function Header() {
               </Link>
               <a
                 href="https://dashboard.attendkh.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block rounded-full border border-[#E4E4E4] px-5 py-3.5 text-center text-[15px] font-semibold text-[#141414]"
               >
                 {c.nav.signIn}

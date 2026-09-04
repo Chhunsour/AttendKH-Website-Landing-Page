@@ -1,0 +1,8 @@
+# Local design source files (optimized web assets live in /public)
+Image for placement/
+Im,age/
+
+# Build output & local data - Vercel builds from source
+.next/
+.data/
+*.tsbuildinfo
