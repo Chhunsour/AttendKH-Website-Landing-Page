@@ -583,6 +583,41 @@ html[lang="km"] .font-mono {
   overflow-x: hidden;
 }
 
+/* Eliminate horizontal scroll line / scrollbars completely on blog single pages */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.blog-article,
+.blog-article *,
+.blog-article table,
+.blog-article pre,
+.blog-article code,
+.blog-article blockquote,
+.blog-article div,
+.blog-sidebar,
+.blog-sidebar * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.blog-article::-webkit-scrollbar,
+.blog-article *::-webkit-scrollbar,
+.blog-article table::-webkit-scrollbar,
+.blog-article pre::-webkit-scrollbar,
+.blog-article code::-webkit-scrollbar,
+.blog-article blockquote::-webkit-scrollbar,
+.blog-article div::-webkit-scrollbar,
+.blog-sidebar::-webkit-scrollbar,
+.blog-sidebar *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
 @keyframes footer-marquee {
   0% {
     transform: translateX(0%);

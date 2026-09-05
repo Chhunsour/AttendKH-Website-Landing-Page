@@ -133,6 +133,12 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
       {
         "@type": "ListItem",
         position: 3,
+        name: post.category,
+        item: absoluteUrl(`/blog?category=${encodeURIComponent(post.category)}`),
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
         name: post.title,
         item: absoluteUrl(`/blog/${post.slug}`),
       },

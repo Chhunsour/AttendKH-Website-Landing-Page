@@ -40,7 +40,7 @@ For decades, Cambodian enterprises across garment manufacturing, food & beverage
 2. **Stand-Alone Fingerprint Hardware Clocks**: Vulnerable to optical sensor failure from industrial dust, sewing machine oil, or kitchen humidity, requiring tedious manual USB flash drive data pulls.
 3. **Complex Disjointed Excel Spreadsheets**: Requiring HR directors and accountants to spend 4 to 6 full business days every month calculating statutory deductions, exchange rates, and late penalties.
 
-> Traditional Operations: ~40 Hours Monthly Overhead on Timesheet Reconciliation
+> Traditional Operations: ~40 Hours Monthly Overhead on Timesheet Reconciliation  
 > AttendKH Cloud Architecture: Zero Manual Data Entry & Instant Audit Sync
 
 ---
@@ -109,14 +109,14 @@ In provincial factory zones or basement retail outlets with cellular dead zones,
 
 Consider a typical Cambodian enterprise employing 50 staff across 2 locations:
 
-> **1. Buddy Punching & Time Theft (Avg. 15 min/day/worker):**
-> 50 workers × 0.25 hrs × $2.50/hr × 26 days = $812.50 / Month ($9,750 / Year)
-> **2. Monthly Payroll Reconciliation (HR & Accountant Labor):**
-> 32 hours manual spreadsheet calculations = $320.00 / Month ($3,840 / Year)
-> **3. Hardware Scanner Depreciation & Maintenance:**
-> 2 replacement scanners + wiring per year = $700 / Year
-> **Total Annual Waste on Legacy Methods: $14,290 USD / Year**
-> **AttendKH Annual Subscription (50 users × $1/mo × 12 mos): $600 USD / Year**
+> **1. Buddy Punching & Time Theft (Avg. 15 min/day/worker):**  
+> 50 workers × 0.25 hrs × $2.50/hr × 26 days = $812.50 / Month ($9,750 / Year)  
+> **2. Monthly Payroll Reconciliation (HR & Accountant Labor):**  
+> 32 hours manual spreadsheet calculations = $320.00 / Month ($3,840 / Year)  
+> **3. Hardware Scanner Depreciation & Maintenance:**  
+> 2 replacement scanners + wiring per year = $700 / Year  
+> **Total Annual Waste on Legacy Methods: $14,290 USD / Year**  
+> **AttendKH Annual Subscription (50 users × $1/mo × 12 mos): $600 USD / Year**  
 > **Net Annual Savings for the Business: $13,690 USD (Over 2,200% ROI)**
 
 ---
@@ -139,7 +139,7 @@ Transitioning your team from outdated hardware clocks or paper logs to AttendKH 
 ២. **ម៉ាស៊ីនស្កេនស្នាមម្រាមដៃ Hardware ដាច់ដោយឡែក**៖ ឧស្សាហ៍គាំង ឬខូចឧបករណ៍ចាប់សញ្ញាដោយសារធូលីឧស្សាហកម្ម ប្រេងម៉ាស៊ីនដេរ ឬសំណើមក្នុងផ្ទះបាយ ហើយទាមទារឱ្យដើរដោត Flash USB ដកទិន្នន័យដោយដៃជារៀងរាល់សប្តាហ៍។
 ៣. **តារាង Excel ស្មុគស្មាញ**៖ តម្រូវឱ្យប្រធាន HR និងគណនេយ្យករចំណាយពេលពី ៤ ទៅ ៦ ថ្ងៃពេញជារៀងរាល់ខែ ដើម្បីគណនាការកាត់ប្រាក់ស្របច្បាប់ អត្រាប្តូរប្រាក់ និងប្រាក់ពិន័យយឺត។
 
-> ប្រតិបត្តិការបែបបុរាណ៖ ខាតបង់ពេល ~៤០ ម៉ោង/ខែ លើការផ្ទៀងផ្ទាត់ទិន្នន័យវត្តមាន
+> ប្រតិបត្តិការបែបបុរាណ៖ ខាតបង់ពេល ~៤០ ម៉ោង/ខែ លើការផ្ទៀងផ្ទាត់ទិន្នន័យវត្តមាន  
 > AttendKH Cloud Architecture៖ គ្មានការបញ្ចូលទិន្នន័យដោយដៃ និងសមកាលកម្មទិន្នន័យភ្លាមៗ
 
 ---
@@ -208,14 +208,14 @@ Transitioning your team from outdated hardware clocks or paper logs to AttendKH 
 
 ពិចារណាលើអាជីវកម្មធម្មតាមួយនៅកម្ពុជាដែលមានបុគ្គលិក ៥០ នាក់ នៅ ២ សាខា៖
 
-> **១. ការចុះវត្តមានជំនួសគ្នា & ការបាត់បង់ម៉ោងការងារ (មធ្យម ១៥ នាទី/ថ្ងៃ/នាក់)៖**
-> ៥០ នាក់ × ០.២៥ ម៉ោង × $២.៥០/ម៉ោង × ២៦ ថ្ងៃ = $៨១២.៥០ / ខែ ($៩,៧៥០ / ឆ្នាំ)
-> **២. ការចំណាយពេលគណនាប្រាក់ខែ (កម្លាំងពលកម្ម HR & គណនេយ្យករ)៖**
-> ៣២ ម៉ោងនៃការគណនា Excel ដោយដៃ = $៣២០.០០ / ខែ ($៣,៨៤០ / ឆ្នាំ)
-> **៣. ថ្លៃខូចខាត និងថែទាំម៉ាស៊ីនស្កេនមេដៃ៖**
-> ការទិញម៉ាស៊ីនថ្មីជំនួស និងតខ្សែភ្លើង = $៧០០ / ឆ្នាំ
-> ការខាតបង់សរុបប្រចាំឆ្នាំលើវិធីសាស្ត្រចាស់ៗ៖ $១៤,២៩០ ដុល្លារ / ឆ្នាំ
-> ថ្លៃសេវា AttendKH ប្រចាំឆ្នាំ (៥០ នាក់ × $១/ខែ × ១២ ខែ)៖ $៦០០ ដុល្លារ / ឆ្នាំ
+> **១. ការចុះវត្តមានជំនួសគ្នា & ការបាត់បង់ម៉ោងការងារ (មធ្យម ១៥ នាទី/ថ្ងៃ/នាក់)៖**  
+> ៥០ នាក់ × ០.២៥ ម៉ោង × $២.៥០/ម៉ោង × ២៦ ថ្ងៃ = $៨១២.៥០ / ខែ ($៩,៧៥០ / ឆ្នាំ)  
+> **២. ការចំណាយពេលគណនាប្រាក់ខែ (កម្លាំងពលកម្ម HR & គណនេយ្យករ)៖**  
+> ៣២ ម៉ោងនៃការគណនា Excel ដោយដៃ = $៣២០.០០ / ខែ ($៣,៨៤០ / ឆ្នាំ)  
+> **៣. ថ្លៃខូចខាត និងថែទាំម៉ាស៊ីនស្កេនមេដៃ៖**  
+> ការទិញម៉ាស៊ីនថ្មីជំនួស និងតខ្សែភ្លើង = $៧០០ / ឆ្នាំ  
+> ការខាតបង់សរុបប្រចាំឆ្នាំលើវិធីសាស្ត្រចាស់ៗ៖ $១៤,២៩០ ដុល្លារ / ឆ្នាំ  
+> ថ្លៃសេវា AttendKH ប្រចាំឆ្នាំ (៥០ នាក់ × $១/ខែ × ១២ ខែ)៖ $៦០០ ដុល្លារ / ឆ្នាំ  
 > ប្រាក់ចំណេញសន្សំបានជាក់ស្តែង៖ $១៣,៦៩០ ដុល្លារ / ឆ្នាំ (ផលចំណេញលើស ២,២០០% ROI)
 
 ---
@@ -238,7 +238,7 @@ Transitioning your team from outdated hardware clocks or paper logs to AttendKH 
 2. **独立硬件指纹/面部打卡机**：车间粉尘、缝纫机油或高温高湿环境极易造成光学识别探头老化失效，且每月必须派专人手持 U 盘逐台拷贝流水，极其滞后。
 3. **庞杂混乱的离线 Excel 算薪表**：每月月末人事总监与财务会计必须闭门苦算 4 至 6 个完整工作日，处理复杂的法定扣缴、汇率换算与全勤迟到奖惩。
 
-> 传统管理模式：每月耗费约 40 个管理工时用于人工考勤与对账
+> 传统管理模式：每月耗费约 40 个管理工时用于人工考勤与对账  
 > AttendKH 智能云架构：零手工录入，秒级自动比对与一键云端生成凭证
 
 ---
@@ -307,14 +307,14 @@ Transitioning your team from outdated hardware clocks or paper logs to AttendKH 
 
 以一家在金边拥有 2 家门市、在职员工 50 人的典型中型企业为例：
 
-> **1. 代打卡漏洞与隐性工时损耗（按每人每天损耗 15 分钟计）：**
-> 50 人 × 0.25 小时 × $2.50/小时 × 26 工作天 = 每月损耗 $812.50（每年损耗 $9,750 美元）
-> **2. 人事与财务月末人工核算对账工时成本：**
-> 每月耗费 32 小时人工对账折算薪资 = 每月 $320.00（每年 $3,840 美元）
-> **3. 传统打卡机折旧更换与布线维修费：**
-> 每年故障更换与上门维护费用 = 约 $700 美元
-> 沿用传统落后方式的企业年均隐性浪费总额：$14,290 美元 / 年
-> AttendKH 全功能订阅年费（50人 × $1/月 × 12个月）：仅需 $600 美元 / 年
+> **1. 代打卡漏洞与隐性工时损耗（按每人每天损耗 15 分钟计）：**  
+> 50 人 × 0.25 小时 × $2.50/小时 × 26 工作天 = 每月损耗 $812.50（每年损耗 $9,750 美元）  
+> **2. 人事与财务月末人工核算对账工时成本：**  
+> 每月耗费 32 小时人工对账折算薪资 = 每月 $320.00（每年 $3,840 美元）  
+> **3. 传统打卡机折旧更换与布线维修费：**  
+> 每年故障更换与上门维护费用 = 约 $700 美元  
+> 沿用传统落后方式的企业年均隐性浪费总额：$14,290 美元 / 年  
+> AttendKH 全功能订阅年费（50人 × $1/月 × 12个月）：仅需 $600 美元 / 年  
 > 企业年度实际净省现金流：$13,690 美元（投资回报率高达 2,200% 以上）
 
 ---
@@ -465,8 +465,8 @@ This statutory mandate applies to all enterprises and establishments covered und
 
 ![Seniority Indemnity Calculation in Cambodia under Prakas 443/18](/blog/seniority-pay.jpg)
 
-> Annual Seniority Indemnity = 15 Days of Actual Wages & Fringe Benefits
-> • June Payment (First Semester): 7.5 Days
+> Annual Seniority Indemnity = 15 Days of Actual Wages & Fringe Benefits  
+> • June Payment (First Semester): 7.5 Days  
 > • December Payment (Second Semester): 7.5 Days
 
 > **Executive Compliance Note**: For enterprises operating in Cambodia, failure to disburse biannual seniority pay in June and December constitutes a serious labor violation subject to MoLVT inspection fines. For complete guidance on overtime and statutory labor obligations, explore our [Cambodian Labor Law Overtime & Payroll Guide](/blog/cambodian-labor-law-overtime-payroll-and-nssf-guide).
@@ -505,8 +505,8 @@ Consider an operations supervisor at a Phnom Penh retail store with the followin
 - **Average Monthly Gross Earnings**: $750.00
 - **Contractual Days per Month**: 26 Days
 
-> Average Daily Earnings = $750.00 / 26 Days = $28.846 / Day
-> First Semester Seniority Pay (7.5 Days) = $28.846 × 7.5 = $216.35 USD
+> Average Daily Earnings = $750.00 / 26 Days = $28.846 / Day  
+> First Semester Seniority Pay (7.5 Days) = $28.846 × 7.5 = $216.35 USD  
 > In Khmer Riel (at NBC rate 4,100 KHR) = ៛887,035 KHR
 
 ---
@@ -552,8 +552,8 @@ Explore how AttendKH automates statutory compliance for just **$1/user/month** o
 
 ![ការគណនាប្រាក់បំណាច់អតីតភាពការងារតាមប្រកាស ៤៤៣/១៨](/blog/seniority-pay.jpg)
 
-> ប្រាក់បំណាច់អតីតភាពការងារប្រចាំឆ្នាំ = ១៥ ថ្ងៃ នៃប្រាក់ឈ្នួល និងអត្ថប្រយោជន៍ជាក់ស្តែង
-> • ការបើកលើកទី ១ (ខែមិថុនា - ឆមាសទី ១)៖ ៧.៥ ថ្ងៃ
+> ប្រាក់បំណាច់អតីតភាពការងារប្រចាំឆ្នាំ = ១៥ ថ្ងៃ នៃប្រាក់ឈ្នួល និងអត្ថប្រយោជន៍ជាក់ស្តែង  
+> • ការបើកលើកទី ១ (ខែមិថុនា - ឆមាសទី ១)៖ ៧.៥ ថ្ងៃ  
 > • ការបើកលើកទី ២ (ខែធ្នូ - ឆមាសទី ២)៖ ៧.៥ ថ្ងៃ
 
 > **ចំណាំសំខាន់សម្រាប់ថ្នាក់ដឹកនាំ**៖ ការខកខានមិនបានបើកប្រាក់បំណាច់អតីតភាពការងារក្នុងខែមិថុនា និងធ្នូ គឺជាការបំពានច្បាប់ការងារធ្ងន់ធ្ងរដែលប្រឈមនឹងការផាកពិន័យពីអធិការកិច្ចការងារ។ ស្វែងយល់បន្ថែមអំពីបទប្បញ្ញត្តិការងារក្នុង [មគ្គុទ្ទេសក៍ច្បាប់ការងារស្តីពីម៉ោងថែម និង ប.ស.ស.](/blog/cambodian-labor-law-overtime-payroll-and-nssf-guide)។
@@ -592,8 +592,8 @@ $$\\text{ប្រាក់បំណាច់អតីតភាពការង�
 - **ប្រាក់ចំណូលសរុបមធ្យមប្រចាំខែ**៖ $៧៥០.០០
 - **ចំនួនថ្ងៃធ្វើការក្នុងខែ**៖ ២៦ ថ្ងៃ
 
-> ប្រាក់ចំណូលមធ្យមប្រចាំថ្ងៃ = $៧៥០.០០ / ២៦ ថ្ងៃ = $២៨.៨៤៦ / ថ្ងៃ
-> ប្រាក់បំណាច់អតីតភាពឆមាសទី ១ (៧.៥ ថ្ងៃ) = $២៨.៨៤៦ × ៧.៥ = $២១៦.៣៥ ដុល្លារ
+> ប្រាក់ចំណូលមធ្យមប្រចាំថ្ងៃ = $៧៥០.០០ / ២៦ ថ្ងៃ = $២៨.៨៤៦ / ថ្ងៃ  
+> ប្រាក់បំណាច់អតីតភាពឆមាសទី ១ (៧.៥ ថ្ងៃ) = $២៨.៨៤៦ × ៧.៥ = $២១៦.៣៥ ដុល្លារ  
 > គិតជាប្រាក់រៀល (តាមអត្រាធនាគារជាតិ ៤,១០០ រៀល) = ៛៨៨៧,០៣៥ រៀល
 
 ---
@@ -639,8 +639,8 @@ $$\\text{ប្រាក់បំណាច់អតីតភាពការង�
 
 ![柬埔寨工龄补偿金 (Seniority Pay) 权威核算指南](/blog/seniority-pay.jpg)
 
-> 年度法定工龄补偿金标准 = 全年 15 天实际平均工资与法定津贴
-> • 第一期发放（每年 6 月底 - 上半年）：7.5 天
+> 年度法定工龄补偿金标准 = 全年 15 天实际平均工资与法定津贴  
+> • 第一期发放（每年 6 月底 - 上半年）：7.5 天  
 > • 第二期发放（每年 12 月底 - 下半年）：7.5 天
 
 > **企业合规强制警示**：企业在 6 月和 12 月如期足额发放工龄补偿金，是柬埔寨劳工部合规年检与劳工证审查的刚性前置条件。如需系统了解法定加班及用工规范，可查阅我们的 [柬埔寨劳工法加班与薪资核算指南](/blog/cambodian-labor-law-overtime-payroll-and-nssf-guide)。
@@ -679,8 +679,8 @@ $$\\text{当期工龄补偿金应发额} = \\text{日均折算工资} \\times 7.
 - **月度平均税前总收入**：$750.00
 - **合同月工作日**：26 天
 
-> 日均薪资折算 = $750.00 ÷ 26 天 = $28.846 / 天
-> 上半年 6 月应发工龄金 (7.5天) = $28.846 × 7.5 = $216.35 美元
+> 日均薪资折算 = $750.00 ÷ 26 天 = $28.846 / 天  
+> 上半年 6 月应发工龄金 (7.5天) = $28.846 × 7.5 = $216.35 美元  
 > 折合柬币瑞尔（按央行 4,100 KHR 汇率）= ៛887,035 瑞尔
 
 ---
@@ -825,9 +825,9 @@ Tax liability applies to **gross monthly taxable income**, which comprises base 
 
 ![Cambodia Tax on Salary (ToS) GDT Brackets & Bilingual Calculation](/blog/tax-on-salary.jpg)
 
-> Monthly Statutory Timeline:
-> • 15th of Month: NBC Issues Official Tax on Salary Conversion Exchange Rate
-> • Last Day of Month: Finalize Payroll & Generate Bilingual USD/KHR Payslips
+> Monthly Statutory Timeline:  
+> • 15th of Month: NBC Issues Official Tax on Salary Conversion Exchange Rate  
+> • Last Day of Month: Finalize Payroll & Generate Bilingual USD/KHR Payslips  
 > • 25th of Following Month: Mandatory GDT e-Filing & Withholding Tax Remittance
 
 > **Executive Tax Compliance Alert**: Failing to withhold or late filing of monthly salary tax triggers severe penalties from the GDT, including a 10% to 40% tax underpayment penalty plus 1.5% monthly compound interest. For an automated solution, explore the [AttendKH Dual-Currency Payroll Engine](/payroll).
@@ -859,11 +859,11 @@ To reduce the tax burden on working households, the Cambodian tax law allows emp
 - **Dependent Children**: **៛150,000 KHR (~$36.50 USD)** per month per child (under 18 years old, or under 25 years old if enrolled full-time in accredited higher education).
 - **Dependent Spouse**: **៛150,000 KHR (~$36.50 USD)** per month for a spouse who is exclusively a homemaker (does not earn taxable employment income).
 
-> Practical Calculation Example:
-> Employee earns ៛3,200,000 KHR/month with 1 dependent spouse and 2 minor children:
-> Total Family Relief = 3 × ៛150,000 = ៛450,000 KHR
-> Adjusted Taxable Base = ៛3,200,000 - ៛450,000 = ៛2,750,000 KHR
-> Falls into the 10% progressive tax bracket:
+> Practical Calculation Example:  
+> Employee earns ៛3,200,000 KHR/month with 1 dependent spouse and 2 minor children:  
+> Total Family Relief = 3 × ៛150,000 = ៛450,000 KHR  
+> Adjusted Taxable Base = ៛3,200,000 - ៛450,000 = ៛2,750,000 KHR  
+> Falls into the 10% progressive tax bracket:  
 > Tax Due = (៛2,750,000 × 10%) - ៛175,000 = ៛100,000 KHR (~$24.39 USD)
 
 ---
@@ -917,9 +917,9 @@ Streamline your tax and payroll operations today for just **$1/user/month** on o
 
 ![ពន្ធលើប្រាក់បៀវត្សនៅកម្ពុជា កម្រិតពន្ធ GDT និងការគណនាប្រាក់ខែ](/blog/tax-on-salary.jpg)
 
-> កាលវិភាគសារពើពន្ធប្រចាំខែ៖
-> • ថ្ងៃទី ១៥ នៃខែ៖ ធនាគារជាតិ NBC ចេញផ្សាយអត្រាប្តូរប្រាក់ផ្លូវការសម្រាប់គណនាពន្ធ ToS
-> • ថ្ងៃចុងខែ៖ បិទបញ្ជីវត្តមាន និងបង្កើតប័ណ្ណបើកប្រាក់ខែ USD/KHR
+> កាលវិភាគសារពើពន្ធប្រចាំខែ៖  
+> • ថ្ងៃទី ១៥ នៃខែ៖ ធនាគារជាតិ NBC ចេញផ្សាយអត្រាប្តូរប្រាក់ផ្លូវការសម្រាប់គណនាពន្ធ ToS  
+> • ថ្ងៃចុងខែ៖ បិទបញ្ជីវត្តមាន និងបង្កើតប័ណ្ណបើកប្រាក់ខែ USD/KHR  
 > • ថ្ងៃទី ២៥ នៃខែបន្ទាប់៖ កាលបរិច្ឆេទកំណត់ចុងក្រោយសម្រាប់ដាក់លិខិតប្រកាសពន្ធ e-Filing ជូន GDT
 
 > **ការដាស់តឿនអនុលោមភាពពន្ធដារ**៖ ការយឺតយ៉ាវ ឬមិនបានកាត់ទុកពន្ធលើប្រាក់បៀវត្ស នឹងរងការពិន័យយ៉ាងធ្ងន់ធ្ងរពី GDT រួមមាន ប្រាក់ពិន័យពី ១០% ដល់ ៤០% បូករួមការប្រាក់យឺត ១.៥% ក្នុងមួយខែ។ ប្រើប្រាស់ [ប្រព័ន្ធគណនាប្រាក់ខែ AttendKH](/payroll) ដើម្បីស្វ័យប្រវត្តិកម្មកិច្ចការនេះ។
@@ -951,11 +951,11 @@ $$\\text{ពន្ធលើប្រាក់បៀវត្សប្រចា�
 - **កូនក្នុងបន្ទុក**៖ **៛១៥០,០០០ រៀល (~$៣៦.៥០ ដុល្លារ)** ក្នុងមួយខែសម្រាប់កូនម្នាក់ (អាយុក្រោម ១៨ ឆ្នាំ ឬក្រោម ២៥ ឆ្នាំប្រសិនបើកំពុងបន្តការសិក្សាពេញម៉ោង)។
 - **សហព័ទ្ធ (ប្តី ឬប្រពន្ធ)**៖ **៛១៥០,០០០ រៀល (~$៣៦.៥០ ដុល្លារ)** ក្នុងមួយខែសម្រាប់សហព័ទ្ធដែលជាមេផ្ទះ (មិនមានប្រាក់ចំណូលជាប់ពន្ធ)។
 
-> ឧទាហរណ៍នៃការគណនា៖
-> បុគ្គលិកម្នាក់មានប្រាក់បៀវត្សរ៍ ៛៣,២០០,០០០ រៀល/ខែ ដោយមានប្រពន្ធជាមេផ្ទះ និងកូនតូច ២ នាក់៖
-> ប្រាក់កាត់បន្ថយបន្ទុកគ្រួសារសរុប = ៣ × ៛១៥០,០០០ = ៛៤៥០,០០០ រៀល
-> ប្រាក់បៀវត្សជាប់ពន្ធសុទ្ធ = ៛៣,២០០,០០០ - ៛៤៥០,០០០ = ៛២,៧៥០,០០០ រៀល
-> ស្ថិតក្នុងកម្រិតពន្ធ ១០%៖
+> ឧទាហរណ៍នៃការគណនា៖  
+> បុគ្គលិកម្នាក់មានប្រាក់បៀវត្សរ៍ ៛៣,២០០,០០០ រៀល/ខែ ដោយមានប្រពន្ធជាមេផ្ទះ និងកូនតូច ២ នាក់៖  
+> ប្រាក់កាត់បន្ថយបន្ទុកគ្រួសារសរុប = ៣ × ៛១៥០,០០០ = ៛៤៥០,០០០ រៀល  
+> ប្រាក់បៀវត្សជាប់ពន្ធសុទ្ធ = ៛៣,២០០,០០០ - ៛៤៥០,០០០ = ៛២,៧៥០,០០០ រៀល  
+> ស្ថិតក្នុងកម្រិតពន្ធ ១០%៖  
 > ពន្ធត្រូវបង់ = (៛២,៧៥០,០០០ × ១០%) - ៛១៧៥,០០០ = ៛១០០,០០០ រៀល (~$២៤.៣៩ ដុល្លារ)
 
 ---
@@ -1009,9 +1009,9 @@ AttendKH ជួយសម្រួលកិច្ចការនេះដោយ�
 
 ![柬埔寨工资薪金税 (ToS) 全景指南](/blog/tax-on-salary.jpg)
 
-> 每月法定申报时间线：
-> • 每月 15 日：柬埔寨央行 (NBC) 正式公布当月法定个税折算基准汇率
-> • 每月最后一天：结算考勤工时并生成美元/瑞尔双币工资条
+> 每月法定申报时间线：  
+> • 每月 15 日：柬埔寨央行 (NBC) 正式公布当月法定个税折算基准汇率  
+> • 每月最后一天：结算考勤工时并生成美元/瑞尔双币工资条  
 > • 次月 25 日前：法定截止日，完成 GDT e-Filing 系统申报与代扣税款入库
 
 > **企业税务稽查合规预警**：未按期代扣或逾期申报工资税将面临税务总局的严厉处罚，包括 10% 至 40% 的追缴罚款以及每月 1.5% 的按月复利滞纳金。推荐使用 [AttendKH 双币智能薪酬系统](/payroll) 实现全自动合规核算。
@@ -1043,11 +1043,11 @@ $$\\text{月度应代扣工资税 (KHR)} = (\\text{应税收入瑞尔} \\times \
 - **未成年子女抚养扣除**：每名子女每月可扣除 **៛150,000 柬币瑞尔（约合 $36.50 美元）**（需不满 18 周岁，或 25 周岁以下在正规高校全日制就读）。
 - **无收入全职配偶扣除**：专职家庭主妇（无应税雇佣收入）的配偶，每月可扣除 **៛150,000 柬币瑞尔（约合 $36.50 美元）**。
 
-> 标准计算范例：
-> 某员工月薪 ៛3,200,000 瑞尔，家有无工作全职妻子及 2 名未成年子女：
-> 法定家庭抚养抵免总额 = 3 × ៛150,000 = ៛450,000 瑞尔
-> 调整后应纳税基数 = ៛3,200,000 - ៛450,000 = ៛2,750,000 瑞尔
-> 落入 10% 累进税阶：
+> 标准计算范例：  
+> 某员工月薪 ៛3,200,000 瑞尔，家有无工作全职妻子及 2 名未成年子女：  
+> 法定家庭抚养抵免总额 = 3 × ៛150,000 = ៛450,000 瑞尔  
+> 调整后应纳税基数 = ៛3,200,000 - ៛450,000 = ៛2,750,000 瑞尔  
+> 落入 10% 累进税阶：  
 > 应纳工资税 = (៛2,750,000 × 10%) - ៛175,000 = ៛100,000 瑞尔（约 $24.39 美元）
 
 ---
@@ -1203,7 +1203,7 @@ This outdated practice generates immense operational friction:
 
 ![Bakong KHQR Bulk Salary Disbursal in Cambodia](/blog/bakong-payroll.jpg)
 
-> Traditional Cash Payroll: 16-24 Hours Management Time / Month
+> Traditional Cash Payroll: 16-24 Hours Management Time / Month  
 > AttendKH Bakong KHQR Bulk Disbursal: 30 Seconds One-Click Approval (< 5 Seconds Settlement)
 
 > **Financial Operational Insight**: Businesses eliminating cash envelopes via the [AttendKH Dual-Currency Payroll Engine](/payroll) save an average of 18 to 22 administrative hours per month, while completely eliminating cash-handling discrepancies across multi-branch networks.
@@ -1225,10 +1225,10 @@ Regardless of whether an employee holds an account at ABA, ACLEDA, or Wing, Bako
 
 AttendKH integrates directly with standard Cambodian banking formats to streamline payroll runs into a frictionless three-step workflow:
 
-> ➔ **1. Approved Attendance & Overtime via AttendKH Mobile & Kiosk**
-> ➔ **2. Automated Net Pay Calculation (USD & KHR at NBC Rates)**
-> ➔ **3. Generate Encrypted Bakong Batch Disbursal File**
-> ➔ **Direct API / Host-to-Host Corporate Upload (ABA PayWay / ACLEDA / Wing)**
+> ➔ **1. Approved Attendance & Overtime via AttendKH Mobile & Kiosk**  
+> ➔ **2. Automated Net Pay Calculation (USD & KHR at NBC Rates)**  
+> ➔ **3. Generate Encrypted Bakong Batch Disbursal File**  
+> ➔ **Direct API / Host-to-Host Corporate Upload (ABA PayWay / ACLEDA / Wing)**  
 > ➔ **Instant Payout to 50+ Staff in < 5 Seconds with Zero Fees**
 
 ### Step-by-Step Breakdown:
@@ -1271,7 +1271,7 @@ Ready to modernize your company's payroll? Explore our [transparent $1/user/mont
 
 ![ការបើកប្រាក់បៀវត្សរ៍តាមប្រព័ន្ធបាគង KHQR នៅកម្ពុជា](/blog/bakong-payroll.jpg)
 
-> ការបើកប្រាក់ខែជាសាច់ប្រាក់សុទ្ធ៖ ខាតបង់ពេល ១៦-២៤ ម៉ោង / ខែ
+> ការបើកប្រាក់ខែជាសាច់ប្រាក់សុទ្ធ៖ ខាតបង់ពេល ១៦-២៤ ម៉ោង / ខែ  
 > ការបើកតាមបាគង KHQR របស់ AttendKH៖ ចុចយល់ព្រមតែ ៣០ វិនាទីរួចរាល់ (ប្រាក់ចូលភ្លាមៗ < ៥ វិនាទី)
 
 > **ការយល់ដឹងផ្នែកប្រតិបត្តិការហិរញ្ញវត្ថុ**៖ អាជីវកម្មដែលប្តូរពីស្រោមសំបុត្រសាច់ប្រាក់មកប្រើ [ប្រព័ន្ធគណនាប្រាក់ខែ AttendKH](/payroll) សន្សំសំចៃពេលវេលារដ្ឋបាលជាមធ្យមពី ១៨ ទៅ ២២ ម៉ោងក្នុងមួយខែ និងលុបបំបាត់កំហុសឆ្គងសាច់ប្រាក់បានទាំងស្រុង។
@@ -1293,10 +1293,10 @@ Ready to modernize your company's payroll? Explore our [transparent $1/user/mont
 
 AttendKH ភ្ជាប់ទំនាក់ទំនងយ៉ាងរលូនជាមួយប្រព័ន្ធធនាគារកម្ពុជា ដើម្បីសម្រួលដំណើរការបើកប្រាក់ខែឱ្យនៅត្រឹម ៣ ជំហានងាយៗ៖
 
-> ➔ **១. ផ្ទៀងផ្ទាត់វត្តមាន និងម៉ោងថែម OT តាមទូរស័ព្ទ និង Tablet Kiosk**
-> ➔ **២. គណនាប្រាក់ខែសុទ្ធស្វ័យប្រវត្តិ (USD និង KHR តាមអត្រា NBC)**
-> ➔ **៣. បង្កើតឯកសារផ្ទេរប្រាក់ជាក្រុមតាមបាគង (Batch File)**
-> ➔ **ផ្ទុកឡើងទៅកាន់ប្រព័ន្ធធនាគារ (ABA PayWay / ACLEDA / Wing)**
+> ➔ **១. ផ្ទៀងផ្ទាត់វត្តមាន និងម៉ោងថែម OT តាមទូរស័ព្ទ និង Tablet Kiosk**  
+> ➔ **២. គណនាប្រាក់ខែសុទ្ធស្វ័យប្រវត្តិ (USD និង KHR តាមអត្រា NBC)**  
+> ➔ **៣. បង្កើតឯកសារផ្ទេរប្រាក់ជាក្រុមតាមបាគង (Batch File)**  
+> ➔ **ផ្ទុកឡើងទៅកាន់ប្រព័ន្ធធនាគារ (ABA PayWay / ACLEDA / Wing)**  
 > ➔ **បុគ្គលិកជាង ៥០ នាក់ទទួលបានប្រាក់ខែក្នុងរយៈពេល < ៥ វិនាទី ដោយឥតគិតថ្លៃសេវា**
 
 ### ជំហានអនុវត្តជាក់ស្តែង៖
@@ -1339,7 +1339,7 @@ AttendKH អនុញ្ញាតឱ្យនិយោជកកំណត់រ�
 
 ![Bakong KHQR 批量薪资秒级代发](/blog/bakong-payroll.jpg)
 
-> 传统纸袋现金发薪：每月耗费 16-24 小时管理工时
+> 传统纸袋现金发薪：每月耗费 16-24 小时管理工时  
 > AttendKH Bakong KHQR 批量代发：30 秒一键极速审批到账（跨行清算 < 5 秒）
 
 > **企业财务运营洞察**：通过 [AttendKH 双币智能薪酬系统](/payroll) 彻底告别现金信封的企业，每月平均能为财务部门节省 18 至 22 个核算工时，并彻底杜绝多门市间的现金短缺与对账差错。
@@ -1361,10 +1361,10 @@ AttendKH អនុញ្ញាតឱ្យនិយោជកកំណត់រ�
 
 AttendKH 与柬埔寨各大主流银行标准接口深度协同，将繁琐的月底发薪简化为流水线式的高效作业：
 
-> ➔ **1. 智能核验手机端与平板 Kiosk 打卡工时与法定加班**
-> ➔ **2. 自动生成净发薪资报表 (USD & KHR 央行基准汇率)**
-> ➔ **3. 一键导出 Bakong 标准加密批量打款文件**
-> ➔ **直通各大银行网银企业端 (ABA PayWay / ACLEDA / Wing)**
+> ➔ **1. 智能核验手机端与平板 Kiosk 打卡工时与法定加班**  
+> ➔ **2. 自动生成净发薪资报表 (USD & KHR 央行基准汇率)**  
+> ➔ **3. 一键导出 Bakong 标准加密批量打款文件**  
+> ➔ **直通各大银行网银企业端 (ABA PayWay / ACLEDA / Wing)**  
 > ➔ **全员 50+ 名员工账户在 5 秒内全额秒级到账，且零手续费**
 
 ### 标准实操步骤：
@@ -1542,10 +1542,10 @@ At 06:45 AM outside an export garment facility with 1,500 line sewers and cutter
 
 AttendKH transforms standard low-cost Android and iPad tablets into **Enterprise High-Speed QR Attendance Terminals** via our dedicated [Attendance Platform](/attendance):
 
-> Worker Approaches Tablet (0.6s)
-> → Displays Dynamic Encrypted Employee QR on Mobile or Badge
-> → Tablet Front Camera Verifies Identity with Instant Face Capture (0.4s)
-> → Native Audio Voice Confirmation: "វត្តមានជោគជ័យ" (Punch Confirmed)
+> Worker Approaches Tablet (0.6s)  
+> → Displays Dynamic Encrypted Employee QR on Mobile or Badge  
+> → Tablet Front Camera Verifies Identity with Instant Face Capture (0.4s)  
+> → Native Audio Voice Confirmation: "វត្តមានជោគជ័យ" (Punch Confirmed)  
 > → Total Flow: Under 1.0 Second per Worker
 
 - **1,000 Workers in Under 12 Minutes**: Deploy 2 to 3 inexpensive wall-mounted tablets at entry gates to process an entire factory shift effortlessly without queuing.
@@ -1625,9 +1625,9 @@ Explore our [Transparent Pricing Plans](/pricing), check our [Solutions for Cons
 
 AttendKH បំប្លែងថេប្លេត Android ឬ iPad ឱ្យទៅជា **ស្ថានីយចុះវត្តមានល្បឿនលឿនតាម QR Kiosk** តាមរយៈមុខងារ [ប្រព័ន្ធវត្តមានឆ្លាតវៃ](/attendance)៖
 
-> កម្មករបង្ហាញកាត QR លើទូរស័ព្ទ ឬកាតបុគ្គលិក (០.៦ វិនាទី)
-> → កាមេរ៉ាថេប្លេតស្កេនផ្ទៀងផ្ទាត់រូបថតផ្ទៃមុខភ្លាមៗ (០.៤ វិនាទី)
-> → បញ្ចេញសំឡេងជាភាសាខ្មែរ៖ "វត្តមានជោគជ័យ"
+> កម្មករបង្ហាញកាត QR លើទូរស័ព្ទ ឬកាតបុគ្គលិក (០.៦ វិនាទី)  
+> → កាមេរ៉ាថេប្លេតស្កេនផ្ទៀងផ្ទាត់រូបថតផ្ទៃមុខភ្លាមៗ (០.៤ វិនាទី)  
+> → បញ្ចេញសំឡេងជាភាសាខ្មែរ៖ "វត្តមានជោគជ័យ"  
 > → ចំណាយពេលសរុប៖ ក្រោម ១.០ វិនាទីប៉ុណ្ណោះក្នុងម្នាក់
 
 - **កម្មករ ១,០០០ នាក់ ប្រើពេលមិនដល់ ១២ នាទី**៖ គ្រាន់តែដំឡើងថេប្លេត ២-៣ គ្រឿងនៅច្រកទ្វារ អាចកត់ត្រាវត្តមានកម្មករពេញមួយរោងចក្របានយ៉ាងងាយស្រួល។
@@ -1705,10 +1705,10 @@ AttendKH បំប្លែងថេប្លេត Android ឬ iPad ឱ្យ�
 
 AttendKH 通过 [智能考勤管理平台](/attendance)，将市面上平价的平板电脑升级为**车间级毫秒级防伪 QR 考勤终端**：
 
-> 工人走近终端 (0.6秒)
-> → 手机或工牌展示个人加密动态防伪 QR
-> → 平板前置摄像头完成面部瞬间抓拍与活体核验 (0.4秒)
-> → 本地高保真高棉语语音播报：“វត្តមានជោគជ័យ”（打卡成功）
+> 工人走近终端 (0.6秒)  
+> → 手机或工牌展示个人加密动态防伪 QR  
+> → 平板前置摄像头完成面部瞬间抓拍与活体核验 (0.4秒)  
+> → 本地高保真高棉语语音播报：“វត្តមានជោគជ័យ”（打卡成功）  
 > → 单人全流程耗时：1.0 秒以内
 
 - **千人工厂 12 分钟内极速消化**：大门口仅需部署 2-3 台平价壁挂平板，即可平稳消化整个千人班组的上下班高峰潮。
@@ -1860,11 +1860,11 @@ Under ***Articles 67 and 73 of the Cambodian Labour Law*** and MoLVT Ministerial
 - An FDC may be renewed one or multiple times, **provided the total cumulative duration of all successive contracts does not exceed two (2) years**.
 - If an FDC is renewed beyond 2 cumulative years, **it automatically and irreversibly converts into an Undetermined Duration Contract (UDC) by operation of law**.
 
-> Standard FDC Renewal Timeline:
-> • Initial Contract: 12 Months
-> • First Renewal: 12 Months
-> • Cumulative Duration = 24 Months (2 Years Statutory Ceiling Reached)
-> If the employer initiates a 3rd renewal (even for 3 or 6 months):
+> Standard FDC Renewal Timeline:  
+> • Initial Contract: 12 Months  
+> • First Renewal: 12 Months  
+> • Cumulative Duration = 24 Months (2 Years Statutory Ceiling Reached)  
+> If the employer initiates a 3rd renewal (even for 3 or 6 months):  
 > The contract instantly converts to a UDC with full severance & notice protections!
 
 > **Audit Warning for HR Executives**: If a contract automatically converts to a UDC, terminating the employee at the end of the term without statutory cause constitutes an *unlawful dismissal* under MoLVT regulations, subjecting the employer to damages, back pay, and union arbitration disputes (see also our [Garment & Manufacturing SEZ Operations Guide](/blog/garment-manufacturing-attendance-overtime-compliance-cambodia-sez)).
@@ -1879,10 +1879,10 @@ When an FDC reaches its contractual expiration date and the employer chooses not
 
 $$\\text{FDC Severance Pay} = \\sum (\\text{Total Gross Wages & Allowances Paid over Contract Term}) \\times 5\\%$$
 
-> Practical FDC Severance Calculation:
-> Employee completes a 1-year FDC earning $600 base wage + $50 monthly allowance:
-> • Total Gross Paid (12 Months × $650) = $7,800 USD
-> • 5% Mandatory Severance Indemnity = $7,800 × 5% = $390.00 USD
+> Practical FDC Severance Calculation:  
+> Employee completes a 1-year FDC earning $600 base wage + $50 monthly allowance:  
+> • Total Gross Paid (12 Months × $650) = $7,800 USD  
+> • 5% Mandatory Severance Indemnity = $7,800 × 5% = $390.00 USD  
 > • Equivalent in Khmer Riel (at NBC official rate ៛4,100) = ៛1,599,000 KHR
 
 Unlike FDC contracts, permanent UDC employees do not receive 5% contract completion pay; instead, they receive semi-annual [Seniority Indemnity Payments](/blog/cambodian-seniority-indemnity-calculation-guide-udc-fdc) equal to 15 days of wages per year (tax-exempt under GDT Prakas guidelines; see our [Cambodia Tax on Salary Handbook](/blog/cambodia-tax-on-salary-brackets-gdt-payroll-handbook)).
@@ -1955,11 +1955,11 @@ Protect your business from labor disputes today with AttendKH. Explore our [tran
 - កិច្ចសន្យា FDC អាចត្រូវបានបន្តជាថ្មីម្តង ឬច្រើនដង **ប៉ុន្តែរយៈពេលសរុបនៃកិច្ចសន្យាបន្តបន្ទាប់ទាំងអស់មិនត្រូវលើសពី ២ ឆ្នាំឡើយ**។
 - ប្រសិនបើកិច្ចសន្យា FDC ត្រូវបានបន្តលើសពី ២ ឆ្នាំសរុប **កិច្ចសន្យានោះនឹងក្លាយជាកិច្ចសន្យា UDC ដោយស្វ័យប្រវត្តិតាមច្បាប់**។
 
-> កាលវិភាគបន្តកិច្ចសន្យា FDC ស្តង់ដារ៖
-> • កិច្ចសន្យាលើកទី ១៖ ១២ ខែ
-> • ការបន្តលើកទី ១៖ ១២ ខែ
-> • រយៈពេលសរុប = ២៤ ខែ (ដល់កម្រិតកំណត់អតិបរមា ២ ឆ្នាំ)
-> ប្រសិនបើនិយោជកបន្តជាលើកទី ៣ (ទោះបីជាត្រឹម ៣ ឬ ៦ ខែក៏ដោយ)៖
+> កាលវិភាគបន្តកិច្ចសន្យា FDC ស្តង់ដារ៖  
+> • កិច្ចសន្យាលើកទី ១៖ ១២ ខែ  
+> • ការបន្តលើកទី ១៖ ១២ ខែ  
+> • រយៈពេលសរុប = ២៤ ខែ (ដល់កម្រិតកំណត់អតិបរមា ២ ឆ្នាំ)  
+> ប្រសិនបើនិយោជកបន្តជាលើកទី ៣ (ទោះបីជាត្រឹម ៣ ឬ ៦ ខែក៏ដោយ)៖  
 > កិច្ចសន្យានឹងប្រែក្លាយទៅជាកិច្ចសន្យា UDC ពេញលេញភ្លាមៗ!
 
 > **ការព្រមានចំពោះ HR**៖ ប្រសិនបើកិច្ចសន្យាបានប្រែក្លាយជា UDC ហើយការបញ្ឈប់បុគ្គលិកដោយគ្មានមូលហេតុត្រឹមត្រូវ ត្រូវបានចាត់ទុកជាការបញ្ឈប់ដោយខុសច្បាប់ ដែលតម្រូវឱ្យមានការសងការខូចខាត (សូមអានបន្ថែមក្នុង [មគ្គុទ្ទេសក៍ប្រតិបត្តិការរោងចក្រ និងតំបន់សេដ្ឋកិច្ចពិសេស](/blog/garment-manufacturing-attendance-overtime-compliance-cambodia-sez))។
@@ -1974,10 +1974,10 @@ Protect your business from labor disputes today with AttendKH. Explore our [tran
 
 $$\\text{ប្រាក់បំណាច់ FDC ៥%} = \\sum (\\text{ប្រាក់ឈ្នួលសរុបដែលបានបើកពេញកិច្ចសន្យា}) \\times ៥\\%$$
 
-> ឧទាហរណ៍នៃការគណនាជាក់ស្តែង៖
-> បុគ្គលិកម្នាក់បម្រើការងារតាមកិច្ចសន្យា FDC រយៈពេល ១ ឆ្នាំ ដោយទទួលបានប្រាក់ខែគោល $៦០០ + ប្រាក់ឧបត្ថម្ភ $៥០/ខែ៖
-> • ប្រាក់ឈ្នួលសរុបដែលបានបើក (១២ ខែ × $៦៥០) = $៧,៨០០ ដុល្លារ
-> • ប្រាក់បំណាច់ ៥% ត្រូវបើកជូន = $៧,៨០០ × ៥% = $៣៩០.០០ ដុល្លារ
+> ឧទាហរណ៍នៃការគណនាជាក់ស្តែង៖  
+> បុគ្គលិកម្នាក់បម្រើការងារតាមកិច្ចសន្យា FDC រយៈពេល ១ ឆ្នាំ ដោយទទួលបានប្រាក់ខែគោល $៦០០ + ប្រាក់ឧបត្ថម្ភ $៥០/ខែ៖  
+> • ប្រាក់ឈ្នួលសរុបដែលបានបើក (១២ ខែ × $៦៥០) = $៧,៨០០ ដុល្លារ  
+> • ប្រាក់បំណាច់ ៥% ត្រូវបើកជូន = $៧,៨០០ × ៥% = $៣៩០.០០ ដុល្លារ  
 > • គិតជាប្រាក់រៀល (តាមអត្រាធនាគារជាតិ ៤,១០០ រៀល) = ៛១,៥៩៩,០០០ រៀល
 
 ខុសពីកិច្ចសន្យា FDC បុគ្គលិកដែលមានកិច្ចសន្យា UDC ទទួលបាន [ប្រាក់បំណាច់អតីតភាពការងារ (Seniority Pay)](/blog/cambodian-seniority-indemnity-calculation-guide-udc-fdc) ចំនួន ១៥ ថ្ងៃក្នុងមួយឆ្នាំ (ដែលត្រូវបានលើកលែងពន្ធលើប្រាក់បៀវត្សតាមការកំណត់របស់អគ្គនាយកដ្ឋានពន្ធដារ សូមអាន [សៀវភៅណែនាំពន្ធលើប្រាក់បៀវត្សនៅកម្ពុជា](/blog/cambodia-tax-on-salary-brackets-gdt-payroll-handbook))។
@@ -2050,11 +2050,11 @@ $$\\text{ប្រាក់បំណាច់ FDC ៥%} = \\sum (\\text{ប្�
 - FDC 合同允许续签一次或多次，**但所有连续履行的合同期限累计总和严禁超过 2 年**。
 - 若累计履约期限突破 2 年红线，**该合同依法自动、实质性转为无固定期限合同 (UDC)**，任何以合同期满为由不再续签的行为均构成违法解雇。
 
-> 标准合规周期核算：
-> • 初次签订 FDC：12 个月
-> • 第一次续签 FDC：12 个月
-> • 累计履行期限 = 24 个月（达到 2 年法定上限）
-> 若企业发起第 3 次续签（哪怕仅续签 3 个月或 6 个月）：
+> 标准合规周期核算：  
+> • 初次签订 FDC：12 个月  
+> • 第一次续签 FDC：12 个月  
+> • 累计履行期限 = 24 个月（达到 2 年法定上限）  
+> 若企业发起第 3 次续签（哪怕仅续签 3 个月或 6 个月）：  
 > 该合同性质不可逆地自动变更为 UDC 无固定期限合同！
 
 > **企业法务与 HR 合规警示**：若合同已实质转为 UDC，企业单方以“合同到期”解约将被劳工部裁决为违法解约，面临高额赔偿金及工会群访风险（另请参考 [制造工厂与经济特区合规实务](/blog/garment-manufacturing-attendance-overtime-compliance-cambodia-sez)）。
@@ -2069,10 +2069,10 @@ $$\\text{ប្រាក់បំណាច់ FDC ៥%} = \\sum (\\text{ប្�
 
 $$\\text{FDC 期满遣散补偿金 (5%)} = \\sum (\\text{合同期内发放的所有薪资总和}) \\times 5\\%$$
 
-> 经典核算案例：
-> 某员工在金边物流公司履行 1 年期 FDC 合同，月薪 $600 + 固定津贴 $50：
-> • 全年累计发放薪酬总额 (12 个月 × $650) = $7,800 美元
-> • 合同期满应发 5% 补偿金 = $7,800 × 5% = $390.00 美元
+> 经典核算案例：  
+> 某员工在金边物流公司履行 1 年期 FDC 合同，月薪 $600 + 固定津贴 $50：  
+> • 全年累计发放薪酬总额 (12 个月 × $650) = $7,800 美元  
+> • 合同期满应发 5% 补偿金 = $7,800 × 5% = $390.00 美元  
 > • 折合柬币瑞尔（按央行 4,100 KHR 汇率）= ៛1,599,000 瑞尔
 
 与 FDC 不同，正式转为 UDC 的员工不享受 5% 遣散金，而是享受每年 15 天的 [半年度法定工龄补偿金 (Seniority Pay)](/blog/cambodian-seniority-indemnity-calculation-guide-udc-fdc)（按税务总局规定在限额内免征个人工资税，详查 [柬埔寨工资薪金税手册](/blog/cambodia-tax-on-salary-brackets-gdt-payroll-handbook)）。
@@ -2296,10 +2296,10 @@ A generic international HR mobile app cannot navigate the intricate regulatory l
 
 The hallmark feature of AttendKH's [Automated Payroll Engine](/payroll) is its seamless integration with Cambodia's groundbreaking **Bakong KHQR payment infrastructure**:
 
-> ➔ **AttendKH Mobile Clock-in & Timesheet Approval**
-> ➔ **Automated Tax on Salary, NSSF & Overtime Deductions**
-> ➔ **1-Click Bakong KHQR Batch Corporate Payment Export**
-> ➔ **Direct Corporate Banking API (ABA PayWay / ACLEDA / Wing)**
+> ➔ **AttendKH Mobile Clock-in & Timesheet Approval**  
+> ➔ **Automated Tax on Salary, NSSF & Overtime Deductions**  
+> ➔ **1-Click Bakong KHQR Batch Corporate Payment Export**  
+> ➔ **Direct Corporate Banking API (ABA PayWay / ACLEDA / Wing)**  
 > ➔ **All 50+ Staff Accounts Credited in 5 Seconds with ZERO Fees**
 
 - **Pay Staff Anywhere Across 50+ Banks**: Employees receive their salaries directly into their ABA Bank, ACLEDA, Canadia, Wing, or Sathapana accounts simultaneously.
@@ -2399,10 +2399,10 @@ Explore our [Transparent Pricing Plans](/pricing), [Download AttendKH on iOS & A
 
 ចំណុចពិសេសលេចធ្លោបំផុតនៃ [ប្រព័ន្ធគ្រប់គ្រងប្រាក់បៀវត្សរ៍ AttendKH](/payroll) គឺការតភ្ជាប់យ៉ាងរលូនជាមួយ **ហេដ្ឋារចនាសម្ព័ន្ធបាគង KHQR** របស់កម្ពុជា៖
 
-> ➔ **បុគ្គលិកចុះវត្តមានតាមទូរស័ព្ទ & ផ្ទៀងផ្ទាត់តារាងម៉ោង**
-> ➔ **គណនាប្រាក់ពន្ធ ការកាត់ប្រាក់ ប.ស.ស. និងម៉ោងថែមស្វ័យប្រវត្តិ**
-> ➔ **ទាញយកឯកសារផ្ទេរប្រាក់ជាក្រុមតាមស្តង់ដារបាគង KHQR**
-> ➔ **ភ្ជាប់ទៅកាន់ប្រព័ន្ធធនាគារក្រុមហ៊ុន (ABA PayWay / ACLEDA / Wing)**
+> ➔ **បុគ្គលិកចុះវត្តមានតាមទូរស័ព្ទ & ផ្ទៀងផ្ទាត់តារាងម៉ោង**  
+> ➔ **គណនាប្រាក់ពន្ធ ការកាត់ប្រាក់ ប.ស.ស. និងម៉ោងថែមស្វ័យប្រវត្តិ**  
+> ➔ **ទាញយកឯកសារផ្ទេរប្រាក់ជាក្រុមតាមស្តង់ដារបាគង KHQR**  
+> ➔ **ភ្ជាប់ទៅកាន់ប្រព័ន្ធធនាគារក្រុមហ៊ុន (ABA PayWay / ACLEDA / Wing)**  
 > ➔ **ប្រាក់ខែបុគ្គលិកទាំងអស់ចូលគណនីក្នុងរយៈពេល ៥ វិនាទីដោយគ្មានថ្លៃសេវា**
 
 - **បើកប្រាក់ខែទៅកាន់គ្រប់ធនាគារជាង ៥០**៖ បុគ្គលិកអាចទទួលប្រាក់ខែក្នុងគណនី ABA, ACLEDA, Canadia, Wing ឬ Sathapana បានដំណាលគ្នា។
@@ -2501,10 +2501,10 @@ Explore our [Transparent Pricing Plans](/pricing), [Download AttendKH on iOS & A
 
 AttendKH [自动化薪酬结算中台](/payroll) 的最大技术亮点，是与柬埔寨国家级清算网络 **Bakong KHQR** 的原生协同：
 
-> ➔ **员工手机端打卡 ＆ 店长一键考勤审批**
-> ➔ **系统全自动核算工时、个税 ToS、NSSF 与法定加班**
-> ➔ **一键导出符合央行 Bakong 标准的企业批量打款文件**
-> ➔ **直通主流商业银行企业网银 (ABA PayWay / 爱喜丽达 / Wing)**
+> ➔ **员工手机端打卡 ＆ 店长一键考勤审批**  
+> ➔ **系统全自动核算工时、个税 ToS、NSSF 与法定加班**  
+> ➔ **一键导出符合央行 Bakong 标准的企业批量打款文件**  
+> ➔ **直通主流商业银行企业网银 (ABA PayWay / 爱喜丽达 / Wing)**  
 > ➔ **全员 50+ 名员工账户 5 秒内全额秒级到账，免收跨行手续费**
 
 - **跨行直达全柬 50 多家银行与钱包**：支持员工任意绑定 ABA、爱喜丽达、加华、Wing 或萨哈巴那等商业银行账户。

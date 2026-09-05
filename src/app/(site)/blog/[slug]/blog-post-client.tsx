@@ -19,7 +19,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import type { BlogPost } from "@/lib/site-content";
-import { Section, CtaBand } from "@/components/site/ui";
+import { Section, CtaBand, PageHero, type BreadcrumbItem } from "@/components/site/ui";
 import { ShareButtons } from "./share-buttons";
 import { BlogSidebar } from "./blog-sidebar";
 import { useSite } from "@/lib/i18n";
@@ -238,65 +238,97 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
     return rel.category;
   };
 
+  const breadcrumbs: BreadcrumbItem[] = useMemo(
+    () => [
+      {
+        label: isKm ? "ទំព័រដើម" : isZh ? "首页" : "Home",
+        href: "/",
+      },
+      {
+        label: isKm ? "ប្លុក & មគ្គុទ្ទេសក៍" : isZh ? "知识库与博客" : "Blog & Guides",
+        href: "/blog",
+      },
+      {
+        label: postCategory,
+        href: `/blog?category=${encodeURIComponent(post.category)}`,
+      },
+      {
+        label: postTitle,
+      },
+    ],
+    [isKm, isZh, postCategory, post.category, postTitle]
+  );
+
   return (
     <>
-      <Section tone="white">
-        <div className="mx-auto max-w-7xl">
-          {/* Breadcrumb Navigation */}
-          <nav className="mb-6 flex items-center gap-1.5 text-xs text-slate-500" aria-label="Breadcrumb">
-            <Link href="/" className="inline-flex items-center gap-1 hover:text-brand transition-colors">
-              <Home size={13} />
-              <span>{isKm ? "ទំព័រដើម" : isZh ? "首页" : "Home"}</span>
-            </Link>
-            <ChevronRight size={12} className="text-slate-400" />
-            <Link href="/blog" className="hover:text-brand transition-colors">
-              {isKm ? "ប្លុក & មគ្គុទ្ទេសក៍" : isZh ? "知识库与博客" : "Blog"}
-            </Link>
-            <ChevronRight size={12} className="text-slate-400" />
-            <span className="font-semibold text-slate-800 truncate max-w-xs sm:max-w-md">
-              {postTitle}
-            </span>
-          </nav>
+      {/* 1. Page Hero with Interactive SEO Breadcrumbs, Heading, Badge, Excerpt & Author Meta matching /pricing style */}
+      <PageHero
+        badge={postCategory}
+        title={postTitle}
+        sub={postExcerpt}
+        breadcrumbs={breadcrumbs}
+        titleClassName="max-w-4xl"
+        subClassName="max-w-3xl blog-excerpt"
+      >
+        {/* Author & Publication Metadata Banner inside Hero */}
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-blue-400/20 pt-6">
+          {/* Author Details */}
+          <div className="flex items-center gap-3.5">
+            {post.author_avatar ? (
+              <img
+                src={post.author_avatar}
+                alt={`${post.author_name} — Author at AttendKH`}
+                className="h-11 w-11 rounded-full object-cover object-top ring-2 ring-white/30 shadow-xs"
+              />
+            ) : (
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white font-bold text-base ring-2 ring-white/30 backdrop-blur-xs">
+                {post.author_name.charAt(0)}
+              </div>
+            )}
+            <div>
+              <p className="font-display text-[15px] font-bold text-white leading-snug">
+                {post.author_name}
+              </p>
+              <p className="text-xs text-blue-200/90 font-medium">
+                {postAuthorRole}
+              </p>
+            </div>
+          </div>
 
+          {/* Metadata Chips: Date, Read Time, Word Count */}
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-blue-100 font-medium">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 border border-white/15 backdrop-blur-xs">
+              <Calendar size={13} className="text-cyan-200" />
+              <span>{formattedDate}</span>
+            </div>
+
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 border border-white/15 backdrop-blur-xs">
+              <Clock size={13} className="text-cyan-200" />
+              <span>
+                {readTime} {isKm ? "នាទីអាន" : isZh ? "分钟阅读" : "min read"}
+              </span>
+            </div>
+
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 border border-white/15 backdrop-blur-xs">
+              <FileText size={13} className="text-cyan-200" />
+              <span>
+                {wordCount.toLocaleString()} {isKm ? "ពាក្យ" : isZh ? "字" : "words"}
+              </span>
+            </div>
+          </div>
+        </div>
+      </PageHero>
+
+      {/* 2. Main Article Section */}
+      <Section tone="white" className="pt-8 sm:pt-12">
+        <div className="mx-auto max-w-7xl">
           {/* Main 12-Column Grid Layout: 8 cols Article + 4 cols Sticky Sidebar */}
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
             {/* Left 8 Columns: Article Content */}
             <div className="lg:col-span-8 min-w-0">
-              {/* Category Pill + Published Date */}
-              <div className="mb-4 flex flex-wrap items-center gap-3">
-                <span className="rounded-full bg-brand-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">
-                  {postCategory}
-                </span>
-                <span className="text-xs text-slate-400">•</span>
-                <span className="inline-flex items-center gap-1 text-xs text-slate-500">
-                  <Calendar size={12} />
-                  <span>{formattedDate}</span>
-                </span>
-                <span className="text-xs text-slate-400">•</span>
-                <span className="inline-flex items-center gap-1 text-xs text-slate-500">
-                  <Clock size={12} />
-                  <span>
-                    {readTime} {isKm ? "នាទីអាន" : isZh ? "分钟阅读" : "min read"}
-                  </span>
-                </span>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-ink leading-tight">
-                {postTitle}
-              </h1>
-
-              {/* Post Subtitle / Excerpt Lead */}
-              {/* Post Subtitle / Excerpt Lead */}
-              {postExcerpt && (
-                <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600 blog-excerpt">
-                  {postExcerpt}
-                </p>
-              )}
-
               {/* AEO Direct Answer & Key Takeaways Card */}
               {postKeyTakeaways && postKeyTakeaways.length > 0 && (
-                <div className="aeo-key-takeaways my-6 rounded-2xl border border-teal-500/20 bg-teal-50/50 p-5 sm:p-6 shadow-xs">
+                <div className="aeo-key-takeaways mb-8 rounded-2xl border border-teal-500/20 bg-teal-50/50 p-5 sm:p-6 shadow-xs">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="flex h-6 w-6 items-center justify-center rounded-full bg-teal-600 text-white shrink-0">
                       <CheckCircle2 size={14} />
@@ -320,33 +352,10 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                 </div>
               )}
 
-              {/* Author Strip */}
-              <div className="my-6 flex items-center justify-between border-y border-line py-3">
-                <div className="flex items-center gap-3">
-                  {post.author_avatar ? (
-                    <img
-                      src={post.author_avatar}
-                      alt={`${post.author_name} — Author at AttendKH`}
-                      className="h-10 w-10 rounded-full object-cover object-top border border-slate-200"
-                    />
-                  ) : (
-                    <div className="h-10 w-10 rounded-full bg-brand-soft text-brand flex items-center justify-center font-bold text-sm">
-                      {post.author_name.charAt(0)}
-                    </div>
-                  )}
-                  <div>
-                    <p className="font-display text-sm font-bold text-ink">{post.author_name}</p>
-                    <p className="text-xs text-slate-500">{postAuthorRole}</p>
-                  </div>
-                </div>
-
-                <span className="rounded-xl bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600">
-                  {wordCount.toLocaleString()} {isKm ? "ពាក្យ" : isZh ? "字" : "words"}
-                </span>
-              </div>
-
               {/* Share Buttons bar */}
-              <ShareButtons title={postTitle} slug={post.slug} />
+              <div className="mb-6">
+                <ShareButtons title={postTitle} slug={post.slug} />
+              </div>
 
               {/* Featured Cover Image Display */}
               {post.cover_image && (
@@ -361,7 +370,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
               {/* Rendered HTML */}
               <article
-                className="blog-article prose prose-slate min-w-0 max-w-none text-[16px] leading-relaxed text-body prose-headings:font-display prose-headings:font-bold prose-headings:text-ink prose-h2:mt-10 prose-h2:text-2xl prose-h3:mt-8 prose-h3:text-xl prose-a:text-brand prose-a:font-semibold prose-a:underline prose-code:font-mono prose-code:text-brand prose-pre:max-w-full prose-pre:whitespace-pre-wrap prose-pre:break-words prose-pre:overflow-hidden prose-pre:rounded-xl prose-pre:border prose-pre:border-line prose-pre:bg-mist prose-pre:p-4 prose-blockquote:border-l-brand prose-blockquote:bg-brand-soft/40 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-xl prose-img:rounded-2xl prose-img:border prose-img:border-line [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
+                className="blog-article prose prose-slate min-w-0 max-w-none text-[16px] leading-relaxed text-body prose-headings:font-display prose-headings:font-bold prose-headings:text-ink prose-h2:mt-10 prose-h2:text-2xl prose-h3:mt-8 prose-h3:text-xl prose-a:text-brand prose-a:font-semibold prose-a:underline prose-code:font-mono prose-code:text-brand prose-pre:max-w-full prose-pre:whitespace-pre-wrap prose-pre:break-words prose-pre:overflow-hidden prose-pre:rounded-xl prose-pre:border prose-pre:border-line prose-pre:bg-mist prose-pre:p-4 prose-blockquote:border-l-brand prose-blockquote:bg-brand-soft/40 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-xl prose-img:rounded-2xl prose-img:border prose-img:border-line [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto [&_table]:no-scrollbar [&_table]:[scrollbar-width:none] [&_table::-webkit-scrollbar]:hidden"
                 dangerouslySetInnerHTML={{ __html: safeHtml }}
               />
 

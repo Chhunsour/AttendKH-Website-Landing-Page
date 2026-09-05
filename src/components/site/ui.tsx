@@ -397,16 +397,23 @@ export function PageHero({
   badge,
   breadcrumbs,
   children,
+  className = "",
+  titleClassName,
+  subClassName,
 }: {
   title: string;
-  sub: string;
+  sub?: string;
   badge?: string;
   breadcrumbs?: BreadcrumbItem[];
   children?: ReactNode;
+  className?: string;
+  titleClassName?: string;
+  subClassName?: string;
 }) {
   const pathname = usePathname();
   const { lang } = useSite();
   const isKm = lang === "km";
+  const isZh = lang === "zh";
 
   // Auto-generate intelligent SEO breadcrumbs based on active route
   const activeBreadcrumbs: BreadcrumbItem[] =
@@ -415,7 +422,7 @@ export function PageHero({
       if (!pathname || pathname === "/") return [];
       const segments = pathname.split("/").filter(Boolean);
       const items: BreadcrumbItem[] = [
-        { label: isKm ? "ទំព័រដើម" : "Home", href: "/" },
+        { label: isKm ? "ទំព័រដើម" : isZh ? "首页" : "Home", href: "/" },
       ];
 
       let currentPath = "";
@@ -423,45 +430,51 @@ export function PageHero({
         currentPath += `/${seg}`;
         const isLast = idx === segments.length - 1;
 
-        const labelMap: Record<string, { en: string; km: string }> = {
-          about: { en: "About Us", km: "អំពីយើង" },
-          attendance: { en: "Attendance", km: "វត្តមានការងារ" },
-          payroll: { en: "Payroll", km: "ប្រាក់បៀវត្សរ៍" },
-          "multi-branch": { en: "Multi-Branch", km: "ពហុសាខា" },
-          pricing: { en: "Pricing", km: "តម្លៃសេវា" },
-          customers: { en: "Customers", km: "អតិថិជន" },
-          blog: { en: "Blog & Guides", km: "អត្ថបទ & មគ្គុទ្ទេសក៍" },
-          support: { en: "Support Center", km: "មជ្ឈមណ្ឌលគាំទ្រ" },
-          contact: { en: "Book a Demo", km: "ណាត់ជួបបង្ហាញប្រព័ន្ធ" },
-          downloads: { en: "Downloads", km: "ទាញយកកម្មវិធី" },
-          faq: { en: "FAQ", km: "សំណួរញឹកញាប់" },
-          trust: { en: "Trust & Security", km: "សុវត្ថិភាព & ទំនុកចិត្ត" },
-          solutions: { en: "Solutions", km: "ដំណោះស្រាយ" },
-          retail: { en: "Retail", km: "លក់រាយ" },
+        const labelMap: Record<string, { en: string; km: string; zh?: string }> = {
+          about: { en: "About Us", km: "អំពីយើង", zh: "关于我们" },
+          attendance: { en: "Attendance", km: "វត្តមានការងារ", zh: "考勤管理" },
+          payroll: { en: "Payroll", km: "ប្រាក់បៀវត្សរ៍", zh: "薪酬核算" },
+          "multi-branch": { en: "Multi-Branch", km: "ពហុសាខា", zh: "多门店多分支" },
+          pricing: { en: "Pricing", km: "តម្លៃសេវា", zh: "价格方案" },
+          customers: { en: "Customers", km: "អតិថិជន", zh: "客户案例" },
+          blog: { en: "Blog & Guides", km: "អត្ថបទ & មគ្គុទ្ទេសក៍", zh: "知识库与博客" },
+          support: { en: "Support Center", km: "មជ្ឈមណ្ឌលគាំទ្រ", zh: "支持中心" },
+          contact: { en: "Book a Demo", km: "ណាត់ជួបបង្ហាញប្រព័ន្ធ", zh: "预约演示" },
+          downloads: { en: "Downloads", km: "ទាញយកកម្មវិធី", zh: "客户端下载" },
+          faq: { en: "FAQ", km: "សំណួរញឹកញាប់", zh: "常见疑问" },
+          trust: { en: "Trust & Security", km: "សុវត្ថិភាព & ទំនុកចិត្ត", zh: "安全合规" },
+          solutions: { en: "Solutions", km: "ដំណោះស្រាយ", zh: "行业方案" },
+          retail: { en: "Retail", km: "លក់រាយ", zh: "零售连锁" },
           "restaurants-cafes": {
             en: "Restaurants & Cafes",
             km: "ភោជនីយដ្ឋាន & ហាងកាហ្វេ",
+            zh: "餐饮咖啡",
           },
           hospitality: {
             en: "Hospitality & Hotels",
             km: "បដិសណ្ឋារកិច្ច & សណ្ឋាគារ",
+            zh: "酒店文旅",
           },
           "construction-logistics": {
             en: "Construction & Logistics",
             km: "សំណង់ & ភស្តុភារកម្ម",
+            zh: "建筑与物流",
           },
-          terms: { en: "Terms of Service", km: "លក្ខខណ្ឌប្រើប្រាស់" },
+          terms: { en: "Terms of Service", km: "លក្ខខណ្ឌប្រើប្រាស់", zh: "服务条款" },
           "privacy-policy": {
             en: "Privacy Policy",
             km: "គោលការណ៍ឯកជនភាព",
+            zh: "隐私政策",
           },
-          upcoming: { en: "Upcoming Releases", km: "មុខងារនឹងមកដល់" },
+          upcoming: { en: "Upcoming Releases", km: "មុខងារនឹងមកដល់", zh: "功能预告" },
         };
 
         const mapped = labelMap[seg];
         const label = mapped
           ? isKm
             ? mapped.km
+            : isZh && mapped.zh
+            ? mapped.zh
             : mapped.en
           : seg
               .replace(/-/g, " ")
@@ -558,14 +571,15 @@ export function PageHero({
                         <Link
                           href={b.href}
                           itemProp="item"
-                          className="text-blue-100/80 hover:text-white hover:underline transition-colors"
+                          className="text-blue-100/80 hover:text-white hover:underline transition-colors shrink-0"
                         >
                           <span itemProp="name">{b.label}</span>
                         </Link>
                       ) : (
                         <span
                           itemProp="name"
-                          className="font-semibold text-white"
+                          className="font-semibold text-white truncate max-w-[200px] sm:max-w-xs md:max-w-md lg:max-w-lg inline-block align-bottom"
+                          title={b.label}
                         >
                           {b.label}
                         </span>
@@ -599,15 +613,25 @@ export function PageHero({
         )}
 
         <Reveal delay={0.04}>
-          <h1 className="font-display max-w-3xl text-[2.2rem] font-bold leading-[1.14] tracking-[-0.03em] text-white sm:text-[3rem] drop-shadow-xs">
+          <h1
+            className={`font-display ${
+              titleClassName || "max-w-3xl"
+            } text-[2.2rem] font-bold leading-[1.14] tracking-[-0.03em] text-white sm:text-[3rem] drop-shadow-xs`}
+          >
             {title}
           </h1>
         </Reveal>
-        <Reveal delay={0.08}>
-          <p className="mt-4 max-w-xl text-[16.5px] sm:text-[17.5px] leading-relaxed text-blue-100/90 font-normal">
-            {sub}
-          </p>
-        </Reveal>
+        {sub && (
+          <Reveal delay={0.08}>
+            <p
+              className={`mt-4 ${
+                subClassName || "max-w-xl"
+              } text-[16.5px] sm:text-[17.5px] leading-relaxed text-blue-100/90 font-normal`}
+            >
+              {sub}
+            </p>
+          </Reveal>
+        )}
         {children}
       </div>
     </section>
