@@ -151,9 +151,9 @@ export const chhunsourProfile: ProfileData = {
     zh: "产品架构师",
   },
   supportingRole: {
-    en: "Product Builder with a background in web development, SEO, and content writing.",
-    km: "អ្នកបង្កើតផលិតផល ដែលមានបទពិសោធន៍លើការអភិវឌ្ឍគេហទំព័រ SEO និងការសរសេរមាតិកា។",
-    zh: "具备 Web 前端开发、SEO 实战与深度内容创作背景的产品构建者。",
+    en: "Product Builder with 1 year of blog writing experience, web development, and SEO strategy.",
+    km: "អ្នកបង្កើតផលិតផល ដែលមានបទពិសោធន៍ ១ ឆ្នាំក្នុងការសរសេរប្លុក ការអភិវឌ្ឍគេហទំព័រ និងយុទ្ធសាស្ត្រ SEO។",
+    zh: "具备 1 年专业博客写作经验、Web 前端开发与 SEO 实战背景的产品构建者。",
   },
   location: {
     en: "Phnom Penh, Cambodia",
@@ -166,49 +166,49 @@ export const chhunsourProfile: ProfileData = {
   tags: {
     en: [
       "Product Development",
+      "1 Year Blog Writing",
       "Web Development",
-      "Content Writing",
       "SEO Strategy",
       "Article Architecture",
       "Technical Docs",
     ],
     km: [
       "ការអភិវឌ្ឍផលិតផល",
+      "បទពិសោធន៍សរសេរប្លុក ១ ឆ្នាំ",
       "ការអភិវឌ្ឍគេហទំព័រ",
-      "ការតែងនិពន្ធមាតិកា",
       "យុទ្ធសាស្ត្រ SEO",
       "រចនាសម្ព័ន្ធអត្ថបទ",
       "ឯកសារបច្ចេកទេស",
     ],
     zh: [
       "产品研发",
+      "1年博客写作实战",
       "前端开发",
-      "深度内容写作",
       "SEO 优化策略",
       "文章架构编排",
       "技术指南编写",
     ],
   },
   heroBio: {
-    en: "I'm a product builder and web developer with hands-on experience spanning software development, modern web architecture, SEO strategy, and editorial content creation. Before focusing primarily on engineering digital products, I spent a substantial part of my professional journey creating high-impact blog and web content. Today, I continue bringing that editorial foundation to my current workplace, turning complex software mechanics into clear, educational guides.",
-    km: "ខ្ញុំជាអ្នកបង្កើតផលិតផល (Product Builder) និងជាអ្នកអភិវឌ្ឍគេហទំព័រ ដែលមានបទពិសោធន៍ផ្ទាល់លើការអភិវឌ្ឍកម្មវិធី គេហទំព័រទំនើប យុទ្ធសាស្ត្រ SEO និងការតែងនិពន្ធមាតិកា។ មុនពេលផ្តោតលើការកសាងផលិតផលឌីជីថល ខ្ញុំបានឆ្លងកាត់ដំណើរការងារលើការសរសេរអត្ថបទប្លុក និងមាតិកាគេហទំព័រយ៉ាងសកម្ម។ បច្ចុប្បន្ន ខ្ញុំបន្តប្រើប្រាស់បទពិសោធន៍នេះនៅកន្លែងការងារ ដើម្បីបំប្លែងប្រព័ន្ធបច្ចេកវិទ្យាស្មុគស្មាញ ឱ្យទៅជាការណែនាំដែលងាយយល់ និងមានតម្លៃពិតប្រាកដ។",
-    zh: "我是一名全栈产品构建者与 Web 开发者，兼备软件工程、现代前端架构、SEO 战略与深度内容写作能力。在全身心投入产品研发之前，我的职业旅程中曾有很大一部分时间专注于撰写高质量技术博客与实务文章。如今，我在日常产品开发之余，依然保持着高标准的写作习惯，将复杂的系统逻辑转化为清晰、实用的专业指南。",
+    en: "I'm a product builder and web developer with 1 year of dedicated experience in blog and web content writing, alongside hands-on software development, modern web architecture, and SEO strategy. Before focusing primarily on engineering digital products, I spent a full year creating high-impact blog and web content. Today, I continue bringing that editorial foundation to my current workplace, turning complex software mechanics into clear, educational guides.",
+    km: "ខ្ញុំជាអ្នកបង្កើតផលិតផល (Product Builder) និងជាអ្នកអភិវឌ្ឍគេហទំព័រ ដែលមានបទពិសោធន៍ ១ ឆ្នាំពេញក្នុងការសរសេរប្លុក និងមាតិកាគេហទំព័រ រួមជាមួយការអភិវឌ្ឍកម្មវិធី គេហទំព័រទំនើប និងយុទ្ធសាស្ត្រ SEO។ មុនពេលផ្តោតលើការកសាងផលិតផលឌីជីថល ខ្ញុំបានចំណាយពេល ១ ឆ្នាំពេញលើការសរសេរអត្ថបទប្លុកយ៉ាងសកម្ម។ បច្ចុប្បន្ន ខ្ញុំបន្តប្រើប្រាស់បទពិសោធន៍នេះនៅកន្លែងការងារ ដើម្បីបំប្លែងប្រព័ន្ធបច្ចេកវិទ្យាស្មុគស្មាញ ឱ្យទៅជាការណែនាំដែលងាយយល់ និងមានតម្លៃពិតប្រាកដ។",
+    zh: "我是一名全栈产品构建者与 Web 开发者，兼备 1 年专注的博客与网络内容写作实战经验，以及软件工程、现代前端架构与 SEO 战略能力。在全身心投入数字化产品研发之前，我曾用整整 1 年时间专注于撰写高质量行业博客与实务文章。如今，我在日常产品开发之余依然保持着高标准的写作习惯，将复杂的系统逻辑转化为清晰、实用的专业指南。",
   },
   aboutStory: {
     en: [
       "Software products don't exist in a vacuum. The most thoughtfully engineered features fall flat if the people who need them can't find them, understand them, or trust how they work.",
       "That reality has shaped my entire career. I operate at the intersection of technical execution and communication: knowing how to design, build, and deploy production web software, while possessing the editorial discipline to research user questions, structure arguments, and explain intricate business logic with clarity.",
-      "During earlier stages of my career, I dedicated significant time to researching topics from the ground up, identifying search intent, crafting readable explanations, and optimizing content for both search engines and human readers. When my day-to-day focus shifted into engineering scalable web systems, that content background didn't disappear — it became one of my strongest assets.",
+      "Over the course of 1 year of dedicated blog and content writing, I honed the discipline of researching topics from the ground up, identifying search intent, crafting readable explanations, and optimizing content for both search engines and human readers. When my day-to-day focus shifted into engineering scalable web systems, that 1 year of content experience didn't disappear — it became one of my strongest competitive advantages.",
     ],
     km: [
       "ផលិតផលបច្ចេកវិទ្យាមិនអាចឈរតែឯងបានឡើយ។ មុខងារដែលត្រូវបានសរសេរកូដយ៉ាងល្អឥតខ្ចោះ នឹងបាត់បង់តម្លៃ ប្រសិនបើអ្នកប្រើប្រាស់មិនអាចស្វែងរក មិនអាចយល់ ឬមិនដឹងពីរបៀបដែលវាជួយសម្រួលការងាររបស់ពួកគេ។",
       "ការយល់ដឹងនេះបានកំណត់ទិសដៅការងាររបស់ខ្ញុំ។ ខ្ញុំធ្វើការនៅចំណុចប្រសព្វរវាងការសរសេរកូដបច្ចេកទេស និងការប្រាស្រ័យទាក់ទង៖ ខ្ញុំដឹងពីរបៀបកសាងគេហទំព័រ និងកម្មវិធីជាក់ស្តែង ព្រមទាំងមានជំនាញក្នុងការស្រាវជ្រាវសំណួររបស់អ្នកប្រើប្រាស់ រៀបចំរចនាសម្ព័ន្ធអត្ថបទ និងពន្យល់ពីតក្កវិជ្ជាស្មុគស្មាញឱ្យងាយយល់បំផុត។",
-      "នៅក្នុងដំណាក់កាលដំបូងនៃការងារ ខ្ញុំបានចំណាយពេលយ៉ាងច្រើនក្នុងការស្រាវជ្រាវប្រធានបទ ស្វែងយល់ពីតម្រូវការស្វែងរក (Search Intent) ការសរសេរឱ្យស្រួលអាន និងការកែច្នៃមាតិកាសម្រាប់ទាំង Search Engine និងមនុស្សពិតប្រាកដ។ នៅពេលដែលការងាររបស់ខ្ញុំបានវិវត្តទៅជាការកសាងប្រព័ន្ធបច្ចេកវិទ្យា បទពិសោធន៍សរសេរនេះមិនបានបាត់បង់ទេ — ប៉ុន្តែវាបានក្លាយជាកម្លាំងរុញច្រានយ៉ាងសំខាន់ក្នុងការអភិវឌ្ឍផលិតផល។",
+      "ក្នុងកំឡុងពេល ១ ឆ្នាំពេញនៃការសរសេរប្លុក និងមាតិកាយ៉ាងសកម្ម ខ្ញុំបានពង្រឹងវិន័យក្នុងការស្រាវជ្រាវប្រធានបទ ស្វែងយល់ពីតម្រូវការស្វែងរក (Search Intent) ការសរសេរឱ្យស្រួលអាន និងការកែច្នៃមាតិកាសម្រាប់ទាំង Search Engine និងមនុស្សពិតប្រាកដ។ នៅពេលដែលការងាររបស់ខ្ញុំបានវិវត្តទៅជាការកសាងប្រព័ន្ធបច្ចេកវិទ្យា បទពិសោធន៍សរសេរ ១ ឆ្នាំនេះមិនបានបាត់បង់ទេ — ប៉ុន្តែវាបានក្លាយជាប្រៀបឈ្នះដ៏រឹងមាំក្នុងការអភិវឌ្ឍផលិតផល។",
     ],
     zh: [
       "优秀的软件不仅取决于代码质量，更取决于用户能否快速发现、理解并信任它的价值。如果复杂的功能无法被清晰阐述，工程成果就会大打折扣。",
       "这种认知深深影响了我的工作方式。我始终站在技术落地与精准传达的交汇点：既掌握现代 Web 开发与系统架构技能，又具备严谨的选题调研、文章结构编排与逻辑拆解能力。",
-      "在更早的职业阶段中，我系统性地研究了关键词搜索意图、内容层级编排以及兼顾搜索引擎优化与人类阅读体验的写作方法。当我的主要精力转向构建数字化产品时，这项内容底蕴成为了我最坚实的能力护城河。",
+      "在专注于博客与内容撰写的 1 年时间里，我沉淀下了系统性的选题调研、搜索意图拆解、通俗化表达及兼顾搜索引擎与人类阅读的写作硬功。当我的核心精力转向构建可扩展的 Web 系统时，这 1 年积累的内容底蕴未曾褪色，反而化作了我最独特的复合竞争优势。",
     ],
   },
   dualSuperpower: {
@@ -337,9 +337,9 @@ export const chhunsourProfile: ProfileData = {
     },
     {
       period: {
-        en: "Previous Experience",
-        km: "បទពិសោធន៍កន្លងមក",
-        zh: "往期经验",
+        en: "1 Year Experience",
+        km: "បទពិសោធន៍ ១ ឆ្នាំពេញ",
+        zh: "1 年实战经验",
       },
       role: {
         en: "Blog & Web Content Specialist",
@@ -347,31 +347,31 @@ export const chhunsourProfile: ProfileData = {
         zh: "博客与网络深度内容专家",
       },
       context: {
-        en: "Previous Digital Media Role",
-        km: "ការងារផ្នែកប្រព័ន្ធផ្សព្វផ្សាយឌីជីថលកន្លងមក",
-        zh: "往期数字化内容与媒体岗位",
+        en: "1 Year Dedicated Blog Writing",
+        km: "បទពិសោធន៍ផ្តោតលើការសរសេរប្លុក ១ ឆ្នាំ",
+        zh: "深耕博客与网络深度内容撰写（1 年）",
       },
       description: {
-        en: "Managed end-to-end content production workflows, conducted exhaustive topic research, structured high-converting articles, and mastered keyword-aware writing for web audiences.",
-        km: "គ្រប់គ្រងដំណើរការផលិតមាតិកាតាំងពីដើមដល់ចប់ ធ្វើការស្រាវជ្រាវប្រធានបទយ៉ាងស៊ីជម្រៅ រៀបចំរចនាសម្ព័ន្ធអត្ថបទ និងជំនាញសរសេរដែលឆ្លើយតបនឹងការស្វែងរក។",
-        zh: "全面统筹端到端内容生产流程，深度剖析垂直领域主题，编排高可读性长文，打磨精准适配网络受众的 SEO 写作能力。",
+        en: "Spent 1 full year immersed in end-to-end blog content production: researching user search intent, structuring authoritative long-form guides, crafting readable explanations, and executing keyword-aware SEO copywriting.",
+        km: "បានចំណាយពេល ១ ឆ្នាំពេញលើដំណើរការផលិតមាតិកាប្លុក៖ ស្រាវជ្រាវតម្រូវការស្វែងរករបស់អ្នកអាន រៀបចំរចនាសម្ព័ន្ធអត្ថបទស៊ីជម្រៅ សរសេរពន្យល់ឱ្យងាយយល់ និងអនុវត្តការសរសេរ SEO ដែលឆ្លើយតបនឹងការស្វែងរក។",
+        zh: "用整整 1 年时间全身心沉浸在端到端博客内容生产体系中：深度调研用户搜索意图、构建严密的长文指南、磨练深入浅出的文字表达，并落地精准的 SEO 关键词撰写规范。",
       },
       highlights: {
         en: [
-          "Researched competitive search volumes and crafted content briefs aligned with user intent",
-          "Structured complex technical topics into easy-to-read, scannable editorial guides",
+          "Dedicated 1 year to researching, outlining, and publishing long-form blog articles",
+          "Mastered keyword research and content hierarchy (H1–H3) for organic search discoverability",
           "Managed publishing pipelines across CMS systems with strict attention to typography and heading hierarchy",
           "Refined readability scores and optimized metadata for organic discoverability",
         ],
         km: [
-          "ស្រាវជ្រាវបរិមាណស្វែងរក និងរៀបចំគម្រោងអត្ថបទស្របតាមតម្រូវការជាក់ស្តែងរបស់អ្នកអាន",
-          "បំប្លែងប្រធានបទបច្ចេកទេសស្មុគស្មាញឱ្យទៅជាមគ្គុទ្ទេសក៍ដែលងាយយល់ និងទាក់ទាញ",
+          "ចំណាយពេល ១ ឆ្នាំលើការស្រាវជ្រាវ រៀបចំគ្រោង និងបោះពុម្ពផ្សាយអត្ថបទប្លុកស៊ីជម្រៅ",
+          "ស្ទាត់ជំនាញលើការស្រាវជ្រាវ Keyword និងរចនាសម្ព័ន្ធអត្ថបទ (H1–H3) សម្រាប់ការស្វែងរកតាម Google",
           "គ្រប់គ្រងការបោះពុម្ពលើប្រព័ន្ធ CMS ដោយយកចិត្តទុកដាក់ខ្ពស់លើទម្រង់អក្សរ និងចំណងជើង",
           "កែសម្រួលភាពងាយអាន និងបង្កើនប្រសិទ្ធភាព Meta Tags សម្រាប់ការស្វែងរកបែបធម្មជាតិ",
         ],
         zh: [
-          "深度调研行业搜索需求曲线，制定契合目标受众真实痛点的内容规划",
-          "将复杂的技术概念拆解为层次分明、易于扫读的高价值实战指南",
+          "专注 1 年深度调研、大纲编排并稳定输出高质量长篇行业博客",
+          "系统精通关键词搜索意图挖掘与严密的标题层级架构（H1–H3），提升自然收录表现",
           "严格把控 CMS 系统的图文排版、字体节奏与层级编排规范",
           "持续优化文章阅读流畅度，深度精细化配置页面元数据",
         ],

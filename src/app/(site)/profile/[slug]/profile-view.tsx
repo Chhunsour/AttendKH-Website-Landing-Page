@@ -313,10 +313,18 @@ export function ProfileView({
             {/* Right: Titles, Intro, Telegram CTA, & Meta Chips */}
             <div className="lg:col-span-8 space-y-5">
               <Reveal delay={0.06}>
-                {/* Primary Title Badge */}
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-cyan-200 border border-white/20 backdrop-blur-xs">
-                  <Sparkles size={13} className="text-cyan-300" />
-                  <span>{profile.role[lang]}</span>
+                {/* Primary Title & Experience Badges */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-cyan-200 border border-white/20 backdrop-blur-xs">
+                    <Sparkles size={13} className="text-cyan-300" />
+                    <span>{profile.role[lang]}</span>
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-cyan-400/20 px-3 py-1 text-xs font-semibold text-cyan-100 border border-cyan-300/30 backdrop-blur-xs">
+                    <FileText size={12} className="text-cyan-300" />
+                    <span>
+                      {isKm ? "បទពិសោធន៍សរសេរប្លុក ១ ឆ្នាំ" : isZh ? "1年博客写作经验" : "1 Year Blog Writing Experience"}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Name */}

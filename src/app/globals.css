@@ -581,12 +581,6 @@ html[lang="km"] .font-mono {
   overflow-x: hidden;
 }
 
-/* Eliminate horizontal scroll line / scrollbars completely on blog single pages */
-html,
-body {
-  overflow-x: hidden;
-  max-width: 100%;
-}
 
 .blog-article,
 .blog-article *,

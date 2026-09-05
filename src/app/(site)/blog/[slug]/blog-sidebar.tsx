@@ -117,12 +117,12 @@ export function BlogSidebar({
   }, [initialToc]);
 
   return (
-    <aside className="space-y-6 lg:sticky lg:top-24 lg:max-h-[calc(100vh-6.5rem)] lg:overflow-y-auto no-scrollbar pr-0.5 pb-4">
+    <aside className="space-y-4 lg:sticky lg:top-24">
       {/* 1. Article Navigation & Quick Actions Card */}
-      <div className="rounded-3xl border border-slate-200/90 bg-white p-5 shadow-xs">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+      <div className="rounded-3xl border border-slate-200/90 bg-white p-4 sm:p-4.5 shadow-xs">
+        <div className="flex items-center justify-between pb-2 border-b border-slate-100">
           <div className="flex items-center gap-2 font-display text-sm font-bold text-slate-900">
-            <ListTree size={16} className="text-brand" />
+            <ListTree size={15} className="text-brand" />
             <span>{isKm ? "មាតិកាអត្ថបទ" : isZh ? "目录导航" : "Table of Contents"}</span>
           </div>
 
@@ -140,7 +140,7 @@ export function BlogSidebar({
 
         {/* Dynamic Table of Contents List */}
         {tocOpen && (
-          <nav className="mt-3 space-y-1 text-xs" aria-label="Table of contents">
+          <nav className="mt-2 max-h-48 overflow-y-auto no-scrollbar space-y-0.5 text-xs" aria-label="Table of contents">
             {initialToc.length > 0 ? (
               initialToc.map((item, idx) => {
                 const isActive = activeId === item.id;
@@ -148,7 +148,7 @@ export function BlogSidebar({
                   <a
                     key={item.id || idx}
                     href={`#${item.id}`}
-                    className={`group flex items-start gap-2 rounded-xl px-2.5 py-2 transition-all duration-150 ${
+                    className={`group flex items-start gap-2 rounded-xl px-2.5 py-1 transition-all duration-150 ${
                       isActive
                         ? "bg-brand-soft/70 font-bold text-brand shadow-2xs"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
@@ -173,47 +173,31 @@ export function BlogSidebar({
           </nav>
         )}
 
-        {/* Quick Meta Snapshot */}
-        <div className="mt-4 pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-500">
-          <div className="flex items-center justify-between">
-            <span className="flex items-center gap-1.5 text-slate-400">
-              <Clock size={12} />
-              <span>{isKm ? "រយៈពេលអាន" : isZh ? "阅读时间" : "Reading Time"}</span>
-            </span>
+        {/* Quick Meta Snapshot (Compact 2-column layout) */}
+        <div className="mt-2.5 pt-2.5 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px] text-slate-500">
+          <div className="flex items-center gap-1.5">
+            <Clock size={12} className="text-slate-400 shrink-0" />
             <span className="font-semibold text-slate-700">
               {readTime} {isKm ? "នាទីអាន" : isZh ? "分钟" : "min read"}
             </span>
           </div>
 
-          <div className="flex items-center justify-between">
-            <span className="flex items-center gap-1.5 text-slate-400">
-              <Sparkles size={12} />
-              <span>{isKm ? "ចំនួនពាក្យ" : isZh ? "文章字数" : "Length"}</span>
-            </span>
-            <span className="font-mono font-semibold text-slate-700">
-              {wordCount.toLocaleString()} {isKm ? "ពាក្យ" : isZh ? "字" : "words"}
-            </span>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="flex items-center gap-1.5 text-slate-400">
-              <Calendar size={12} />
-              <span>{isKm ? "កាលបរិច្ឆេទ" : isZh ? "发布日期" : "Published"}</span>
-            </span>
-            <span className="font-semibold text-slate-700">{formattedDate}</span>
+          <div className="flex items-center gap-1.5 justify-end">
+            <Calendar size={12} className="text-slate-400 shrink-0" />
+            <span className="font-semibold text-slate-700 truncate">{formattedDate}</span>
           </div>
         </div>
 
         {/* Utilities Bar */}
-        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+        <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
           <button
             type="button"
             onClick={handlePrint}
             title="Print or Save Article as PDF"
             className="inline-flex items-center gap-1.5 font-medium text-slate-500 hover:text-slate-900 transition-colors cursor-pointer"
           >
-            <Printer size={13} className="text-slate-400" />
-            <span>{isKm ? "បោះពុម្ព / PDF" : isZh ? "打印 / 存为 PDF" : "Print / PDF"}</span>
+            <Printer size={12} className="text-slate-400" />
+            <span>{isKm ? "បោះពុម្ព / PDF" : isZh ? "打印 / PDF" : "Print / PDF"}</span>
           </button>
 
           <button
@@ -222,14 +206,14 @@ export function BlogSidebar({
             title="Jump to top of article"
             className="inline-flex items-center gap-1.5 font-medium text-slate-500 hover:text-brand transition-colors cursor-pointer"
           >
-            <ArrowUp size={13} className="text-slate-400" />
+            <ArrowUp size={12} className="text-slate-400" />
             <span>{isKm ? "ត្រឡប់ទៅលើ" : isZh ? "返回顶部" : "Back to Top"}</span>
           </button>
         </div>
       </div>
 
       {/* 2. Ultra-Attractive AttendKH Attendance App Promotion Card */}
-      <div className="relative overflow-hidden rounded-3xl border border-blue-400/30 bg-gradient-to-b from-[#060D27] via-[#091C5A] to-[#013DAF] p-5 sm:p-6 text-white shadow-2xl ring-1 ring-white/10 space-y-4">
+      <div className="relative overflow-hidden rounded-3xl border border-blue-400/30 bg-gradient-to-b from-[#060D27] via-[#091C5A] to-[#013DAF] p-4 sm:p-4.5 text-white shadow-2xl ring-1 ring-white/10 space-y-3">
         {/* Dynamic Background Lighting & Mesh */}
         <div
           aria-hidden="true"
@@ -242,30 +226,31 @@ export function BlogSidebar({
 
         {/* Header Capsule: Logo + Live Pulse Badge */}
         <div className="flex items-center justify-between gap-2 relative z-10">
-          <div className="flex items-center gap-2 bg-white rounded-xl px-2.5 py-1.5 shadow-md">
+          <div className="flex items-center gap-1.5 bg-white rounded-xl px-2 py-1 shadow-md">
             <img
               src="/logo.png"
               alt="AttendKH (Attend) Logo — #1 Attendance App Cambodia"
-              className="h-6 w-auto object-contain"
+              className="h-5 w-auto object-contain"
             />
+            <span className="font-display text-xs font-bold text-slate-900">AttendKH</span>
           </div>
 
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 px-3 py-1 text-[10.5px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30 backdrop-blur-xs">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30 backdrop-blur-xs">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>{isKm ? "$១ / បុគ្គលិក" : isZh ? "$1 / 员工" : "$1 / Employee"}</span>
           </span>
         </div>
 
         {/* Catchy Value Headline & Subtitle */}
-        <div className="relative z-10 space-y-1.5">
-          <h4 className="font-display text-base sm:text-lg font-extrabold text-white leading-snug">
+        <div className="relative z-10 space-y-1">
+          <h4 className="font-display text-[15px] sm:text-base font-extrabold text-white leading-snug">
             {isKm
               ? "ទប់ស្កាត់ការចុះវត្តមានជំនួសគ្នាជាមួយ App លេខ ១"
               : isZh
               ? "彻底杜绝代打卡 — 柬埔寨首选智能考勤 App"
               : "Stop Buddy Punching with the #1 Attendance App"}
           </h4>
-          <p className="text-xs text-blue-100/80 leading-relaxed">
+          <p className="text-[11.5px] text-blue-100/80 leading-relaxed">
             {isKm
               ? "ប្រព័ន្ធកំណត់ទីតាំង GPS Geofence និងការថតរូប Selfie ផ្ទាល់ សម្រាប់ហាងលក់រាយ ហាងកាហ្វេ និងអាជីវកម្មពហុសាខានៅកម្ពុជា។"
               : isZh
@@ -274,8 +259,8 @@ export function BlogSidebar({
           </p>
 
           {/* Pricing Highlight Pill */}
-          <div className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-cyan-200 border border-white/15 backdrop-blur-xs mt-1">
-            <Zap size={12} className="text-cyan-300" />
+          <div className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-2 py-0.5 text-[10.5px] font-semibold text-cyan-200 border border-white/15 backdrop-blur-xs mt-0.5">
+            <Zap size={11} className="text-cyan-300" />
             <span>
               {isKm
                 ? "ត្រឹមតែ $1 / នាក់ / ខែ • មិនបាច់ទិញម៉ាស៊ីន"
@@ -287,10 +272,10 @@ export function BlogSidebar({
         </div>
 
         {/* App Showcase Frame */}
-        <div className="relative z-10 overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-3 backdrop-blur-md shadow-inner">
-          <div className="flex items-center gap-3.5">
+        <div className="relative z-10 overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-2.5 backdrop-blur-md shadow-inner">
+          <div className="flex items-center gap-3">
             {/* Phone Mock Thumbnail */}
-            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-white/30 bg-slate-900 shadow-md">
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-white/30 bg-slate-900 shadow-md">
               <img
                 src="/clockin-frame-3.webp"
                 alt="AttendKH (Attend) Mobile GPS Geofence & Selfie Clock-In App"
@@ -300,17 +285,17 @@ export function BlogSidebar({
             </div>
 
             {/* Live Status Indicators */}
-            <div className="min-w-0 space-y-1">
-              <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-300">
-                <ShieldCheck size={13} className="text-emerald-400 shrink-0" />
+            <div className="min-w-0 space-y-0.5">
+              <div className="flex items-center gap-1 text-[10.5px] font-bold text-emerald-300">
+                <ShieldCheck size={12} className="text-emerald-400 shrink-0" />
                 <span className="truncate">
                   {isKm ? "ផ្ទៀងផ្ទាត់ GPS & Selfie" : isZh ? "GPS & 自拍双重核验" : "GPS & Selfie Verified"}
                 </span>
               </div>
-              <p className="text-xs font-semibold text-white truncate">
+              <p className="text-[11.5px] font-semibold text-white truncate">
                 {isKm ? "ចុះវត្តមានភ្លាមៗ • លឿនបំផុត" : isZh ? "极速打卡 • 0 秒延迟" : "Instant Clock-in • 0s Delay"}
               </p>
-              <p className="text-[10.5px] text-blue-200/90 truncate flex items-center gap-1">
+              <p className="text-[10px] text-blue-200/90 truncate flex items-center gap-1">
                 <Smartphone size={10} className="shrink-0" />
                 <span>iOS • Android • Telegram</span>
               </p>
@@ -319,55 +304,55 @@ export function BlogSidebar({
         </div>
 
         {/* 2x2 Feature Bento Micro-Grid */}
-        <div className="grid grid-cols-2 gap-2 text-xs relative z-10">
-          <div className="rounded-xl bg-white/5 border border-white/10 p-2.5 space-y-1">
-            <div className="flex items-center gap-1.5 text-cyan-300 font-bold text-[11px]">
-              <MapPin size={12} className="shrink-0" />
+        <div className="grid grid-cols-2 gap-1.5 text-xs relative z-10">
+          <div className="rounded-xl bg-white/5 border border-white/10 p-2 space-y-0.5">
+            <div className="flex items-center gap-1 text-cyan-300 font-bold text-[10.5px]">
+              <MapPin size={11} className="shrink-0" />
               <span>{isKm ? "GPS Geofence" : isZh ? "GPS 地理围栏" : "GPS Geofence"}</span>
             </div>
-            <p className="text-[10px] text-blue-200/80 leading-tight">
-              {isKm ? "កាំរង្វង់ ៥០ម–៣០០ម" : isZh ? "50米–300米精准围栏" : "50m–300m radius lock"}
+            <p className="text-[9.5px] text-blue-200/80 leading-tight">
+              {isKm ? "កាំរង្វង់ ៥០ម–៣០០ម" : isZh ? "50米–300米精准围栏" : "50m–300m radius"}
             </p>
           </div>
 
-          <div className="rounded-xl bg-white/5 border border-white/10 p-2.5 space-y-1">
-            <div className="flex items-center gap-1.5 text-cyan-300 font-bold text-[11px]">
-              <Camera size={12} className="shrink-0" />
+          <div className="rounded-xl bg-white/5 border border-white/10 p-2 space-y-0.5">
+            <div className="flex items-center gap-1 text-cyan-300 font-bold text-[10.5px]">
+              <Camera size={11} className="shrink-0" />
               <span>{isKm ? "Live Selfie" : isZh ? "实时活体自拍" : "Live Selfie"}</span>
             </div>
-            <p className="text-[10px] text-blue-200/80 leading-tight">
-              {isKm ? "ទប់ស្កាត់ចុះជំនួស ១០០%" : isZh ? "100% 杜绝代打卡" : "0% buddy punching"}
+            <p className="text-[9.5px] text-blue-200/80 leading-tight">
+              {isKm ? "ទប់ស្កាត់ចុះជំនួស ១០០%" : isZh ? "100% 杜绝代打卡" : "0% buddy punch"}
             </p>
           </div>
 
-          <div className="rounded-xl bg-white/5 border border-white/10 p-2.5 space-y-1">
-            <div className="flex items-center gap-1.5 text-cyan-300 font-bold text-[11px]">
-              <Send size={12} className="shrink-0" />
+          <div className="rounded-xl bg-white/5 border border-white/10 p-2 space-y-0.5">
+            <div className="flex items-center gap-1 text-cyan-300 font-bold text-[10.5px]">
+              <Send size={11} className="shrink-0" />
               <span>Telegram Bot</span>
             </div>
-            <p className="text-[10px] text-blue-200/80 leading-tight">
-              {isKm ? "ដំណឹងយឺតតាម Telegram" : isZh ? "迟到实时自动预警" : "Instant late alerts"}
+            <p className="text-[9.5px] text-blue-200/80 leading-tight">
+              {isKm ? "ដំណឹងយឺតភ្លាមៗ" : isZh ? "迟到实时自动预警" : "Instant late alerts"}
             </p>
           </div>
 
-          <div className="rounded-xl bg-white/5 border border-white/10 p-2.5 space-y-1">
-            <div className="flex items-center gap-1.5 text-cyan-300 font-bold text-[11px]">
-              <CheckCircle2 size={12} className="shrink-0" />
+          <div className="rounded-xl bg-white/5 border border-white/10 p-2 space-y-0.5">
+            <div className="flex items-center gap-1 text-cyan-300 font-bold text-[10.5px]">
+              <CheckCircle2 size={11} className="shrink-0" />
               <span>{isKm ? "ស្របច្បាប់ការងារ" : isZh ? "柬埔寨劳工法" : "MoLVT Ready"}</span>
             </div>
-            <p className="text-[10px] text-blue-200/80 leading-tight">
-              {isKm ? "OT & ប.ស.ស. ត្រឹមត្រូវ" : isZh ? "OT加班与社保合规" : "OT & NSSF compliant"}
+            <p className="text-[9.5px] text-blue-200/80 leading-tight">
+              {isKm ? "OT & ប.ស.ស. ត្រឹមត្រូវ" : isZh ? "OT加班与社保合规" : "OT & NSSF ready"}
             </p>
           </div>
         </div>
 
         {/* High-Converting Action Buttons */}
-        <div className="space-y-2 pt-1 relative z-10">
+        <div className="space-y-1.5 pt-0.5 relative z-10">
           <Link
             href="/downloads"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-white hover:bg-blue-50 py-3 text-xs sm:text-sm font-extrabold text-[#012586] shadow-lg transition-all active:scale-95 cursor-pointer hover:shadow-cyan-500/20"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-white hover:bg-blue-50 py-2.5 text-xs sm:text-[13px] font-extrabold text-[#012586] shadow-lg transition-all active:scale-95 cursor-pointer hover:shadow-cyan-500/20"
           >
-            <Smartphone size={15} />
+            <Smartphone size={14} />
             <span>
               {isKm
                 ? "ទាញយក App វត្តមាន ($1/ខែ)"
@@ -375,12 +360,12 @@ export function BlogSidebar({
                 ? "获取考勤 App ($1/月)"
                 : "Get Attendance App ($1/mo)"}
             </span>
-            <ArrowRight size={14} />
+            <ArrowRight size={13} />
           </Link>
 
           <Link
             href="/pricing"
-            className="w-full inline-flex items-center justify-center gap-1.5 rounded-xl bg-white/10 hover:bg-white/20 py-2.5 text-xs font-semibold text-white border border-white/20 transition-all cursor-pointer"
+            className="w-full inline-flex items-center justify-center gap-1.5 rounded-xl bg-white/10 hover:bg-white/20 py-2 text-[11.5px] font-semibold text-white border border-white/20 transition-all cursor-pointer"
           >
             <span>
               {isKm
@@ -393,15 +378,15 @@ export function BlogSidebar({
         </div>
 
         {/* Social Proof Footer */}
-        <div className="pt-2 border-t border-white/15 flex items-center justify-center gap-1.5 text-[10.5px] text-blue-200/90 relative z-10 text-center">
-          <div className="flex text-amber-300">
+        <div className="pt-1.5 border-t border-white/15 flex items-center justify-center gap-1.5 text-[10px] text-blue-200/90 relative z-10 text-center">
+          <div className="flex text-amber-300 text-[11px]">
             {"★".repeat(5)}
           </div>
           <span>
             {isKm
               ? "ជឿទុកចិត្តដោយអាជីវកម្មជាង ២៥០+ នៅកម្ពុជា"
               : isZh
-              ? "深受 250+ 柬埔寨本土与外资企业信赖"
+              ? "深受 250+ 柬埔寨企业信赖"
               : "Trusted by 250+ Cambodian Outlets"}
           </span>
         </div>
