@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Send,
@@ -420,9 +421,14 @@ export function ContactView() {
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-display text-sm sm:text-base font-bold text-slate-900">
-                      Chhunsour Seng
-                    </span>
+                    <Link
+                      href="/profile/chhunsour-seng"
+                      className="group/lead inline-flex items-center gap-1.5 font-display text-sm sm:text-base font-bold text-slate-900 hover:text-brand transition-colors"
+                      title="View Chhunsour Seng profile"
+                    >
+                      <span>Chhunsour Seng</span>
+                      <ArrowRight size={13} className="text-slate-400 group-hover/lead:text-brand group-hover/lead:translate-x-0.5 transition-all" />
+                    </Link>
                     <span className="font-mono text-[10.5px] font-bold text-slate-500 bg-slate-200/70 px-2 py-0.5 rounded-md">
                       Technical Lead
                     </span>

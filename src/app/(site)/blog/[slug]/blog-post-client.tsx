@@ -273,13 +273,17 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
       >
         {/* Author & Publication Metadata Banner inside Hero */}
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-blue-400/20 pt-6">
-          {/* Author Details */}
-          <div className="flex items-center gap-3.5">
+          {/* Author Details (Links to Public Profile) */}
+          <Link
+            href="/profile/chhunsour-seng"
+            className="group flex items-center gap-3.5 rounded-2xl bg-white/10 hover:bg-white/20 p-1.5 sm:pr-4 sm:py-2 border border-white/15 backdrop-blur-xs transition-all hover:scale-[1.02]"
+            title="View Chhunsour Seng's public profile"
+          >
             {post.author_avatar ? (
               <img
                 src={post.author_avatar}
                 alt={`${post.author_name} — Author at AttendKH`}
-                className="h-11 w-11 rounded-full object-cover object-top ring-2 ring-white/30 shadow-xs"
+                className="h-11 w-11 rounded-full object-cover object-top ring-2 ring-white/30 shadow-xs group-hover:ring-cyan-300 transition-all"
               />
             ) : (
               <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white font-bold text-base ring-2 ring-white/30 backdrop-blur-xs">
@@ -287,14 +291,17 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
               </div>
             )}
             <div>
-              <p className="font-display text-[15px] font-bold text-white leading-snug">
-                {post.author_name}
-              </p>
+              <div className="flex items-center gap-1.5">
+                <p className="font-display text-[15px] font-bold text-white leading-snug group-hover:text-cyan-200 transition-colors">
+                  {post.author_name}
+                </p>
+                <ArrowRight size={12} className="text-cyan-300 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+              </div>
               <p className="text-xs text-blue-200/90 font-medium">
                 {postAuthorRole}
               </p>
             </div>
-          </div>
+          </Link>
 
           {/* Metadata Chips: Date, Read Time, Word Count */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-blue-100 font-medium">
@@ -445,6 +452,45 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                 </div>
                 <ShareButtons title={postTitle} slug={post.slug} compact />
               </div>
+
+              {/* Author Bio Editorial Card (Links to Public Profile) */}
+              <div className="mt-8 rounded-3xl border border-slate-200/90 bg-slate-50/80 p-6 sm:p-7 shadow-xs">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border-2 border-white shadow-md">
+                      <img
+                        src={post.author_avatar || "/avatars/chhunsour.png"}
+                        alt={post.author_name}
+                        className="h-full w-full object-cover object-top"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-brand">Author</span>
+                        <span className="text-slate-300">•</span>
+                        <span className="text-xs text-slate-500">{postAuthorRole}</span>
+                      </div>
+                      <h4 className="font-display text-lg font-bold text-slate-900">
+                        {post.author_name}
+                      </h4>
+                    </div>
+                  </div>
+                  <Link
+                    href="/profile/chhunsour-seng"
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-white hover:bg-slate-100 px-4 py-2 text-xs font-bold text-slate-900 border border-slate-200 shadow-2xs transition-colors shrink-0"
+                  >
+                    <span>{isKm ? "មើលប្រវត្តិរូបពេញលេញ" : isZh ? "查看完整履历" : "View Full Profile"}</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                </div>
+                <p className="mt-4 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200/60 pt-4">
+                  {isKm
+                    ? "អ្នកបង្កើតផលិតផលនៅ AttendKH ដែលមានបទពិសោធន៍ផ្ទាល់លើការអភិវឌ្ឍប្រព័ន្ធបច្ចេកវិទ្យា យុទ្ធសាស្ត្រ SEO និងការតែងនិពន្ធមាតិកាប្រតិបត្តិការសម្រាប់អាជីវកម្មនៅកម្ពុជា។"
+                    : isZh
+                    ? "AttendKH 全栈产品构建者，兼备现代前端架构、SEO 战略与深度行业指南写作底蕴，致力于通过技术与文字赋能柬埔寨企业数字化。"
+                    : "Product Builder at AttendKH combining hands-on web engineering, SEO architecture, and editorial writing to create clear operational guides for Cambodian businesses."}
+                </p>
+              </div>
             </div>
 
             {/* Right 4 Columns: Enhanced Blog Sidebar */}
@@ -537,7 +583,11 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                   </div>
 
                   <div className="p-5 sm:p-6 pt-3 mt-2 flex items-center justify-between border-t border-slate-100 text-xs">
-                    <div className="flex items-center gap-2 font-medium text-slate-600">
+                    <Link
+                      href="/profile/chhunsour-seng"
+                      className="flex items-center gap-2 font-medium text-slate-600 hover:text-brand transition-colors"
+                      title="View author profile"
+                    >
                       {rel.author_avatar ? (
                         <img
                           src={rel.author_avatar}
@@ -549,10 +599,10 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                           {rel.author_name.charAt(0)}
                         </div>
                       )}
-                      <span className="truncate max-w-[120px] font-semibold text-slate-800">
+                      <span className="truncate max-w-[120px] font-semibold text-slate-800 hover:text-brand transition-colors">
                         {rel.author_name}
                       </span>
-                    </div>
+                    </Link>
                     <Link
                       href={`/blog/${rel.slug}`}
                       className="inline-flex items-center gap-1 font-semibold text-brand hover:underline"

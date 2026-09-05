@@ -117,7 +117,7 @@ export function BlogSidebar({
   }, [initialToc]);
 
   return (
-    <aside className="space-y-6 lg:sticky lg:top-24">
+    <aside className="space-y-6 lg:sticky lg:top-24 lg:max-h-[calc(100vh-6.5rem)] lg:overflow-y-auto no-scrollbar pr-0.5 pb-4">
       {/* 1. Article Navigation & Quick Actions Card */}
       <div className="rounded-3xl border border-slate-200/90 bg-white p-5 shadow-xs">
         <div className="flex items-center justify-between pb-3 border-b border-slate-100">

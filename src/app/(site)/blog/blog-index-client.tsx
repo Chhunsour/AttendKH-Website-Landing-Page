@@ -423,12 +423,16 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
                 </p>
 
                 <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-100">
-                  <div className="flex items-center gap-2.5">
+                  <Link
+                    href="/profile/chhunsour-seng"
+                    className="group/author flex items-center gap-2.5 hover:opacity-90 transition-opacity"
+                    title="View author profile"
+                  >
                     {featuredPost.author_avatar ? (
                       <img
                         src={featuredPost.author_avatar}
                         alt={`${featuredPost.author_name} — Author at AttendKH`}
-                        className="h-7 w-7 rounded-full object-cover object-top border border-slate-200"
+                        className="h-7 w-7 rounded-full object-cover object-top border border-slate-200 group-hover/author:ring-2 group-hover/author:ring-brand/40 transition-all"
                       />
                     ) : (
                       <div className="h-7 w-7 rounded-full bg-brand-soft text-brand flex items-center justify-center font-bold text-xs">
@@ -436,10 +440,12 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
                       </div>
                     )}
                     <div>
-                      <p className="text-xs font-bold text-slate-900">{featuredPost.author_name}</p>
+                      <p className="text-xs font-bold text-slate-900 group-hover/author:text-brand transition-colors">
+                        {featuredPost.author_name}
+                      </p>
                       <p className="text-[10.5px] text-slate-400">{getPostAuthorRole(featuredPost)}</p>
                     </div>
-                  </div>
+                  </Link>
 
                   <Link
                     href={`/blog/${featuredPost.slug}`}
@@ -500,20 +506,26 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
                 </div>
 
                 <div className="p-5 sm:p-6 pt-3 mt-2 flex items-center justify-between border-t border-slate-100 text-xs">
-                  <div className="flex items-center gap-2 font-medium text-slate-600">
+                  <Link
+                    href="/profile/chhunsour-seng"
+                    className="flex items-center gap-2 font-medium text-slate-600 hover:text-brand transition-colors"
+                    title="View author profile"
+                  >
                     {post.author_avatar ? (
                       <img
                         src={post.author_avatar}
                         alt={`${post.author_name} — Author at AttendKH`}
-                        className="h-6 w-6 rounded-full object-cover object-top border border-slate-200"
+                        className="h-6 w-6 rounded-full object-cover object-top border border-slate-200 hover:ring-2 hover:ring-brand/40 transition-all"
                       />
                     ) : (
                       <div className="h-6 w-6 rounded-full bg-brand-soft text-brand flex items-center justify-center font-bold text-[9px]">
                         {post.author_name.charAt(0)}
                       </div>
                     )}
-                    <span className="truncate max-w-[120px] font-semibold text-slate-800">{post.author_name}</span>
-                  </div>
+                    <span className="truncate max-w-[120px] font-semibold text-slate-800 hover:text-brand transition-colors">
+                      {post.author_name}
+                    </span>
+                  </Link>
                   <Link
                     href={`/blog/${post.slug}`}
                     className="inline-flex items-center gap-1 font-semibold text-brand hover:underline"

@@ -14,7 +14,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         Skip to content
       </a>
       <Header />
-      <main id="main" className="page-enter flex-1">
+      <main id="main" className="flex-1">
         {children}
       </main>
       <Footer />
