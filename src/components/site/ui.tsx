@@ -400,6 +400,7 @@ export function PageHero({
   className = "",
   titleClassName,
   subClassName,
+  bgImage,
 }: {
   title: string;
   sub?: string;
@@ -409,6 +410,7 @@ export function PageHero({
   className?: string;
   titleClassName?: string;
   subClassName?: string;
+  bgImage?: string;
 }) {
   const pathname = usePathname();
   const { lang } = useSite();
@@ -490,7 +492,24 @@ export function PageHero({
     })();
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#011C6B] via-[#0042CF] to-[#0052FF] text-white border-b border-blue-400/20 shadow-xs">
+    <section
+      className={`relative overflow-hidden bg-gradient-to-b from-[#011C6B] via-[#0042CF] to-[#0052FF] text-white border-b border-blue-400/20 shadow-xs ${className}`}
+    >
+      {/* Atmospheric Featured Image with Low Opacity Blending */}
+      {bgImage && (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <img
+            src={bgImage}
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover object-center opacity-[0.14] mix-blend-luminosity filter contrast-125 scale-105"
+          />
+          {/* Directional gradient veil for optimal text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#011C6B]/90 via-[#0042CF]/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#011C6B]/60 via-transparent to-[#0052FF]/85" />
+        </div>
+      )}
+
       {/* Dynamic Ambient Background Elements */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {/* Soft glowing ambient light orbs */}

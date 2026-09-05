@@ -267,6 +267,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
         title={postTitle}
         sub={postExcerpt}
         breadcrumbs={breadcrumbs}
+        bgImage={post.cover_image}
         titleClassName="max-w-4xl"
         subClassName="max-w-3xl blog-excerpt"
       >
