@@ -48,9 +48,29 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
   }, [isKm, isZh, post]);
 
   const rawMarkdown = useMemo(() => {
-    if (isKm && post.content_km) return post.content_km;
-    if (isZh && post.content_zh) return post.content_zh;
-    return post.content;
+    let md = post.content || "";
+    if (isKm && post.content_km) md = post.content_km;
+    if (isZh && post.content_zh) md = post.content_zh;
+    if (!md) return "";
+
+    // Automatically strip any markdown or HTML image referencing the post's featured cover_image (and its caption)
+    // so the featured image is never displayed twice on the page.
+    if (post.cover_image) {
+      const filename = post.cover_image.split("/").pop();
+      if (filename) {
+        const escaped = filename.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const mdImgRegex = new RegExp(
+          `!\\s*\\[[^\\]]*\\]\\([^)]*${escaped}[^)]*\\)\\s*(?:\\*(?:Figure|រូបភាព|图)[^\\n]*\\*)?\\s*`,
+          "gi"
+        );
+        const htmlImgRegex = new RegExp(
+          `<img[^>]*${escaped}[^>]*>\\s*(?:<figcaption[^>]*>.*?</figcaption>)?\\s*`,
+          "gi"
+        );
+        md = md.replace(mdImgRegex, "").replace(htmlImgRegex, "").trimStart();
+      }
+    }
+    return md;
   }, [isKm, isZh, post]);
 
   const postCategory = useMemo(() => {
@@ -341,7 +361,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
               {/* Rendered HTML */}
               <article
-                className="blog-article prose prose-slate min-w-0 max-w-none text-[16px] leading-relaxed text-body prose-headings:font-display prose-headings:font-bold prose-headings:text-ink prose-h2:mt-10 prose-h2:text-2xl prose-h3:mt-8 prose-h3:text-xl prose-a:text-brand prose-a:font-semibold prose-a:underline prose-code:font-mono prose-code:text-brand prose-pre:max-w-full prose-pre:overflow-x-auto prose-pre:rounded-xl prose-pre:border prose-pre:border-line prose-pre:bg-mist prose-pre:p-4 prose-blockquote:border-l-brand prose-blockquote:bg-brand-soft/40 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-xl prose-img:rounded-2xl prose-img:border prose-img:border-line [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
+                className="blog-article prose prose-slate min-w-0 max-w-none text-[16px] leading-relaxed text-body prose-headings:font-display prose-headings:font-bold prose-headings:text-ink prose-h2:mt-10 prose-h2:text-2xl prose-h3:mt-8 prose-h3:text-xl prose-a:text-brand prose-a:font-semibold prose-a:underline prose-code:font-mono prose-code:text-brand prose-pre:max-w-full prose-pre:whitespace-pre-wrap prose-pre:break-words prose-pre:overflow-hidden prose-pre:rounded-xl prose-pre:border prose-pre:border-line prose-pre:bg-mist prose-pre:p-4 prose-blockquote:border-l-brand prose-blockquote:bg-brand-soft/40 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-xl prose-img:rounded-2xl prose-img:border prose-img:border-line [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
                 dangerouslySetInnerHTML={{ __html: safeHtml }}
               />
 

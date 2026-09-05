@@ -138,9 +138,7 @@ Never let an article become an SEO dead-end. Weave natural internal hyperlinks i
 - **Comparison & Statutory Tables**: Include a Markdown table in Section 2 or 3 comparing options, statutory brackets, or penalty tiers.
 - **Mathematical Formulas**: When discussing payroll, severance, or taxes, present formulas clearly:
   ```markdown
-  $$\text{FDC Severance Pay} = \sum (\text{Gross Wages & Allowances Paid}) \times 5\%$$
-  ```
-- **ASCII Workflow Diagram**: Use structured ASCII diagrams in code blocks (` ``` ... ``` `) to explain multi-step flows (e.g. clock-in to Bakong disbursal).
+- **Zero Raw Code Blocks (Banned)**: Never wrap calculations, financial ROI breakdowns, shift schedules, timelines, or workflows in triple backtick code blocks (` ``` `). They generate ugly `<pre>` terminal boxes with horizontal scrollbars. Instead, format all calculations, ROI breakdowns, and step-by-step workflows as styled blockquotes (`>`), bold bulleted lists, or Markdown tables.
 
 ---
 

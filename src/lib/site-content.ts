@@ -188,10 +188,8 @@ For Cambodian retail chains, coffee shops, and hospitality brands across Phnom P
 2. **Card Swiping Enables Buddy Punching**: It is common for staff stuck in Phnom Penh traffic to hand their RFID card or Telegram login to a coworker to clock them in.
 3. **Paper Sign-in Sheets Cause Administrative Chaos**: At the end of every month, HR managers spend **3 to 5 full business days** manually transcribing paper logs into Excel spreadsheets.
 
-\`\`\`
-Traditional Manual Timesheet Reconciliation: ~40 Hours / Month
-AttendKH Verified GPS Clock-in: Real-Time Instant Cloud Sync (0s Delay)
-\`\`\`
+> Traditional Manual Timesheet Reconciliation: ~40 Hours / Month
+> AttendKH Verified GPS Clock-in: Real-Time Instant Cloud Sync (0s Delay)
 
 > *"Buddy punching stopped on our very first week of rollout across our 6 cafe outlets in Toul Kork and BKK1. The ROI was immediate."* — **Dara Chan**, Operations Director
 
@@ -241,10 +239,8 @@ Ready to eliminate buddy punching across your branches? Explore our [transparent
 ២. **ការចុះវត្តមានជំនួសគ្នា (Buddy Punching)**៖ ជារឿយៗ បុគ្គលិកតែងតែផ្ញើកាត RFID ឬគណនី Telegram ទៅឱ្យមិត្តរួមការងារដើម្បីជួយចុះឈ្មោះចូលធ្វើការជំនួស ខណៈពេលដែលខ្លួនកំពុងស្ទះចរាចរណ៍នៅភ្នំពេញ។
 ៣. **សៀវភៅចុះហត្ថលេខាបង្កការលំបាកដល់ផ្នែករដ្ឋបាល**៖ នៅរៀងរាល់ដំណាច់ខែ ប្រធានផ្នែកធនធានមនុស្ស (HR) ត្រូវចំណាយពេលពី **៣ ទៅ ៥ ថ្ងៃពេញ** ដើម្បីចម្លងទិន្នន័យពីក្រដាសចូលក្នុងតារាង Excel ដោយដៃ។
 
-\`\`\`
-ការផ្ទៀងផ្ទាត់ទិន្នន័យដោយដៃបែបចាស់៖ ~៤០ ម៉ោង / ខែ
-ការចុះវត្តមានតាម GPS របស់ AttendKH៖ សមកាលកម្ម Cloud ភ្លាមៗជាក់ស្តែង (ពុំមានការពន្យារពេល)
-\`\`\`
+> ការផ្ទៀងផ្ទាត់ទិន្នន័យដោយដៃបែបចាស់៖ ~៤០ ម៉ោង / ខែ
+> ការចុះវត្តមានតាម GPS របស់ AttendKH៖ សមកាលកម្ម Cloud ភ្លាមៗជាក់ស្តែង (ពុំមានការពន្យារពេល)
 
 > *"ការចុះវត្តមានជំនួសគ្នាបានបញ្ចប់ទាំងស្រុងតាំងពីសប្តាហ៍ដំបូងនៃការដាក់ឱ្យប្រើប្រាស់នៅទូទាំង ៦ សាខាហាងកាហ្វេរបស់យើងនៅទួលគោក និងបឹងកេងកង ១។ ប្រសិទ្ធភាពពិតជាឃើញភ្លាមៗ។"* — **Dara Chan**, ប្រធានផ្នែកប្រតិបត្តិការ
 
@@ -294,10 +290,8 @@ Ready to eliminate buddy punching across your branches? Explore our [transparent
 2. **代刷卡与代打卡屡禁不止**：金边早晚高峰严重堵车时，员工将 RFID 工牌或 Telegram 账号交由同事代打卡已成公开秘密。
 3. **纸质签到表引发月末核算混乱**：每月月末，HR 需耗费 **3 至 5 个整工作日**将纸质表格录入 Excel，极易产生核算争议。
 
-\`\`\`
-传统人工月底对账耗时：每月约 40 小时
-AttendKH 智能 GPS 打卡：云端毫秒级实时自动同步（0秒延误）
-\`\`\`
+> 传统人工月底对账耗时：每月约 40 小时
+> AttendKH 智能 GPS 打卡：云端毫秒级实时自动同步（0秒延误）
 
 > *“在金边堆谷区（Toul Kork）和万景岗 1 区（BKK1）的 6 家咖啡门店推行 AttendKH 的第一周，代打卡现象就彻底归零，管理投资回报立竿见影。”* —— **Dara Chan**, 运营总监
 
@@ -389,14 +383,10 @@ Deploying an automated system like the [AttendKH Automated Cambodian Payroll Eng
 
 Standard full-time employment under *Article 139 of the Cambodian Labour Law* is benchmarked against either fixed contractual working days (typically **26 days/month**) or actual calendar working days:
 
-\`\`\`
-Hourly Base Rate = Monthly Gross Base Salary / (Contractual Working Days × 8 Hours)
-\`\`\`
+> 📐 **Hourly Base Rate = Monthly Gross Base Salary / (Contractual Working Days × 8 Hours)**
 
 *Example*: For an administrative staff earning **$300.00 / month** on a standard 26-day contract:
-\`\`\`
-Base Hourly Rate = $300.00 / (26 × 8) = $1.442 / hour
-\`\`\`
+> 📐 **Base Hourly Rate = $300.00 / (26 × 8) = $1.442 / hour**
 
 ---
 
@@ -424,9 +414,7 @@ Many Cambodian employers adopt a standard **15-minute grace window** before appl
 - **Per-minute deduction**: Exact minute-by-minute wage deduction calculated immediately once the grace window expires.
 - **Tiered deduction brackets**: Configurable tranches (e.g., 16–30 min late = 30 min wage deduction).
 
-\`\`\`
-Late Deduction Amount = (Late Minutes - Grace Minutes) × (Hourly Base Rate / 60) × Penalty Factor
-\`\`\`
+> 📐 **Late Deduction Amount = (Late Minutes - Grace Minutes) × (Hourly Base Rate / 60) × Penalty Factor**
 
 Attendance punches capture automatically through the [AttendKH GPS & Selfie Clock-in App](/attendance), feeding clean, dispute-free timestamps into the payroll ledger.
 
@@ -466,14 +454,10 @@ Ready to automate your Cambodian payroll compliance? See our [All-in-One $1/empl
 
 យោងតាម *មាត្រា ១៣៩ នៃច្បាប់ស្តីពីការងារ* ការងារពេញម៉ោងស្តង់ដារត្រូវបានគណនាដោយផ្អែកលើចំនួនថ្ងៃធ្វើការក្នុងកិច្ចសន្យា (ជាទូទៅ **២៦ ថ្ងៃ/ខែ**) ឬថ្ងៃធ្វើការជាក់ស្តែងក្នុងខែ៖
 
-\`\`\`
-ប្រាក់ឈ្នួលគោលប្រចាំម៉ោង = ប្រាក់បៀវត្សរ៍សរុបប្រចាំខែ / (ចំនួនថ្ងៃធ្វើការ ២៦ ថ្ងៃ × ៨ ម៉ោង)
-\`\`\`
+> 📐 **ប្រាក់ឈ្នួលគោលប្រចាំម៉ោង = ប្រាក់បៀវត្សរ៍សរុបប្រចាំខែ / (ចំនួនថ្ងៃធ្វើការ ២៦ ថ្ងៃ × ៨ ម៉ោង)**
 
 *ឧទាហរណ៍*៖ សម្រាប់បុគ្គលិកដែលទទួលបានប្រាក់ខែ **$៣០០.០០ / ខែ** លើកិច្ចសន្យា ២៦ ថ្ងៃ៖
-\`\`\`
-ប្រាក់ឈ្នួលម៉ោងគោល = $៣០០.០០ / (២៦ × ៨) = $១.៤៤២ / ម៉ោង
-\`\`\`
+> 📐 **ប្រាក់ឈ្នួលម៉ោងគោល = $៣០០.០០ / (២៦ × ៨) = $១.៤៤២ / ម៉ោង**
 
 ---
 
@@ -501,9 +485,7 @@ Ready to automate your Cambodian payroll compliance? See our [All-in-One $1/empl
 - **កាត់តាមនាទីជាក់ស្តែង**៖ គណនាកាត់ប្រាក់តាមចំនួននាទីជាក់ស្តែងបន្ទាប់ពីផុតរយៈពេលអនុគ្រោះ។
 - **កាត់តាមកម្រិតកំណត់**៖ កំណត់ជាកម្រិត (ឧទាហរណ៍៖ យឺត ១៦-៣០ នាទី កាត់ស្មើនឹង ៣០ នាទី)។
 
-\`\`\`
-ប្រាក់ពិន័យយឺត = (ចំនួននាទីយឺត - នាទីអនុគ្រោះ) × (ប្រាក់ឈ្នួលម៉ោង / ៦០) × មេគុណពិន័យ
-\`\`\`
+> 📐 **ប្រាក់ពិន័យយឺត = (ចំនួននាទីយឺត - នាទីអនុគ្រោះ) × (ប្រាក់ឈ្នួលម៉ោង / ៦០) × មេគុណពិន័យ**
 
 ការចុះវត្តមានត្រូវបានកត់ត្រាស្វ័យប្រវត្តិតាមរយៈ [កម្មវិធីទូរស័ព្ទ GPS & Selfie របស់ AttendKH](/attendance) ធានាទិន្នន័យច្បាស់លាស់ គ្មានការក្លែងបន្លំ។
 
@@ -543,14 +525,10 @@ AttendKH គណនាការកាត់ប្រាក់វិភាគទ�
 
 根据《柬埔寨劳工法》*第 139 条*，标准全职员工的时薪依据合同约定工作天数（通常以 **每月 26 天标准** 计）或当月法定日历工作日计算：
 
-\`\`\`
-基础时薪 = 月度税前总收入 / (合同约定工作天数 26 天 × 8 小时)
-\`\`\`
+> 📐 **基础时薪 = 月度税前总收入 / (合同约定工作天数 26 天 × 8 小时)**
 
 *实操范例*：某行政员工月薪约定为 **$300.00 美元**，标准 26 天合同制：
-\`\`\`
-基础时薪 = $300.00 / (26 × 8) = $1.442 美元 / 小时
-\`\`\`
+> 📐 **基础时薪 = $300.00 / (26 × 8) = $1.442 美元 / 小时**
 
 ---
 
@@ -577,9 +555,7 @@ AttendKH គណនាការកាត់ប្រាក់វិភាគទ�
 - **按超出分钟精准扣减**：仅对超出豁免期之外的实际迟到分钟折算时薪进行扣除。
 - **阶梯式区间扣减**：灵活设定档位（如：迟到 16–30 分钟按 30 分钟工时折算扣款）。
 
-\`\`\`
-迟到应扣金额 = (实际迟到分钟数 - 豁免分钟数) × (基础时薪 / 60) × 扣罚系数
-\`\`\`
+> 📐 **迟到应扣金额 = (实际迟到分钟数 - 豁免分钟数) × (基础时薪 / 60) × 扣罚系数**
 
 结合 [AttendKH 移动端 GPS 与防伪自拍打卡](/attendance)，杜绝纸质考勤涂改与虚假打卡，为薪资结算提供铁证底单。
 
@@ -656,11 +632,9 @@ Managing shift work in Phnom Penh, Siem Reap, and Sihanoukville hospitality busi
 
 A well-structured hospitality schedule balances rush-hour coverage with legal rest intervals:
 
-\`\`\`
-Shift A (Morning/Breakfast): 06:30 – 14:30 (Prep + Peak Morning Rush)
-Shift B (Split Service):      10:30 – 14:00 & 17:00 – 21:30 (Peak Lunch & Dinner)
-Shift C (Night Closing):      14:00 – 22:30 (Dinner Rush + Daily Register Closing)
-\`\`\`
+> • **Shift A (Morning/Breakfast): 06:30 – 14:30 (Prep + Peak Morning Rush)**
+> • **Shift B (Split Service):      10:30 – 14:00 & 17:00 – 21:30 (Peak Lunch & Dinner)**
+> • **Shift C (Night Closing):      14:00 – 22:30 (Dinner Rush + Daily Register Closing)**
 
 ---
 
@@ -693,11 +667,9 @@ Discover how leading hospitality brands streamline their shifts: explore our [cu
 
 កាលវិភាគការងារដែលរៀបចំបានត្រឹមត្រូវជួយសម្រួលការបម្រើសេវាកម្ម និងស្របតាមច្បាប់ការងារ៖
 
-\`\`\`
-វេន A (ព្រឹក/ថ្ងៃត្រង់)៖   ០៦:៣០ – ១៤:៣០ (រៀបចំ + ម៉ោងថ្ងៃត្រង់មមាញឹក)
-វេន B (វេនបំបែកពីរពេល)៖ ១០:៣០ – ១៤:០០ និង ១៧:០០ – ២១:៣០ (ម៉ោងភ្ញៀវច្រើន)
-វេន C (វេនល្ងាច/បិទហាង)៖ ១៤:០០ – ២២:៣០ (អាហារពេលល្ងាច + បិទបញ្ជីប្រចាំថ្ងៃ)
-\`\`\`
+> • **វេន A (ព្រឹក/ថ្ងៃត្រង់)៖   ០៦:៣០ – ១៤:៣០ (រៀបចំ + ម៉ោងថ្ងៃត្រង់មមាញឹក)**
+> • **វេន B (វេនបំបែកពីរពេល)៖ ១០:៣០ – ១៤:០០ និង ១៧:០០ – ២១:៣០ (ម៉ោងភ្ញៀវច្រើន)**
+> • **វេន C (វេនល្ងាច/បិទហាង)៖ ១៤:០០ – ២២:៣០ (អាហារពេលល្ងាច + បិទបញ្ជីប្រចាំថ្ងៃ)**
 
 ---
 
@@ -730,11 +702,9 @@ Discover how leading hospitality brands streamline their shifts: explore our [cu
 
 合理的排班体系兼顾高峰期服务质量与员工法定休息权益：
 
-\`\`\`
-班次 A（早班/午餐峰值）：06:30 – 14:30（开店备料 + 午市客流高峰）
-班次 B（分段倒班两头班）：10:30 – 14:00 & 17:00 – 21:30（全天两大核心峰值）
-班次 C（晚班/打烊清算）：14:00 – 22:30（晚市服务 + 每日打烊盘点）
-\`\`\`
+> • **班次 A（早班/午餐峰值）：06:30 – 14:30（开店备料 + 午市客流高峰）**
+> • **班次 B（分段倒班两头班）：10:30 – 14:00 & 17:00 – 21:30（全天两大核心峰值）**
+> • **班次 C（晚班/打烊清算）：14:00 – 22:30（晚市服务 + 每日打烊盘点）**
 
 ---
 
@@ -798,9 +768,7 @@ Cambodia observes approximately **22 to 24 official public holidays per calendar
 
 Under *Article 161 of the Cambodian Labour Law*, employees required to work on an official public holiday must be compensated at **200% (2.0× Double Pay)** of their regular base wage rate for all worked hours:
 
-\`\`\`
-Public Holiday Hourly Wage = Regular Base Hourly Rate × 2.0
-\`\`\`
+> 📐 **Public Holiday Hourly Wage = Regular Base Hourly Rate × 2.0**
 
 *Example*: If an employee's base hourly rate is **$2.50 / hr**, working on Pchum Ben or Khmer New Year guarantees **$5.00 / hr** for daytime hours. If overtime extends into night hours (**22:00 – 06:00**), additional nocturnal differentials apply.
 
@@ -850,9 +818,7 @@ Ready to automate holiday payroll and annual leave tracking? Explore our [All-in
 
 យោងតាម *មាត្រា ១៦១ នៃច្បាប់ស្តីពីការងារ* បុគ្គលិកដែលត្រូវបានតម្រូវឱ្យបំពេញការងារក្នុងថ្ងៃឈប់សម្រាកបុណ្យជាតិផ្លូវការ ត្រូវតែទទួលបានប្រាក់ឈ្នួលគុណនឹង **២០០% (២.០ ដង / 2.0×)** នៃប្រាក់ឈ្នួលម៉ោងធម្មតាសម្រាប់គ្រប់ម៉ោងដែលបានធ្វើការ៖
 
-\`\`\`
-ប្រាក់ឈ្នួលម៉ោងថ្ងៃបុណ្យជាតិ = ប្រាក់ឈ្នួលម៉ោងគោលធម្មតា × ២.០
-\`\`\`
+> 📐 **ប្រាក់ឈ្នួលម៉ោងថ្ងៃបុណ្យជាតិ = ប្រាក់ឈ្នួលម៉ោងគោលធម្មតា × ២.០**
 
 *ឧទាហរណ៍*៖ ប្រសិនបើប្រាក់ឈ្នួលម៉ោងគោលរបស់បុគ្គលិកគឺ **$២.៥០ / ម៉ោង** ការធ្វើការក្នុងថ្ងៃបុណ្យភ្ជុំបិណ្ឌ ឬចូលឆ្នាំខ្មែរ ធានាថានឹងទទួលបាន **$៥.០០ / ម៉ោង** សម្រាប់ម៉ោងពេលថ្ងៃធម្មតា។
 
@@ -902,9 +868,7 @@ Ready to automate holiday payroll and annual leave tracking? Explore our [All-in
 
 根据《柬埔寨王国劳工法》*第 161 条*，在政府法定公共假日期间安排员工加班出勤的，雇主必须按照正常标准时薪的 **200%（即 2.0 倍双倍工资 Double Pay）** 严格足额计发：
 
-\`\`\`
-法定假日小时工资 = 标准平时基础时薪 × 2.0
-\`\`\`
+> 📐 **法定假日小时工资 = 标准平时基础时薪 × 2.0**
 
 *核算实例*：若员工平时基础时薪为 **$2.50 美元/小时**，在亡人节或柬新年期间出勤，白班工时即按 **$5.00 美元/小时** 计发；若工作延展至夜班时段（**22:00 – 次日 06:00**），还需叠加计算法定夜班津贴。
 
@@ -997,10 +961,8 @@ To ensure 100% timecard integrity regardless of internet availability, the [Atte
 2. **Automatic Background Cloud Sync**: The instant the device re-enters 4G cellular range or connects to a field trailer Wi-Fi hotspot, punches upload immediately to headquarters.
 3. **Kiosk Group Punching (50 Workers in <3 Mins)**: Site engineers can utilize shared tablet kiosk mode to verify entire concrete or framing subcontractors with facial photos in under 180 seconds.
 
-\`\`\`
-Offline Flow: Local Hardware Encryption -> Zero Data Loss -> Auto Cloud Sync on Reconnect
-Anti-Fraud: Dual Front-Camera Live Selfie + Anti-Mock GPS Geospatial Bounds
-\`\`\`
+> • **Offline Flow: Local Hardware Encryption -> Zero Data Loss -> Auto Cloud Sync on Reconnect**
+> Anti-Fraud: Dual Front-Camera Live Selfie + Anti-Mock GPS Geospatial Bounds
 
 ---
 
@@ -1037,10 +999,8 @@ Ready to digitize your remote construction sites or logistics fleet? Explore our
 ២. **សមកាលកម្មទិន្នន័យស្វ័យប្រវត្តិ**៖ នៅពេលឧបករណ៍ចាប់បានសេវា 4G ឬ Wi-Fi ទិន្នន័យវត្តមាននឹងត្រូវបានបញ្ជូនភ្លាមៗទៅកាន់ការិយាល័យកណ្តាល។
 ៣. **ការចុះវត្តមានជាក្រុម (៥០ នាក់ ក្នុងរយៈពេល <៣ នាទី)**៖ វិស្វករការដ្ឋានអាចប្រើមុខងារ Kiosk លើ Tablet ដើម្បីផ្ទៀងផ្ទាត់កម្មករម៉ៅការបន្តរហូតដល់ ៥០ នាក់ ជាមួយរូបថតជាក់ស្តែង។
 
-\`\`\`
-ដំណើរការ Offline៖ អ៊ិនគ្រីបលើឧបករណ៍ផ្ទាល់ -> គ្មានការបាត់បង់ទិន្នន័យ -> សមកាលកម្មស្វ័យប្រវត្តិកាលណាមានសេវា
-ការទប់ស្កាត់ការក្លែងបន្លំ៖ ថតរូប Selfie ផ្ទាល់ពីកាមេរ៉ាមុខ + ប្រព័ន្ធទប់ស្កាត់ Mock GPS
-\`\`\`
+> • **ដំណើរការ Offline៖ អ៊ិនគ្រីបលើឧបករណ៍ផ្ទាល់ -> គ្មានការបាត់បង់ទិន្នន័យ -> សមកាលកម្មស្វ័យប្រវត្តិកាលណាមានសេវា**
+> ការទប់ស្កាត់ការក្លែងបន្លំ៖ ថតរូប Selfie ផ្ទាល់ពីកាមេរ៉ាមុខ + ប្រព័ន្ធទប់ស្កាត់ Mock GPS
 
 ---
 
@@ -1077,10 +1037,8 @@ Ready to digitize your remote construction sites or logistics fleet? Explore our
 2. **恢复网络后后台无感自动同步**：一旦手机重新进入 4G 信号区或连接工地 Wi-Fi 热点，暂存的全部打卡流水立即无损上传至总部云端数据库。
 3. **分包施工队极速扫码群打卡（3分钟核验50人）**：现场工程师可启用平板 Kiosk 模式，3 分钟内即可完成整支钢筋或泥瓦分包作业班组的自拍防伪与工时核验。
 
-\`\`\`
-离线闭环：本地芯片级加密暂存 -> 零数据遗失 -> 联网后毫秒级静默自动对账
-防作弊核验：前置摄像头实时自拍防伪 + 底层反 Mock GPS 虚拟定位穿透拦截
-\`\`\`
+> • **离线闭环：本地芯片级加密暂存 -> 零数据遗失 -> 联网后毫秒级静默自动对账**
+> 防作弊核验：前置摄像头实时自拍防伪 + 底层反 Mock GPS 虚拟定位穿透拦截
 
 ---
 
