@@ -167,7 +167,7 @@ export default function ConstructionLogisticsSolutionPage() {
             </div>
 
             <div className="lg:col-span-6">
-              <ImageSlot label="Logistics Yard Geofence & Field Punch Stream" ratio="4 / 3" />
+              <ImageSlot label="AttendKH (Attend) Logistics Yard GPS Geofence & Field Punch Stream" ratio="4 / 3" />
             </div>
           </div>
         </div>

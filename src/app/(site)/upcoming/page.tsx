@@ -9,7 +9,8 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: absoluteUrl("/upcoming") },
+  alternates: { canonical: absoluteUrl("/downloads") },
+  robots: { index: false, follow: true },
 };
 
 export default function Page() {

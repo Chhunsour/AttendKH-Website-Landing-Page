@@ -245,7 +245,7 @@ export function BlogSidebar({
           <div className="flex items-center gap-2 bg-white rounded-xl px-2.5 py-1.5 shadow-md">
             <img
               src="/logo.png"
-              alt="AttendKH Logo"
+              alt="AttendKH (Attend) Logo — #1 Attendance App Cambodia"
               className="h-6 w-auto object-contain"
             />
           </div>
@@ -293,7 +293,7 @@ export function BlogSidebar({
             <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-white/30 bg-slate-900 shadow-md">
               <img
                 src="/clockin-frame-3.webp"
-                alt="Mobile Attendance Clock-in App"
+                alt="AttendKH (Attend) Mobile GPS Geofence & Selfie Clock-In App"
                 className="h-full w-full object-cover object-top"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

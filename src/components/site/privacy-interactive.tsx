@@ -983,7 +983,7 @@ export function VisualPrivacyArchitectureShowcase() {
         <div className="relative aspect-16/9 w-full bg-slate-900 overflow-hidden">
           <Image
             src="/images/privacy/gps-geofence-privacy.jpg"
-            alt="AttendKH Point-in-Time GPS Geofence Architecture vs Zero Background Tracking"
+            alt="AttendKH (Attend) Point-in-Time GPS Geofence Architecture vs Zero Background Tracking"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 800px"
@@ -1023,7 +1023,7 @@ export function VisualPrivacyArchitectureShowcase() {
           <div className="relative aspect-16/9 w-full bg-slate-900">
             <Image
               src="/images/privacy/security-encryption-vault.jpg"
-              alt="Multi-Layer Encryption: TLS 1.3 in Transit, AES-256 at Rest, Multi-Tenant Cloud Vault"
+              alt="AttendKH (Attend) Multi-Layer Security Architecture: TLS 1.3, AES-256 Cloud Vault"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 400px"
@@ -1057,7 +1057,7 @@ export function VisualPrivacyArchitectureShowcase() {
           <div className="relative aspect-16/9 w-full bg-slate-900">
             <Image
               src="/images/privacy/mobile-app-privacy-standards.jpg"
-              alt="AttendKH iOS & Android Mobile Attendance App Privacy Standards"
+              alt="AttendKH (Attend) iOS & Android Mobile Attendance App Privacy & Compliance Standards"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 400px"

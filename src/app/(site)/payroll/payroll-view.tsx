@@ -120,7 +120,7 @@ export function PayrollView() {
                 <div className="relative w-full max-w-[480px] overflow-hidden rounded-2xl border border-line bg-white shadow-md">
                   <Image
                     src="/payslip-frame-4.webp"
-                    alt={isKm ? "គំរូប័ណ្ណប្រាក់ខែទ្វេភាសា AttendKH" : "AttendKH Bilingual Cambodian Payslip"}
+                    alt={isKm ? "គំរូប័ណ្ណប្រាក់ខែទ្វេភាសា ដុល្លារ និងរៀល AttendKH (Attend) ជាមួយ ប.ស.ស." : "AttendKH (Attend) Bilingual Cambodian Payslip in USD and KHR with NSSF and Overtime"}
                     width={960}
                     height={810}
                     priority

@@ -110,7 +110,24 @@ The `label` stays as the alt text, so keep it descriptive.
 ## Pages
 
 `/` · `/attendance` · `/payroll` · `/multi-branch` · `/pricing` · `/customers` · `/faq` ·
-`/about` · `/contact` · `/privacy-policy` · `/terms` · `/support`
+`/about` · `/contact` · `/privacy-policy` · `/terms` · `/support` · `/blog`
 
 Copy for the marketing pages lives in `src/lib/site-copy.ts` (English + Khmer).
 Legal page copy stays in `src/lib/i18n.tsx`.
+
+---
+
+## ✍️ Writing Blog Posts (AI & Developer Guide)
+
+Whenever asked to **"write a blog post"** or create a new article for AttendKH, follow the comprehensive instructions in **[BLOG_AUTHORING_GUIDE.md](./BLOG_AUTHORING_GUIDE.md)**.
+
+### Quick Checklist:
+1. **File Location**: Add new extended articles to `src/lib/blog-data-extended.ts` conforming to the `BlogPost` interface in `src/lib/site-content.ts`.
+2. **100% Trilingual Parity**: Provide complete English, Khmer (`_km`), and Simplified Chinese (`_zh`) translations for all fields (`title`, `excerpt`, `key_takeaways`, `content`, `tags`, `faqs`).
+3. **Numbered Headings**: Use `## 1.`, `## 2.`, ..., `## 6.` (or `## ១.`, `## ២.` in Khmer).
+4. **Embedded In-Content Images**: Always embed the relevant blog photo at line 1 of the article body: `![Alt Text](/blog/<image-name>.jpg)`.
+5. **Mandatory Internal Linking**: Include at least 4–6 contextual hyperlinks to `/attendance`, `/payroll`, `/pricing`, `/downloads`, `/contact`, `/customers`, and related `/blog/<slug>` articles.
+6. **Rich Formatting**: Use bold for numbers/currencies (**USD ($)**, **KHR (៛)**), italics for statutory decrees (*Article 139*, *Prakas 443*), blockquotes (`>`) for audit tips, LaTeX formulas (`$$\text{...}$$`), and ASCII workflows.
+7. **Cambodian Regulatory Accuracy**: Ground content in official MoLVT labor laws, GDT salary tax brackets, NSSF contribution ceilings, and NBC Bakong KHQR interbank transfers.
+8. **Pre-flight Check**: Run `npx tsc --noEmit` and verify that no trailing double commas (`\`,,\`) exist.
+

@@ -115,7 +115,7 @@ export function AttendanceView() {
                 <div className="relative w-full max-w-[480px] overflow-hidden rounded-2xl border border-line bg-white shadow-md">
                   <Image
                     src="/clockin-frame-3.webp"
-                    alt={isKm ? "អេក្រង់ចុះវត្តមាន AttendKH" : "AttendKH Mobile Clock-In Interface"}
+                    alt={isKm ? "អេក្រង់ចុះវត្តមាន AttendKH (Attend) តាម GPS និង Selfie នៅកម្ពុជា" : "AttendKH (Attend) GPS Geofence & Selfie Clock-In Interface in Cambodia"}
                     width={960}
                     height={810}
                     priority

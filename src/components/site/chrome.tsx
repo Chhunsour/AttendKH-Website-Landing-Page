@@ -8,7 +8,7 @@ import { useCopy } from "@/components/site/ui";
 export function Logo({ theme = "light" }: { theme?: "light" | "dark" }) {
   return (
     <span className="inline-flex items-center gap-2">
-      <Image src="/logo.png" alt="" width={26} height={26} className="h-[26px] w-[26px]" />
+      <Image src="/logo.png" alt="AttendKH (Attend) Logo — Smart Attendance & Payroll Cambodia" width={26} height={26} className="h-[26px] w-[26px]" />
       <span
         className={`font-display text-[18px] font-bold tracking-tight ${
           theme === "dark" ? "text-white" : "text-ink"
@@ -85,6 +85,7 @@ export function Footer() {
         { label: c.nav.payroll, href: "/payroll" },
         { label: c.nav.branches, href: "/multi-branch" },
         { label: c.nav.pricing, href: "/pricing" },
+        { label: "Download Mobile App", href: "/downloads" },
       ],
     },
     {

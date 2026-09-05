@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
@@ -13,6 +13,10 @@ import {
   FileText,
   Tag,
   Sparkles,
+  CheckCircle2,
+  HelpCircle,
+  ChevronDown,
+  ShieldCheck,
 } from "lucide-react";
 import type { BlogPost } from "@/lib/site-content";
 import { Section, CtaBand } from "@/components/site/ui";
@@ -65,6 +69,12 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
     if (isKm && post.author_role_km) return post.author_role_km;
     if (isZh && post.author_role_zh) return post.author_role_zh;
     return post.author_role;
+  }, [isKm, isZh, post]);
+
+  const postKeyTakeaways = useMemo(() => {
+    if (isKm && post.key_takeaways_km) return post.key_takeaways_km;
+    if (isZh && post.key_takeaways_zh) return post.key_takeaways_zh;
+    return post.key_takeaways;
   }, [isKm, isZh, post]);
 
   // Process markdown into HTML with IDs and extract TOC items
@@ -257,10 +267,37 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
               </h1>
 
               {/* Post Subtitle / Excerpt Lead */}
+              {/* Post Subtitle / Excerpt Lead */}
               {postExcerpt && (
-                <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600">
+                <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600 blog-excerpt">
                   {postExcerpt}
                 </p>
+              )}
+
+              {/* AEO Direct Answer & Key Takeaways Card */}
+              {postKeyTakeaways && postKeyTakeaways.length > 0 && (
+                <div className="aeo-key-takeaways my-6 rounded-2xl border border-teal-500/20 bg-teal-50/50 p-5 sm:p-6 shadow-xs">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-teal-600 text-white shrink-0">
+                      <CheckCircle2 size={14} />
+                    </div>
+                    <h3 className="font-display text-sm sm:text-base font-bold text-slate-900">
+                      {isKm
+                        ? "ចំណុចគន្លឹះសំខាន់ៗ & សេចក្តីសង្ខេបប្រតិបត្តិ"
+                        : isZh
+                        ? "核心实操要点速览 (Key Takeaways)"
+                        : "Key Takeaways & Executive Summary"}
+                    </h3>
+                  </div>
+                  <ul className="space-y-2.5">
+                    {postKeyTakeaways.map((point, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-teal-600 shrink-0" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
 
               {/* Author Strip */}
@@ -269,7 +306,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                   {post.author_avatar ? (
                     <img
                       src={post.author_avatar}
-                      alt={post.author_name}
+                      alt={`${post.author_name} — Author at AttendKH`}
                       className="h-10 w-10 rounded-full object-cover object-top border border-slate-200"
                     />
                   ) : (
@@ -296,7 +333,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                 <div className="mb-8 overflow-hidden rounded-3xl border border-slate-200/90 shadow-md bg-slate-100 aspect-video md:aspect-[21/9] relative">
                   <img
                     src={post.cover_image}
-                    alt={postTitle}
+                    alt={`${postTitle} — AttendKH (Attend) Article`}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -307,6 +344,39 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                 className="blog-article prose prose-slate min-w-0 max-w-none text-[16px] leading-relaxed text-body prose-headings:font-display prose-headings:font-bold prose-headings:text-ink prose-h2:mt-10 prose-h2:text-2xl prose-h3:mt-8 prose-h3:text-xl prose-a:text-brand prose-a:font-semibold prose-a:underline prose-code:font-mono prose-code:text-brand prose-pre:max-w-full prose-pre:overflow-x-auto prose-pre:rounded-xl prose-pre:border prose-pre:border-line prose-pre:bg-mist prose-pre:p-4 prose-blockquote:border-l-brand prose-blockquote:bg-brand-soft/40 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-xl prose-img:rounded-2xl prose-img:border prose-img:border-line [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
                 dangerouslySetInnerHTML={{ __html: safeHtml }}
               />
+
+              {/* Interactive FAQ & Statutory Citations Section (AEO) */}
+              {post.faqs && post.faqs.length > 0 && (
+                <section className="mt-12 rounded-3xl border border-slate-200/90 bg-slate-50/70 p-6 sm:p-8 shadow-xs" aria-label="Frequently Asked Questions">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand text-white shadow-xs shrink-0">
+                      <HelpCircle size={20} />
+                    </div>
+                    <div>
+                      <h2 className="font-display text-lg sm:text-xl font-bold text-slate-900">
+                        {isKm
+                          ? "សំណួរដែលសួរញឹកញាប់ & ការអនុលោមតាមច្បាប់"
+                          : isZh
+                          ? "常见热点问题与官方合规解答 (FAQ)"
+                          : "Frequently Asked Questions & Legal Citations"}
+                      </h2>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        {isKm
+                          ? "ចម្លើយផ្លូវការផ្អែកលើច្បាប់ការងារ និងបទប្បញ្ញត្តិកម្ពុជា"
+                          : isZh
+                          ? "基于柬埔寨现行劳工法与税务通令的权威释疑"
+                          : "Authoritative answers backed by Cambodian labor and tax regulations"}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="divide-y divide-slate-200/80">
+                    {post.faqs.map((faq, idx) => (
+                      <FaqAccordionItem key={idx} faq={faq} isKm={isKm} isZh={isZh} />
+                    ))}
+                  </div>
+                </section>
+              )}
 
               {/* Tags Footer */}
               {postTags && postTags.length > 0 && (
@@ -398,7 +468,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                       {rel.cover_image ? (
                         <img
                           src={rel.cover_image}
-                          alt={getRelTitle(rel)}
+                          alt={`${getRelTitle(rel)} — AttendKH (Attend)`}
                           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                       ) : (
@@ -441,7 +511,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                       {rel.author_avatar ? (
                         <img
                           src={rel.author_avatar}
-                          alt={rel.author_name}
+                          alt={`${rel.author_name} — Author at AttendKH`}
                           className="h-6 w-6 rounded-full object-cover object-top border border-slate-200"
                         />
                       ) : (
@@ -487,5 +557,54 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
         href="/contact"
       />
     </>
+  );
+}
+
+function FaqAccordionItem({
+  faq,
+  isKm,
+  isZh,
+}: {
+  faq: {
+    question: string;
+    question_km?: string;
+    question_zh?: string;
+    answer: string;
+    answer_km?: string;
+    answer_zh?: string;
+  };
+  isKm: boolean;
+  isZh: boolean;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const q = (isKm && faq.question_km) || (isZh && faq.question_zh) || faq.question;
+  const a = (isKm && faq.answer_km) || (isZh && faq.answer_zh) || faq.answer;
+
+  return (
+    <div className="py-4.5 first:pt-0 last:pb-0">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-start justify-between gap-4 text-left group cursor-pointer"
+        aria-expanded={isOpen}
+      >
+        <span className="font-display text-sm sm:text-base font-bold text-slate-900 group-hover:text-brand transition-colors">
+          {q}
+        </span>
+        <span
+          className={`shrink-0 rounded-full p-1.5 transition-all duration-200 ${
+            isOpen ? "rotate-180 text-brand bg-brand-soft" : "text-slate-400 bg-slate-100 group-hover:bg-slate-200"
+          }`}
+        >
+          <ChevronDown size={16} />
+        </span>
+      </button>
+      {isOpen && (
+        <div className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600 bg-white rounded-2xl p-4.5 border border-slate-200/80 shadow-2xs">
+          <p>{a}</p>
+        </div>
+      )}
+    </div>
   );
 }

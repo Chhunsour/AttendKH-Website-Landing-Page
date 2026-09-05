@@ -71,7 +71,7 @@ export function HeadquartersMap({
                   <div key={tileName} className="w-[256px] h-[256px] relative">
                     <img
                       src={`/maps/tiles/${tileName}.png`}
-                      alt={`Map Tile ${tileName}`}
+                      alt={`AttendKH (Attend) Phnom Penh Office Location Map — Boeung Tumpun Tile ${tileName}`}
                       className="w-full h-full object-cover block pointer-events-none"
                       draggable={false}
                     />

@@ -105,6 +105,13 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
       "@type": "WebPage",
       "@id": absoluteUrl(`/blog/${post.slug}`),
     },
+    keywords: post.tags.join(", "),
+    inLanguage: ["en", "km", "zh"],
+    articleSection: post.category,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".blog-excerpt", ".aeo-key-takeaways"],
+    },
   };
 
   const breadcrumbSchema = {
@@ -132,6 +139,22 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
     ],
   };
 
+  const faqSchema =
+    post.faqs && post.faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: post.faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: faq.answer,
+            },
+          })),
+        }
+      : null;
+
   return (
     <>
       <script
@@ -146,6 +169,14 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
           __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c"),
         }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
 
       <BlogPostClient post={post} relatedPosts={relatedPosts} />
     </>

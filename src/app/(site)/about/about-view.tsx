@@ -210,7 +210,7 @@ export function AboutView() {
             <div className="md:col-span-8 relative overflow-hidden rounded-3xl border border-white/20 bg-slate-900 shadow-2xl h-[320px] sm:h-[400px]">
               <Image
                 src="/about/office.jpg"
-                alt="AttendKH Engineering Studio in Phnom Penh"
+                alt="AttendKH (Attend) Engineering Studio and Headquarters in Toul Kork, Phnom Penh"
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
@@ -238,7 +238,7 @@ export function AboutView() {
               <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-slate-900 shadow-xl flex-1 min-h-[190px]">
                 <Image
                   src="/about/team.jpg"
-                  alt="AttendKH Engineering Team"
+                  alt="AttendKH Software Engineering Team Building Attendance and Payroll Software for Cambodia"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
                   className="object-cover object-center"
@@ -327,7 +327,7 @@ export function AboutView() {
                 <div className="relative h-64 sm:h-72 w-full bg-slate-100">
                   <Image
                     src="/ong-phaly.png"
-                    alt="Mr. Ong Phaly — Managing Director of AttendKH"
+                    alt="Mr. Ong Phaly — Managing Director of AttendKH (Attend) Cambodia"
                     fill
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 480px"
@@ -707,7 +707,7 @@ export function AboutView() {
               <div className="relative h-48 w-full bg-slate-100">
                 <Image
                   src="/industry_restaurants_cambodia_1788319571060.jpg"
-                  alt="Cambodian F&B and Coffee Chain Operations"
+                  alt="AttendKH Attendance Tracking for Cambodian Restaurants and Coffee Chains"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
                   className="object-cover"
@@ -730,7 +730,7 @@ export function AboutView() {
               <div className="relative h-48 w-full bg-slate-100">
                 <Image
                   src="/industry_offices_cambodia_1788319517336.jpg"
-                  alt="Cambodian Tech and Corporate Offices"
+                  alt="AttendKH Attendance and Payroll Management for Cambodian Offices and Tech Teams"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
                   className="object-cover"
@@ -753,7 +753,7 @@ export function AboutView() {
               <div className="relative h-48 w-full bg-slate-100">
                 <Image
                   src="/about/network-map.jpg"
-                  alt="Cambodia Multi-Branch Logistics and Branch Network"
+                  alt="AttendKH Multi-Branch Attendance Network for Cambodian Logistics and Retail"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
                   className="object-cover"

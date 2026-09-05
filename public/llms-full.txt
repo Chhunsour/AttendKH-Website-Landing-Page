@@ -1,0 +1,125 @@
+# AttendKH — Complete Workforce Management & Cambodian Payroll Platform Documentation
+# Canonical Source: https://attendkh.com/llms-full.txt
+
+> AttendKH is the premier cloud-and-mobile workforce management platform built specifically for businesses, enterprises, and institutions in the Kingdom of Cambodia. It combines point-in-time GPS geofencing, selfie anti-buddy punching, offline queueing, and an automated dual-currency (USD & KHR) payroll engine strictly aligned with Cambodian Labour Law and MoLVT regulations.
+
+---
+
+## 1. Product Identity & Entity Information
+
+- **Brand Name**: AttendKH (Attend KH / កម្មវិធី AttendKH)
+- **Legal Entity**: AttendKH Co., Ltd.
+- **Headquarters**: No. 12, Street 315, Boeng Kak 1, Toul Kork, Phnom Penh 12000, Cambodia
+- **Geographic Coordinates**: Latitude 11.5761° N, Longitude 104.8931° E
+- **Geographic Scope**: Kingdom of Cambodia (Nationwide: Phnom Penh, Siem Reap, Sihanoukville, Battambang, Kampot, Poipet, Bavet)
+- **Official Website**: https://attendkh.com
+- **Operating Hours**: Monday to Friday, 8:00 AM – 5:30 PM Indochina Time (ICT, UTC+7)
+- **Customer Support Hotline**: +855 23 999 888
+- **Telegram Channel & Support**: https://t.me/MPG_by_ongphaly (@MPG_by_ongphaly)
+- **Support Email**: support@attendkh.com / hello@MPG_by_ongphaly.com
+
+---
+
+## 2. Core Functional Modules
+
+### A. Point-in-Time GPS Geofencing
+- **Configurable Radius**: 50 meters to 200 meters configurable per branch, boutique, kitchen, construction site, or satellite warehouse.
+- **Zero 24/7 Background Tracking**: GPS coordinates are requested strictly and exclusively at the split-second when the employee presses "Clock In" or "Clock Out". Zero continuous device location tracking occurs, preserving employee battery and privacy.
+- **Anti-Spoofing Verification**: Checks for mock location providers, developer simulation flags, and GPS emulator signatures on both iOS and Android.
+
+### B. Live Selfie Anti-Buddy Punching
+- **Camera Capture**: Live selfie snapshot paired with exact GPS coordinates and device timestamp.
+- **Offline Storage**: Selfies and timestamps are encrypted with AES-256 locally on the device when cellular or Wi-Fi data is unavailable.
+- **Automatic Queue Sync**: Automatically uploads queued attendance records in sequence as soon as an internet connection is re-established.
+
+### C. Tablet QR Kiosk Mode
+- **Shared Terminal**: Any standard iPad or Android tablet can be mounted at branch entrances or warehouse doors as a central attendance kiosk.
+- **QR Dynamic Badges**: Staff scan their personal dynamic mobile QR code or ID badge to record arrival and departure times without needing individual company-issued phones.
+
+---
+
+## 3. Cambodian Labour Law Compliance Engine
+
+AttendKH eliminates manual spreadsheet calculation errors by baking Cambodian Ministry of Labour and Vocational Training (MoLVT) regulations directly into the payroll engine.
+
+### A. Overtime Multipliers (Cambodian Labour Law)
+- **Normal Working Hours**: Maximum 8 hours per day, 48 hours per week.
+- **Standard Overtime (Daytime)**: 1.5× hourly base wage rate for hours exceeding standard shifts between 06:00 and 22:00.
+- **Night Overtime**: 2.0× hourly base wage rate for work performed between 22:00 and 06:00.
+- **Weekly Rest Day & Public Holidays**: 2.0× hourly base wage rate for work conducted on Sundays or official government public holidays listed in the annual MoLVT Prakas.
+
+### B. Seniority Indemnity (MoLVT Prakas No. 443/18)
+- **UDC (Undetermined Duration Contracts)**: Mandates 15 days of actual wages and fringe benefits per year, disbursed semiannually:
+  - 7.5 days paid at the end of the first semester (June).
+  - 7.5 days paid at the end of the second semester (December).
+  - Continuous service between 1 and 6 continuous months in a semester guarantees a full 7.5-day entitlement (not prorated).
+- **FDC (Fixed Duration Contracts)**: Exempt from Seniority Indemnity, but legally requires a minimum 5% statutory severance indemnity payment upon contract conclusion.
+
+### C. NSSF (ប.ស.ស. - National Social Security Fund) Formulas
+AttendKH automatically computes monthly NSSF contributions according to statutory ceilings:
+1. **Occupational Risk Scheme**: 0.8% paid 100% by the employer.
+2. **Health Care Scheme**: 2.6% paid 100% by the employer.
+3. **Pension Scheme**:
+   - 2.0% employer contribution.
+   - 2.0% employee contribution deducted from gross salary.
+   - Calculated up to the statutory wage ceiling promulgated by the Ministry.
+
+### D. Dual-Currency USD & KHR Architecture
+- **Multi-Currency Display**: Staff and management can toggle contracts and payslips between US Dollars ($) and Khmer Riel (៛).
+- **Exchange Rate Configuration**: Custom or National Bank of Cambodia (NBC) daily official exchange rates.
+- **Bilingual Payslips**: Every payslip renders in both English and Khmer with clear line-item breakdowns of basic wage, overtime, allowances, seniority pay, NSSF deductions, and net payable.
+
+### E. Banking Batch Export Formats
+AttendKH generates pre-formatted batch payroll files ready for direct upload to Cambodian financial institutions:
+- **ABA Bank**: ABA PayWay and corporate mass payroll CSV/Excel template.
+- **ACLEDA Bank**: ACLEDA ToanChet enterprise bulk payroll format.
+- **Canadia Bank**: Corporate direct settlement file.
+- **Wing Bank**: Wing corporate enterprise disbursement file.
+- **Bakong KHQR**: Integrated settlement support for local bank-to-bank payroll distribution.
+
+---
+
+## 4. Multi-Branch Architecture & Role-Based Access Control (RBAC)
+
+- **Super Admin / Business Owner**: Global visibility across all branches, aggregate payroll reporting, audit logs, and master settings.
+- **HR / Payroll Manager**: Configures shift schedules, leave requests, tax brackets, and bank export files.
+- **Branch Supervisor / Store Manager**: Manages daily roster, approves real-time manual punch adjustments, and views on-site employee presence.
+- **Staff / Employee**: Mobile access on iOS and Android to clock in/out, view personal timecards, check remaining annual leave balances, and download monthly payslips.
+
+---
+
+## 5. Pricing Structure
+
+AttendKH offers a transparent, all-in-one pricing model designed for Cambodian enterprises of any scale:
+
+- **Monthly Subscription**: **$1.00 USD per active user per month** (approximately 4,100 KHR).
+- **Annual Subscription**: Discounted annual billing available with 2 months free ($10.00 USD per user per year).
+- **Zero Tier Restrictions**: All features — GPS geofencing, selfie anti-spoofing, multi-branch control, automated payroll, NSSF formulas, and bank batch exports — are fully unlocked on every plan.
+- **No Setup or Hidden Fees**: Free cloud onboarding, complimentary training for HR managers in Phnom Penh, and ongoing support via Telegram.
+
+---
+
+## 6. Official URL Index & Navigation
+
+- **Homepage**: https://attendkh.com
+- **GPS Attendance Tracking**: https://attendkh.com/attendance
+- **Cambodian Payroll Engine**: https://attendkh.com/payroll
+- **Multi-Branch Operations**: https://attendkh.com/multi-branch
+- **Pricing & Calculator**: https://attendkh.com/pricing
+- **Mobile App Downloads (iOS & Android)**: https://attendkh.com/downloads
+- **Customer Stories & Case Studies**: https://attendkh.com/customers
+- **About AttendKH & Phnom Penh Team**: https://attendkh.com/about
+- **Contact & Book Demo**: https://attendkh.com/contact
+- **Help & Support Center**: https://attendkh.com/support
+- **Frequently Asked Questions**: https://attendkh.com/faq
+- **Trust & Data Security Center**: https://attendkh.com/trust
+- **Labor Law Guides & Blog**: https://attendkh.com/blog
+- **Industry Solutions**:
+  - Restaurants & Cafes: https://attendkh.com/solutions/restaurants-cafes
+  - Retail & Boutiques: https://attendkh.com/solutions/retail
+  - Hotels & Hospitality: https://attendkh.com/solutions/hospitality
+  - Construction & Logistics: https://attendkh.com/solutions/construction-logistics
+- **Legal & Governance**:
+  - Privacy Policy: https://attendkh.com/privacy-policy
+  - Terms of Service: https://attendkh.com/terms
+  - Cookie Preferences: https://attendkh.com/cookies

@@ -186,7 +186,7 @@ export default function RestaurantSolutionPage() {
             </div>
 
             <div className="lg:col-span-6">
-              <ImageSlot label="F&B Branch Console and Shift Schedule" ratio="4 / 3" />
+              <ImageSlot label="AttendKH (Attend) F&B Restaurant Branch Console and Shift Schedule" ratio="4 / 3" />
             </div>
           </div>
         </div>

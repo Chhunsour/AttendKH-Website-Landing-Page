@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { BranchesView } from "./branches-view";
 
-const title = "Centralized Multi-Branch Operations Console for Cambodia | AttendKH";
+const title = "Multi-Branch Management — Centralized Roster & Control | AttendKH";
 const description =
-  "Manage 1 to 50+ locations across Phnom Penh, Siem Reap, and Sihanoukville on one central console. 4-tier access control, split shifts, and branch-specific rules.";
+  "Manage shifts, rosters, and attendance across multiple retail stores, restaurants, or work sites throughout Cambodia from one central dashboard.";
 
 export const metadata: Metadata = {
   title,

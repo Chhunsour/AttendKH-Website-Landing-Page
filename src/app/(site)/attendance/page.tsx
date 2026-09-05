@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { AttendanceView } from "./attendance-view";
 
-const title = "GPS Geofence & Selfie Attendance Tracking in Cambodia | AttendKH";
+const title = "Attendance Tracking — GPS Geofence & Selfie Clock-In | AttendKH";
 const description =
-  "Reduce attendance disputes with point-in-time GPS geofencing (50–200m), configurable selfie verification, and real-time cloud synchronization for Cambodian businesses.";
+  "Record employee attendance with configurable 50–200m GPS geofencing, live selfie verification, and real-time cloud sync across Cambodia.";
 
 export const metadata: Metadata = {
   title,

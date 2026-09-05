@@ -15,7 +15,7 @@ const SHELL = "mx-auto w-full max-w-[1240px] px-6 sm:px-10 lg:px-14";
 function Mark({ solid }: { solid: boolean }) {
   return (
     <span className="inline-flex items-center gap-2.5">
-      <Image src="/logo.png" alt="" width={28} height={28} priority className="h-7 w-7" />
+      <Image src="/logo.png" alt="AttendKH (Attend) Logo — Smart Attendance & Payroll Cambodia" width={28} height={28} priority className="h-7 w-7" />
       <span
         className={`text-[19px] font-extrabold tracking-tight transition-colors duration-300 ease-out ${
           solid ? "text-[#0052FF]" : "text-white"

@@ -169,7 +169,7 @@ export function ContactView() {
                     <div className="relative h-72 w-72 sm:h-80 sm:w-80 rounded-[28px] overflow-hidden border-4 border-white shadow-2xl bg-slate-900">
                       <Image
                         src="/avatars/ong-phaly.png"
-                        alt="Mr. Ong Phaly - CEO & Head of Sales & Demos"
+                        alt="Mr. Ong Phaly — CEO and Founder of AttendKH (Attend) Cambodia"
                         fill
                         sizes="(max-width: 640px) 288px, 320px"
                         className="object-cover object-top scale-100 group-hover:scale-105 transition-transform duration-500"

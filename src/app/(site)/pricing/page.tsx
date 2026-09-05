@@ -3,9 +3,9 @@ import { absoluteUrl } from "@/lib/site";
 import { getPricingPlans } from "@/lib/site-content";
 import { PricingView } from "./pricing-view";
 
-const title = "Pricing — Transparent Per-User Plans for Cambodia | AttendKH";
+const title = "Pricing Plans — $1/User All-in-One | AttendKH";
 const description =
-  "Compare AttendKH plans priced per active user, with monthly and annual billing choices for Cambodian teams.";
+  "Simple, transparent pricing for Cambodian businesses. $1 per active user per month with all features unlocked and zero tier restrictions.";
 
 export const metadata: Metadata = {
   title,

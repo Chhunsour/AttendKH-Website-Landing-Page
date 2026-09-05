@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { DownloadsView } from "./downloads-view";
 
-const title = "Download Mobile Apps (iOS & Android) — Upcoming | AttendKH";
+const title = "Download Mobile App — iOS & Android | AttendKH";
 const description =
-  "Download the AttendKH mobile app for iOS (App Store) and Android (Google Play). Fast GPS geofenced clock-in, selfie verification, and real-time cloud attendance sync.";
+  "Download AttendKH for iOS and Android. Fast GPS geofenced clock-in, selfie verification, timecard history, and mobile payslip access.";
 
 export const metadata: Metadata = {
   title,

@@ -449,7 +449,7 @@ export function ChatbotWidget() {
             className="group flex items-center gap-2.5 rounded-full border border-blue-100 bg-white px-4 py-2.5 text-slate-900 shadow-xl shadow-blue-600/12 transition hover:border-brand/40 hover:bg-blue-50/40 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
           >
             <div className="relative flex h-5 w-5 items-center justify-center">
-              <Image src="/logo.png" alt="" width={20} height={20} className="h-5 w-5 transition-transform duration-200 group-hover:scale-105" />
+              <Image src="/logo.png" alt="AttendKH (Attend) AI Support Bot" width={20} height={20} className="h-5 w-5 transition-transform duration-200 group-hover:scale-105" />
             </div>
             <span className="text-[13px] font-bold tracking-tight text-slate-900">
               attendkh BOT
@@ -477,7 +477,7 @@ export function ChatbotWidget() {
             <div className="flex items-center justify-between bg-gradient-to-r from-[#0052FF] to-[#0047E0] px-4 py-3 text-white shadow-xs">
               <div className="flex items-center gap-2.5">
                 <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/15 p-1 backdrop-blur-xs">
-                  <Image src="/logo.png" alt="attendkh BOT" width={22} height={22} className="h-5.5 w-5.5" />
+                  <Image src="/logo.png" alt="AttendKH AI Support Assistant Avatar" width={22} height={22} className="h-5.5 w-5.5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5 leading-none">

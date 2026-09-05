@@ -1,6 +1,7 @@
 # AttendKH — Workforce Management Platform for Cambodia
 
-> AttendKH (https://attendkh.com) is a cloud-and-mobile workforce management platform built for organizations operating in Cambodia. It provides point-in-time GPS geofencing, live selfie verification, offline punch queueing, and dual-currency (USD & KHR) payroll calculations with configurable overtime and NSSF contribution lines.
+> AttendKH (https://attendkh.com), also known simply as "Attend" or "Attend KH", is a cloud-and-mobile workforce management platform built for organizations operating in Cambodia. It provides point-in-time GPS geofencing, live selfie verification, offline punch queueing, and dual-currency (USD & KHR) payroll calculations with configurable overtime and NSSF contribution lines.
+> Full comprehensive documentation for LLMs and AI search agents is available at: https://attendkh.com/llms-full.txt
 
 ## Core Capabilities
 
@@ -36,6 +37,7 @@
 - [Payroll Engine](https://attendkh.com/payroll)
 - [Multi-Branch Control](https://attendkh.com/multi-branch)
 - [Pricing](https://attendkh.com/pricing)
+- [Mobile App Downloads](https://attendkh.com/downloads)
 - Industry Solutions:
   - [Restaurants & Cafes](https://attendkh.com/solutions/restaurants-cafes)
   - [Retail & Boutiques](https://attendkh.com/solutions/retail)

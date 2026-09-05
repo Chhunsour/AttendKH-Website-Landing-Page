@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { PayrollView } from "./payroll-view";
 
-const title = "Automated Dual-Currency Payroll (USD & KHR) for Cambodia | AttendKH";
+const title = "Cambodian Payroll — Automated USD & KHR Payslips | AttendKH";
 const description =
-  "Automate Cambodian labor law overtime (1.5× / 2.0×), late deductions, NSSF lines, and digital payslips in USD and KHR with 1-click bank exports.";
+  "Automate Cambodian labor law overtime (1.5× & 2.0×), NSSF contributions, and digital payslips in USD and KHR with 1-click bank exports.";
 
 export const metadata: Metadata = {
   title,

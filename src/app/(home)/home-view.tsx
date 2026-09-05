@@ -37,6 +37,7 @@ import {
 import { useSite } from "@/lib/i18n";
 import { useHomeCopy, Rise, ImageSlot, StoreBadge } from "@/components/home/parts";
 import { Header, Footer } from "@/components/site/chrome";
+import { DirectAnswerBlock } from "@/components/site/ui";
 import { IndustriesSection } from "@/components/home/industries-section";
 
 const SHELL = "mx-auto w-full max-w-[1240px] px-6 sm:px-10 lg:px-14";
@@ -569,7 +570,7 @@ function ImpactSection() {
         <div className="relative w-full max-w-[1060px]">
           <Image
             src="/iphone-sleeping.webp"
-            alt="AttendKH HR Operations Mobile Interface"
+            alt="AttendKH (Attend) Mobile Attendance Clock-in & HR Operations Interface on Smartphone"
             width={3893}
             height={1725}
             className="h-auto w-full object-contain"
@@ -626,17 +627,17 @@ function Steps() {
   const stepImages = [
     {
       src: "/steps/config-branch.png",
-      alt: "AttendKH Branch and Geofence Configuration Screen",
+      alt: "AttendKH (Attend) Branch Setup & GPS Geofence Configuration in Cambodia",
       title: isKm ? "កំណត់សាខា និងកាំ GPS Geofence" : isZh ? "分店与 GPS 围栏配置界面" : "Branch & GPS Geofence Configuration",
     },
     {
       src: "/steps/payroll.png",
-      alt: "AttendKH Employee Import and Payroll Mapping Screen",
+      alt: "AttendKH Employee Excel Import and Cambodian Payroll Setup",
       title: isKm ? "នាំចូលបុគ្គលិក និងរៀបចំប្រាក់ខែ" : isZh ? "员工花名册导入与薪酬核算" : "Employee Records & Payroll Setup",
     },
     {
       src: "/steps/review-and-approve.png",
-      alt: "AttendKH Payroll Review and Approval Screen",
+      alt: "AttendKH Cambodian Payroll Review, NSSF & Overtime Approval Console",
       title: isKm ? "ផ្ទៀងផ្ទាត់ និងអនុម័តបើកប្រាក់ខែ" : isZh ? "考勤核算与一键发薪审批" : "Payroll Review & Approval Console",
     },
   ];
@@ -906,7 +907,17 @@ function FAQSection() {
         </Rise>
 
         {/* Right Column: Elevated Card with Accordion */}
-        <Rise delay={0.08} className="lg:col-span-7">
+        <Rise delay={0.08} className="lg:col-span-7 space-y-6">
+          <DirectAnswerBlock
+            question="What is AttendKH and how does it work in Cambodia?"
+            answer="AttendKH is an all-in-one workforce attendance and automated payroll platform built for Cambodian businesses. Employees clock in via mobile GPS geofencing (50–200m) with live selfie verification. Attendance data syncs in real time with Cambodian labor law overtime (1.5× & 2.0×), NSSF contributions, and dual-currency (USD & KHR) payslips."
+            facts={[
+              { label: "Pricing", value: "$1.00 per user / month (All features included)" },
+              { label: "Geofencing", value: "Configurable 50m–200m per branch" },
+              { label: "Compliance", value: "MoLVT Overtime, Seniority Pay & NSSF lines" },
+              { label: "Local Support", value: "Phnom Penh team via Telegram & phone" },
+            ]}
+          />
           <div className="relative overflow-hidden rounded-3xl border border-line bg-paper p-6 sm:p-8 shadow-xs transition-shadow duration-300 hover:shadow-md">
             {/* Subtle background ambient lighting */}
             <div
@@ -1128,7 +1139,7 @@ function GetStarted() {
             <div className="my-6 flex w-full items-center justify-center lg:hidden">
               <Image
                 src="/apple-products.webp"
-                alt="AttendKH on Apple Devices"
+                alt="AttendKH (Attend) GPS Attendance App on iPhone, iPad, and Mac in Cambodia"
                 width={2000}
                 height={873}
                 className="h-auto w-full max-w-[460px] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.10)]"
@@ -1157,7 +1168,7 @@ function GetStarted() {
             <div className="w-full max-w-[780px] lg:scale-105 xl:scale-115 lg:origin-center">
               <Image
                 src="/apple-products.webp"
-                alt="AttendKH on Apple Devices"
+                alt="AttendKH (Attend) GPS Attendance App on iPhone, iPad, and Mac in Cambodia"
                 width={2000}
                 height={873}
                 className="h-auto w-full object-contain drop-shadow-[0_24px_50px_rgba(0,0,0,0.10)] transition-transform duration-500 hover:scale-[1.02]"

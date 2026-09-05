@@ -383,7 +383,7 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
                 {featuredPost.cover_image ? (
                   <img
                     src={featuredPost.cover_image}
-                    alt={getPostTitle(featuredPost)}
+                    alt={`${getPostTitle(featuredPost)} — AttendKH (Attend)`}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
@@ -427,7 +427,7 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
                     {featuredPost.author_avatar ? (
                       <img
                         src={featuredPost.author_avatar}
-                        alt={featuredPost.author_name}
+                        alt={`${featuredPost.author_name} — Author at AttendKH`}
                         className="h-7 w-7 rounded-full object-cover object-top border border-slate-200"
                       />
                     ) : (
@@ -468,7 +468,7 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
                     {post.cover_image ? (
                       <img
                         src={post.cover_image}
-                        alt={getPostTitle(post)}
+                        alt={`${getPostTitle(post)} — AttendKH (Attend)`}
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
@@ -504,7 +504,7 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
                     {post.author_avatar ? (
                       <img
                         src={post.author_avatar}
-                        alt={post.author_name}
+                        alt={`${post.author_name} — Author at AttendKH`}
                         className="h-6 w-6 rounded-full object-cover object-top border border-slate-200"
                       />
                     ) : (

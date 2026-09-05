@@ -247,7 +247,7 @@ export function IndustriesSection() {
                 >
                   <Image
                     src={activeItem.imageSrc || "/industry_offices_khmer.jpg"}
-                    alt={`${activeItem.name} in Cambodia`}
+                    alt={`AttendKH (Attend) Attendance & Payroll for ${activeItem.name} in Cambodia`}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 95vw, 1200px"
                     className="object-cover pointer-events-none"
@@ -311,7 +311,7 @@ export function IndustriesSection() {
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900 pointer-events-none">
                     <Image
                       src={item.imageSrc || "/industry_offices_khmer.jpg"}
-                      alt={item.name}
+                      alt={`AttendKH for ${item.name} in Cambodia`}
                       fill
                       sizes="224px"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { AboutView } from "./about-view";
 
-const title = "About AttendKH — Built in Phnom Penh for Cambodian Businesses";
+const title = "About Us — Built in Phnom Penh for Cambodia | AttendKH";
 const description =
-  "Discover how AttendKH builds GPS attendance, shift scheduling, and dual-currency (USD & KHR) payroll software from Phnom Penh, crafted specifically for Cambodian labor law and workforce realities.";
+  "Meet the AttendKH team building modern workforce management and automated payroll software tailored specifically for Cambodian businesses.";
 
 export const metadata: Metadata = {
   title,

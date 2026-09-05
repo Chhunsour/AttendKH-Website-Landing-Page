@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { ContactView } from "./contact-view";
 
-const title = "Book a Demo & Contact Our Phnom Penh Team | AttendKH";
+const title = "Contact & Demo — Phnom Penh Office | AttendKH";
 const description =
-  "Schedule a walkthrough, request pricing assistance, or contact our support team in Phnom Penh. Operating Monday to Friday, 8:00 AM – 5:30 PM ICT.";
+  "Get in touch with the AttendKH team in Phnom Penh. Book a personalized live demo or reach our support team via Telegram and phone.";
 
 export const metadata: Metadata = {
   title,

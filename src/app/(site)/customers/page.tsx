@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
 import { CustomersView } from "./customers-view";
 
-const title = "Industry Workflows for Cambodian Teams | AttendKH";
+const title = "Customer Stories & Workflows | AttendKH";
 const description =
   "Explore attendance and payroll workflows designed for Cambodian cafes, retail stores, hotels, and logistics operations.";
 

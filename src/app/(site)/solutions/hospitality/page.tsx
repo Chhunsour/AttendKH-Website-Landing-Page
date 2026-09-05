@@ -167,7 +167,7 @@ export default function HospitalitySolutionPage() {
             </div>
 
             <div className="lg:col-span-6">
-              <ImageSlot label="Hotel Department Rosters and Multi-Shift Console" ratio="4 / 3" />
+              <ImageSlot label="AttendKH (Attend) Hotel Department Rosters and Multi-Shift Console" ratio="4 / 3" />
             </div>
           </div>
         </div>

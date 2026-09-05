@@ -35,7 +35,7 @@ const en = {
     slotLabel: "Morning Shift Verification // BKK1 Flagship",
     slotSubject: "Real mobile attendance screen or team clock-in moment at branch entrance",
     slotInstruction: 'Upload ready: pass src="/hero-attendance.jpg"',
-    slotAlt: "AttendKH mobile attendance app verification record",
+    slotAlt: "AttendKH (Attend) mobile GPS attendance tracking and verification app in Cambodia",
   },
 
   stats: {
@@ -59,7 +59,7 @@ const en = {
     slotLabel: "Geofenced Mobile Punch // GPS & Live Selfie",
     slotSubject: "Staff selfie capture within the 50m branch perimeter showing verified timestamp",
     slotInstruction: 'Upload ready: pass src="/attendance-punch.jpg"',
-    slotAlt: "AttendKH mobile clock-in screen showing on-duty status, branch location and shift window",
+    slotAlt: "AttendKH (Attend) GPS geofence clock-in and selfie attendance verification app",
   },
 
   featureTwo: {
@@ -72,7 +72,7 @@ const en = {
     slotLabel: "Bilingual Payslip // USD & KHR Breakdown",
     slotSubject: "Itemized Khmer and English payroll export with configurable NSSF lines",
     slotInstruction: 'Upload ready: pass src="/payroll-slip.jpg"',
-    slotAlt: "Bilingual Cambodian payroll breakdown in USD and KHR",
+    slotAlt: "AttendKH (Attend) automated Cambodian payroll slip in USD and KHR with NSSF calculations",
   },
 
   otLeave: {
@@ -89,7 +89,7 @@ const en = {
     slotLabel: "OT Request // Employee Submission",
     slotSubject: "Overtime request screen with shift policy, calculated hours and approval submit",
     slotInstruction: 'Upload ready: pass src="/ot-frame-5.webp"',
-    slotAlt: "AttendKH overtime request screen showing calculated overtime hours before submission",
+    slotAlt: "AttendKH (Attend) employee overtime and leave management workflow screen",
   },
 
   cambodiaFit: {
@@ -118,7 +118,7 @@ const en = {
     slotLabel: "Labor Standards // Cambodia Rules",
     slotSubject: "Cambodian public holiday schedule, shift roster, and NSSF contribution table",
     slotInstruction: 'Upload ready: pass src="/cambodia-compliance.jpg"',
-    slotAlt: "Cambodia labor rules and holiday schedule",
+    slotAlt: "AttendKH (Attend) Cambodian labor law compliance, public holidays, and NSSF calendar",
   },
 
   industries: {
@@ -493,7 +493,7 @@ const en = {
     slotLabel: "Guided Branch Rollout",
     slotSubject: "Branch operations team set up and running live attendance across all locations",
     slotInstruction: 'Upload ready: pass src="/team-onboarding.jpg"',
-    slotAlt: "AttendKH onboarding and rollout session",
+    slotAlt: "AttendKH (Attend) team onboarding and 1-day branch rollout in Phnom Penh Cambodia",
   },
 
   footer: {
@@ -584,7 +584,7 @@ const km: HomeCopy = {
     slotLabel: "ការផ្ទៀងផ្ទាត់វត្តមានវេនព្រឹក // សាខា BKK1",
     slotSubject: "រូបភាពអេក្រង់ចុះវត្តមានលើទូរស័ព្ទពិត ឬបុគ្គលិកចុះវត្តមាននៅមាត់ទ្វារសាខា",
     slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/hero-attendance.jpg"',
-    slotAlt: "កំណត់ត្រាផ្ទៀងផ្ទាត់វត្តមានលើកម្មវិធី AttendKH",
+    slotAlt: "កំណត់ត្រាផ្ទៀងផ្ទាត់វត្តមានលើកម្មវិធី AttendKH (Attend) តាម GPS នៅកម្ពុជា",
   },
 
   stats: {
@@ -608,7 +608,7 @@ const km: HomeCopy = {
     slotLabel: "ការចុះវត្តមានតាម GPS និង រូបថត Selfie ផ្ទាល់",
     slotSubject: "រូបភាពបុគ្គលិកថត Selfie ក្នុងកាំ ៥០ ម៉ែត្រនៃសាខា ជាមួយកាលបរិច្ឆេទផ្ទៀងផ្ទាត់",
     slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/attendance-punch.jpg"',
-    slotAlt: "ភស្តុតាងចុះវត្តមានតាម GPS និងរូបថត Selfie",
+    slotAlt: "ភស្តុតាងចុះវត្តមានតាម GPS និងរូបថត Selfie លើកម្មវិធី AttendKH (Attend)",
   },
 
   featureTwo: {
@@ -621,7 +621,7 @@ const km: HomeCopy = {
     slotLabel: "ប័ណ្ណបើកប្រាក់ខែទ្វេភាសា // ដុល្លារ និង រៀល",
     slotSubject: "គំរូប័ណ្ណប្រាក់ខែពិតបង្ហាញម៉ោងបន្ថែម ១.៥x/២.០x និងការកាត់វិភាគទាន ប.ស.ស.",
     slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/payroll-slip.jpg"',
-    slotAlt: "របាយការណ៍ប័ណ្ណប្រាក់ខែទ្វេភាសា ដុល្លារ និងរៀល",
+    slotAlt: "របាយការណ៍ប័ណ្ណប្រាក់ខែទ្វេភាសា ដុល្លារ និងរៀល របស់ AttendKH (Attend) ស្របតាមច្បាប់ការងារ",
   },
 
   otLeave: {
@@ -638,7 +638,7 @@ const km: HomeCopy = {
     slotLabel: "សំណើម៉ោងបន្ថែម // ការស្នើសុំរបស់បុគ្គលិក",
     slotSubject: "អេក្រង់ស្នើសុំម៉ោងបន្ថែម បង្ហាញគោលការណ៍វេន និងម៉ោងបន្ថែមដែលគណនារួច",
     slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/ot-frame-5.webp"',
-    slotAlt: "អេក្រង់ស្នើសុំម៉ោងបន្ថែមរបស់ AttendKH",
+    slotAlt: "អេក្រង់ស្នើសុំម៉ោងបន្ថែម OT និងច្បាប់សម្រាករបស់ AttendKH (Attend)",
   },
 
   cambodiaFit: {
@@ -667,7 +667,7 @@ const km: HomeCopy = {
     slotLabel: "ស្តង់ដារការងារ // បទបញ្ជាកម្ពុជា",
     slotSubject: "កាលវិភាគថ្ងៃឈប់សម្រាកបុណ្យជាតិ តារាងវេន និងតារាងវិភាគទាន ប.ស.ស.",
     slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/cambodia-compliance.jpg"',
-    slotAlt: "ច្បាប់ការងារ និងកាលវិភាគថ្ងៃបុណ្យនៅកម្ពុជា",
+    slotAlt: "ច្បាប់ការងារ ប.ស.ស. និងកាលវិភាគថ្ងៃបុណ្យនៅកម្ពុជាលើប្រព័ន្ធ AttendKH (Attend)",
   },
 
   industries: {
@@ -1042,7 +1042,7 @@ const km: HomeCopy = {
     slotLabel: "ការដាក់ឲ្យប្រើប្រាស់ // មានការណែនាំតាមសាខា",
     slotSubject: "ក្រុមប្រតិបត្តិការសាខារៀបចំ និងដំណើរការកត់ត្រាវត្តមានទូទាំងគ្រប់សាខា",
     slotInstruction: 'ត្រៀមផ្ទុករូបភាព៖ ដាក់ src="/team-onboarding.jpg"',
-    slotAlt: "ការរៀបចំដាក់ឲ្យប្រើប្រាស់ AttendKH នៅតាមសាខា",
+    slotAlt: "ការរៀបចំដាក់ឲ្យប្រើប្រាស់កម្មវិធី AttendKH (Attend) នៅតាមសាខាអាជីវកម្មកម្ពុជា",
   },
 
   footer: {
@@ -1131,7 +1131,7 @@ const zh: HomeCopy = {
     slotLabel: "早班出勤核验 // 金边 BKK1 旗舰店",
     slotSubject: "员工到达门店入口时真实的手机打卡核验界面",
     slotInstruction: '准备上传：使用 src="/hero-attendance.jpg"',
-    slotAlt: "AttendKH 移动端考勤核验记录",
+    slotAlt: "AttendKH (Attend) 柬埔寨移动考勤打卡与 GPS 真实核验系统",
   },
 
   stats: {
@@ -1155,7 +1155,7 @@ const zh: HomeCopy = {
     slotLabel: "地理围栏移动打卡 // GPS与真人自拍",
     slotSubject: "在分店 50 米范围内拍摄的带有真实时间戳的打卡照片",
     slotInstruction: '准备上传：使用 src="/attendance-punch.jpg"',
-    slotAlt: "AttendKH 移动打卡界面展示在岗状态与班次信息",
+    slotAlt: "AttendKH (Attend) GPS 地理围栏移动打卡与真人自拍考勤核验",
   },
 
   featureTwo: {
@@ -1168,7 +1168,7 @@ const zh: HomeCopy = {
     slotLabel: "双语工资条 // 美元与柬币明细",
     slotSubject: "包含可配置 NSSF 社保明细的中英柬双语薪资导出单",
     slotInstruction: '准备上传：使用 src="/payroll-slip.jpg"',
-    slotAlt: "美元与柬币双币薪资明细汇总",
+    slotAlt: "AttendKH (Attend) 美元与柬币双币薪资核算及柬埔寨 NSSF 社保工资单",
   },
 
   otLeave: {
@@ -1185,7 +1185,7 @@ const zh: HomeCopy = {
     slotLabel: "加班申请 // 员工提交端",
     slotSubject: "展示加班制度、自动计算工时与审批提交的界面",
     slotInstruction: '准备上传：使用 src="/ot-frame-5.webp"',
-    slotAlt: "AttendKH 加班申请界面在提交前展示计算时长",
+    slotAlt: "AttendKH (Attend) 手机端加班审批与请假管理系统",
   },
 
   cambodiaFit: {
@@ -1214,7 +1214,7 @@ const zh: HomeCopy = {
     slotLabel: "劳工标准 // 柬埔寨法定规则",
     slotSubject: "柬埔寨法定节假日安排、轮班表及 NSSF 缴费对照表",
     slotInstruction: '准备上传：使用 src="/cambodia-compliance.jpg"',
-    slotAlt: "柬埔寨劳工法规与法定假日排表",
+    slotAlt: "AttendKH (Attend) 适配柬埔寨劳工法、法定假日排表与社保规则",
   },
 
   industries: {
@@ -1589,7 +1589,7 @@ const zh: HomeCopy = {
     slotLabel: "分店极速上线演示",
     slotSubject: "分店运营团队快速配置完成并启动全员出勤打卡",
     slotInstruction: '准备上传：使用 src="/team-onboarding.jpg"',
-    slotAlt: "AttendKH 团队入驻与极速部署现场",
+    slotAlt: "AttendKH (Attend) 团队入驻培训与金边多分店极速部署上线",
   },
 
   footer: {

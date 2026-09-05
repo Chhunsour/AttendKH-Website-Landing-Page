@@ -168,7 +168,7 @@ export default function RetailSolutionPage() {
             </div>
 
             <div className="lg:col-span-6">
-              <ImageSlot label="Retail Multi-Store Management Console" ratio="4 / 3" />
+              <ImageSlot label="AttendKH (Attend) Retail Multi-Store Attendance & Branch Console" ratio="4 / 3" />
             </div>
           </div>
         </div>

@@ -50,9 +50,48 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "AttendKH — GPS attendance and configurable payroll for Cambodia",
+  title: "Attend (AttendKH) — GPS attendance and configurable payroll for Cambodia",
   description:
     "GPS-assisted attendance and configurable payroll in USD and KHR, built in Phnom Penh for Cambodian teams.",
+  alternates: {
+    canonical: absoluteUrl("/"),
+    languages: {
+      "en": absoluteUrl("/"),
+      "km": absoluteUrl("/"),
+      "x-default": absoluteUrl("/"),
+    },
+  },
+  applicationName: "AttendKH",
+  category: "Business & Productivity Software",
+  classification: "Workforce Management, Attendance Tracking, Payroll Software",
+  keywords: [
+    "Attend",
+    "AttendKH",
+    "Attend app",
+    "Attend Cambodia",
+    "Attend login",
+    "Attend payroll",
+    "Attend tracking",
+    "attendance system Cambodia",
+    "GPS attendance Phnom Penh",
+    "Cambodian payroll software",
+    "NSSF calculation",
+    "MoLVT Cambodia compliance",
+    "dual currency payroll USD KHR",
+    "geofence clock-in",
+    "selfie punch attendance",
+    "multi-branch workforce management",
+    "កម្មវិធីកត់វត្តមាន",
+    "ប្រព័ន្ធគ្រប់គ្រងវត្តមាន",
+    "ប្រព័ន្ធគណនាប្រាក់បៀវត្ស",
+    "វត្តមានបុគ្គលិក",
+    "កត់វត្តមានតាម GPS",
+    "បើកប្រាក់ខែ",
+    "ប.ស.ស. កម្ពុជា",
+    "ច្បាប់ការងារកម្ពុជា",
+    "ប្រាក់បំណាច់អតីតភាពការងារ",
+  ],
+  manifest: "/manifest.webmanifest",
   openGraph: {
     title: "AttendKH — GPS attendance and configurable payroll for Cambodia",
     description:
@@ -60,6 +99,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "AttendKH",
     locale: "en_US",
+    alternateLocale: ["km_KH", "zh_CN"],
     type: "website",
     images: [{ url: SOCIAL_IMAGE_PATH, width: 1200, height: 630, alt: "AttendKH attendance and payroll software" }],
   },
@@ -71,6 +111,12 @@ export const metadata: Metadata = {
     images: [absoluteUrl(SOCIAL_IMAGE_PATH)],
   },
   icons: { icon: "/icon.png", apple: "/icon.png" },
+  other: {
+    "geo.region": "KH-12",
+    "geo.placename": "Phnom Penh, Cambodia",
+    "geo.position": "11.5761;104.8931",
+    "ICBM": "11.5761, 104.8931",
+  },
 };
 
 export const viewport: Viewport = {

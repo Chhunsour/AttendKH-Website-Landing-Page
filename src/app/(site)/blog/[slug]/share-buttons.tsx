@@ -286,7 +286,7 @@ export function ShareButtons({
               <div className="flex justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100">
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(url)}`}
-                  alt="Article QR Code"
+                  alt={`QR code for reading "${title}" on AttendKH (Attend)`}
                   width={180}
                   height={180}
                   className="rounded-lg shadow-2xs"
