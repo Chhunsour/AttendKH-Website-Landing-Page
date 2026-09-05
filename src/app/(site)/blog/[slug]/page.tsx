@@ -31,6 +31,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: pageTitle,
     description,
+    keywords: [
+      ...post.tags,
+      post.author_name,
+      "Chhunsour",
+      "Chhunsour Seng",
+      "Seng Chhunsour",
+      "ឈុនសួរ",
+      "សេង ឈុនសួរ",
+      "Chhunsour AttendKH",
+      "Chhunsour author",
+      "Chhunsour blog",
+      "AttendKH",
+      "Attend",
+    ],
     alternates: {
       canonical: url,
     },
@@ -40,11 +54,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url,
       type: "article",
       publishedTime: post.published_at || post.created_at,
-      authors: [post.author_name],
+      authors: [post.author_name, "Chhunsour"],
       images: [
         {
           url: ogImage,
-          alt: post.title,
+          alt: `${post.title} — Written by Chhunsour Seng (AttendKH)`,
         },
       ],
     },
@@ -90,7 +104,9 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
       {
         "@type": "Person",
         name: post.author_name,
+        alternateName: ["Chhunsour", "Seng Chhunsour", "ឈុនសួរ", "សេង ឈុនសួរ"],
         jobTitle: post.author_role,
+        url: absoluteUrl("/profile/chhunsour-seng"),
       },
     ],
     publisher: {
@@ -105,7 +121,15 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
       "@type": "WebPage",
       "@id": absoluteUrl(`/blog/${post.slug}`),
     },
-    keywords: post.tags.join(", "),
+    keywords: [
+      ...post.tags,
+      "Chhunsour",
+      "Chhunsour Seng",
+      "Seng Chhunsour",
+      "ឈុនសួរ",
+      "សេង ឈុនសួរ",
+      "AttendKH",
+    ].join(", "),
     inLanguage: ["en", "km", "zh"],
     articleSection: post.category,
     speakable: {

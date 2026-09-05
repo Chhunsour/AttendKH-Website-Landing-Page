@@ -190,9 +190,9 @@ export const chhunsourProfile: ProfileData = {
     ],
   },
   heroBio: {
-    en: "I'm a product builder and web developer with 1 year of dedicated experience in blog and web content writing, alongside hands-on software development, modern web architecture, and SEO strategy. Before focusing primarily on engineering digital products, I spent a full year creating high-impact blog and web content. Today, I continue bringing that editorial foundation to my current workplace, turning complex software mechanics into clear, educational guides.",
-    km: "ខ្ញុំជាអ្នកបង្កើតផលិតផល (Product Builder) និងជាអ្នកអភិវឌ្ឍគេហទំព័រ ដែលមានបទពិសោធន៍ ១ ឆ្នាំពេញក្នុងការសរសេរប្លុក និងមាតិកាគេហទំព័រ រួមជាមួយការអភិវឌ្ឍកម្មវិធី គេហទំព័រទំនើប និងយុទ្ធសាស្ត្រ SEO។ មុនពេលផ្តោតលើការកសាងផលិតផលឌីជីថល ខ្ញុំបានចំណាយពេល ១ ឆ្នាំពេញលើការសរសេរអត្ថបទប្លុកយ៉ាងសកម្ម។ បច្ចុប្បន្ន ខ្ញុំបន្តប្រើប្រាស់បទពិសោធន៍នេះនៅកន្លែងការងារ ដើម្បីបំប្លែងប្រព័ន្ធបច្ចេកវិទ្យាស្មុគស្មាញ ឱ្យទៅជាការណែនាំដែលងាយយល់ និងមានតម្លៃពិតប្រាកដ។",
-    zh: "我是一名全栈产品构建者与 Web 开发者，兼备 1 年专注的博客与网络内容写作实战经验，以及软件工程、现代前端架构与 SEO 战略能力。在全身心投入数字化产品研发之前，我曾用整整 1 年时间专注于撰写高质量行业博客与实务文章。如今，我在日常产品开发之余依然保持着高标准的写作习惯，将复杂的系统逻辑转化为清晰、实用的专业指南。",
+    en: "I'm Chhunsour Seng (Chhunsour), a product builder and web developer at AttendKH with 1 year of dedicated experience in blog and web content writing, alongside hands-on software development, modern web architecture, and SEO strategy. Before focusing primarily on engineering digital products, I, Chhunsour, spent a full year creating high-impact blog and web content. Today, I continue bringing that editorial foundation to my work at AttendKH, turning complex software mechanics into clear, educational guides.",
+    km: "ខ្ញុំបាទ Chhunsour Seng (សេង ឈុនសួរ) ជាអ្នកបង្កើតផលិតផល (Product Builder) និងជាអ្នកអភិវឌ្ឍគេហទំព័រនៅ AttendKH ដែលមានបទពិសោធន៍ ១ ឆ្នាំពេញក្នុងការសរសេរប្លុក និងមាតិកាគេហទំព័រ រួមជាមួយការអភិវឌ្ឍកម្មវិធី គេហទំព័រទំនើប និងយុទ្ធសាស្ត្រ SEO។ មុនពេលផ្តោតលើការកសាងផលិតផលឌីជីថល ខ្ញុំបានចំណាយពេល ១ ឆ្នាំពេញលើការសរសេរអត្ថបទប្លុកយ៉ាងសកម្ម។ បច្ចុប្បន្ន ខ្ញុំបន្តប្រើប្រាស់បទពិសោធន៍នេះនៅកន្លែងការងារ ដើម្បីបំប្លែងប្រព័ន្ធបច្ចេកវិទ្យាស្មុគស្មាញ ឱ្យទៅជាការណែនាំដែលងាយយល់ និងមានតម្លៃពិតប្រាកដ។",
+    zh: "我是 Chhunsour Seng (Chhunsour)，AttendKH 的全栈产品构建者与 Web 开发者，兼备 1 年专注的博客与网络内容写作实战经验，以及软件工程、现代前端架构与 SEO 战略能力。在全身心投入数字化产品研发之前，Chhunsour 曾用整整 1 年时间专注于撰写高质量行业博客与实务文章。如今，我在日常产品开发之余依然保持着高标准的写作习惯，将复杂的系统逻辑转化为清晰、实用的专业指南。",
   },
   aboutStory: {
     en: [
@@ -445,9 +445,9 @@ export const chhunsourProfile: ProfileData = {
   ],
   stillWriting: {
     headline: {
-      en: "I Still Write.",
-      km: "ខ្ញុំនៅតែបន្តសរសេរជានិច្ច។",
-      zh: "我依然在坚持写作。",
+      en: "Why Chhunsour Still Writes.",
+      km: "ហេតុអ្វីបានជា Chhunsour នៅតែបន្តសរសេរ?",
+      zh: "为什么 Chhunsour 始终坚持写作？",
     },
     paragraphs: {
       en: [

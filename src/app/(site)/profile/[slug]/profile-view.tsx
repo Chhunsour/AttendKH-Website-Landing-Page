@@ -268,7 +268,7 @@ export function ProfileView({
                   <div className="relative h-64 w-64 sm:h-72 sm:w-72 rounded-[28px] overflow-hidden border-4 border-white/90 shadow-2xl bg-slate-900 ring-1 ring-black/10">
                     <Image
                       src={profile.avatar}
-                      alt={`${profile.name} — ${profile.role[lang]}`}
+                      alt={`Chhunsour (Chhunsour Seng) — ${profile.role[lang]} at AttendKH`}
                       fill
                       sizes="(max-width: 640px) 256px, 288px"
                       priority
@@ -317,7 +317,7 @@ export function ProfileView({
                 <div className="flex flex-wrap items-center gap-2">
                   <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-cyan-200 border border-white/20 backdrop-blur-xs">
                     <Sparkles size={13} className="text-cyan-300" />
-                    <span>{profile.role[lang]}</span>
+                    <span>{profile.role[lang]} • Chhunsour</span>
                   </div>
                   <div className="inline-flex items-center gap-1.5 rounded-full bg-cyan-400/20 px-3 py-1 text-xs font-semibold text-cyan-100 border border-cyan-300/30 backdrop-blur-xs">
                     <FileText size={12} className="text-cyan-300" />
@@ -330,6 +330,11 @@ export function ProfileView({
                 {/* Name */}
                 <h1 className="font-display mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
                   {profile.name}
+                  {profile.nativeName && (
+                    <span className="block sm:inline sm:ml-3 text-2xl sm:text-3xl font-semibold text-cyan-200">
+                      ({profile.nativeName})
+                    </span>
+                  )}
                 </h1>
 
                 {/* Supporting Role */}
@@ -406,14 +411,14 @@ export function ProfileView({
           <Reveal>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand">
               <span className="h-2 w-2 rounded-full bg-brand" />
-              <span>{isKm ? "អំពីខ្ញុំ" : isZh ? "关于我" : "About Me"}</span>
+              <span>{isKm ? "អំពី Chhunsour Seng (ឈុនសួរ)" : isZh ? "关于 Chhunsour Seng" : "About Chhunsour Seng"}</span>
             </div>
             <h2 className="font-display mt-2 text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               {isKm
-                ? "ការកសាងផលិតផល និងការពន្យល់ផលិតផលតាមមាតិកា"
+                ? "Chhunsour Seng ៖ ការកសាងផលិតផល និងការពន្យល់តាមមាតិកា"
                 : isZh
-                ? "既懂产品工程实现，亦能用文字深刻诠释"
-                : "Building the Product & Explaining It Through Content"}
+                ? "Chhunsour Seng：全栈工程实现与深度内容诠释"
+                : "Chhunsour Seng: Product Engineering & Editorial Content"}
             </h2>
           </Reveal>
 
@@ -687,25 +692,25 @@ export function ProfileView({
                   <BookOpen size={14} />
                   <span>
                     {isKm
-                      ? "អត្ថបទដែលបានជ្រើសរើស"
+                      ? "អត្ថបទនិពន្ធដោយ Chhunsour Seng"
                       : isZh
-                      ? "代表作精选"
-                      : "Selected Writing"}
+                      ? "Chhunsour 署名文章库"
+                      : "Articles by Chhunsour Seng"}
                   </span>
                 </div>
                 <h2 className="font-display mt-2 text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                   {isKm
-                    ? `អត្ថបទ និងមគ្គុទ្ទេសក៍ប្រតិបត្តិការ (${articles.length})`
+                    ? `មគ្គុទ្ទេសក៍ប្រតិបត្តិការតែងនិពន្ធដោយ Chhunsour (${articles.length})`
                     : isZh
-                    ? `作者署名深度指南与实操文章 (${articles.length})`
-                    : `Published Operational Guides (${articles.length})`}
+                    ? `Chhunsour Seng 深度实操指南库 (${articles.length})`
+                    : `Guides Authored by Chhunsour Seng (${articles.length})`}
                 </h2>
                 <p className="mt-1 text-xs sm:text-sm text-slate-500">
                   {isKm
-                    ? "អត្ថបទពិតប្រាកដដែលត្រូវបានតែងនិពន្ធសម្រាប់ AttendKH"
+                    ? "អត្ថបទពិតប្រាកដដែលត្រូវបានតែងនិពន្ធដោយ Chhunsour សម្រាប់ AttendKH"
                     : isZh
-                    ? "均为发表在 AttendKH 知识库中的第一手真实文章"
-                    : "Real guides authored for Cambodian business operators and managers"}
+                    ? "均为 Chhunsour 发表在 AttendKH 知识库中的第一手权威实战指南"
+                    : "Real guides authored by Chhunsour for Cambodian business operators and HR leaders"}
                 </p>
               </div>
 
@@ -827,9 +832,13 @@ export function ProfileView({
 
                       {/* Footer bar */}
                       <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs px-5 sm:px-6 pb-5">
-                        <div className="flex items-center gap-1.5 text-slate-400 text-[11.5px]">
-                          <Calendar size={12} />
-                          <span>{postDate}</span>
+                        <div className="flex items-center gap-1.5 text-slate-500 text-[11px] font-medium">
+                          <span className="text-brand font-semibold">By Chhunsour</span>
+                          <span className="text-slate-300">•</span>
+                          <span className="flex items-center gap-1 text-slate-400">
+                            <Calendar size={11} />
+                            <span>{postDate}</span>
+                          </span>
                         </div>
 
                         <Link
@@ -890,14 +899,14 @@ export function ProfileView({
                     <div className="relative h-10 w-10 rounded-full overflow-hidden border border-slate-200 shadow-2xs">
                       <Image
                         src={profile.avatar}
-                        alt={profile.name}
+                        alt={`Chhunsour (Chhunsour Seng) — Product Builder at AttendKH`}
                         fill
                         className="object-cover object-top"
                       />
                     </div>
                     <div>
                       <p className="font-display text-xs font-bold text-slate-900">
-                        {profile.name}
+                        {profile.name} <span className="text-slate-500 font-normal">(Chhunsour)</span>
                       </p>
                       <p className="text-[11px] text-slate-500">
                         {profile.role[lang]} • AttendKH

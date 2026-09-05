@@ -25,15 +25,37 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const title = `${chhunsourProfile.name} — ${chhunsourProfile.role.en} | AttendKH`;
+  const title = `Chhunsour (Chhunsour Seng) — Product Builder & Author | AttendKH`;
   const description =
-    "Professional background, product engineering journey, and technical writing portfolio of Chhunsour Seng — Product Builder at AttendKH.";
+    "Official profile of Chhunsour (Chhunsour Seng) — Product Builder, web engineer, and author at AttendKH Cambodia. Explore operational guides, software engineering articles, and background by Chhunsour Seng.";
   const url = absoluteUrl(`/profile/${slug}`);
   const ogImage = absoluteUrl(chhunsourProfile.avatar);
 
   return {
     title,
     description,
+    keywords: [
+      "Chhunsour",
+      "Chhunsour Seng",
+      "Seng Chhunsour",
+      "ឈុនសួរ",
+      "សេង ឈុនសួរ",
+      "Chhunsour AttendKH",
+      "Chhunsour Attend",
+      "Chhunsour profile",
+      "Chhunsour author",
+      "Chhunsour blog",
+      "Chhunsour developer",
+      "Chhunsour engineer",
+      "Chhunsour portfolio",
+      "Chhunsour Cambodia",
+      "Chhunsour Phnom Penh",
+      "Product Builder Chhunsour",
+      "AttendKH Chhunsour",
+      "AttendKH Chhunsour Seng",
+      "AttendKH builder",
+      "AttendKH author",
+    ],
     alternates: {
       canonical: url,
     },
@@ -44,12 +66,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: "profile",
       firstName: "Chhunsour",
       lastName: "Seng",
+      username: "chhunsour",
       images: [
         {
           url: ogImage,
           width: 800,
           height: 800,
-          alt: `${chhunsourProfile.name} — ${chhunsourProfile.role.en}`,
+          alt: `Chhunsour (Chhunsour Seng) — ${chhunsourProfile.role.en} at AttendKH`,
         },
       ],
     },
@@ -83,11 +106,13 @@ export default async function ProfilePage({ params }: PageProps) {
         "@type": "ProfilePage",
         "@id": absoluteUrl(`/profile/${slug}`),
         url: absoluteUrl(`/profile/${slug}`),
-        name: `${chhunsourProfile.name} Profile`,
+        name: `Chhunsour (Chhunsour Seng) Profile — AttendKH`,
+        description: `Official profile and publication library of Chhunsour (Chhunsour Seng) at AttendKH.`,
         mainEntity: {
           "@type": "Person",
           "@id": absoluteUrl(`/profile/${slug}#person`),
-          name: chhunsourProfile.name,
+          name: "Chhunsour Seng",
+          alternateName: ["Chhunsour", "Seng Chhunsour", "ឈុនសួរ", "សេង ឈុនសួរ", "Chhunsour AttendKH"],
           givenName: "Chhunsour",
           familyName: "Seng",
           jobTitle: chhunsourProfile.role.en,
@@ -104,7 +129,17 @@ export default async function ProfilePage({ params }: PageProps) {
             addressLocality: "Phnom Penh",
             addressCountry: "KH",
           },
-          knowsAbout: chhunsourProfile.tags.en,
+          knowsAbout: [
+            "Chhunsour",
+            "Chhunsour Seng",
+            "Product Development",
+            "Blog Writing",
+            "Web Development",
+            "SEO Strategy",
+            "Cambodian Labor Law Compliance",
+            "Attendance Tracking Systems",
+            ...chhunsourProfile.tags.en,
+          ],
           sameAs: [chhunsourProfile.telegramUrl],
         },
       },

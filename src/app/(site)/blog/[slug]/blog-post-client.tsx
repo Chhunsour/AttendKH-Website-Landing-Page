@@ -282,7 +282,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
             {post.author_avatar ? (
               <img
                 src={post.author_avatar}
-                alt={`${post.author_name} — Author at AttendKH`}
+                alt={`${post.author_name} (Chhunsour) — Author at AttendKH`}
                 className="h-11 w-11 rounded-full object-cover object-top ring-2 ring-white/30 shadow-xs group-hover:ring-cyan-300 transition-all"
               />
             ) : (
@@ -293,7 +293,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
             <div>
               <div className="flex items-center gap-1.5">
                 <p className="font-display text-[15px] font-bold text-white leading-snug group-hover:text-cyan-200 transition-colors">
-                  {post.author_name}
+                  {post.author_name} <span className="text-xs font-normal text-cyan-200/85">(Chhunsour)</span>
                 </p>
                 <ArrowRight size={12} className="text-cyan-300 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
               </div>
@@ -460,7 +460,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                     <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border-2 border-white shadow-md">
                       <img
                         src={post.author_avatar || "/avatars/chhunsour.png"}
-                        alt={post.author_name}
+                        alt={`${post.author_name} (Chhunsour) — Author & Product Builder at AttendKH`}
                         className="h-full w-full object-cover object-top"
                       />
                     </div>
@@ -471,24 +471,25 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                         <span className="text-xs text-slate-500">{postAuthorRole}</span>
                       </div>
                       <h4 className="font-display text-lg font-bold text-slate-900">
-                        {post.author_name}
+                        {post.author_name} <span className="text-xs font-semibold text-slate-500">(Chhunsour / ឈុនសួរ)</span>
                       </h4>
                     </div>
                   </div>
                   <Link
                     href="/profile/chhunsour-seng"
                     className="inline-flex items-center gap-1.5 rounded-xl bg-white hover:bg-slate-100 px-4 py-2 text-xs font-bold text-slate-900 border border-slate-200 shadow-2xs transition-colors shrink-0"
+                    title="View Chhunsour Seng's author profile"
                   >
-                    <span>{isKm ? "មើលប្រវត្តិរូបពេញលេញ" : isZh ? "查看完整履历" : "View Full Profile"}</span>
+                    <span>{isKm ? "មើលប្រវត្តិរូប Chhunsour" : isZh ? "查看 Chhunsour 完整履历" : "View Chhunsour Profile"}</span>
                     <ArrowRight size={13} />
                   </Link>
                 </div>
                 <p className="mt-4 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200/60 pt-4">
                   {isKm
-                    ? "អ្នកបង្កើតផលិតផលនៅ AttendKH ដែលមានបទពិសោធន៍ផ្ទាល់លើការអភិវឌ្ឍប្រព័ន្ធបច្ចេកវិទ្យា យុទ្ធសាស្ត្រ SEO និងការតែងនិពន្ធមាតិកាប្រតិបត្តិការសម្រាប់អាជីវកម្មនៅកម្ពុជា។"
+                    ? "Chhunsour Seng (សេង ឈុនសួរ) — អ្នកបង្កើតផលិតផលនៅ AttendKH ដែលមានបទពិសោធន៍ផ្ទាល់លើការអភិវឌ្ឍប្រព័ន្ធបច្ចេកវិទ្យា យុទ្ធសាស្ត្រ SEO និងការតែងនិពន្ធមាតិកាប្រតិបត្តិការសម្រាប់អាជីវកម្មនៅកម្ពុជា។"
                     : isZh
-                    ? "AttendKH 全栈产品构建者，兼备现代前端架构、SEO 战略与深度行业指南写作底蕴，致力于通过技术与文字赋能柬埔寨企业数字化。"
-                    : "Product Builder at AttendKH combining hands-on web engineering, SEO architecture, and editorial writing to create clear operational guides for Cambodian businesses."}
+                    ? "Chhunsour Seng (Chhunsour) — AttendKH 全栈产品构建者，兼备现代前端架构、SEO 战略与深度行业指南写作底蕴，致力于通过技术与文字赋能柬埔寨企业数字化。"
+                    : "Chhunsour Seng (Chhunsour) — Product Builder at AttendKH combining hands-on web engineering, SEO architecture, and editorial writing to create clear operational guides for Cambodian businesses."}
                 </p>
               </div>
             </div>
