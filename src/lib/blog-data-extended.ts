@@ -1,6 +1,16 @@
 import type { BlogPost } from "./site-content";
+import { newBlogPostsSep23to25 } from "./blog-data-posts-sep23-25";
+import { newBlogPostsSep15to17 } from "./blog-data-posts-sep15-17";
+import { newBlogPostsSep12to14 } from "./blog-data-posts-sep12-14";
+import { newBlogPostsSep9To11 } from "./blog-data-posts-sep9-11-2026";
+import { newBlogPostsSep2026 } from "./blog-data-posts-sep2026";
 
 export const extendedBlogPosts: BlogPost[] = [
+  ...newBlogPostsSep23to25,
+  ...newBlogPostsSep15to17,
+  ...newBlogPostsSep12to14,
+  ...newBlogPostsSep9To11,
+  ...newBlogPostsSep2026,
   {
     id: "post-best-attendance-cambodia",
     slug: "best-attendance-payroll-software-cambodia-industry-guide",

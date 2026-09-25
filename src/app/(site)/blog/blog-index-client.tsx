@@ -60,6 +60,16 @@ export function BlogIndexClient({ initialPosts }: BlogIndexClientProps) {
       icon: Building2,
     },
     {
+      key: "Scheduling",
+      label: isKm ? "កាលវិភាគ" : isZh ? "排班调度" : "Scheduling",
+      icon: Calendar,
+    },
+    {
+      key: "HR Technology",
+      label: isKm ? "បច្ចេកវិទ្យា HR" : isZh ? "HR 科技系统" : "HR Technology",
+      icon: Sparkles,
+    },
+    {
       key: "Labor Law",
       label: isKm ? "ច្បាប់ការងារ" : isZh ? "劳工法规" : "Labor Law",
       icon: ShieldCheck,

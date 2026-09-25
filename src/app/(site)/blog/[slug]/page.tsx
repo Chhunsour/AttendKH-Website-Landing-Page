@@ -86,10 +86,22 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
   const { posts: categoryPosts } = await getBlogPosts({
     category: post.category,
     status: "published",
-    limit: 4,
+    limit: 6,
   });
 
-  const relatedPosts = categoryPosts.filter((p) => p.id !== post.id).slice(0, 3);
+  let relatedPosts = categoryPosts.filter((p) => p.id !== post.id).slice(0, 3);
+
+  // If category has fewer than 3 related posts, backfill from other published guides
+  if (relatedPosts.length < 3) {
+    const { posts: allPublished } = await getBlogPosts({
+      status: "published",
+      limit: 10,
+    });
+    const backfill = allPublished.filter(
+      (p) => p.id !== post.id && !relatedPosts.some((r) => r.id === p.id)
+    );
+    relatedPosts = [...relatedPosts, ...backfill].slice(0, 3);
+  }
 
   // JSON-LD structured data for Article schema SEO
   const articleSchema = {
