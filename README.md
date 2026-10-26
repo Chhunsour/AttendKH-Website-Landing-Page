@@ -1,4 +1,16 @@
-# AttendKH - Landing Page
+# AttendKH - Landing Page 🇰🇭
+
+<p align="center">
+  <sub>Developed by <strong>Seng Chhunsour</strong></sub>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Chhunsour"><img src="https://img.shields.io/badge/Author-Seng%20Chhunsour-FF5A1F?style=flat-square&logo=github&logoColor=white" alt="Author: Seng Chhunsour" /></a>
+  <img src="https://img.shields.io/badge/Framework-Next.js%20(App%20Router)-black?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/Language-TypeScript-blue?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Styling-Tailwind%20CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License" />
+</p>
 
 Official landing and marketing website for **AttendKH** — Smart Attendance, QR Verification, Leave Management, and Automated Payroll System tailored for modern Cambodian businesses and institutions.
 
@@ -130,4 +142,18 @@ Whenever asked to **"write a blog post"** or create a new article for AttendKH, 
 6. **Rich Formatting**: Use bold for numbers/currencies (**USD ($)**, **KHR (៛)**), italics for statutory decrees (*Article 139*, *Prakas 443*), blockquotes (`>`) for audit tips, LaTeX formulas (`$$\text{...}$$`), and ASCII workflows.
 7. **Cambodian Regulatory Accuracy**: Ground content in official MoLVT labor laws, GDT salary tax brackets, NSSF contribution ceilings, and NBC Bakong KHQR interbank transfers.
 8. **Pre-flight Check**: Run `npx tsc --noEmit` and verify that no trailing double commas (`\`,,\`) exist.
+
+---
+
+## 👤 Author & Developer
+
+**Developed by Seng Chhunsour**
+- **GitHub:** [@Chhunsour](https://github.com/Chhunsour)
+- **Repository:** [https://github.com/Chhunsour/AttendKH-Website-Landing-Page](https://github.com/Chhunsour/AttendKH-Website-Landing-Page)
+
+---
+
+## 📄 License
+
+Personal and open-source project. Developed by Seng Chhunsour. All rights reserved.
 
